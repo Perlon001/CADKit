@@ -1,0 +1,3 @@
+(vl-load-com)
+(vl-cmdf "netload" "CADKitZwCAD.dll")
+(princ)
