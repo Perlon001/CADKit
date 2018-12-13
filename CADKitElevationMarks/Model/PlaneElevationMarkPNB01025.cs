@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CADKitElevationMarks.Contract;
+
+namespace CADKitElevationMarks.Model
+{
+    public class PlaneElevationMarkPNB01025 : BaseElevationMark
+    {
+        public PlaneElevationMarkPNB01025(IElevationMarkConfig config) : base(config)
+        {
+        }
+
+        protected override void Draw()
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

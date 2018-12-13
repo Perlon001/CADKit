@@ -1,3 +1,2 @@
 (vl-load-com)
-(vl-cmdf "netload" "CADKitZwCAD.dll")
-(princ)
+(vl-cmdf "netload" "CADKitCore.dll")

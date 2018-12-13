@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -73,10 +74,6 @@
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CADKitZwCAD\CADKitZwCAD.csproj">
-      <Project>{698ab0f1-94a4-4095-a193-cf5bf8aeaf8e}</Project>
-      <Name>CADKitZwCAD</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CADKit\CADKitCore.csproj">
       <Project>{6a8627b4-c81a-4166-8e95-76a85661a03b}</Project>
       <Name>CADKitCore</Name>
