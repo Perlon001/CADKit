@@ -2,7 +2,7 @@
 
 namespace CADKitCore.Contract
 {
-    public interface ILayerCreator : ISymbolRepository
+    public interface ILayerRepository : ISymbolRepository
     {
     }
 }

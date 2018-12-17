@@ -1,6 +1,7 @@
 ﻿using CADKitCore.Contract;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ZwSoft.ZwCAD.DatabaseServices;
 
 namespace CADKitCore.Model
@@ -13,6 +14,19 @@ namespace CADKitCore.Model
         {
             recordDict = new Dictionary<string, TRecord>();
             FillDictionary();
+        }
+
+        public SymbolTableRecord GetSymbol(string symbolName)
+        {
+            var keyValue = recordDict.Where(r => r.Value.Name == symbolName);
+            if ( keyValue.Any() )
+            {
+                return keyValue.First().Value;
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public SymbolTableRecord GetSymbol<T>(T _enum)

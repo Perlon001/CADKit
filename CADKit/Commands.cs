@@ -44,7 +44,7 @@ namespace CADKitCore
                     case "PN-B-01025":
                         settings.DrawingStandard = DrawingStandards.PN_B_01025;
                         break;
-                    case "BN-PARIKON":
+                    case "CADKIT":
                         settings.DrawingStandard = DrawingStandards.CADKIT;
                         break;
                 }

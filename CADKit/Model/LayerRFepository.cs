@@ -5,7 +5,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 
 namespace CADKitCore.Model
 {
-    public class LayerCreator : SymbolRepository<Layers, LayerTableRecord>, ILayerCreator
+    public class LayerRFepository : SymbolRepository<Layers, LayerTableRecord>, ILayerRepository
     {
         protected override void FillDictionary()
         {

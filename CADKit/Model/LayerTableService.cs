@@ -5,7 +5,7 @@ namespace CADKitCore.Model
 {
     public class LayerTableService : SymbolTableService<LayerTable>, ILayerTableService
     {
-        public LayerTableService(ILayerCreator _creator) : base(_creator)
+        public LayerTableService(ILayerRepository _creator) : base(_creator)
         {
         }
     }

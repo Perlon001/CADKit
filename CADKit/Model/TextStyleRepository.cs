@@ -5,7 +5,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 
 namespace CADKitCore.Model
 {
-    public class TextStyleCreator : SymbolRepository<TextStyles, TextStyleTableRecord>, ITextStyleCreator
+    public class TextStyleRepository : SymbolRepository<TextStyles, TextStyleTableRecord>, ITextStyleRepository
     {
         protected override void FillDictionary()
         {

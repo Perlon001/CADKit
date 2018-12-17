@@ -3,7 +3,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 
 namespace CADKitCore.Contract
 {
-    public interface ITextStyleCreator : ISymbolRepository
+    public interface ITextStyleRepository : ISymbolRepository
     {
     }
 }
