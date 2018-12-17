@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using CADKitElevationMarks.Contract;
+using CADKitCore.Contract;
 using System;
 
-namespace CADKitElevationMarks.Model
+namespace CADKitCore.Model
 {
     public class RegistrationModule : Module
     {
@@ -10,13 +10,13 @@ namespace CADKitElevationMarks.Model
         {
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<IElevationMarkFactory>()
+                .AssignableTo<ISymbolRepository>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
 
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<IElevationMarkConfig>()
+                .AssignableTo<ISymbolTableService>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
         }

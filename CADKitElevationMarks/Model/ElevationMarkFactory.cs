@@ -1,7 +1,8 @@
 ﻿using Autofac;
 using CADKitCore.Util;
+using CADKitElevationMarks.Contract;
 
-namespace CADKitElevationMarks.Contract
+namespace CADKitElevationMarks.Model
 {
     public abstract class ElevationMarkFactory : IElevationMarkFactory
     {

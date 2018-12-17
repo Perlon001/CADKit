@@ -4,6 +4,11 @@ using ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Runtime;
 using CADKitElevationMarks.Model;
+using CADKitCore.Contract;
+using CADKitCore.Util;
+using Autofac;
+using CADKitCore.Model;
+using CADKitCore.Settings;
 
 namespace CADKitElevationMarks
 {
@@ -16,6 +21,20 @@ namespace CADKitElevationMarks
             Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage("\nStart CADKitElevationMark");
             var start = new CADKitCore.Autostart();
             start.Initialize();
+            //using (var scope = DI.Container.BeginLifetimeScope())
+            //{
+            //    TextStyleCreator bbb = new TextStyleCreator();
+            //    ITextStyleCreator ccc = scope.Resolve<ITextStyleCreator>();
+            //    bbb.Create(TextStyles.elevmark);
+            //    ccc.Create(TextStyles.elevmark);
+                
+
+            //    ITextStyleTableService aaa = scope.Resolve<ITextStyleTableService>();
+            //    aaa.GetSymbolRecord(TextStyles.elevmark);
+            //    aaa.CreateSymbolRecord(new TextStyleTableRecord());
+            //    aaa.CreateSymbolRecord(bbb.Create(TextStyles.elevmark));
+            //    aaa.CreateSymbolRecord(ccc.Create(TextStyles.elevmark));
+            //}
             // Commands.AA();
         }
 

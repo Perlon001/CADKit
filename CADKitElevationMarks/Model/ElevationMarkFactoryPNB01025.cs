@@ -1,6 +1,4 @@
-﻿using Autofac;
-using CADKitCore.Util;
-using CADKitElevationMarks.Contract;
+﻿using CADKitElevationMarks.Contract;
 using System;
 
 namespace CADKitElevationMarks.Model

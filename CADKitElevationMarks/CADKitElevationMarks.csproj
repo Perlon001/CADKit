@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Autostart.cs" />
     <Compile Include="Commands.cs" />
-    <Compile Include="Contract\ElevationMarkFactory.cs" />
+    <Compile Include="Model\ElevationMarkFactory.cs" />
     <Compile Include="Contract\ElevationMarkType.cs" />
     <Compile Include="Contract\IElevationMark.cs" />
     <Compile Include="Contract\IElevationMarkConfig.cs" />
@@ -64,15 +64,13 @@
     <Compile Include="Contract\IElevationMarkTextStyleGenerator.cs" />
     <Compile Include="Model\ArchitecturalElevationMarkCADKit.cs" />
     <Compile Include="Model\ArchtecturalElevationMarkPNB01025.cs" />
-    <Compile Include="Contract\BaseElevationMark.cs" />
+    <Compile Include="Model\BaseElevationMark.cs" />
     <Compile Include="Model\ConstructionElevationMarkCADKit.cs" />
     <Compile Include="Model\ConstructionElevationMarkPNB01025.cs" />
     <Compile Include="Model\ElevationMarkConfig.cs" />
     <Compile Include="Model\ElevationMarkFactoryCADKit.cs" />
     <Compile Include="Model\ElevationMarkFactoryPNB01025.cs" />
     <Compile Include="Contract\IElevationMarkFactory.cs" />
-    <Compile Include="Model\ElevationMarkLayerGenerator.cs" />
-    <Compile Include="Model\ElevationMarkTextStyleGenerator.cs" />
     <Compile Include="Model\Extensions.cs" />
     <Compile Include="Model\PlaneElevationMarkCADKit.cs" />
     <Compile Include="Model\PlaneElevationMarkPNB01025.cs" />

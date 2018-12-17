@@ -1,4 +1,5 @@
-﻿using CADKitCore.Util;
+﻿using CADKitCore.Settings;
+using CADKitCore.Util;
 using CADKitElevationMarks.Contract;
 using System;
 using ZwSoft.ZwCAD.ApplicationServices;
@@ -36,7 +37,7 @@ namespace CADKitElevationMarks.Model
                     item.ColorIndex = 7;
                     item.TextStyle = acDoc.Database.Textstyle;
                     item.WidthFactor = textStyle.XScale;
-                    item.Height = 200;// textStyle.TextSize * scaleFactor;
+                    item.Height = AppSettings.Instance.TextHigh[TextStyles.normal] * scaleFactor;
                 }
 
                 texts[0].HorizontalMode = TextHorizontalMode.TextRight;
@@ -73,7 +74,7 @@ namespace CADKitElevationMarks.Model
                     plines[1].TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));
                     boundary.TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));
                     texts[0].AlignmentPoint = new Point3d(texts[0].AlignmentPoint.X, point.Y - 4.5 * scaleFactor, point.Z);
-                    texts[1].AlignmentPoint = new Point3d(texts[0].AlignmentPoint.X, point.Y - 4.5 * scaleFactor, point.Z);
+                    texts[1].AlignmentPoint = new Point3d(texts[1].AlignmentPoint.X, point.Y - 4.5 * scaleFactor, point.Z);
                 }
 
                 if(point.X > directionPoint.X)

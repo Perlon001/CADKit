@@ -15,6 +15,7 @@ namespace CADKitCore.Settings
         public DrawingStandards DrawingStandard { get; set; }
         public DrawingUnits DrawingUnit { get; set; }
         public double DrawingScale { get; set; }
+        public Dictionary<TextStyles, double> TextHigh { get; set; }
         public double ScaleFactor
         {
             get
@@ -61,6 +62,17 @@ namespace CADKitCore.Settings
             DrawingUnit = DrawingUnits.mm;
             DrawingScale = 0.01;
             DrawingStandard = DrawingStandards.PN_B_01025;
+            TextHigh = new Dictionary<TextStyles, double>()
+            {
+                { TextStyles.verysmall, 1.50 },
+                { TextStyles.small,     1.75 },
+                { TextStyles.normal,    2.00 },
+                { TextStyles.medium,    4.00 },
+                { TextStyles.big,       8.00 },
+                { TextStyles.verybig,  12.00 },
+                { TextStyles.dim,       2.00 },
+                { TextStyles.elevmark,  2.00 },
+            };
         }
     }
 }

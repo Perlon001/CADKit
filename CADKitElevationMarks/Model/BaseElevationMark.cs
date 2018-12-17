@@ -1,6 +1,8 @@
 ﻿using Autofac;
+using CADKitCore.Contract;
 using CADKitCore.Settings;
 using CADKitCore.Util;
+using CADKitElevationMarks.Contract;
 using System;
 using System.Globalization;
 using ZwSoft.ZwCAD.ApplicationServices;
@@ -8,7 +10,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.Geometry;
 
-namespace CADKitElevationMarks.Contract
+namespace CADKitElevationMarks.Model
 {
     public abstract class BaseElevationMark : IElevationMark
     {
@@ -42,8 +44,15 @@ namespace CADKitElevationMarks.Contract
             Document acDoc = Application.DocumentManager.MdiActiveDocument;
             using (var scope = DI.Container.BeginLifetimeScope())
             {
-                acDoc.Database.Textstyle = scope.Resolve<IElevationMarkTextStyleGenerator>().Generate<TextStyleTableRecord>();
-                acDoc.Database.Clayer = scope.Resolve<IElevationMarkLayerGenerator>().Generate<LayerTableRecord>();
+                //ITextStyleCreator bbb = new TextStyleCreator();
+                //bbb.Create(TextStyles.elevmark);
+
+                //ITextStyleTableService aaa = scope.Resolve<ITextStyleTableService>();
+                // var aaa = new TextStyleTableService(new TextStyleCreator());
+                acDoc.Database.Textstyle = scope.Resolve<ITextStyleTableService>().GetRecord(TextStyles.elevmark);
+                acDoc.Database.Clayer = scope.Resolve<ILayerTableService>().GetRecord(Layers.elevmark);
+
+                //acDoc.Database.Textstyle = scope.Resolve<IElevationMarkTextStyleGenerator>().Create<TextStyleTableRecord>();
             }
             // TextStyleTableRecord textStyle = ((TextStyleTableRecord)transaction.GetObject(acDoc.Database.Textstyle, OpenMode.ForRead));
 

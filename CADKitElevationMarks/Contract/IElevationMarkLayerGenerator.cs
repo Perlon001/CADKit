@@ -2,7 +2,7 @@
 
 namespace CADKitElevationMarks.Contract
 {
-    public interface IElevationMarkLayerGenerator : ISymbolGenerator
+    public interface IElevationMarkLayerGenerator : ISymbolTableService
     {
     }
 }
