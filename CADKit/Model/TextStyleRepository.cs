@@ -64,7 +64,7 @@ namespace CADKitCore.Model
             style.FileName = "simplex.shx";
             style.TextSize = AppSettings.Instance.TextHigh[TextStyles.elevmark] * AppSettings.Instance.ScaleFactor;
             style.XScale = 0.65;
-            style.ObliquingAngle = 0;
+            style.ObliquingAngle = 10;
             AddSymbol(TextStyles.elevmark, style);
 
             style = new TextStyleTableRecord();

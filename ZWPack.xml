@@ -1,0 +1,907 @@
+<ToolPaletteExport>
+  <DependentFilesPath>ZWPack</DependentFilesPath>
+  <PaletteSets>
+    <PaletteSetData>
+      <PaletteSetContent>
+        <Palettes>
+          <PaletteData>
+            <PaletteContent>
+              <Palette option="0">
+                <ItemID idValue="{9AEAAC8A-A52C-4B9C-94EC-968A1EC2CB84}"/>
+                <Properties>
+                  <ItemName>ZWPack</ItemName>
+                  <Images/>
+                  <Refresh>FALSE</Refresh>
+                  <AutoRefresh>FALSE</AutoRefresh>
+                </Properties>
+                <TargetProducts/>
+                <Source/>
+                <Tools>
+                  <Tool option="0">
+                    <ItemID idValue="{3766F08C-A5C9-45AC-B949-7D9A38AFE05E}"/>
+                    <Properties>
+                      <ItemName>Tło białe</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="64" src="Images\biale_tlo.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-27T15:47:16" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3221225472"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>białe</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                  <Tool option="0">
+                    <ItemID idValue="{FA0C1922-6D2D-4D0E-AF65-3087421BE846}"/>
+                    <Properties>
+                      <ItemName>Tło szare</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="64" src="Images\tlo_szare.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-27T15:47:36" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3221225472"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>szare</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                  <Tool option="0">
+                    <ItemID idValue="{8DCFD89C-D8D1-41E2-8CB1-D35A72BA05E8}"/>
+                    <Properties>
+                      <ItemName>Tło czarne</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="64" src="Images\tlo_czarne.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-27T15:47:59" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3221225472"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>czarne</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                  <Tool option="0">
+                    <ItemID idValue="{E3EF3233-2F1C-4696-98B9-EB9A50838508}"/>
+                    <Properties>
+                      <ItemName>Wypełnienie polilinii</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="64" src="Images\zz.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-27T15:48:44" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3221225472"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>zz</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                  <Tool option="0">
+                    <ItemID idValue="{8BBD26FE-2D40-4A74-8E4F-7C7E28255A35}"/>
+                    <Properties>
+                      <ItemName>Kąt osi X</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="64" src="Images\osx.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-27T15:54:09" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3221225472"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>ucsz</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                  <Tool option="0">
+                    <ItemID idValue="{9F9CB28E-E16F-460E-B73D-FCC8DE897852}"/>
+                    <Properties>
+                      <ItemName>Dodaj wierzchołek polilinii</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="64" src="Images\apv.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-28T11:38:51" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3221225472"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>apv</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                  <Tool option="0">
+                    <ItemID idValue="{87CA9A20-6592-47E1-A048-98F8965A64B8}"/>
+                    <Properties>
+                      <ItemName>Usuń wierzchołek polilinii</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="64" src="Images\rmv.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-28T11:38:39" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3221225472"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>rmv</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                  <Tool option="0">
+                    <ItemID idValue="{F4EAF601-2AB5-45A8-AD4C-C68744A1E718}"/>
+                    <Properties>
+                      <ItemName>Utwórz warstwy</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="50" src="Images\layers.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-28T12:09:28" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3271557122"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>lstart</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                  <Tool option="0">
+                    <ItemID idValue="{991D3E64-FD75-406C-93AD-E9770C970A90}"/>
+                    <Properties>
+                      <ItemName>Edycja bloku</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="64" src="Images\bbedit.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-28T12:37:55" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3271557122"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>bb</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                  <Tool option="0">
+                    <ItemID idValue="{07BE2ED0-8A5A-43FC-BC7D-6C23FE90B053}"/>
+                    <Properties>
+                      <ItemName>Ostatnio wybrane elementy</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="64" src="Images\select.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-28T13:23:48" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3271557122"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>_pselect _p</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                  <Tool option="0">
+                    <ItemID idValue="{6C3818BF-96EC-4631-839D-3FC3DA604178}"/>
+                    <Properties>
+                      <ItemName>Odzyskaj obwiednie kreskowania</ItemName>
+                      <Images option="2">
+                        <Image cx="64" cy="64" src="Images\ook.png"/>
+                      </Images>
+                      <Refresh>FALSE</Refresh>
+                      <AutoRefresh>FALSE</AutoRefresh>
+                      <Help>
+                        <HelpFile></HelpFile>
+                        <HelpCommand></HelpCommand>
+                        <HelpData></HelpData>
+                      </Help>
+                      <Time createdUniversalDateTime="2011-12-12T08:43:12" modifiedUniversalDateTime="2018-03-28T14:01:14" refreshedUniversalDateTime="1970-01-01T01:00:00"/>
+                    </Properties>
+                    <TargetProducts/>
+                    <Source idValue="{B0F76B9A-44FD-4B2F-A31A-D69BC288F4F9}"/>
+                    <ToolType>1</ToolType>
+                    <StockToolRef idValue="{EC922FCE-5A17-11E7-B72E-BC5FF42AC839}"/>
+                    <Data>
+                      <GeneralProperties>
+                        <Color>
+                          <BasicPropInfo>
+                            <PropValue unspecified="false"/>
+                          </BasicPropInfo>
+                          <CreateInfo>
+                            <ZcCmColor mRGB="3271557122"/>
+                          </CreateInfo>
+                        </Color>
+                        <Layer>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Layer>
+                        <Linetype>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Linetype>
+                        <LinetypeScale>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="3" value="0"/>
+                          </BasicPropInfo>
+                        </LinetypeScale>
+                        <PlotStyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </PlotStyle>
+                        <LineWeight>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="2" value="0"/>
+                          </BasicPropInfo>
+                        </LineWeight>
+                        <Transparency>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true"/>
+                          </BasicPropInfo>
+                        </Transparency>
+                        <Textstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Textstyle>
+                        <Dimstyle>
+                          <BasicPropInfo>
+                            <PropValue unspecified="true" valueType="1"/>
+                          </BasicPropInfo>
+                        </Dimstyle>
+                        <Tablestyle unspecified="true" valueType="1"/>
+                      </GeneralProperties>
+                      <Command>
+                        <Macro>OOK</Macro>
+                      </Command>
+                    </Data>
+                  </Tool>
+                </Tools>
+              </Palette>
+            </PaletteContent>
+            <PaletteUI>
+              <CZdUiPalette PaletteStyle="1"/>
+              <CZcTcUiToolPalette>
+                <CatalogView ID="{9AEAAC8A-A52C-4B9C-94EC-968A1EC2CB84}">
+                  <ToolSource>
+                    <Palette ID="{9AEAAC8A-A52C-4B9C-94EC-968A1EC2CB84}">ZWPack</Palette>
+                  </ToolSource>
+                  <Image SizeCX="40" SizeCY="40"/>
+                  <Style>491522</Style>
+                  <ToolOrder>
+                    <Tool ID="{3766F08C-A5C9-45AC-B949-7D9A38AFE05E}"/>
+                    <Tool ID="{FA0C1922-6D2D-4D0E-AF65-3087421BE846}"/>
+                    <Tool ID="{8DCFD89C-D8D1-41E2-8CB1-D35A72BA05E8}"/>
+                    <Tool ID="{E3EF3233-2F1C-4696-98B9-EB9A50838508}"/>
+                    <Tool ID="{8BBD26FE-2D40-4A74-8E4F-7C7E28255A35}"/>
+                    <Tool ID="{9F9CB28E-E16F-460E-B73D-FCC8DE897852}"/>
+                    <Tool ID="{87CA9A20-6592-47E1-A048-98F8965A64B8}"/>
+                    <Tool ID="{F4EAF601-2AB5-45A8-AD4C-C68744A1E718}"/>
+                    <Tool ID="{991D3E64-FD75-406C-93AD-E9770C970A90}"/>
+                    <Tool ID="{07BE2ED0-8A5A-43FC-BC7D-6C23FE90B053}"/>
+                    <Tool ID="{6C3818BF-96EC-4631-839D-3FC3DA604178}"/>
+                  </ToolOrder>
+                </CatalogView>
+              </CZcTcUiToolPalette>
+            </PaletteUI>
+          </PaletteData>
+        </Palettes>
+      </PaletteSetContent>
+      <PaletteSetUI>
+        <CZdUiDockControlBar Orientation="59420" AllowDocking="1">
+          <FloatInfo Left="514" Top="283" Width="200" Height="998"/>
+          <DockInfo Left="942" Top="796" Width="217" Height="812" MRUDockID="59420"/>
+        </CZdUiDockControlBar>
+        <CZdUiPaletteSet ActivePaletteIndex="0" TitleBarLocation="0" AutoRollup="0" Name="Palety narzędzi - Wszystkie palety" Style="126" Opacity="100" RolloverOpacity="100" Visible="1"/>
+      </PaletteSetUI>
+    </PaletteSetData>
+  </PaletteSets>
+</ToolPaletteExport>

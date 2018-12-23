@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="ZwDatabaseMgd">
       <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwDatabaseMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ZwManaged">
       <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwManaged.dll</HintPath>
@@ -78,6 +79,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CADKitDALCAD\CADKitDALCAD.csproj">
+      <Project>{B547CB62-5472-49AC-AAB1-B991E13A8CF2}</Project>
+      <Name>CADKitDALCAD</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CADKit\CADKitCore.csproj">
       <Project>{6A8627B4-C81A-4166-8E95-76A85661A03B}</Project>
       <Name>CADKitCore</Name>

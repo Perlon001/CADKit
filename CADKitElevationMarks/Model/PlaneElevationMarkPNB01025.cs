@@ -1,5 +1,6 @@
 ﻿using CADKitElevationMarks.Contract;
 using System;
+using ZwSoft.ZwCAD.DatabaseServices;
 
 namespace CADKitElevationMarks.Model
 {
@@ -9,7 +10,7 @@ namespace CADKitElevationMarks.Model
         {
         }
 
-        protected override void Draw()
+        protected override void Draw(Transaction transaction)
         {
             throw new NotImplementedException();
         }

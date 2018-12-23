@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using CADKitCore.Contract;
+using CADKitCore.Extensions;
 using CADKitCore.Settings;
 using CADKitCore.Util;
+using CADKitDALCAD;
 using CADKitElevationMarks.Contract;
 using System;
 using System.Globalization;
@@ -30,8 +32,8 @@ namespace CADKitElevationMarks.Model
             this.config = _config;
             this.scaleFactor = AppSettings.Instance.ScaleFactor;
             this.texts = new DBText[2];
-            this.ucs = Application.DocumentManager.MdiActiveDocument.Editor.CurrentUserCoordinateSystem;
-            this.coordinateSystem = Application.DocumentManager.MdiActiveDocument.Editor.CurrentUserCoordinateSystem.CoordinateSystem3d;
+            this.ucs = CADProxy.Editor.CurrentUserCoordinateSystem;
+            this.coordinateSystem = CADProxy.Editor.CurrentUserCoordinateSystem.CoordinateSystem3d;
             this.transformMatrix = Matrix3d.AlignCoordinateSystem(
                 Point3d.Origin,
                 Vector3d.XAxis,
@@ -41,7 +43,6 @@ namespace CADKitElevationMarks.Model
                 coordinateSystem.Xaxis,
                 coordinateSystem.Yaxis,
                 coordinateSystem.Zaxis);
-            Document acDoc = Application.DocumentManager.MdiActiveDocument;
             using (var scope = DI.Container.BeginLifetimeScope())
             {
                 //ITextStyleCreator bbb = new TextStyleCreator();
@@ -49,8 +50,8 @@ namespace CADKitElevationMarks.Model
 
                 //ITextStyleTableService aaa = scope.Resolve<ITextStyleTableService>();
                 // var aaa = new TextStyleTableService(new TextStyleCreator());
-                acDoc.Database.Textstyle = scope.Resolve<ITextStyleTableService>().GetRecord(TextStyles.elevmark);
-                acDoc.Database.Clayer = scope.Resolve<ILayerTableService>().GetRecord(Layers.elevmark);
+                CADProxy.Database.Textstyle = scope.Resolve<ITextStyleTableService>().GetRecord(TextStyles.elevmark);
+                CADProxy.Database.Clayer = scope.Resolve<ILayerTableService>().GetRecord(Layers.elevmark);
 
                 //acDoc.Database.Textstyle = scope.Resolve<IElevationMarkTextStyleGenerator>().Create<TextStyleTableRecord>();
             }
@@ -58,13 +59,14 @@ namespace CADKitElevationMarks.Model
 
         }
 
-        protected abstract void Draw();
+        protected abstract void Draw(Transaction tr);
+
 
         public virtual void Create()
         {
             GetPoints();
             PrepareTextFields();
-            Draw();
+            Extension.UsingTransaction(Draw); // Draw();
         }
 
         private void PrepareTextFields()
@@ -92,13 +94,11 @@ namespace CADKitElevationMarks.Model
             int osmode = Convert.ToInt16(Application.GetSystemVariable("Osmode"));
             int orthomode = Convert.ToInt16(Application.GetSystemVariable("Orthomode"));
 
-            Document acDoc = Application.DocumentManager.MdiActiveDocument;
-
             Application.SetSystemVariable("Osmode", 512);
 
             promptOptions = new PromptPointOptions("\nWskaż punkt wysokościowy: ");
             promptOptions.AllowNone = true;
-            pointResult = acDoc.Editor.GetPoint(promptOptions);
+            pointResult = CADProxy.Editor.GetPoint(promptOptions);
             CheckPromptStatus(osmode, orthomode, pointResult);
             point = pointResult.Value;
 
@@ -108,7 +108,7 @@ namespace CADKitElevationMarks.Model
             promptOptions.Message = "\nWskaż kierunek koty wysokościowej: ";
             promptOptions.UseBasePoint = true;
             promptOptions.BasePoint = point;
-            pointResult = acDoc.Editor.GetPoint(promptOptions);
+            pointResult = CADProxy.Editor.GetPoint(promptOptions);
             CheckPromptStatus(osmode, orthomode, pointResult);
             directionPoint = pointResult.Value;
 

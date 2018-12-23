@@ -1,19 +1,19 @@
 ﻿using CADKitCore.Settings;
+using CADKitCore.Util;
+using CADKitDALCAD;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.Runtime;
+
+[assembly: CommandClass(typeof(CADKitCore.Commands))]
 
 namespace CADKitCore
 {
     public class Commands
     {
         private readonly AppSettings settings = AppSettings.Instance;
-
+      
         // metody powinne byc zamienione na klasy z mozliwoscia wyboru trybu Linia komend/Okno dialogowe
         // na podstawie zmiennej systemowej (na razie nie mam pomysłu jakiej) lub na podstawie zdefiniowanej zmiennej globalnej lub AppSettings
         // na razie jest wersja prosta czyli linia komend
@@ -28,15 +28,16 @@ namespace CADKitCore
             {
                 drawingStandards.Add((DrawingStandards)item, item.ToString().Replace('_', '-'));
             }
-            Document acDoc = Application.DocumentManager.MdiActiveDocument;
-            PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nNorma rysunkowa:");
+            PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nNorma rysunkowa:")
+            {
+                AllowNone = true
+            };
+            keyOptions.Keywords.Default = settings.DrawingStandard.ToString().Replace('_', '-');
             foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
             {
                 keyOptions.Keywords.Add(item.ToString().Replace('_', '-'));
             }
-            keyOptions.Keywords.Default = settings.DrawingStandard.ToString().Replace('_', '-');
-            keyOptions.AllowNone = true;
-            PromptResult keyResult = acDoc.Editor.GetKeywords(keyOptions);
+            PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
             if (keyResult.Status == PromptStatus.OK)
             {
                 switch (keyResult.StringResult)
@@ -49,21 +50,22 @@ namespace CADKitCore
                         break;
                 }
             }
-            acDoc.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[settings.DrawingStandard]}\n");
+            CADProxy.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[settings.DrawingStandard]}\n");
         }
 
         [CommandMethod("CK_UJR")]
         public void SetDrawingUnits()
         {
-            Document acDoc = Application.DocumentManager.MdiActiveDocument;
-            PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nJednostka rysunkowa:");
+            PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nJednostka rysunkowa:")
+            {
+                AllowNone = true
+            };
+            keyOptions.Keywords.Default = settings.DrawingUnit.ToString();
             foreach (var item in Enum.GetValues(typeof(DrawingUnits)))
             {
                 keyOptions.Keywords.Add(item.ToString());
             }
-            keyOptions.Keywords.Default = settings.DrawingUnit.ToString();
-            keyOptions.AllowNone = true;
-            PromptResult keyResult = acDoc.Editor.GetKeywords(keyOptions);
+            PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
             if (keyResult.Status == PromptStatus.OK)
             {
                 switch (keyResult.StringResult)
@@ -79,23 +81,30 @@ namespace CADKitCore
                         break;
                 }
             }
-            acDoc.Editor.WriteMessage($"\nBieżąca jednostka rysunkowa : {settings.DrawingUnit}\n");
+            CADProxy.Editor.WriteMessage($"\nBieżąca jednostka rysunkowa : {settings.DrawingUnit}\n");
         }
 
         [CommandMethod("CK_USR")]
         public void SetDrawingScale()
         {
-            Document acDoc = Application.DocumentManager.MdiActiveDocument;
-            PromptIntegerOptions keyOptions = new PromptIntegerOptions($"\nSkala rysunku 1:<{((int)(1 / settings.DrawingScale)).ToString()}>");
-            keyOptions.AllowNone = true;
-            keyOptions.AllowNegative = false;
-            keyOptions.AllowZero = false;
-            PromptIntegerResult keyResult = acDoc.Editor.GetInteger(keyOptions);
+            PromptIntegerOptions keyOptions = new PromptIntegerOptions($"\nSkala rysunku 1:<{((int)(1 / settings.DrawingScale)).ToString()}>")
+            {
+                AllowNone = true,
+                AllowNegative = false,
+                AllowZero = false
+            };
+            PromptIntegerResult keyResult = CADProxy.Editor.GetInteger(keyOptions);
             if (keyResult.Status == PromptStatus.OK)
             {
                 settings.DrawingScale = 1 / (double)keyResult.Value;
             }
-            acDoc.Editor.WriteMessage($"\nBieżąca skala rysunkowa 1:{((int)(1 / settings.DrawingScale)).ToString()}\n");
+            CADProxy.Editor.WriteMessage($"\nBieżąca skala rysunkowa 1:{((int)(1 / settings.DrawingScale)).ToString()}\n");
+        }
+
+        [CommandMethod("CK_PALETE")]
+        public void ShowPalette()
+        {
+            AppSettings.Instance.CADKitPalette.Visible = !AppSettings.Instance.CADKitPalette.Visible;
         }
     }
 }

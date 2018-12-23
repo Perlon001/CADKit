@@ -1,0 +1,47 @@
+<ToolPaletteExport>
+  <DependentFilesPath>CADKit</DependentFilesPath>
+  <PaletteSets>
+    <PaletteSetData>
+      <PaletteSetContent>
+        <Palettes>
+          <PaletteData>
+            <PaletteContent>
+              <Palette option="0">
+                <ItemID idValue="{CE916253-1D15-404A-B20A-598BBB816653}"/>
+                <Properties>
+                  <ItemName>CADKit</ItemName>
+                  <Images/>
+                  <Refresh>FALSE</Refresh>
+                  <AutoRefresh>FALSE</AutoRefresh>
+                </Properties>
+                <TargetProducts/>
+                <Source/>
+                <Tools/>
+              </Palette>
+            </PaletteContent>
+            <PaletteUI>
+              <CZdUiPalette PaletteStyle="1"/>
+              <CZcTcUiToolPalette>
+                <CatalogView ID="{CE916253-1D15-404A-B20A-598BBB816653}">
+                  <ToolSource>
+                    <Palette ID="{CE916253-1D15-404A-B20A-598BBB816653}">CADKit</Palette>
+                  </ToolSource>
+                  <Image SizeCX="32" SizeCY="32"/>
+                  <Style>491522</Style>
+                  <ToolOrder/>
+                </CatalogView>
+              </CZcTcUiToolPalette>
+            </PaletteUI>
+          </PaletteData>
+        </Palettes>
+      </PaletteSetContent>
+      <PaletteSetUI>
+        <CZdUiDockControlBar Orientation="-1" AllowDocking="1">
+          <FloatInfo Left="756" Top="214" Width="426" Height="610"/>
+          <DockInfo Left="0" Top="153" Width="292" Height="872" MRUDockID="59420"/>
+        </CZdUiDockControlBar>
+        <CZdUiPaletteSet ActivePaletteIndex="0" TitleBarLocation="0" AutoRollup="0" Name="Tool Palettes - All Palettes" Style="126" Opacity="100" RolloverOpacity="100" Visible="1"/>
+      </PaletteSetUI>
+    </PaletteSetData>
+  </PaletteSets>
+</ToolPaletteExport>

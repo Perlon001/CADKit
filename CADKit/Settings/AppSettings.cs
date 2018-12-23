@@ -1,14 +1,64 @@
-﻿using System;
+﻿using CADKitCore.Util;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZwSoft.ZwCAD.DatabaseServices;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Windows.Forms.Integration;
+using CADKitCore.Views;
+using CADKitCore.Contract;
+using CADKitCore.Presenters;
+using CADKitCore.Views.WF;
+using CADKitDALCAD;
+
+namespace ZwSoft.ZwCAD.DatabaseServices
+{
+    public static class CADKitExtension
+    {
+
+        public static Dictionary<string, string> GetCustomProperties(this Database db)
+        {
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            IDictionaryEnumerator dictEnum = db.SummaryInfo.CustomProperties;
+            while (dictEnum.MoveNext())
+            {
+                DictionaryEntry entry = dictEnum.Entry;
+                result.Add((string)entry.Key, (string)entry.Value);
+            }
+            return result;
+        }
+
+        public static string GetCustomProperty(this Database db, string key)
+        {
+            DatabaseSummaryInfoBuilder sumInfo = new DatabaseSummaryInfoBuilder(db.SummaryInfo);
+            IDictionary custProps = sumInfo.CustomPropertyTable;
+            if(!custProps.Contains(key))
+                custProps.Add(key, "");
+
+            return (string)custProps[key];
+        }
+
+        public static void SetCustomProperty(this Database db, string key, string value)
+        {
+            DatabaseSummaryInfoBuilder infoBuilder = new DatabaseSummaryInfoBuilder(db.SummaryInfo);
+            IDictionary custProps = infoBuilder.CustomPropertyTable;
+            if (custProps.Contains(key))
+                custProps[key] = value;
+            else
+                custProps.Add(key, value);
+            db.SummaryInfo = infoBuilder.ToDatabaseSummaryInfo();
+        }
+    }
+}
 
 namespace CADKitCore.Settings
 {
     public sealed class AppSettings
     {
-
         public string AppPath { get; private set; }
         public string AppName { get; private set; }
 
@@ -34,6 +84,7 @@ namespace CADKitCore.Settings
 
             }
         }
+        public CADKitPalette CADKitPalette { get; set; }
 
         //public Dictionary<ObjectTypes, string> DefaultLayers { get; set; }
         //public Dictionary<string, Color> DefaultLayerColors { get; set; }
@@ -50,8 +101,33 @@ namespace CADKitCore.Settings
                 if (instance == null)
                 {
                     instance = new AppSettings();
+                    ISettingsView settingsView = new SettingsView();
+                    ISettingsPresenter settingsPresenter = new SettingsPresenter(settingsView);
+                    AppSettings.Instance.CADKitPalette.Add("Ustawienia", settingsView as Control);
+                    AppSettings.Instance.CADKitPalette.Visible = true;
                 }
                 return instance;
+            }
+        }
+
+        public void SetSettingsToDatabase()
+        {
+            CADProxy.Database.SetCustomProperty("CKDrawingStandard", DrawingStandard.ToString());
+            CADProxy.Database.SetCustomProperty("CKDrawingUnit", DrawingUnit.ToString());
+            CADProxy.Database.SetCustomProperty("CKDrawingScale", DrawingScale.ToString());
+        }
+
+        public void GetSettingsFromDatabase()
+        {
+            DrawingStandard = EnumsUtil.GetEnum(CADProxy.Database.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PN_B_01025);
+            DrawingUnit = EnumsUtil.GetEnum(CADProxy.Database.GetCustomProperty("CKDrawingUnit"), DrawingUnits.mm);
+            try
+            {
+                DrawingScale = Convert.ToDouble(CADProxy.Database.GetCustomProperty("CKDrawingScale"));
+            }
+            catch (FormatException)
+            {
+                DrawingScale = 0.01;
             }
         }
 
@@ -59,9 +135,7 @@ namespace CADKitCore.Settings
         {
             AppPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location));
             AppName = this.GetType().Assembly.GetName().Name;
-            DrawingUnit = DrawingUnits.mm;
-            DrawingScale = 0.01;
-            DrawingStandard = DrawingStandards.PN_B_01025;
+            GetSettingsFromDatabase();
             TextHigh = new Dictionary<TextStyles, double>()
             {
                 { TextStyles.verysmall, 1.50 },
@@ -73,6 +147,10 @@ namespace CADKitCore.Settings
                 { TextStyles.dim,       2.00 },
                 { TextStyles.elevmark,  2.00 },
             };
+            SetSettingsToDatabase();
+            CADKitPalette = new CADKitPalette(AppName);
+            CADKitPalette.MinimumSize = new Size(250, 250);
         }
+
     }
 }

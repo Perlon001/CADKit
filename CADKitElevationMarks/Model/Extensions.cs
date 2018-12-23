@@ -1,6 +1,6 @@
-﻿using ZwSoft.ZwCAD.ApplicationServices;
+﻿using CADKitCore.Settings;
+using CADKitDALCAD;
 using ZwSoft.ZwCAD.DatabaseServices;
-using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.Geometry;
 
 namespace CADKitElevationMarks.Model
@@ -18,19 +18,15 @@ namespace CADKitElevationMarks.Model
 
         public static bool IsInLayoutPaper()
         {
-            Document acDoc = Application.DocumentManager.MdiActiveDocument;
-            Database acDatabase = acDoc.Database;
-            Editor editor = acDoc.Editor;
-
-            if (acDatabase.TileMode)
+            if (CADProxy.Database.TileMode)
                 return false;
             else
             {
-                if (acDatabase.PaperSpaceVportId == ObjectId.Null)
+                if (CADProxy.Database.PaperSpaceVportId == ObjectId.Null)
                     return false;
-                else if (editor.CurrentViewportObjectId == ObjectId.Null)
+                else if (CADProxy.Editor.CurrentViewportObjectId == ObjectId.Null)
                     return false;
-                else if (editor.CurrentViewportObjectId == acDatabase.PaperSpaceVportId)
+                else if (CADProxy.Editor.CurrentViewportObjectId == CADProxy.Database.PaperSpaceVportId)
                     return true;
                 else
                     return false;
@@ -39,10 +35,10 @@ namespace CADKitElevationMarks.Model
 
         public static BlockTableRecord GetBlockTableRecord(Transaction transaction, OpenMode mode)
         {
-            BlockTable blockTable = (BlockTable)transaction.GetObject(Application.DocumentManager.MdiActiveDocument.Database.BlockTableId, OpenMode.ForRead);
+            BlockTable blockTable = (BlockTable)transaction.GetObject(CADProxy.Database.BlockTableId, OpenMode.ForRead);
 
             BlockTableRecord record;
-            if (Application.DocumentManager.MdiActiveDocument.Database.TileMode == false && IsInLayoutPaper() == true)
+            if (CADProxy.Database.TileMode == false && IsInLayoutPaper() == true)
             {
                 record = (BlockTableRecord)transaction.GetObject(blockTable[BlockTableRecord.PaperSpace], mode);
             }
