@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CADKitDALCAD
+﻿namespace CADKit.ServiceCAD
 {
     public sealed class CADEnvironment
     {
@@ -29,6 +23,14 @@ namespace CADKitDALCAD
             get
             {
                 return platform;
+            }
+        }
+
+        public string PlatformName
+        {
+            get
+            {
+                return platform.ToString();
             }
         }
     }

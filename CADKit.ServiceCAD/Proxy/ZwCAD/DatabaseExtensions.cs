@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZwSoft.ZwCAD.DatabaseServices
 {
-    public static class CADDatabaseExtensions
+    public static class DatabaseExtensions
     {
         public static Dictionary<string, string> GetCustomProperties(this Database db)
         {

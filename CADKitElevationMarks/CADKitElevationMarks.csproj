@@ -79,6 +79,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CADKit.ServiceCAD\CADKit.ServiceCAD.csproj">
+      <Project>{87E74953-1A86-4CC5-B5AE-6901611C7033}</Project>
+      <Name>CADKit.ServiceCAD</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CADKitDALCAD\CADKitDALCAD.csproj">
       <Project>{B547CB62-5472-49AC-AAB1-B991E13A8CF2}</Project>
       <Name>CADKitDALCAD</Name>

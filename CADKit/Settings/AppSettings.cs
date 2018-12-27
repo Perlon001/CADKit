@@ -13,7 +13,7 @@ using CADKitCore.Views;
 using CADKitCore.Contract;
 using CADKitCore.Presenters;
 using CADKitCore.Views.WF;
-using CADKitDALCAD;
+using CADKit.ServiceCAD;
 
 namespace CADKitCore.Settings
 {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitDALCAD
+namespace CADKit.ServiceCAD.Interface
 {
-    public interface ISymbolRepository
+    public interface ICADProxy
     {
     }
 }

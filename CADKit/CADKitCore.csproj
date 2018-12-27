@@ -52,47 +52,30 @@
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="ZwDatabaseMgd">
       <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwDatabaseMgd.dll</HintPath>
-      <Private>False</Private>
     </Reference>
     <Reference Include="ZwManaged">
       <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwManaged.dll</HintPath>
-      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autostart.cs" />
-    <Compile Include="CADProxy\CADDatabaseExtensions.cs" />
-    <Compile Include="CADProxy\CADEnvironment.cs" />
-    <Compile Include="CADProxy\CADPlatforms.cs" />
-    <Compile Include="CADProxy\CADProxy.cs" />
     <Compile Include="Commands.cs" />
-    <Compile Include="Contract\DALCAD\IRepository.cs" />
-    <Compile Include="Contract\DALDB\ILayerRepository.cs" />
-    <Compile Include="Contract\DALDB\IRepository.cs" />
     <Compile Include="Contract\DTO\IScaleDTO.cs" />
     <Compile Include="Contract\IEnetityText.cs" />
     <Compile Include="Contract\IEntity.cs" />
     <Compile Include="Contract\IEntityHatch.cs" />
     <Compile Include="Contract\IEntityPline.cs" />
     <Compile Include="Contract\IEntityPoint.cs" />
-    <Compile Include="Contract\DALCAD\ILayerRepository.cs" />
-    <Compile Include="Contract\DALCAD\ILayerTableService.cs" />
     <Compile Include="Contract\IPresenter.cs" />
     <Compile Include="Contract\IRepository.cs" />
+    <Compile Include="Contract\IScale.cs" />
     <Compile Include="Contract\ISettingsPresenter.cs" />
     <Compile Include="Contract\ISettingsView.cs" />
-    <Compile Include="Contract\DALCAD\ISymbolRepository.cs" />
-    <Compile Include="Contract\DALCAD\ISymbolTableService.cs" />
-    <Compile Include="Contract\DALCAD\ITextStyleRepository.cs" />
-    <Compile Include="Contract\DALCAD\ITextStyleTableService.cs" />
     <Compile Include="Contract\IView.cs" />
     <Compile Include="Extensions\Extension.cs" />
     <Compile Include="Extensions\TransactionDelegate.cs" />
-    <Compile Include="Model\LayerTableService.cs" />
-    <Compile Include="Model\RegistrationModule.cs" />
-    <Compile Include="Model\SymbolTableService.cs" />
-    <Compile Include="Model\SystemVariableService.cs" />
-    <Compile Include="Model\TextStyleTableService.cs" />
+    <Compile Include="Model\CanNoScale.cs" />
+    <Compile Include="Services\SystemVariableService.cs" />
     <Compile Include="Presenters\Presenter.cs" />
     <Compile Include="Presenters\RegistrationModule.cs" />
     <Compile Include="Presenters\SettingsPresenter.cs" />
@@ -119,6 +102,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CADKit.ServiceCAD\CADKit.ServiceCAD.csproj">
+      <Project>{87e74953-1a86-4cc5-b5ae-6901611c7033}</Project>
+      <Name>CADKit.ServiceCAD</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CADKitBaseView\CADKitBaseView.csproj">
       <Project>{deb58a40-afc0-4955-80a4-e11a33f70eb3}</Project>
       <Name>CADKitBaseView</Name>

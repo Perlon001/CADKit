@@ -1,8 +1,9 @@
-﻿using CADKitCore.Contract.DALCAD;
+﻿using CADKit.ServiceCAD.Interface;
+using ZwSoft.ZwCAD.DatabaseServices;
 
 namespace CADKitElevationMarks.Contract
 {
-    public interface IElevationMarkTextStyleGenerator : ISymbolTableService
+    public interface IElevationMarkTextStyleGenerator : ISymbolTableService<TextStyleTable>
     {
     }
 }

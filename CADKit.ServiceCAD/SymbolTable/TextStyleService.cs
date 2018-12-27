@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
-// using CADKitCore.Settings;
+﻿using CADKit.ServiceCAD.Interface;
 using ZwSoft.ZwCAD.DatabaseServices;
 
-namespace CADKitDALCAD.Repository
+namespace CADKit.ServiceCAD.Service
 {
-    public class TextStyleRepository : SymbolRepository<TextStyles, TextStyleTableRecord>, ITextStyleRepository
+    public class TextStyleService : SymbolTableService<TextStyleTable>, ITextStyleService
     {
-        protected override void FillDictionary()
-        {
-            TextStyleTableRecord style;
+        //protected override void FillDictionary()
+        //{
+            //TextStyleTableRecord style;
 
             //style = new TextStyleTableRecord();
             //style.Name = "ck_verysmall";
@@ -74,6 +73,6 @@ namespace CADKitDALCAD.Repository
             //style.ObliquingAngle = 10;
             //AddSymbol(TextStyles.dim, style);
 
-        }
+        //}
     }
 }

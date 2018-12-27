@@ -1,12 +1,15 @@
-﻿using CADKitCore.Contract;
+﻿using CADKit.ServiceCAD;
+using CADKit.ServiceCAD.Proxy;
+using CADKitCore.Contract;
 using CADKitCore.Contract.DTO;
+using CADKitCore.Model;
 using CADKitCore.Settings;
 using CADKitCore.Util;
 using CADKitCore.Views.DTO;
-using CADKitDALCAD;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ZwSoft.ZwCAD.ApplicationServices;
 
 namespace CADKitCore.Presenters
 {
@@ -19,8 +22,8 @@ namespace CADKitCore.Presenters
             View.RegisterHandlers();
             CADProxy.DocumentManager.DocumentActivated -= OnDocumentActivate;
             CADProxy.DocumentManager.DocumentActivated += OnDocumentActivate;
-            //CADProxy.Document.CommandEnded -= OnCommandEnded;
-            //CADProxy.Document.CommandEnded += OnCommandEnded;
+            CADProxy.Document.CommandEnded -= OnCommandEnded;
+            CADProxy.Document.CommandEnded += OnCommandEnded;
             CADProxy.SystemVariableChanged -= OnSystemVariableChanged;
             CADProxy.SystemVariableChanged += OnSystemVariableChanged;
         }
@@ -32,31 +35,24 @@ namespace CADKitCore.Presenters
             BindScaleList();
         }
 
-        public void OnDocumentActivate(object sender, ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventArgs arg)
+        private void OnCommandEnded(object sender, CommandEventArgs arg)
         {
-            CADProxy.ShowAlertDialog(CADProxy.Document.Name + ":" + CADProxy.Database.Cannoscale.Name);
-            BindScaleList();
+            if(arg.GlobalCommandName == "")
+            {
+
+            }
         }
 
-        private void OnCommandEnded(object sender, ZwSoft.ZwCAD.ApplicationServices.CommandEventArgs e)
+        public void OnDocumentActivate(object sender, ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventArgs arg)
         {
-            // jak na przechwycenie zmiany skali to słabe jest 
-            if(e.GlobalCommandName == "SETVAR")
-            {
-                BindScaleList();
-            }
+            BindScaleList();
         }
 
         private void OnSystemVariableChanged(object sender, ZwSoft.ZwCAD.ApplicationServices.SystemVariableChangedEventArgs arg)
         {
-            CADProxy.ShowAlertDialog("arg000:" + arg.Name);
-            if(arg.Name == "CANNOSCALE")
+            if (arg.Name == "CANNOSCALE")
             {
-                IScaleDTO currentScale = scales.FirstOrDefault(a => a.Name == CADProxy.Database.Cannoscale.Name);
-                if (currentScale != null)
-                {
-                    View.SelectedScale = currentScale;
-                }
+                View.SelectedScale = new ScaleDTO() { UniqueIdentifier = CADProxy.Database.Cannoscale.UniqueIdentifier };
             }
         }
 
@@ -78,7 +74,7 @@ namespace CADKitCore.Presenters
                 if(item.Name == View.SelectedScale.Name)
                 {
                     CADProxy.Database.Cannoscale = item;
-                    AppSettings.Instance.DrawingScale = View.SelectedScale.Scale;
+                    AppSettings.Instance.DrawingScale = item.Scale;
                     break;
                 }
             }
@@ -88,21 +84,20 @@ namespace CADKitCore.Presenters
         {
             var occ = CADProxy.Database.ObjectContextManager.GetContextCollection("ACDB_ANNOTATIONSCALES");
             IList<IScaleDTO> scales = new List<IScaleDTO>();
-
+            IScaleDTO currentScale = null;
             foreach (ZwSoft.ZwCAD.DatabaseServices.AnnotationScale item in occ )
             {
                 scales.Add(new ScaleDTO(){
-                    CollectionName = item.CollectionName,
-                    Name = item.Name,
-                    Scale = item.Scale,
-                    DrawingUnits = item.DrawingUnits,
-                    PaperUnits = item.PaperUnits,
-                    UniqueIdentifier = item.UniqueIdentifier
+                    UniqueIdentifier = item.UniqueIdentifier,
+                    Name = item.Name
                 });
+                if( item.Name == CADProxy.Database.Cannoscale.Name)
+                {
+                    currentScale = new ScaleDTO() {UniqueIdentifier = item.UniqueIdentifier };
+                }
             }
             View.BindingScale(scales);
-            IScaleDTO currentScale = scales.FirstOrDefault(a => a.Name == CADProxy.Database.Cannoscale.Name);
-            if (currentScale != null)
+            if( !currentScale.Equals(null))
             {
                 View.SelectedScale = currentScale;
             }

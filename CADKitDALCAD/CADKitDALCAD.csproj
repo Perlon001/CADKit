@@ -58,20 +58,19 @@
     <Compile Include="ApplicationService\CommandEventArgs.cs" />
     <Compile Include="ApplicationService\DocumentCollectionEventArgs.cs" />
     <Compile Include="ApplicationService\DocumentCollectionEventHandler.cs" />
-    <Compile Include="ILayerRepository.cs" />
-    <Compile Include="ISymbolRepository.cs" />
-    <Compile Include="ITextStyleRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\LayerRepository.cs" />
-    <Compile Include="Repository\SymbolRepository.cs" />
-    <Compile Include="Repository\TextStyleRepository.cs" />
     <Compile Include="Runtime\ExtensionApplicationAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CADKit.ServiceCAD\CADKit.ServiceCAD.csproj">
+      <Project>{87E74953-1A86-4CC5-B5AE-6901611C7033}</Project>
+      <Name>CADKit.ServiceCAD</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CADKit\CADKitCore.csproj">
       <Project>{6a8627b4-c81a-4166-8e95-76a85661a03b}</Project>
       <Name>CADKitCore</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

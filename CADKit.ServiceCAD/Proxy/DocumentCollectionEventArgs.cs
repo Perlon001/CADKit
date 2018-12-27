@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitCore.Contract.DALDB
+namespace CADKit.ServiceCAD.Proxy.ZwCAD
 {
-    public interface IRepository
+    public class DocumentCollectionEventArgs : EventArgs
     {
     }
 }

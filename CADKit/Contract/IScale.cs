@@ -5,11 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using ZwSoft.ZwCAD.DatabaseServices;
 
-namespace CADKitCore.Contract.DTO
+namespace CADKitCore.Contract
 {
-    public interface IScaleDTO
+    public interface IScale
     {
         IntPtr UniqueIdentifier { get; }
+        double Scale { get; }
+        double PaperUnits { get; set; }
         string Name { get; set; }
+        bool IsTemporaryScale { get; }
+        double DrawingUnits { get; set; }
+        string CollectionName { get; }
     }
 }

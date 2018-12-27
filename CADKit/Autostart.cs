@@ -1,9 +1,9 @@
-﻿using CADKitCore.Contract;
+﻿using CADKit.ServiceCAD;
+using CADKitCore.Contract;
 using CADKitCore.Presenters;
 using CADKitCore.Settings;
 using CADKitCore.Util;
 using CADKitCore.Views.WF;
-using CADKitDALCAD;
 using System.Windows.Forms;
 
 [assembly: ZwSoft.ZwCAD.Runtime.ExtensionApplication(typeof(CADKitCore.Autostart))]

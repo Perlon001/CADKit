@@ -1,5 +1,7 @@
 ﻿using Autofac;
+using CADKit.ServiceCAD;
 using CADKitCore.Model;
+using CADKitCore.Services;
 using CADKitCore.Settings;
 using CADKitCore.Util;
 using CADKitDALCAD;

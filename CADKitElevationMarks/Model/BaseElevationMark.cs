@@ -1,6 +1,5 @@
 ﻿using Autofac;
-using CADKitCore.Contract;
-using CADKitCore.Contract.DALCAD;
+using CADKit.ServiceCAD;
 using CADKitCore.Extensions;
 using CADKitCore.Settings;
 using CADKitCore.Util;
@@ -51,8 +50,8 @@ namespace CADKitElevationMarks.Model
 
                 //ITextStyleTableService aaa = scope.Resolve<ITextStyleTableService>();
                 // var aaa = new TextStyleTableService(new TextStyleCreator());
-                CADProxy.Database.Textstyle = scope.Resolve<ITextStyleTableService>().GetRecord(TextStyles.elevmark);
-                CADProxy.Database.Clayer = scope.Resolve<ILayerTableService>().GetRecord(Layers.elevmark);
+                //CADProxy.Database.Textstyle = scope.Resolve<ITextStyleTableService>().GetRecord(TextStyles.elevmark);
+                //CADProxy.Database.Clayer = scope.Resolve<ILayerTableService>().GetRecord(Layers.elevmark);
 
                 //acDoc.Database.Textstyle = scope.Resolve<IElevationMarkTextStyleGenerator>().Create<TextStyleTableRecord>();
             }

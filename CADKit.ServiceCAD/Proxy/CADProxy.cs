@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CADKit.ServiceCAD.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,12 @@ using System.Threading.Tasks;
 // using ZwSoft.ZwCAD.ApplicationServices;
 // using ZwSoft.ZwCAD.EditorInput;
 // using ZwSoft.ZwCAD.DatabaseServices;
+using CADKit.ServiceCAD.Proxy;
 
-namespace CADKitDALCAD
+namespace CADKit.ServiceCAD
 {
+    public delegate void SystemVariableChangedEventHandler(object sender, SystemVariableChangedEventArgs e);
+
     public class CADProxy
     {
         public event ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventHandler DocumentActivated
@@ -20,6 +24,18 @@ namespace CADKitDALCAD
             remove
             {
                 DocumentManager.DocumentActivated -= value;
+            }
+        }
+
+        public static event SystemVariableChangedEventHandler _SystemVariableChanged
+        {
+            add
+            {
+                _SystemVariableChanged += value;
+            }
+            remove
+            {
+                _SystemVariableChanged -= value;
             }
         }
 
@@ -38,6 +54,16 @@ namespace CADKitDALCAD
         public static void ShowAlertDialog(string message)
         {
             ZwSoft.ZwCAD.ApplicationServices.Application.ShowAlertDialog(message);
+        }
+
+        public static object GetSystemVariable(string name)
+        {
+            return ZwSoft.ZwCAD.ApplicationServices.Application.GetSystemVariable(name);
+        }
+
+        public static void SetSystemVariable(string name, object value)
+        {
+            ZwSoft.ZwCAD.ApplicationServices.Application.SetSystemVariable(name, value);
         }
 
         public static ZwSoft.ZwCAD.ApplicationServices.DocumentCollection DocumentManager
@@ -59,5 +85,6 @@ namespace CADKitDALCAD
         {
             get { return Document.Editor; }
         }
+
     }
 }
