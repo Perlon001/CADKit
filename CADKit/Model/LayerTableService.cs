@@ -1,4 +1,4 @@
-﻿using CADKitCore.Contract;
+﻿using CADKitCore.Contract.DALCAD;
 using ZwSoft.ZwCAD.DatabaseServices;
 
 namespace CADKitCore.Model

@@ -15,56 +15,42 @@ using CADKitCore.Presenters;
 using CADKitCore.Views.WF;
 using CADKitDALCAD;
 
-namespace ZwSoft.ZwCAD.DatabaseServices
-{
-    public static class CADKitExtension
-    {
-
-        public static Dictionary<string, string> GetCustomProperties(this Database db)
-        {
-            Dictionary<string, string> result = new Dictionary<string, string>();
-            IDictionaryEnumerator dictEnum = db.SummaryInfo.CustomProperties;
-            while (dictEnum.MoveNext())
-            {
-                DictionaryEntry entry = dictEnum.Entry;
-                result.Add((string)entry.Key, (string)entry.Value);
-            }
-            return result;
-        }
-
-        public static string GetCustomProperty(this Database db, string key)
-        {
-            DatabaseSummaryInfoBuilder sumInfo = new DatabaseSummaryInfoBuilder(db.SummaryInfo);
-            IDictionary custProps = sumInfo.CustomPropertyTable;
-            if(!custProps.Contains(key))
-                custProps.Add(key, "");
-
-            return (string)custProps[key];
-        }
-
-        public static void SetCustomProperty(this Database db, string key, string value)
-        {
-            DatabaseSummaryInfoBuilder infoBuilder = new DatabaseSummaryInfoBuilder(db.SummaryInfo);
-            IDictionary custProps = infoBuilder.CustomPropertyTable;
-            if (custProps.Contains(key))
-                custProps[key] = value;
-            else
-                custProps.Add(key, value);
-            db.SummaryInfo = infoBuilder.ToDatabaseSummaryInfo();
-        }
-    }
-}
-
 namespace CADKitCore.Settings
 {
     public sealed class AppSettings
     {
+        private string environment;
+        private double drawingScale;
+
         public string AppPath { get; private set; }
         public string AppName { get; private set; }
+        public string Environment
+        {
+            get
+            {
+                return environment;
+            }
+            private set
+            {
+                environment = value;
+            }
+        }
 
         public DrawingStandards DrawingStandard { get; set; }
-        public DrawingUnits DrawingUnit { get; set; }
-        public double DrawingScale { get; set; }
+        public Units DrawingUnit { get; set; }
+        public Units DimensionUnit { get; set; }
+        public double DrawingScale
+        {
+            get
+            {
+                return drawingScale;
+            }
+            set
+            {
+                drawingScale = value;
+                CADProxy.Database.SetCustomProperty("CKDrawingScale", drawingScale.ToString());
+            }
+        }
         public Dictionary<TextStyles, double> TextHigh { get; set; }
         public double ScaleFactor
         {
@@ -72,11 +58,11 @@ namespace CADKitCore.Settings
             {
                 switch (DrawingUnit)
                 {
-                    case DrawingUnits.cm:
+                    case Units.cm:
                         return 10 / DrawingScale;
-                    case DrawingUnits.m:
+                    case Units.m:
                         return 1000 / DrawingScale;
-                    case DrawingUnits.mm:
+                    case Units.mm:
                         return 1 / DrawingScale;
                     default:
                         throw new Exception("Nie rozpoznana jednostka rysunkowa");
@@ -120,14 +106,14 @@ namespace CADKitCore.Settings
         public void GetSettingsFromDatabase()
         {
             DrawingStandard = EnumsUtil.GetEnum(CADProxy.Database.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PN_B_01025);
-            DrawingUnit = EnumsUtil.GetEnum(CADProxy.Database.GetCustomProperty("CKDrawingUnit"), DrawingUnits.mm);
+            DrawingUnit = EnumsUtil.GetEnum(CADProxy.Database.GetCustomProperty("CKDrawingUnit"), Units.mm);
             try
             {
-                DrawingScale = Convert.ToDouble(CADProxy.Database.GetCustomProperty("CKDrawingScale"));
+                drawingScale = Convert.ToDouble(CADProxy.Database.GetCustomProperty("CKDrawingScale"));
             }
             catch (FormatException)
             {
-                DrawingScale = 0.01;
+                drawingScale = 0.01;
             }
         }
 

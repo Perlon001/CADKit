@@ -1,4 +1,4 @@
-﻿using CADKitCore.Contract;
+﻿using CADKitCore.Contract.DALCAD;
 using System;
 using ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.DatabaseServices;

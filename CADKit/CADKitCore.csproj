@@ -61,33 +61,37 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autostart.cs" />
+    <Compile Include="CADProxy\CADDatabaseExtensions.cs" />
+    <Compile Include="CADProxy\CADEnvironment.cs" />
+    <Compile Include="CADProxy\CADPlatforms.cs" />
+    <Compile Include="CADProxy\CADProxy.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="Contract\DALCAD\IRepository.cs" />
+    <Compile Include="Contract\DALDB\ILayerRepository.cs" />
+    <Compile Include="Contract\DALDB\IRepository.cs" />
     <Compile Include="Contract\DTO\IScaleDTO.cs" />
     <Compile Include="Contract\IEnetityText.cs" />
     <Compile Include="Contract\IEntity.cs" />
     <Compile Include="Contract\IEntityHatch.cs" />
     <Compile Include="Contract\IEntityPline.cs" />
     <Compile Include="Contract\IEntityPoint.cs" />
-    <Compile Include="Contract\ILayerRepository.cs" />
-    <Compile Include="Contract\ILayerTableService.cs" />
+    <Compile Include="Contract\DALCAD\ILayerRepository.cs" />
+    <Compile Include="Contract\DALCAD\ILayerTableService.cs" />
     <Compile Include="Contract\IPresenter.cs" />
     <Compile Include="Contract\IRepository.cs" />
     <Compile Include="Contract\ISettingsPresenter.cs" />
     <Compile Include="Contract\ISettingsView.cs" />
-    <Compile Include="Contract\ISymbolRepository.cs" />
-    <Compile Include="Contract\ISymbolTableService.cs" />
-    <Compile Include="Contract\ITextStyleRepository.cs" />
-    <Compile Include="Contract\ITextStyleTableService.cs" />
+    <Compile Include="Contract\DALCAD\ISymbolRepository.cs" />
+    <Compile Include="Contract\DALCAD\ISymbolTableService.cs" />
+    <Compile Include="Contract\DALCAD\ITextStyleRepository.cs" />
+    <Compile Include="Contract\DALCAD\ITextStyleTableService.cs" />
     <Compile Include="Contract\IView.cs" />
     <Compile Include="Extensions\Extension.cs" />
     <Compile Include="Extensions\TransactionDelegate.cs" />
-    <Compile Include="Model\LayerFepository.cs" />
     <Compile Include="Model\LayerTableService.cs" />
     <Compile Include="Model\RegistrationModule.cs" />
-    <Compile Include="Model\SymbolRepository.cs" />
     <Compile Include="Model\SymbolTableService.cs" />
     <Compile Include="Model\SystemVariableService.cs" />
-    <Compile Include="Model\TextStyleRepository.cs" />
     <Compile Include="Model\TextStyleTableService.cs" />
     <Compile Include="Presenters\Presenter.cs" />
     <Compile Include="Presenters\RegistrationModule.cs" />
@@ -119,13 +123,8 @@
       <Project>{deb58a40-afc0-4955-80a4-e11a33f70eb3}</Project>
       <Name>CADKitBaseView</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CADKitDALCAD\CADKitDALCAD.csproj">
-      <Project>{b547cb62-5472-49ac-aab1-b991e13a8cf2}</Project>
-      <Name>CADKitDALCAD</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Contract\CADProxyInterface\" />
     <Folder Include="Views\WPF\" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using CADKitCore.Contract;
+using CADKitCore.Contract.DALCAD;
 using System;
 
 namespace CADKitCore.Model

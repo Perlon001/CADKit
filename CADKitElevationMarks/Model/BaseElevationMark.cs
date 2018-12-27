@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CADKitCore.Contract;
+using CADKitCore.Contract.DALCAD;
 using CADKitCore.Extensions;
 using CADKitCore.Settings;
 using CADKitCore.Util;
@@ -136,11 +137,11 @@ namespace CADKitElevationMarks.Model
         {
             switch (AppSettings.Instance.DrawingUnit)
             {
-                case DrawingUnits.m:
+                case Units.m:
                     return 1;
-                case DrawingUnits.cm:
+                case Units.cm:
                     return 0.01;
-                case DrawingUnits.mm:
+                case Units.mm:
                     return 0.001;
                 default:
                     throw new Exception("\nNie rozpoznana jednostka rysunkowa");

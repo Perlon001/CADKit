@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CADKitCore.Util
 {
-    public class EnumsUtil 
+    public class EnumsUtil
     {
-        public static TEnum GetEnum<TEnum>(string enumName, TEnum defaultValue)
+        public static Dictionary<string, TEnum> GetEnumDictionary<TEnum>()
         {
             Type enumType = typeof(TEnum);
             if (!enumType.IsEnum)
@@ -19,6 +19,13 @@ namespace CADKitCore.Util
             {
                 dictionary.Add(Enum.GetName(enumType, value), value);
             }
+
+            return dictionary;
+        }
+
+        public static TEnum GetEnum<TEnum>(string enumName, TEnum defaultValue)
+        {
+            var dictionary = GetEnumDictionary<TEnum>();
             if(!dictionary.ContainsKey(enumName))
             {
                 dictionary.Add(enumName, defaultValue);

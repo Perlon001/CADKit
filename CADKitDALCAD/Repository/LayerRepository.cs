@@ -1,12 +1,18 @@
-﻿using CADKitCore.Contract;
+﻿using System.Collections.Generic;
+using CADKitCore.Contract.DALCAD;
 using CADKitCore.Settings;
 using ZwSoft.ZwCAD.Colors;
 using ZwSoft.ZwCAD.DatabaseServices;
 
-namespace CADKitCore.Model
+namespace CADKitDALCAD.Repository
 {
-    public class LayerFepository : SymbolRepository<Layers, LayerTableRecord>, ILayerRepository
+    public class LayerRepository : SymbolRepository<Layers, LayerTableRecord>, ILayerRepository
     {
+        public override IList<LayerTableRecord> GetRecords()
+        {
+            throw new System.NotImplementedException();
+        }
+
         protected override void FillDictionary()
         {
             LayerTableRecord layer;

@@ -1,6 +1,4 @@
-﻿using ZwSoft.ZwCAD.DatabaseServices;
-
-namespace CADKitCore.Contract
+﻿namespace CADKitCore.Contract.DALCAD
 {
     public interface ILayerRepository : ISymbolRepository
     {

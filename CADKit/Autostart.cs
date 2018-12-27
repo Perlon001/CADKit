@@ -28,11 +28,6 @@ namespace CADKitCore
                 CADProxy.Editor.WriteMessage("Błąd: \n" + ex.Message);
             }
             CADProxy.Editor.WriteMessage("\n");
-            ISettingsView settingsView = new SettingsView();
-            ISettingsPresenter settingsPresenter = new SettingsPresenter(settingsView);
-            settings.CADKitPalette.Add("Ustawienia", settingsView as Control);
-            settings.CADKitPalette.Visible = true;
-
         }
 
         public void Terminate()

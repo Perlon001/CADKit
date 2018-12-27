@@ -61,7 +61,7 @@ namespace CADKitCore
                 AllowNone = true
             };
             keyOptions.Keywords.Default = settings.DrawingUnit.ToString();
-            foreach (var item in Enum.GetValues(typeof(DrawingUnits)))
+            foreach (var item in Enum.GetValues(typeof(Units)))
             {
                 keyOptions.Keywords.Add(item.ToString());
             }
@@ -71,13 +71,13 @@ namespace CADKitCore
                 switch (keyResult.StringResult)
                 {
                     case "mm":
-                        settings.DrawingUnit = DrawingUnits.mm;
+                        settings.DrawingUnit = Units.mm;
                         break;
                     case "cm":
-                        settings.DrawingUnit = DrawingUnits.cm;
+                        settings.DrawingUnit = Units.cm;
                         break;
                     case "m":
-                        settings.DrawingUnit = DrawingUnits.m;
+                        settings.DrawingUnit = Units.m;
                         break;
                 }
             }

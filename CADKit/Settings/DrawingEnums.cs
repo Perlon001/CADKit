@@ -1,6 +1,6 @@
 ﻿namespace CADKitCore.Settings
 {
-    public enum DrawingUnits
+    public enum Units
     {
         mm, cm, m
     }
