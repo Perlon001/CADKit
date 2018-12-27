@@ -1,17 +1,16 @@
 ﻿using CADKit.ServiceCAD;
-using CADKit.ServiceCAD.Proxy;
-using CADKitCore.Contract;
-using CADKitCore.Contract.DTO;
-using CADKitCore.Model;
-using CADKitCore.Settings;
-using CADKitCore.Util;
-using CADKitCore.Views.DTO;
+using CADKit.Contract;
+using CADKit.Contract.DTO;
+using CADKit.Model;
+using CADKit.Settings;
+using CADKit.Util;
+using CADKit.Views.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZwSoft.ZwCAD.ApplicationServices;
 
-namespace CADKitCore.Presenters
+namespace CADKit.Presenters
 {
     public class SettingsPresenter : Presenter<ISettingsView>, ISettingsPresenter
     {
@@ -20,10 +19,10 @@ namespace CADKitCore.Presenters
             View = view;
             View.Presenter = this;
             View.RegisterHandlers();
-            CADProxy.DocumentManager.DocumentActivated -= OnDocumentActivate;
-            CADProxy.DocumentManager.DocumentActivated += OnDocumentActivate;
-            CADProxy.Document.CommandEnded -= OnCommandEnded;
-            CADProxy.Document.CommandEnded += OnCommandEnded;
+            CADProxy.DocumentActivated -= OnDocumentActivate;
+            CADProxy.DocumentActivated += OnDocumentActivate;
+            CADProxy.CommandEnded -= OnCommandEnded;
+            CADProxy.CommandEnded += OnCommandEnded;
             CADProxy.SystemVariableChanged -= OnSystemVariableChanged;
             CADProxy.SystemVariableChanged += OnSystemVariableChanged;
         }
@@ -33,27 +32,6 @@ namespace CADKitCore.Presenters
             BindDrawingUnit();
             BindDimensionUnit();
             BindScaleList();
-        }
-
-        private void OnCommandEnded(object sender, CommandEventArgs arg)
-        {
-            if(arg.GlobalCommandName == "")
-            {
-
-            }
-        }
-
-        public void OnDocumentActivate(object sender, ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventArgs arg)
-        {
-            BindScaleList();
-        }
-
-        private void OnSystemVariableChanged(object sender, ZwSoft.ZwCAD.ApplicationServices.SystemVariableChangedEventArgs arg)
-        {
-            if (arg.Name == "CANNOSCALE")
-            {
-                View.SelectedScale = new ScaleDTO() { UniqueIdentifier = CADProxy.Database.Cannoscale.UniqueIdentifier };
-            }
         }
 
         public void OnDimUnitSelect(object sender, EventArgs e)
@@ -71,12 +49,33 @@ namespace CADKitCore.Presenters
             var occ = CADProxy.Database.ObjectContextManager.GetContextCollection("ACDB_ANNOTATIONSCALES");
             foreach (ZwSoft.ZwCAD.DatabaseServices.AnnotationScale item in occ)
             {
-                if(item.Name == View.SelectedScale.Name)
+                if (item.Name == View.SelectedScale.Name)
                 {
                     CADProxy.Database.Cannoscale = item;
                     AppSettings.Instance.DrawingScale = item.Scale;
                     break;
                 }
+            }
+        }
+
+        private void OnCommandEnded(object sender, ZwSoft.ZwCAD.ApplicationServices.CommandEventArgs arg)
+        {
+            if(arg.GlobalCommandName == "SCALELISTEDIT")
+            {
+                BindScaleList();
+            }
+        }
+
+        private void OnDocumentActivate(object sender, ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventArgs arg)
+        {
+            BindScaleList();
+        }
+
+        private void OnSystemVariableChanged(object sender, ZwSoft.ZwCAD.ApplicationServices.SystemVariableChangedEventArgs arg)
+        {
+            if (arg.Name == "CANNOSCALE")
+            {
+                View.SelectedScale = new ScaleDTO() { UniqueIdentifier = CADProxy.Database.Cannoscale.UniqueIdentifier };
             }
         }
 

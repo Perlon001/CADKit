@@ -1,6 +1,6 @@
 ﻿using ZwSoft.ZwCAD.DatabaseServices;
 
-namespace CADKitCore.Contract
+namespace CADKit.Contract
 {
     public interface IEntityText : IEntity
     {

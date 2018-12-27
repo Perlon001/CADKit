@@ -1,6 +1,4 @@
 ﻿using CADKit.ServiceCAD;
-using CADKitDALCAD;
-using ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.Runtime;
 
 [assembly: ExtensionApplication(typeof(CADKitElevationMarks.Autostart))]

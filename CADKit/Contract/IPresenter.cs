@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitCore.Contract
+namespace CADKit.Contract
 {
     public interface IPresenter : IDisposable
     {

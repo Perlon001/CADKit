@@ -1,14 +1,14 @@
 ﻿using CADKit.ServiceCAD;
-using CADKitCore.Contract;
-using CADKitCore.Presenters;
-using CADKitCore.Settings;
-using CADKitCore.Util;
-using CADKitCore.Views.WF;
+using CADKit.Contract;
+using CADKit.Presenters;
+using CADKit.Settings;
+using CADKit.Util;
+using CADKit.Views.WF;
 using System.Windows.Forms;
 
-[assembly: ZwSoft.ZwCAD.Runtime.ExtensionApplication(typeof(CADKitCore.Autostart))]
+[assembly: ZwSoft.ZwCAD.Runtime.ExtensionApplication(typeof(CADKit.Autostart))]
 
-namespace CADKitCore
+namespace CADKit
 {
     public class Autostart : ZwSoft.ZwCAD.Runtime.IExtensionApplication
     {

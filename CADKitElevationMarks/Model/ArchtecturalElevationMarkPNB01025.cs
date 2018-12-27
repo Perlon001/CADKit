@@ -1,7 +1,7 @@
-﻿using CADKit.ServiceCAD;
-using CADKitCore.Settings;
-using CADKitCore.Util;
-using CADKitDALCAD;
+﻿using CADKit.Model;
+using CADKit.ServiceCAD;
+using CADKit.Settings;
+using CADKit.Util;
 using CADKitElevationMarks.Contract;
 using System;
 using ZwSoft.ZwCAD.DatabaseServices;

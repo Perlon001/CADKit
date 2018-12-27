@@ -1,4 +1,4 @@
-﻿namespace CADKitCore.Views.WF
+﻿namespace CADKit.Views.WF
 {
     partial class SettingsView
     {

@@ -1,6 +1,6 @@
 ﻿using ZwSoft.ZwCAD.Colors;
 
-namespace CADKitCore.Contract
+namespace CADKit.Contract
 {
     public interface IEntity
     {

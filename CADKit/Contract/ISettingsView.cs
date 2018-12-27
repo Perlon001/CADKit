@@ -1,12 +1,8 @@
-﻿using CADKitCore.Contract.DTO;
-using CADKitCore.Settings;
-using System;
+﻿using CADKit.Contract.DTO;
+using CADKit.Model;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CADKitCore.Contract
+namespace CADKit.Contract
 {
     public interface ISettingsView : IView
     {

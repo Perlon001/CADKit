@@ -1,8 +1,8 @@
 ﻿using Autofac;
-using CADKitCore.Contract;
+using CADKit.Contract;
 using System;
 
-namespace CADKitCore.Presenters
+namespace CADKit.Presenters
 {
     public class RegistrationModule : Module
     {

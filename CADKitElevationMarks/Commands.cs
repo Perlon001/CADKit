@@ -1,10 +1,9 @@
 ﻿using Autofac;
+using CADKit.Model;
 using CADKit.ServiceCAD;
-using CADKitCore.Model;
-using CADKitCore.Services;
-using CADKitCore.Settings;
-using CADKitCore.Util;
-using CADKitDALCAD;
+using CADKit.Services;
+using CADKit.Settings;
+using CADKit.Util;
 using CADKitElevationMarks.Contract;
 using System;
 using ZwSoft.ZwCAD.Runtime;

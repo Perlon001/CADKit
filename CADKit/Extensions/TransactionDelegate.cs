@@ -1,6 +1,6 @@
 ﻿using ZwSoft.ZwCAD.DatabaseServices;
 
-namespace CADKitCore.Extensions
+namespace CADKit.Extensions
 {
     public delegate void TransactionDelegate(Transaction tr);
 }

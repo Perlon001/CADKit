@@ -1,14 +1,15 @@
 ﻿using CADKit.ServiceCAD;
-using CADKitCore.Settings;
-using CADKitCore.Util;
+using CADKit.Model;
+using CADKit.Settings;
+using CADKit.Util;
 using System;
 using System.Collections.Generic;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.Runtime;
 
-[assembly: CommandClass(typeof(CADKitCore.Commands))]
+[assembly: CommandClass(typeof(CADKit.Commands))]
 
-namespace CADKitCore
+namespace CADKit
 {
     public class Commands
     {

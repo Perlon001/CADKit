@@ -1,4 +1,4 @@
-﻿namespace CADKitCore.Contract
+﻿namespace CADKit.Contract
 {
     public interface IEntityPline : IEntity
     {

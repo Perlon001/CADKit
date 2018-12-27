@@ -74,9 +74,9 @@
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CADKit\CADKitCore.csproj">
+    <ProjectReference Include="..\CADKit\CADKit.csproj">
       <Project>{6a8627b4-c81a-4166-8e95-76a85661a03b}</Project>
-      <Name>CADKitCore</Name>
+      <Name>CADKit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

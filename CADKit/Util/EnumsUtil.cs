@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitCore.Util
+namespace CADKit.Util
 {
     public class EnumsUtil
     {

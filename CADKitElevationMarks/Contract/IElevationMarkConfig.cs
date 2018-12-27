@@ -1,4 +1,4 @@
-﻿using CADKitCore.Contract;
+﻿using CADKit.Contract;
 
 namespace CADKitElevationMarks.Contract
 {

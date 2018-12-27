@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using ZwSoft.ZwCAD.ApplicationServices;
 
-namespace CADKitCore.Util
+namespace CADKit.Util
 {
     public static class AuthChecker
     {

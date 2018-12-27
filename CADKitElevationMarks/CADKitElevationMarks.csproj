@@ -83,13 +83,9 @@
       <Project>{87E74953-1A86-4CC5-B5AE-6901611C7033}</Project>
       <Name>CADKit.ServiceCAD</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CADKitDALCAD\CADKitDALCAD.csproj">
-      <Project>{B547CB62-5472-49AC-AAB1-B991E13A8CF2}</Project>
-      <Name>CADKitDALCAD</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CADKit\CADKitCore.csproj">
+    <ProjectReference Include="..\CADKit\CADKit.csproj">
       <Project>{6A8627B4-C81A-4166-8E95-76A85661A03B}</Project>
-      <Name>CADKitCore</Name>
+      <Name>CADKit</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

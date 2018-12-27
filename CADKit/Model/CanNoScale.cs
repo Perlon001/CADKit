@@ -1,11 +1,11 @@
-﻿using CADKitCore.Contract;
+﻿using CADKit.Contract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitCore.Model
+namespace CADKit.Model
 {
     public class CanNoScale : IScale
     {

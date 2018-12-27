@@ -1,9 +1,7 @@
-﻿using Autofac;
-using CADKit.ServiceCAD;
-using CADKitCore.Extensions;
-using CADKitCore.Settings;
-using CADKitCore.Util;
-using CADKitDALCAD;
+﻿using CADKit.ServiceCAD;
+using CADKit.Model;
+using CADKit.Settings;
+using CADKit.Util;
 using CADKitElevationMarks.Contract;
 using System;
 using System.Globalization;
@@ -66,7 +64,8 @@ namespace CADKitElevationMarks.Model
         {
             GetPoints();
             PrepareTextFields();
-            Extension.UsingTransaction(Draw); // Draw();
+            CADProxy.UsingTransaction(Draw);
+            // Extension.UsingTransaction(Draw); // Draw();
         }
 
         private void PrepareTextFields()

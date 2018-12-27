@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZwSoft.ZwCAD.DatabaseServices;
 
-namespace CADKitCore.Contract
+namespace CADKit.Contract
 {
     public interface IScale
     {

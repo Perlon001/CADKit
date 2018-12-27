@@ -1,4 +1,4 @@
-﻿namespace CADKitCore.Settings
+﻿namespace CADKit.Model
 {
     public enum Units
     {

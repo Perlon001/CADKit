@@ -1,11 +1,11 @@
 ﻿using CADKit.ServiceCAD;
-using CADKitCore.Settings;
+using CADKit.Settings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using ZwSoft.ZwCAD.DatabaseServices;
 
-namespace CADKitCore.Extensions
+namespace CADKit.Extensions
 {
     public static class Extension
     {
@@ -43,17 +43,6 @@ namespace CADKitCore.Extensions
             }
         }
 
-        public static Dictionary<string, string> GetCustomProperties(this Database db)
-        {
-            Dictionary<string, string> result = new Dictionary<string, string>();
-            IDictionaryEnumerator dictEnum = db.SummaryInfo.CustomProperties;
-            while (dictEnum.MoveNext())
-            {
-                DictionaryEntry entry = dictEnum.Entry;
-                result.Add((string)entry.Key, (string)entry.Value);
-            }
-            return result;
-        }
 
     }
 }

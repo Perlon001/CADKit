@@ -1,7 +1,7 @@
-﻿using CADKitCore.Contract.DTO;
+﻿using CADKit.Contract.DTO;
 using System;
 
-namespace CADKitCore.Views.DTO
+namespace CADKit.Views.DTO
 {
     public class ScaleDTO : IScaleDTO
     {

@@ -1,15 +1,10 @@
-﻿using CADKitCore.Contract;
-using CADKitCore.Contract.DTO;
-using CADKitCore.Settings;
-using System;
+﻿using CADKit.Contract;
+using CADKit.Contract.DTO;
+using CADKit.Model;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 
-namespace CADKitCore.Views.WF
+namespace CADKit.Views.WF
 {
     public partial class SettingsView : CADKitBaseView.WF.BaseViewWF, ISettingsView
     {

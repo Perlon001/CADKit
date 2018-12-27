@@ -1,21 +1,15 @@
-﻿using CADKitCore.Util;
+﻿using CADKit.ServiceCAD;
+using CADKit.ServiceCAD.Interface;
+using CADKit.Contract;
+using CADKit.Model;
+using CADKit.Presenters;
+using CADKit.Util;
+using CADKit.Views.WF;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ZwSoft.ZwCAD.DatabaseServices;
-using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.Integration;
-using CADKitCore.Views;
-using CADKitCore.Contract;
-using CADKitCore.Presenters;
-using CADKitCore.Views.WF;
-using CADKit.ServiceCAD;
 
-namespace CADKitCore.Settings
+namespace CADKit.Settings
 {
     public sealed class AppSettings
     {
@@ -48,7 +42,7 @@ namespace CADKitCore.Settings
             set
             {
                 drawingScale = value;
-                CADProxy.Database.SetCustomProperty("CKDrawingScale", drawingScale.ToString());
+                CADProxy.SetCustomProperty("CKDrawingScale", drawingScale.ToString());
             }
         }
         public Dictionary<TextStyles, double> TextHigh { get; set; }
@@ -70,7 +64,7 @@ namespace CADKitCore.Settings
 
             }
         }
-        public CADKitPalette CADKitPalette { get; set; }
+        public IPalette CADKitPalette { get; set; }
 
         //public Dictionary<ObjectTypes, string> DefaultLayers { get; set; }
         //public Dictionary<string, Color> DefaultLayerColors { get; set; }
@@ -98,18 +92,18 @@ namespace CADKitCore.Settings
 
         public void SetSettingsToDatabase()
         {
-            CADProxy.Database.SetCustomProperty("CKDrawingStandard", DrawingStandard.ToString());
-            CADProxy.Database.SetCustomProperty("CKDrawingUnit", DrawingUnit.ToString());
-            CADProxy.Database.SetCustomProperty("CKDrawingScale", DrawingScale.ToString());
+            CADProxy.SetCustomProperty("CKDrawingStandard", DrawingStandard.ToString());
+            CADProxy.SetCustomProperty("CKDrawingUnit", DrawingUnit.ToString());
+            CADProxy.SetCustomProperty("CKDrawingScale", DrawingScale.ToString());
         }
 
         public void GetSettingsFromDatabase()
         {
-            DrawingStandard = EnumsUtil.GetEnum(CADProxy.Database.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PN_B_01025);
-            DrawingUnit = EnumsUtil.GetEnum(CADProxy.Database.GetCustomProperty("CKDrawingUnit"), Units.mm);
+            DrawingStandard = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PN_B_01025);
+            DrawingUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingUnit"), Units.mm);
             try
             {
-                drawingScale = Convert.ToDouble(CADProxy.Database.GetCustomProperty("CKDrawingScale"));
+                drawingScale = Convert.ToDouble(CADProxy.GetCustomProperty("CKDrawingScale"));
             }
             catch (FormatException)
             {
@@ -134,8 +128,7 @@ namespace CADKitCore.Settings
                 { TextStyles.elevmark,  2.00 },
             };
             SetSettingsToDatabase();
-            CADKitPalette = new CADKitPalette(AppName);
-            CADKitPalette.MinimumSize = new Size(250, 250);
+            CADKitPalette = CADProxy.GetEntityFactory().GetPalette(AppName);
         }
 
     }

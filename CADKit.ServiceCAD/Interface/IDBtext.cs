@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKit.Contract
+namespace CADKit.ServiceCAD.Interface
 {
-    public interface IRepository
+    public interface IDBText
     {
     }
 }

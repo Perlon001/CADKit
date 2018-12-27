@@ -1,7 +1,7 @@
 ﻿using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
 
-namespace CADKitCore.Util
+namespace CADKit.Util
 {
     public static class EntityInfo
     {

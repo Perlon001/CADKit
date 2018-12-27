@@ -40,8 +40,10 @@
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,23 +60,30 @@
   <ItemGroup>
     <Compile Include="CADEnvironment.cs" />
     <Compile Include="Interface\ICADProxy.cs" />
+    <Compile Include="Interface\IDBText.cs" />
+    <Compile Include="Interface\IEntityTypeFactory.cs" />
     <Compile Include="Interface\ILayerService.cs" />
+    <Compile Include="Interface\IPalette.cs" />
     <Compile Include="Interface\ISymbolTableService.cs" />
     <Compile Include="Interface\ITextStyleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CADPlatforms.cs" />
+    <Compile Include="Proxy\AutoCAD\DBText.cs" />
+    <Compile Include="Proxy\AutoCAD\EntityTypeFactory.cs" />
+    <Compile Include="Proxy\AutoCAD\Palette.cs" />
+    <Compile Include="Proxy\ZwCAD\Palette.cs" />
     <Compile Include="Proxy\CADProxy.cs" />
     <Compile Include="Proxy\SystemVariableChangedEventArgs.cs" />
     <Compile Include="Proxy\ZwCAD\DatabaseExtensions.cs" />
     <Compile Include="Proxy\DocumentCollectionEventArgs.cs" />
+    <Compile Include="Proxy\ZwCAD\DBText.cs" />
+    <Compile Include="Proxy\ZwCAD\EntityTypeFactory.cs" />
     <Compile Include="RegistrationModule.cs" />
     <Compile Include="SymbolTable\LayerService.cs" />
     <Compile Include="SymbolTable\SymbolTableService.cs" />
     <Compile Include="SymbolTable\TextStyleService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Proxy\AutoCAD\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

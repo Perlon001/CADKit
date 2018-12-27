@@ -1,7 +1,7 @@
 ﻿using CADKit.ServiceCAD;
-using CADKitCore.Model;
+using CADKit.Model;
 
-namespace CADKitCore.Services
+namespace CADKit.Services
 {
     public class SystemVariableService
     {

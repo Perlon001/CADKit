@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using System;
 
-namespace CADKitCore.Model
+namespace CADKit.Model
 {
     public class RegistrationModule : Module
     {
