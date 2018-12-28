@@ -1,5 +1,6 @@
 ﻿using CADKit.ServiceCAD;
 using CADKit.Model;
+using System;
 
 namespace CADKit.Services
 {
@@ -9,6 +10,7 @@ namespace CADKit.Services
         {
             SystemVariables variables = new SystemVariables();
             variables.CLayer = (string)CADProxy.GetSystemVariable("CLayer");
+            throw new Exception();
 
             return variables;
         }

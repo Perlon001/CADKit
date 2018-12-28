@@ -13,7 +13,6 @@ namespace CADKit
 {
     public class AppSettings
     {
-        private string environment;
         private DrawingStandards drawingStandard;
         private Units drawingUnit;
         private Units dimensionUnit;
@@ -21,17 +20,7 @@ namespace CADKit
 
         public string AppPath { get; private set; }
         public string AppName { get; private set; }
-        public string Environment
-        {
-            get
-            {
-                return environment;
-            }
-            private set
-            {
-                environment = value;
-            }
-        }
+        public string Environment { get; private set; }
 
         public DrawingStandards DrawingStandard
         {
@@ -104,10 +93,10 @@ namespace CADKit
 
         public void SetSettingsToDatabase()
         {
-            CADProxy.SetCustomProperty("CKDrawingStandard", DrawingStandard.ToString());
-            CADProxy.SetCustomProperty("CKDrawingUnit", DrawingUnit.ToString());
-            CADProxy.SetCustomProperty("CKDimensionUnit", DimensionUnit.ToString());
-            CADProxy.SetCustomProperty("CKDrawingScale", DrawingScale.ToString());
+            CADProxy.SetCustomProperty("CKDrawingStandard", drawingStandard.ToString());
+            CADProxy.SetCustomProperty("CKDrawingUnit", drawingUnit.ToString());
+            CADProxy.SetCustomProperty("CKDimensionUnit", dimensionUnit.ToString());
+            CADProxy.SetCustomProperty("CKDrawingScale", drawingScale);
         }
 
         public void GetSettingsFromDatabase()
@@ -116,12 +105,16 @@ namespace CADKit
             drawingUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingUnit"), Units.mm);
             dimensionUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDimensionUnit"), Units.mm);
             drawingScale = CADProxy.GetCustomProperty("CKDrawingScale");
+            if(drawingScale == "")
+            {
+                DrawingScale = CADProxy.Database.Cannoscale.Name;
+            }
         }
 
         public void Reset()
         {
             CADKitPalette.Visible = false;
-            DrawingScale = "";
+            drawingScale = "";
         }
 
         public AppSettings()
@@ -133,18 +126,6 @@ namespace CADKit
      
             GetSettingsFromDatabase();
             SetSettingsToDatabase();
-
-            //TextHigh = new Dictionary<TextStyles, double>()
-            //{
-            //    { TextStyles.verysmall, 1.50 },
-            //    { TextStyles.small,     1.75 },
-            //    { TextStyles.normal,    2.00 },
-            //    { TextStyles.medium,    4.00 },
-            //    { TextStyles.big,       8.00 },
-            //    { TextStyles.verybig,  12.00 },
-            //    { TextStyles.dim,       2.00 },
-            //    { TextStyles.elevmark,  2.00 },
-            //};
         }
     }
 }

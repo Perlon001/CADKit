@@ -33,6 +33,7 @@ namespace CADKit.Presenters
             BindDrawingUnit();
             BindDimensionUnit();
             BindScaleList();
+            View.SelectedScale = ScaleDTO.GetCurrentScale();
         }
 
         public void OnDrawUnitSelect(object sender, EventArgs e)
@@ -75,11 +76,7 @@ namespace CADKit.Presenters
         {
             if (arg.Name == "CANNOSCALE")
             {
-                View.SelectedScale = new ScaleDTO()
-                {
-                    UniqueIdentifier = CADProxy.Database.Cannoscale.UniqueIdentifier,
-                    Name = CADProxy.Database.Cannoscale.Name
-                };
+                View.SelectedScale = ScaleDTO.GetCurrentScale();
             }
         }
 

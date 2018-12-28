@@ -77,6 +77,10 @@ namespace CADKit.Views.WF
 
         public override void RegisterHandlers()
         {
+            cmbDrawUnit.SelectedIndexChanged -= Presenter.OnDrawUnitSelect;
+            cmbDrawUnit.SelectedIndexChanged += Presenter.OnDrawUnitSelect;
+            cmbDimUnit.SelectedIndexChanged -= Presenter.OnDimUnitSelect;
+            cmbDimUnit.SelectedIndexChanged += Presenter.OnDimUnitSelect;
             cmbScale.SelectedIndexChanged -= Presenter.OnScaleSelect;
             cmbScale.SelectedIndexChanged += Presenter.OnScaleSelect;
         }

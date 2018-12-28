@@ -24,6 +24,9 @@ namespace CADKit
                 settings.CADKitPalette.Add("Ustawienia", view as Control);
                 settings.CADKitPalette.Visible = true;
 
+                DI.Container.Resolve<AppSettings>().GetSettingsFromDatabase();
+                DI.Container.Resolve<AppSettings>().SetSettingsToDatabase();
+
                 CADProxy.DocumentCreated -= OnDocumentCreated;
                 CADProxy.DocumentCreated += OnDocumentCreated;
                 CADProxy.DocumentDestroyed -= OnDocumentDestroyed;
