@@ -6,26 +6,26 @@ using System.Drawing;
 
 namespace CADKit.Views.WF
 {
-    public partial class SettingsView : CADKit.BaseView.WF.BaseViewWF, ISettingsView
+    public partial class SettingsView : BaseView.WF.BaseViewWF, ISettingsView
     {
         public ISettingsPresenter Presenter { get; set; }
 
         public Units SelectedDrawingUnit
         {
-            get { return (Units)cmbDrawUnit.SelectedItem; }
+            get { return ((KeyValuePair<string, Units>)cmbDrawUnit.SelectedItem).Value; }
             set { cmbDrawUnit.SelectedValue = value; }
         }
 
         public Units SelectedDimensionUnit
         {
-            get { return (Units)cmbDimUnit.SelectedItem; }
+            get { return ((KeyValuePair<string, Units>)cmbDimUnit.SelectedItem).Value; }
             set { cmbDimUnit.SelectedValue = value; }
         }
 
         public IScaleDTO SelectedScale
         {
             get { return (IScaleDTO)cmbScale.SelectedItem; }
-            set { cmbScale.SelectedValue = value.UniqueIdentifier; }
+            set { cmbScale.SelectedValue = value.Name; }
         }
 
         public SettingsView()
@@ -66,7 +66,7 @@ namespace CADKit.Views.WF
             cmbScale.SelectedIndexChanged -= Presenter.OnScaleSelect;
             cmbScale.BackColor = SystemColors.Control;
             cmbScale.DataSource = scales;
-            cmbScale.ValueMember = "UniqueIdentifier";
+            cmbScale.ValueMember = "Name";
             cmbScale.DisplayMember = "Name";
             cmbScale.SelectedIndexChanged += Presenter.OnScaleSelect;
             if(scales.Count > 0 )

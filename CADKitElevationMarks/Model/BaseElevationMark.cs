@@ -9,6 +9,7 @@ using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.Geometry;
 using CADKit.DIContainer;
 using CADKit;
+using Autofac;
 
 namespace CADKitElevationMarks.Model
 {
@@ -28,7 +29,7 @@ namespace CADKitElevationMarks.Model
         public BaseElevationMark(IElevationMarkConfig _config)
         {
             this.config = _config;
-            this.scaleFactor = AppSettings.Instance.ScaleFactor;
+            this.scaleFactor = DI.Container.Resolve<AppSettings>().ScaleFactor;
             this.texts = new DBText[2];
             this.ucs = CADProxy.Editor.CurrentUserCoordinateSystem;
             this.coordinateSystem = CADProxy.Editor.CurrentUserCoordinateSystem.CoordinateSystem3d;
@@ -133,7 +134,7 @@ namespace CADKitElevationMarks.Model
 
         protected double GetElevationFactor()
         {
-            switch (AppSettings.Instance.DrawingUnit)
+            switch( DI.Container.Resolve<AppSettings>().DrawingUnit)
             {
                 case Units.m:
                     return 1;

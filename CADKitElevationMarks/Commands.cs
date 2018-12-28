@@ -20,7 +20,7 @@ namespace CADKitElevationMarks
             SystemVariables variables;
             variables = SystemVariableService.GetSystemVariables();
 
-            IElevationMark mark = GetFactory(AppSettings.Instance.DrawingStandard).GetElevationMark(ElevationMarkType.archMark);
+            IElevationMark mark = GetFactory(DI.Container.Resolve<AppSettings>().DrawingStandard).GetElevationMark(ElevationMarkType.archMark);
             try
             {
                 mark.Create();
@@ -44,7 +44,7 @@ namespace CADKitElevationMarks
             SystemVariables variables;
             variables = SystemVariableService.GetSystemVariables();
 
-            IElevationMark mark = GetFactory(AppSettings.Instance.DrawingStandard).GetElevationMark(ElevationMarkType.constrMark);
+            IElevationMark mark = GetFactory(DI.Container.Resolve<AppSettings>().DrawingStandard).GetElevationMark(ElevationMarkType.constrMark);
             try
             {
                 mark.Create();
@@ -65,7 +65,7 @@ namespace CADKitElevationMarks
             SystemVariables variables;
             variables = SystemVariableService.GetSystemVariables();
 
-            IElevationMark mark = GetFactory(AppSettings.Instance.DrawingStandard).GetElevationMark(ElevationMarkType.planeMark);
+            IElevationMark mark = GetFactory(DI.Container.Resolve<AppSettings>().DrawingStandard).GetElevationMark(ElevationMarkType.planeMark);
             try
             {
                 mark.Create();

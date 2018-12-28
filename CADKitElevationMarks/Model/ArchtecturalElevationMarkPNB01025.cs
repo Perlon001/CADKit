@@ -1,4 +1,6 @@
-﻿using CADKit;
+﻿using Autofac;
+using CADKit;
+using CADKit.DIContainer;
 using CADKit.Model;
 using CADKit.ServiceCAD;
 using CADKit.Util;
@@ -35,7 +37,7 @@ namespace CADKitElevationMarks.Model
                 item.TextStyle = CADProxy.Database.Textstyle;
                 item.Oblique = textStyle.ObliquingAngle;
                 item.WidthFactor = textStyle.XScale;
-                item.Height = AppSettings.Instance.TextHigh[TextStyles.normal] * scaleFactor;
+                item.Height = DI.Container.Resolve<AppSettings>().TextHigh[TextStyles.normal] * scaleFactor;
             }
 
             texts[0].HorizontalMode = TextHorizontalMode.TextRight;

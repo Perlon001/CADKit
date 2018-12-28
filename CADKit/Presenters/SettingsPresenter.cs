@@ -7,6 +7,8 @@ using CADKit.Views.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CADKit.DIContainer;
+using Autofac;
 using ZwSoft.ZwCAD.ApplicationServices;
 
 namespace CADKit.Presenters
@@ -33,31 +35,22 @@ namespace CADKit.Presenters
             BindScaleList();
         }
 
-        public void OnDimUnitSelect(object sender, EventArgs e)
-        {
-            AppSettings.Instance.DimensionUnit = View.SelectedDimensionUnit;
-        }
-
         public void OnDrawUnitSelect(object sender, EventArgs e)
         {
-            AppSettings.Instance.DrawingUnit = View.SelectedDrawingUnit;
+            DI.Container.Resolve<AppSettings>().DrawingUnit = View.SelectedDrawingUnit;
+        }
+
+        public void OnDimUnitSelect(object sender, EventArgs e)
+        {
+            DI.Container.Resolve<AppSettings>().DimensionUnit = View.SelectedDimensionUnit;
         }
 
         public void OnScaleSelect(object sender, EventArgs e)
         {
-            var occ = CADProxy.Database.ObjectContextManager.GetContextCollection("ACDB_ANNOTATIONSCALES");
-            foreach (ZwSoft.ZwCAD.DatabaseServices.AnnotationScale item in occ)
-            {
-                if (item.Name == View.SelectedScale.Name)
-                {
-                    CADProxy.Database.Cannoscale = item;
-                    AppSettings.Instance.DrawingScale = item.Scale;
-                    break;
-                }
-            }
+            CADProxy.SetSystemVariable("CANNOSCALE", View.SelectedScale.Name);
         }
 
-        private void OnCommandEnded(object sender, ZwSoft.ZwCAD.ApplicationServices.CommandEventArgs arg)
+        void OnCommandEnded(object sender, ZwSoft.ZwCAD.ApplicationServices.CommandEventArgs arg)
         {
             if(arg.GlobalCommandName == "SCALELISTEDIT")
             {
@@ -65,16 +58,28 @@ namespace CADKit.Presenters
             }
         }
 
-        private void OnDocumentActivate(object sender, ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventArgs arg)
+        void OnDocumentActivate(object sender, ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventArgs arg)
         {
             BindScaleList();
+            var a = CADProxy.GetCustomProperty("CKDrawingScale");
+            View.SelectedScale = new ScaleDTO()
+            {
+                UniqueIdentifier = CADProxy.Database.Cannoscale.UniqueIdentifier,
+                Name = CADProxy.Database.Cannoscale.Name
+            };
+            View.SelectedDrawingUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingUnit"), Units.mm);
+            View.SelectedDimensionUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDimensionUnit"), Units.mm);
         }
 
-        private void OnSystemVariableChanged(object sender, ZwSoft.ZwCAD.ApplicationServices.SystemVariableChangedEventArgs arg)
+        void OnSystemVariableChanged(object sender, ZwSoft.ZwCAD.ApplicationServices.SystemVariableChangedEventArgs arg)
         {
             if (arg.Name == "CANNOSCALE")
             {
-                View.SelectedScale = new ScaleDTO() { UniqueIdentifier = CADProxy.Database.Cannoscale.UniqueIdentifier };
+                View.SelectedScale = new ScaleDTO()
+                {
+                    UniqueIdentifier = CADProxy.Database.Cannoscale.UniqueIdentifier,
+                    Name = CADProxy.Database.Cannoscale.Name
+                };
             }
         }
 
@@ -82,29 +87,19 @@ namespace CADKit.Presenters
         {
             var occ = CADProxy.Database.ObjectContextManager.GetContextCollection("ACDB_ANNOTATIONSCALES");
             IList<IScaleDTO> scales = new List<IScaleDTO>();
-            IScaleDTO currentScale = null;
             foreach (ZwSoft.ZwCAD.DatabaseServices.AnnotationScale item in occ )
             {
                 scales.Add(new ScaleDTO(){
                     UniqueIdentifier = item.UniqueIdentifier,
                     Name = item.Name
                 });
-                if( item.Name == CADProxy.Database.Cannoscale.Name)
-                {
-                    currentScale = new ScaleDTO() {UniqueIdentifier = item.UniqueIdentifier };
-                }
             }
             View.BindingScale(scales);
-            if( !currentScale.Equals(null))
-            {
-                View.SelectedScale = currentScale;
-            }
         }
 
         void BindDrawingUnit()
         {
             View.BindingDrawingUnits(EnumsUtil.GetEnumDictionary<Units>().ToList());
-
         }
 
         void BindDimensionUnit()

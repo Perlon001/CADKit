@@ -119,6 +119,42 @@ namespace CADKit.ServiceCAD
             }
         }
 
+        public static event ZwSoft.ZwCAD.ApplicationServices.DocumentDestroyedEventHandler DocumentDestroyed
+        {
+            add
+            {
+                DocumentManager.DocumentDestroyed += value;
+            }
+            remove
+            {
+                DocumentManager.DocumentDestroyed -= value;
+            }
+        }
+
+        public static event ZwSoft.ZwCAD.ApplicationServices.DrawingOpenEventHandler EndDwgOpen
+        {
+            add
+            {
+                Document.EndDwgOpen += value;
+            }
+            remove
+            {
+                Document.EndDwgOpen -= value;
+            }
+        }
+
+        public static event ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventHandler DocumentCreated
+        {
+            add
+            {
+                DocumentManager.DocumentCreated += value;
+            }
+            remove
+            {
+                DocumentManager.DocumentCreated -= value;
+            }
+        }
+
         public static event ZwSoft.ZwCAD.ApplicationServices.SystemVariableChangedEventHandler SystemVariableChanged
         {
             add

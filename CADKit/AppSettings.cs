@@ -1,20 +1,23 @@
-﻿using CADKit.Contract;
+﻿using Autofac;
+using CADKit.Contract;
+using CADKit.DIContainer;
 using CADKit.Model;
 using CADKit.Presenters;
 using CADKit.ServiceCAD;
 using CADKit.ServiceCAD.Interface;
 using CADKit.Util;
-using CADKit.Views.WF;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace CADKit
 {
-    public sealed class AppSettings
+    public class AppSettings
     {
         private string environment;
-        private double drawingScale;
+        private DrawingStandards drawingStandard;
+        private Units drawingUnit;
+        private Units dimensionUnit;
+        private string drawingScale;
 
         public string AppPath { get; private set; }
         public string AppName { get; private set; }
@@ -30,34 +33,67 @@ namespace CADKit
             }
         }
 
-        public DrawingStandards DrawingStandard { get; set; }
-        public Units DrawingUnit { get; set; }
-        public Units DimensionUnit { get; set; }
-        public double DrawingScale
+        public DrawingStandards DrawingStandard
         {
             get
             {
-                return drawingScale;
+                return drawingStandard;
+            }
+            set
+            {
+                drawingStandard = value;
+                CADProxy.SetCustomProperty("CKDrawingStandard",drawingStandard.ToString());
+            }
+        }
+        public Units DrawingUnit
+        {
+            get
+            {
+                return drawingUnit;
+            }
+            set
+            {
+                drawingUnit = value;
+                CADProxy.SetCustomProperty("CKDrawingUnit", drawingUnit.ToString());
+            }
+        }
+        public Units DimensionUnit
+        {
+            get
+            {
+                return dimensionUnit;
+            }
+            set
+            {
+                dimensionUnit = value;
+                CADProxy.SetCustomProperty("CKDimensionUnit", dimensionUnit.ToString());
+            }
+        }
+        public string DrawingScale
+        {
+            get
+            {
+                return drawingScale; 
             }
             set
             {
                 drawingScale = value;
-                CADProxy.SetCustomProperty("CKDrawingScale", drawingScale.ToString());
+                CADProxy.SetCustomProperty("CKDrawingScale", drawingScale);
             }
         }
-        public Dictionary<TextStyles, double> TextHigh { get; set; }
         public double ScaleFactor
         {
             get
             {
+                double scale = CADProxy.Database.Cannoscale.Scale;
                 switch (DrawingUnit)
                 {
                     case Units.cm:
-                        return 10 / DrawingScale;
+                        return 10 / scale;
                     case Units.m:
-                        return 1000 / DrawingScale;
+                        return 1000 / scale;
                     case Units.mm:
-                        return 1 / DrawingScale;
+                        return 1 / scale;
                     default:
                         throw new Exception("Nie rozpoznana jednostka rysunkowa");
                 }
@@ -66,70 +102,49 @@ namespace CADKit
         }
         public IPalette CADKitPalette { get; set; }
 
-        //public Dictionary<ObjectTypes, string> DefaultLayers { get; set; }
-        //public Dictionary<string, Color> DefaultLayerColors { get; set; }
-        //public Dictionary<ObjectTypes, Color> DefaultObjectColors { get; set; }
-        // ...
-        // ...
-
-        private static AppSettings instance = null;
-
-        public static AppSettings Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new AppSettings();
-                    ISettingsView settingsView = new SettingsView();
-                    ISettingsPresenter settingsPresenter = new SettingsPresenter(settingsView);
-                    AppSettings.Instance.CADKitPalette.Add("Ustawienia", settingsView as Control);
-                    AppSettings.Instance.CADKitPalette.Visible = true;
-                }
-                return instance;
-            }
-        }
-
         public void SetSettingsToDatabase()
         {
             CADProxy.SetCustomProperty("CKDrawingStandard", DrawingStandard.ToString());
             CADProxy.SetCustomProperty("CKDrawingUnit", DrawingUnit.ToString());
+            CADProxy.SetCustomProperty("CKDimensionUnit", DimensionUnit.ToString());
             CADProxy.SetCustomProperty("CKDrawingScale", DrawingScale.ToString());
         }
 
         public void GetSettingsFromDatabase()
         {
-            DrawingStandard = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PN_B_01025);
-            DrawingUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingUnit"), Units.mm);
-            try
-            {
-                drawingScale = Convert.ToDouble(CADProxy.GetCustomProperty("CKDrawingScale"));
-            }
-            catch (FormatException)
-            {
-                drawingScale = 0.01;
-            }
+            drawingStandard = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PN_B_01025);
+            drawingUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingUnit"), Units.mm);
+            dimensionUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDimensionUnit"), Units.mm);
+            drawingScale = CADProxy.GetCustomProperty("CKDrawingScale");
         }
 
-        private AppSettings()
+        public void Reset()
         {
+            CADKitPalette.Visible = false;
+            DrawingScale = "";
+        }
+
+        public AppSettings()
+        {
+
             AppPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location));
             AppName = this.GetType().Assembly.GetName().Name;
-            GetSettingsFromDatabase();
-            TextHigh = new Dictionary<TextStyles, double>()
-            {
-                { TextStyles.verysmall, 1.50 },
-                { TextStyles.small,     1.75 },
-                { TextStyles.normal,    2.00 },
-                { TextStyles.medium,    4.00 },
-                { TextStyles.big,       8.00 },
-                { TextStyles.verybig,  12.00 },
-                { TextStyles.dim,       2.00 },
-                { TextStyles.elevmark,  2.00 },
-            };
-            SetSettingsToDatabase();
             CADKitPalette = CADProxy.GetEntityFactory().GetPalette(AppName);
-        }
+     
+            GetSettingsFromDatabase();
+            SetSettingsToDatabase();
 
+            //TextHigh = new Dictionary<TextStyles, double>()
+            //{
+            //    { TextStyles.verysmall, 1.50 },
+            //    { TextStyles.small,     1.75 },
+            //    { TextStyles.normal,    2.00 },
+            //    { TextStyles.medium,    4.00 },
+            //    { TextStyles.big,       8.00 },
+            //    { TextStyles.verybig,  12.00 },
+            //    { TextStyles.dim,       2.00 },
+            //    { TextStyles.elevmark,  2.00 },
+            //};
+        }
     }
 }
