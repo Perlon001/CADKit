@@ -2,7 +2,6 @@
 using CADKit.Contract;
 using CADKit.Contract.DTO;
 using CADKit.Model;
-using CADKit.Settings;
 using CADKit.Util;
 using CADKit.Views.DTO;
 using System;

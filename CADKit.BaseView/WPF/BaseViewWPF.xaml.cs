@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CADKitBaseView.WPF
+namespace CADKit.BaseView.WPF
 {
     /// <summary>
     /// Interaction logic for BaseViewWPF.xaml

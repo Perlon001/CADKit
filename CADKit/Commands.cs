@@ -1,12 +1,9 @@
-﻿using CADKit.ServiceCAD;
-using CADKit.Model;
-using CADKit.Settings;
-using CADKit.Util;
+﻿using CADKit.Model;
+using CADKit.ServiceCAD;
 using System;
 using System.Collections.Generic;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.Runtime;
-
 [assembly: CommandClass(typeof(CADKit.Commands))]
 
 namespace CADKit
@@ -14,7 +11,6 @@ namespace CADKit
     public class Commands
     {
         private readonly AppSettings settings = AppSettings.Instance;
-      
         // metody powinne byc zamienione na klasy z mozliwoscia wyboru trybu Linia komend/Okno dialogowe
         // na podstawie zmiennej systemowej (na razie nie mam pomysłu jakiej) lub na podstawie zdefiniowanej zmiennej globalnej lub AppSettings
         // na razie jest wersja prosta czyli linia komend

@@ -79,6 +79,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CADKit.DIContainer\CADKit.DIContainer.csproj">
+      <Project>{C11D055E-9E51-47F7-A97D-8D01871AA57E}</Project>
+      <Name>CADKit.DIContainer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CADKit.ServiceCAD\CADKit.ServiceCAD.csproj">
       <Project>{87E74953-1A86-4CC5-B5AE-6901611C7033}</Project>
       <Name>CADKit.ServiceCAD</Name>

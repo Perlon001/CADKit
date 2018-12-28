@@ -1,3 +1,3 @@
 (vl-load-com)
-(vl-cmdf "netload" "CADKitCore.dll")
+(vl-cmdf "netload" "CADKit.dll")
 ;(command "CK_SETTINGS")

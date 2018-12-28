@@ -1,4 +1,4 @@
-﻿namespace CADKitBaseView.WF
+﻿namespace CADKit.BaseView.WF
 {
     partial class BaseViewWF
     {

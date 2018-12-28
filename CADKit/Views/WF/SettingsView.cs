@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace CADKit.Views.WF
 {
-    public partial class SettingsView : CADKitBaseView.WF.BaseViewWF, ISettingsView
+    public partial class SettingsView : CADKit.BaseView.WF.BaseViewWF, ISettingsView
     {
         public ISettingsPresenter Presenter { get; set; }
 

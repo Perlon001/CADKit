@@ -1,7 +1,6 @@
 ﻿using CADKit.ServiceCAD.Interface;
 using System;
 using System.Windows.Forms;
-using ZwSoft.ZwCAD.Windows;
 
 namespace CADKit.ServiceCAD.Proxy.ZwCAD
 {

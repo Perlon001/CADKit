@@ -1,15 +1,15 @@
-﻿using CADKit.ServiceCAD;
-using CADKit.ServiceCAD.Interface;
-using CADKit.Contract;
+﻿using CADKit.Contract;
 using CADKit.Model;
 using CADKit.Presenters;
+using CADKit.ServiceCAD;
+using CADKit.ServiceCAD.Interface;
 using CADKit.Util;
 using CADKit.Views.WF;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace CADKit.Settings
+namespace CADKit
 {
     public sealed class AppSettings
     {

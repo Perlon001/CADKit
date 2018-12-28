@@ -1,8 +1,5 @@
 ﻿using CADKit.ServiceCAD;
-using CADKit.Settings;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using ZwSoft.ZwCAD.DatabaseServices;
 
 namespace CADKit.Extensions

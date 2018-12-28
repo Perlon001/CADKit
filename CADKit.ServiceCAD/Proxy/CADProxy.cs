@@ -78,6 +78,11 @@ namespace CADKit.ServiceCAD
             return (string)custProps[key];
         }
 
+        public static void WriteMessage(string message)
+        {
+            Editor.WriteMessage(message);
+        }
+
         public static Dictionary<string, string> GetCustomProperties()
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
@@ -89,7 +94,6 @@ namespace CADKit.ServiceCAD
             }
             return result;
         }
-
 
         public static event ZwSoft.ZwCAD.ApplicationServices.CommandEventHandler CommandEnded
         {

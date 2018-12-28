@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace CADKitBaseView.WF
+namespace CADKit.BaseView.WF
 {
     public partial class BaseViewWF : UserControl
     {

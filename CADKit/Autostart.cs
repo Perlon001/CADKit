@@ -1,22 +1,18 @@
-﻿using CADKit.ServiceCAD;
-using CADKit.Contract;
-using CADKit.Presenters;
-using CADKit.Settings;
-using CADKit.Util;
-using CADKit.Views.WF;
-using System.Windows.Forms;
+﻿using CADKit.DIContainer;
+using CADKit.ServiceCAD;
+using ZwSoft.ZwCAD.Runtime;
 
-[assembly: ZwSoft.ZwCAD.Runtime.ExtensionApplication(typeof(CADKit.Autostart))]
+[assembly: ExtensionApplication(typeof(CADKit.Autostart))]
 
 namespace CADKit
 {
-    public class Autostart : ZwSoft.ZwCAD.Runtime.IExtensionApplication
+    public class Autostart : IExtensionApplication
     {
-        private AppSettings settings = AppSettings.Instance;
+        private readonly AppSettings settings = AppSettings.Instance;
+
         public void Initialize()
         {
-            
-            CADProxy.Editor.WriteMessage("\nStart CADKitCore");
+            CADProxy.WriteMessage("\nStart CADKit");
 
             // Create DI Container (load all CADKit*.dll modules)
             try
@@ -25,9 +21,9 @@ namespace CADKit
             }
             catch (System.Exception ex)
             {
-                CADProxy.Editor.WriteMessage("Błąd: \n" + ex.Message);
+                CADProxy.WriteMessage("Błąd: \n" + ex.Message);
             }
-            CADProxy.Editor.WriteMessage("\n");
+            CADProxy.WriteMessage("\n");
         }
 
         public void Terminate()
