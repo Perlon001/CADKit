@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" />
+  <Import Project="..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9C3B56DC-59F8-4F1C-9F44-155AC2362740}</ProjectGuid>
+    <ProjectGuid>{8B3E7F98-D405-4676-B800-BF13594294B3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Tests</RootNamespace>
@@ -25,7 +25,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -49,6 +45,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="xunit.assert, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.assert.2.4.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
@@ -65,7 +62,6 @@
     <Compile Include="Conventions\naming_conventions.cs" />
     <Compile Include="Conventions\strukture_conventions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestTestu.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -73,7 +69,32 @@
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\CADKit.BaseView\CADKit.BaseView.csproj">
+      <Project>{deb58a40-afc0-4955-80a4-e11a33f70eb3}</Project>
+      <Name>CADKit.BaseView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CADKit.ConsoleTest\CADKit.ConsoleTest.csproj">
+      <Project>{1f43f373-a1a5-41c5-9b07-e905f54be7b8}</Project>
+      <Name>CADKit.ConsoleTest</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CADKit.Database\CADKit.Database.csproj">
+      <Project>{d0e38b2e-8972-4c29-b812-f4b2f37ba210}</Project>
+      <Name>CADKit.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CADKit.DIContainer\CADKit.DIContainer.csproj">
+      <Project>{c11d055e-9e51-47f7-a97d-8d01871aa57e}</Project>
+      <Name>CADKit.DIContainer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CADKit.ServiceCAD\CADKit.ServiceCAD.csproj">
+      <Project>{87e74953-1a86-4cc5-b5ae-6901611c7033}</Project>
+      <Name>CADKit.ServiceCAD</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CADKitElevationMarks\CADKitElevationMarks.csproj">
+      <Project>{e1aad522-cb31-48ad-82b5-970cca353eaf}</Project>
+      <Name>CADKitElevationMarks</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CADKit\CADKit.csproj">
       <Project>{6a8627b4-c81a-4166-8e95-76a85661a03b}</Project>
       <Name>CADKit</Name>
@@ -84,9 +105,9 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props'))" />
     <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.props'))" />
     <Error Condition="!Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.4.1\build\xunit.core.targets'))" />
-    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.4.1\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
   <Import Project="..\packages\xunit.core.2.4.1\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.4.1\build\xunit.core.targets')" />
 </Project>

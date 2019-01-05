@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
 
-namespace Tests
+namespace CADKit.Util
 {
-    public class TestTestu
+    public abstract class CompositeModule
     {
-        [Fact]
-        public void TestWykonania()
+        protected virtual void Load(CADKitModuleContainerBuilder builder)
         {
-            Assert.True(true);
         }
     }
 }

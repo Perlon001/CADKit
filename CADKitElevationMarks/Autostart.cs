@@ -1,4 +1,7 @@
-﻿using CADKit.ServiceCAD;
+﻿using Autofac;
+using CADKit;
+using CADKit.DIContainer;
+using CADKit.ServiceCAD;
 using ZwSoft.ZwCAD.Runtime;
 
 [assembly: ExtensionApplication(typeof(CADKitElevationMarks.Autostart))]

@@ -10,7 +10,7 @@ namespace CADKit.Services
         {
             SystemVariables variables = new SystemVariables();
             variables.CLayer = (string)CADProxy.GetSystemVariable("CLayer");
-            throw new Exception();
+            // throw new Exception();
 
             return variables;
         }

@@ -35,7 +35,8 @@ namespace CADKitElevationMarks.Model
                 item.TextStyle = CADProxy.Database.Textstyle;
                 item.Oblique = textStyle.ObliquingAngle;
                 item.WidthFactor = textStyle.XScale;
-                item.Height = DI.Container.Resolve<AppSettings>().TextHigh[TextStyles.normal] * scaleFactor;
+                // item.Height = DI.Container.Resolve<AppSettings>().TextHigh[TextStyles.normal] * scaleFactor;
+                item.Height = 2;
             }
 
             texts[0].HorizontalMode = TextHorizontalMode.TextRight;

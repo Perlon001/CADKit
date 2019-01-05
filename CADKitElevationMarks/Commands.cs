@@ -8,7 +8,7 @@ using CADKitElevationMarks.Contract;
 using System;
 using ZwSoft.ZwCAD.Runtime;
 
-[assembly: CommandClass(typeof(CADKitElevationMarks.Commands))]
+// [assembly: CommandClass(typeof(CADKitElevationMarks.Commands))]
 
 namespace CADKitElevationMarks
 {

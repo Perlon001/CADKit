@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitDALDB.Contract
+namespace CADKit.Database.Contract
 {
     public interface IRepository<T> where T : class
     {

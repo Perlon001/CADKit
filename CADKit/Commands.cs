@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.Runtime;
-[assembly: CommandClass(typeof(CADKit.Commands))]
+// [assembly: CommandClass(typeof(CADKit.Commands))]
 
 namespace CADKit
 {
@@ -18,41 +18,41 @@ namespace CADKit
         // na podstawie zmiennej systemowej (na razie nie mam pomysłu jakiej) lub na podstawie zdefiniowanej zmiennej globalnej lub AppSettings
         // na razie jest wersja prosta czyli linia komend
         // w przyszlosci do refaktoryzacji
-        //[CommandMethod("CK_UNR")]
-        //public void SetDrawingStandard()
-        //{
-        //    var settings = DI.Container.Resolve<AppSettings>();
-        //    // Lepiej gdyby slownik byl budowany na zewnatrz i gotowy dostarczony metodzie
-        //    // w przyszlosci do refaktoryzacji
-        //    Dictionary<DrawingStandards, string> drawingStandards = new Dictionary<DrawingStandards, string>();
-        //    foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
-        //    {
-        //        drawingStandards.Add((DrawingStandards)item, item.ToString().Replace('_', '-'));
-        //    }
-        //    PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nNorma rysunkowa:")
-        //    {
-        //        AllowNone = true
-        //    };
-        //    keyOptions.Keywords.Default = DI.Container.Resolve<AppSettings>().DrawingStandard.ToString().Replace('_', '-');
-        //    foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
-        //    {
-        //        keyOptions.Keywords.Add(item.ToString().Replace('_', '-'));
-        //    }
-        //    PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
-        //    if (keyResult.Status == PromptStatus.OK)
-        //    {
-        //        switch (keyResult.StringResult)
-        //        {
-        //            case "PN-B-01025":
-        //                settings.DrawingStandard = DrawingStandards.PN_B_01025;
-        //                break;
-        //            case "CADKIT":
-        //                settings.DrawingStandard = DrawingStandards.CADKIT;
-        //                break;
-        //        }
-        //    }
-        //    CADProxy.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[settings.DrawingStandard]}\n");
-        //}
+        [CommandMethod("CK_UNR")]
+        public void SetDrawingStandard()
+        {
+            var settings = DI.Container.Resolve<AppSettings>();
+            // Lepiej gdyby slownik byl budowany na zewnatrz i gotowy dostarczony metodzie
+            // w przyszlosci do refaktoryzacji
+            Dictionary<DrawingStandards, string> drawingStandards = new Dictionary<DrawingStandards, string>();
+            foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
+            {
+                drawingStandards.Add((DrawingStandards)item, item.ToString().Replace('_', '-'));
+            }
+            PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nNorma rysunkowa:")
+            {
+                AllowNone = true
+            };
+            foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
+            {
+                keyOptions.Keywords.Add(item.ToString().Replace('_', '-'));
+            }
+            keyOptions.Keywords.Default = DI.Container.Resolve<AppSettings>().DrawingStandard.ToString().Replace('_', '-');
+            PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
+            if (keyResult.Status == PromptStatus.OK)
+            {
+                switch (keyResult.StringResult)
+                {
+                    case "PN-B-01025":
+                        settings.DrawingStandard = DrawingStandards.PN_B_01025;
+                        break;
+                    case "CADKIT":
+                        settings.DrawingStandard = DrawingStandards.CADKIT;
+                        break;
+                }
+            }
+            CADProxy.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[settings.DrawingStandard]}\n");
+        }
 
         //[CommandMethod("CK_UJR")]
         //public void SetDrawingUnits()

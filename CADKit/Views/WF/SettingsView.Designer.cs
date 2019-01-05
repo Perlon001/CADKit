@@ -125,7 +125,7 @@
             this.gbxLayers.Size = new System.Drawing.Size(209, 248);
             this.gbxLayers.TabIndex = 2;
             this.gbxLayers.TabStop = false;
-            this.gbxLayers.Text = "Warstwy";
+            this.gbxLayers.Text = "Obiekty";
             // 
             // trvLayers
             // 

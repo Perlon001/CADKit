@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZwSoft.ZwCAD.DatabaseServices;
 
 namespace CADKit.Model
 {
@@ -21,5 +22,6 @@ namespace CADKit.Model
         public string CollectionName { get; set; }
 
         public double Scale { get; set; }
+
     }
 }

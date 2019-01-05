@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace xUnitTest.Conventions
+namespace Tests.Conventions
 {
     public static class ConventionsHelper
     {
@@ -15,7 +15,20 @@ namespace xUnitTest.Conventions
 
         public static IEnumerable<Type> Types(string _assemblyName)
         {
-            return Assemblies(_assemblyName).SelectMany(x => x.GetTypes());
+
+           IEnumerable<Type> typ = null;
+
+           var asm = Assemblies(_assemblyName);
+            try
+            {
+                typ = asm.SelectMany(x => x.GetTypes());
+
+            }
+            catch
+            {
+
+            }
+            return typ;
         }
 
         public static IEnumerable<Type> Classes(string _assemblyName)

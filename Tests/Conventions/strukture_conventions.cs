@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tests.Conventions;
 using Xunit;
 
-namespace xUnitTest.Conventions
+namespace Test.Conventions
 {
     public class strukture_conventions
     {

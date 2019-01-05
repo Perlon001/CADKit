@@ -63,6 +63,7 @@
     <Compile Include="Autostart.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Contract\DTO\IScaleDTO.cs" />
+    <Compile Include="Contract\ICompositeContainer.cs" />
     <Compile Include="Contract\IEnetityText.cs" />
     <Compile Include="Contract\IEntity.cs" />
     <Compile Include="Contract\IEntityHatch.cs" />
@@ -73,10 +74,19 @@
     <Compile Include="Contract\IScale.cs" />
     <Compile Include="Contract\ISettingsPresenter.cs" />
     <Compile Include="Contract\ISettingsView.cs" />
+    <Compile Include="Contract\IComponent.cs" />
     <Compile Include="Contract\IView.cs" />
+    <Compile Include="Contract\Services\ICompositeProvider.cs" />
+    <Compile Include="Contract\Services\ICompositeService.cs" />
     <Compile Include="Extensions\Extension.cs" />
     <Compile Include="Extensions\TransactionDelegate.cs" />
     <Compile Include="Model\CanNoScale.cs" />
+    <Compile Include="Model\Composite.cs" />
+    <Compile Include="Services\CompositeProvider.cs" />
+    <Compile Include="Services\LocalCompositService.cs" />
+    <Compile Include="Util\CADKitModuleContainerBuilder.cs" />
+    <Compile Include="Util\CompositeModule.cs" />
+    <Compile Include="Model\Leaf.cs" />
     <Compile Include="RegistrationModule.cs" />
     <Compile Include="Services\SystemVariableService.cs" />
     <Compile Include="Presenters\Presenter.cs" />
@@ -89,6 +99,8 @@
     <Compile Include="Util\AuthChecker.cs" />
     <Compile Include="Util\EntityInfo.cs" />
     <Compile Include="Util\EnumsUtil.cs" />
+    <Compile Include="Util\CompositeContainer.cs" />
+    <Compile Include="Util\InternalCompositContainer.cs" />
     <Compile Include="Util\WinRegSettings.cs" />
     <Compile Include="Views\DTO\ScaleDTO.cs" />
     <Compile Include="Views\WF\RegistrationModule.cs" />
@@ -122,6 +134,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\WF\SettingsView.resx">
       <DependentUpon>SettingsView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

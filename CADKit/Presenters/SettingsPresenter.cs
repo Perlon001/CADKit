@@ -10,11 +10,14 @@ using System.Linq;
 using CADKit.DIContainer;
 using Autofac;
 using ZwSoft.ZwCAD.ApplicationServices;
+using CADKit.Services;
 
 namespace CADKit.Presenters
 {
     public class SettingsPresenter : Presenter<ISettingsView>, ISettingsPresenter
     {
+        private IList<IComponent> leafTree;
+
         public SettingsPresenter(ISettingsView view)
         {
             View = view;
@@ -33,6 +36,7 @@ namespace CADKit.Presenters
             BindDrawingUnit();
             BindDimensionUnit();
             BindScaleList();
+            BindLeadTree();
             View.SelectedScale = ScaleDTO.GetCurrentScale();
         }
 
@@ -102,6 +106,11 @@ namespace CADKit.Presenters
         void BindDimensionUnit()
         {
             View.BindingDimensionUnits(EnumsUtil.GetEnumDictionary<Units>().ToList());
+        }
+
+        void BindLeadTree()
+        {
+            var cc = new InternalCompositContainer(new LocalCompositService());
         }
     }
 }

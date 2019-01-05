@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitDALDB.Repository
+namespace CADKit.Database.Repository
 {
     public class LayerRepository
     {

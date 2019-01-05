@@ -75,6 +75,10 @@ namespace CADKit.Views.WF
             }
         }
 
+        public void BindingComposites(ICompositeContainer container)
+        {
+        }
+
         public override void RegisterHandlers()
         {
             cmbDrawUnit.SelectedIndexChanged -= Presenter.OnDrawUnitSelect;
