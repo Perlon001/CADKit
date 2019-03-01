@@ -10,18 +10,19 @@ namespace CADKit.Services
 {
     public abstract class CompositeProvider : ICompositeProvider
     {
-        protected SortedDictionary<string, Composite> composites;
+        protected SortedSet<Composite> composites = null;
 
-        public CompositeProvider(ICompositeService compositeService)
+        public CompositeProvider()
         {
-            composites = compositeService.LoadComposites();
+            composites = new SortedSet<Composite>(Comparer<Composite>.Create((x,y) => x.LeafTitle.CompareTo(y.LeafTitle)));
+            Load();
         }
 
-        public Composite GetComposite(string module, string compositeName)
+        public virtual SortedSet<Composite> GetModules()
         {
-            Composite leaf = composites[module];
-
-            return leaf.GetLeaf(compositeName);
+            return composites;
         }
+
+        public abstract void Load();
     }
 }

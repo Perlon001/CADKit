@@ -3,6 +3,8 @@ using CADKit.Contract.DTO;
 using CADKit.Model;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace CADKit.Views.WF
 {
@@ -75,8 +77,25 @@ namespace CADKit.Views.WF
             }
         }
 
-        public void BindingComposites(ICompositeContainer container)
+        public void BindingComposites(ICollection<Composite> component)
         {
+            foreach(var item in component)
+            {
+                trvComposites.Nodes.Add(new TreeNode(item.LeafTitle,AddNode(item.GetLeafs())));
+                trvComposites.Nodes[trvComposites.Nodes.Count-1].Expand();
+            }
+        }
+
+        private TreeNode[] AddNode(ICollection<IComponent> composite)
+        {
+            var com = composite.ToList();
+            TreeNode[] nodes = new TreeNode[com.Count];
+            for(int i = 0; i < nodes.Length; i++)
+            {
+                nodes[i] = new TreeNode(com[i].LeafTitle,AddNode(((Composite)com[i]).GetLeafs()));
+            }
+
+            return nodes;
         }
 
         public override void RegisterHandlers()

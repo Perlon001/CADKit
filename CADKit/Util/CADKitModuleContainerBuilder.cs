@@ -11,23 +11,23 @@ namespace CADKit.Util
 {
     public class CADKitModuleContainerBuilder
     {
-        private CompositeContainer container;
+        // private CompositeContainer container;
         public string Name { get; }
         public ICollection<Composite> Composites { get; }
 
         private CADKitModuleContainerBuilder()
         {
-            container = new InternalCompositContainer(new LocalCompositService());
+            //container = new InternalCompositContainer(new CompositService());
         }
 
-        public static ICollection<CompositeContainer> Build()
-        {
-            CADKitModuleContainerBuilder builder = new CADKitModuleContainerBuilder();
-            ICollection<CompositeContainer> result = new List<CompositeContainer>();
-            // jazda po assembly w celu poszukiwania klas dziedziczacych po CompositeModule i wołanie metody Load(CADKitModuleContainerBuilder builder) 
+        //public static ICollection<CompositeContainer> Build()
+        //{
+        //    CADKitModuleContainerBuilder builder = new CADKitModuleContainerBuilder();
+        //    ICollection<CompositeContainer> result = new List<CompositeContainer>();
+        //    // jazda po assembly w celu poszukiwania klas dziedziczacych po CompositeModule i wołanie metody Load(CADKitModuleContainerBuilder builder) 
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public CADKitModuleBuilderFluentApi Module(string name)
         {

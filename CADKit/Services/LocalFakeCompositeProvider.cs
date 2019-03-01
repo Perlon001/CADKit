@@ -1,4 +1,5 @@
-﻿using CADKit.Contract.Services;
+﻿using CADKit.Contract;
+using CADKit.Contract.Services;
 using CADKit.Model;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,17 @@ using System.Threading.Tasks;
 
 namespace CADKit.Services
 {
-    class LocalCompositService : ICompositeService
+    public class LocalFakeCompositeProvider : CompositeProvider, ICompositeProvider
     {
-        public SortedDictionary<string, Composite> LoadComposites()
+        public override void Load()
         {
+            Composite module = new Composite()
+            {
+                LeafName = "markModule",
+                LeafTitle = "Koty wysokościowe"
+            };
+
             Composite kota;
-            var module = new Composite() { LeafName = "markModule", LeafTitle = "Koty wysokościowe" };
 
             kota = new Composite()
             {
@@ -133,9 +139,7 @@ namespace CADKit.Services
             });
             module.AddLeaf(kota);
 
-            var result = new SortedDictionary<string, Composite>();
-            result.Add( "", module);
-            return result;
+            composites.Add(module);
         }
     }
 }

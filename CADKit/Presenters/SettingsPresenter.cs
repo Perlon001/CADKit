@@ -11,14 +11,17 @@ using CADKit.DIContainer;
 using Autofac;
 using ZwSoft.ZwCAD.ApplicationServices;
 using CADKit.Services;
+using CADKit.Contract.Services;
 
 namespace CADKit.Presenters
 {
     public class SettingsPresenter : Presenter<ISettingsView>, ISettingsPresenter
     {
-        private IList<IComponent> leafTree;
+        private readonly IList<IComponent> leafTree;
 
-        public SettingsPresenter(ISettingsView view)
+        private readonly ICompositeService compositeService;
+
+        public SettingsPresenter(ISettingsView view, ICompositeService compositeService)
         {
             View = view;
             View.Presenter = this;
@@ -29,6 +32,7 @@ namespace CADKit.Presenters
             CADProxy.CommandEnded += OnCommandEnded;
             CADProxy.SystemVariableChanged -= OnSystemVariableChanged;
             CADProxy.SystemVariableChanged += OnSystemVariableChanged;
+            this.compositeService = compositeService; // DI.Container.Resolve<ICompositeService>();
         }
 
         public override void OnViewLoaded()
@@ -110,7 +114,7 @@ namespace CADKit.Presenters
 
         void BindLeadTree()
         {
-            var cc = new InternalCompositContainer(new LocalCompositService());
+            View.BindingComposites(compositeService.GetComposites());
         }
     }
 }

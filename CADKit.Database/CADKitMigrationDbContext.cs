@@ -14,17 +14,19 @@ namespace CADKit.Database
         {
             Configure();
         }
+
         public CADKitMigrationDbContext(string nameOrConnectionString) : base(nameOrConnectionString)
         {
             Configure();
         }
+
         public CADKitMigrationDbContext(DbConnection connection, bool contextOwnsConnection) : base(connection, contextOwnsConnection)
         {
             Configure();
         }
 
         public virtual DbSet<SchemaInfo> SchemaInfoes { get; set; }
-
+        
         private void Configure()
         {
             Database.Log = message => Trace.WriteLine(message);        // logowanie do okna

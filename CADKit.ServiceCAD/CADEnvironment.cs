@@ -9,12 +9,7 @@
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new CADEnvironment();
-                    instance.platform = CADPlatforms.ZwCAD;
-                }
-                return instance;
+                return instance ?? new CADEnvironment() { platform = CADPlatforms.ZwCAD };
             }
         }
 

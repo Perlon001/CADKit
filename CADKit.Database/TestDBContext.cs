@@ -87,8 +87,8 @@ namespace CADKit.Database
                 {
                     context.Layers.Add(la);
                     context.SaveChanges();
-                    result = la;
                     Console.WriteLine($"Dodano warstwe : {la.Name}");
+                    result = la;
                 }
                 catch (Exception ex)
                 {

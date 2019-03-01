@@ -11,8 +11,9 @@ namespace CADKit.Model
     {
         private string leafName;
         private string leafTitle;
-        private IList<IComponent> leafs = new List<IComponent>();
-        
+        private ICollection<IComponent> leafs = new List<IComponent>();
+        private Composite parent;
+
         public string LeafName
         {
             get { return leafName; }
@@ -34,9 +35,11 @@ namespace CADKit.Model
         public string Layer { get; set; }
         public string Linetype { get; set; }
         public short ColorIndex { get; set; }
+        public IComponent Parent { get; set; }
 
         public void AddLeaf(IComponent leaf)
         {
+            leaf.Parent = this;
             leafs.Add(leaf);
         }
 
@@ -45,14 +48,14 @@ namespace CADKit.Model
             leafs.Remove(leaf);
         }
 
-        public IList<IComponent> GetLeafs()
+        public ICollection<IComponent> GetLeafs()
         {
             return leafs;
         }
 
-        public Composite GetLeaf(string name)
+        public IComponent GetLeaf(string name)
         {
-            return (Composite)leafs.First(a => a.LeafName == name);
+            return leafs.First(a => a.LeafName == name);
         }
     }
 }

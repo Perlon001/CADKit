@@ -36,7 +36,7 @@
             this.lblDrawUnit = new System.Windows.Forms.Label();
             this.gbxScale = new System.Windows.Forms.GroupBox();
             this.gbxLayers = new System.Windows.Forms.GroupBox();
-            this.trvLayers = new System.Windows.Forms.TreeView();
+            this.trvComposites = new System.Windows.Forms.TreeView();
             this.gbxScale.SuspendLayout();
             this.gbxLayers.SuspendLayout();
             this.SuspendLayout();
@@ -117,7 +117,7 @@
             // 
             // gbxLayers
             // 
-            this.gbxLayers.Controls.Add(this.trvLayers);
+            this.gbxLayers.Controls.Add(this.trvComposites);
             this.gbxLayers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbxLayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.gbxLayers.Location = new System.Drawing.Point(0, 66);
@@ -127,13 +127,14 @@
             this.gbxLayers.TabStop = false;
             this.gbxLayers.Text = "Obiekty";
             // 
-            // trvLayers
+            // trvComposites
             // 
-            this.trvLayers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trvLayers.Location = new System.Drawing.Point(3, 16);
-            this.trvLayers.Name = "trvLayers";
-            this.trvLayers.Size = new System.Drawing.Size(203, 229);
-            this.trvLayers.TabIndex = 0;
+            this.trvComposites.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trvComposites.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.trvComposites.Location = new System.Drawing.Point(3, 16);
+            this.trvComposites.Name = "trvComposites";
+            this.trvComposites.Size = new System.Drawing.Size(203, 229);
+            this.trvComposites.TabIndex = 0;
             // 
             // SettingsView
             // 
@@ -158,6 +159,6 @@
         private System.Windows.Forms.Label lblDrawUnit;
         private System.Windows.Forms.GroupBox gbxScale;
         private System.Windows.Forms.GroupBox gbxLayers;
-        private System.Windows.Forms.TreeView trvLayers;
+        private System.Windows.Forms.TreeView trvComposites;
     }
 }

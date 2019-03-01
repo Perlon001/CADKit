@@ -14,5 +14,6 @@ namespace CADKit.Model
         public string Layer { get; set; }
         public string Linetype { get; set; }
         public short ColorIndex { get; set; }
+        public IComponent Parent { get; set; }
     }
 }

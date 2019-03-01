@@ -9,6 +9,6 @@ namespace CADKit.Contract.Services
 {
     public interface ICompositeProvider
     {
-        Composite GetComposite(string module, string compositeName);
+        SortedSet<Composite> GetModules();
     }
 }

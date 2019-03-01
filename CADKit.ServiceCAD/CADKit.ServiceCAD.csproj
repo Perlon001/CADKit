@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -52,9 +53,11 @@
     <Reference Include="System.Xml" />
     <Reference Include="ZwDatabaseMgd">
       <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwDatabaseMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ZwManaged">
       <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwManaged.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,10 +53,12 @@
     <Reference Include="ZwDatabaseMgd, Version=4.1.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwDatabaseMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ZwManaged, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwManaged.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -83,7 +85,9 @@
     <Compile Include="Model\CanNoScale.cs" />
     <Compile Include="Model\Composite.cs" />
     <Compile Include="Services\CompositeProvider.cs" />
-    <Compile Include="Services\LocalCompositService.cs" />
+    <Compile Include="Services\CompositeService.cs" />
+    <Compile Include="Services\LocalFakeCompositeProvider.cs" />
+    <Compile Include="Services\RegistrationModule.cs" />
     <Compile Include="Util\CADKitModuleContainerBuilder.cs" />
     <Compile Include="Util\CompositeModule.cs" />
     <Compile Include="Model\Leaf.cs" />
@@ -99,8 +103,6 @@
     <Compile Include="Util\AuthChecker.cs" />
     <Compile Include="Util\EntityInfo.cs" />
     <Compile Include="Util\EnumsUtil.cs" />
-    <Compile Include="Util\CompositeContainer.cs" />
-    <Compile Include="Util\InternalCompositContainer.cs" />
     <Compile Include="Util\WinRegSettings.cs" />
     <Compile Include="Views\DTO\ScaleDTO.cs" />
     <Compile Include="Views\WF\RegistrationModule.cs" />

@@ -48,26 +48,14 @@ namespace CADKit.ServiceCAD.Service
             {
                 TTable symbolTable = (TTable)transaction.GetObject(GetObjectId(acDatabase, typeof(TTable)), mode: OpenMode.ForRead);
 
-                if (symbolTable.Has(symbolName))
-                {
-                    result = symbolTable[symbolName];
-                }
-                else
-                {
-                    result = ObjectId.Null;
-                }
+                result = symbolTable.Has(symbolName) ? symbolTable[symbolName] : ObjectId.Null ;
             }
             return result;
         }
 
         public TRecord GetSymbol<TRecord>(string symbolName) where TRecord : SymbolTableRecord
         {
-            if (recordDict.ContainsKey(symbolName))
-            {
-                return (TRecord)recordDict[symbolName];
-            }
-
-            return null;
+            return recordDict.ContainsKey(symbolName) ? (TRecord)recordDict[symbolName] : null;
         }
 
         public virtual IList<SymbolTableRecord> GetRecords()
