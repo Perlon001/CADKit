@@ -5,7 +5,7 @@ using CADKit.ServiceCAD;
 using System.Windows.Forms;
 using ZwSoft.ZwCAD.Runtime;
 
-[assembly: ExtensionApplication(typeof(CADKit.Autostart))]
+// [assembly: ExtensionApplication(typeof(CADKit.Autostart))]
 
 namespace CADKit
 {

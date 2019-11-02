@@ -44,11 +44,11 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="ZwDatabaseMgd">
-      <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwDatabaseMgd.dll</HintPath>
+      <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2020\ZwDatabaseMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ZwManaged">
-      <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwManaged.dll</HintPath>
+      <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2020\ZwManaged.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

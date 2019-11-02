@@ -52,12 +52,12 @@
     <Reference Include="WindowsFormsIntegration" />
     <Reference Include="ZwDatabaseMgd, Version=4.1.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwDatabaseMgd.dll</HintPath>
+      <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2020\ZwDatabaseMgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ZwManaged, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2019\ZwManaged.dll</HintPath>
+      <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2020\ZwManaged.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

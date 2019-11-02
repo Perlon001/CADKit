@@ -22,7 +22,7 @@ namespace Tests.CoreServices
             Assert.Collection<Composite>(modules, item => Assert.Contains("markModule", item.LeafName));
             Assert.Collection<Composite>(modules, item => Assert.Contains("Koty wysokościowe", item.LeafTitle));
 
-            var service = new CompositeService(modules);
+            var service = new CompositeService(provider);
             IDictionary<string, string> composites = service.GetCompositeModulesList();
 
             Assert.True(composites.Count == 1);
@@ -32,7 +32,7 @@ namespace Tests.CoreServices
         [Fact]
         public void get_composites_return_valid_composites_list_from_module()
         {
-            var service = new CompositeService(new LocalFakeCompositeProvider().GetModules());
+            var service = new CompositeService(new LocalFakeCompositeProvider());
             var composites = service.GetComposites("markModule");
             Assert.True(composites.Count == 3);
             Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "kota01"));
@@ -43,7 +43,7 @@ namespace Tests.CoreServices
         [Fact]
         public void get_composites_return_valid_composites_list_from_composite()
         {
-            var service = new CompositeService(new LocalFakeCompositeProvider().GetModules());
+            var service = new CompositeService(new LocalFakeCompositeProvider());
             var item = service.GetComposites("markModule").FirstOrDefault(a => a.LeafName == "kota01");
             var composites = service.GetComposites(item);
 
@@ -72,7 +72,7 @@ namespace Tests.CoreServices
         [Fact]
         public void get_composite_return_valid_composites_from_module()
         {
-            var service = new CompositeService(new LocalFakeCompositeProvider().GetModules());
+            var service = new CompositeService(new LocalFakeCompositeProvider());
             var item = service.GetComposite("markModule","kota01");
 
             string expected = "Architektoniczna kota wysokościowa";
@@ -84,7 +84,7 @@ namespace Tests.CoreServices
         [Fact]
         public void get_composite_return_valid_composites_from_composite()
         {
-            var service = new CompositeService(new LocalFakeCompositeProvider().GetModules());
+            var service = new CompositeService(new LocalFakeCompositeProvider());
             var item = service.GetComposite("markModule", "kota01");
             var subitem = item.GetLeaf("contourLine01");
 
@@ -98,7 +98,7 @@ namespace Tests.CoreServices
         [Fact]
         public void get_acces_path_return_valid_path()
         {
-            var service = new CompositeService(new LocalFakeCompositeProvider().GetModules());
+            var service = new CompositeService(new LocalFakeCompositeProvider());
             IComponent composite = service.GetComposite("markModule", "kota01").GetLeaf("contourFill");
 
             var path = service.GetAccessPath((Composite)composite);

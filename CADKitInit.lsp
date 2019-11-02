@@ -1,3 +1,3 @@
 (vl-load-com)
 (vl-cmdf "netload" "CADKit.dll")
-;(command "CK_SETTINGS")
+;(command "CK_PALETE")
