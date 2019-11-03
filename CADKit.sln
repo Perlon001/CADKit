@@ -7,9 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKit", "CADKit\CADKit.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E5603DE-E6BA-4441-8CFF-59246AC6E836}"
 	ProjectSection(SolutionItems) = preProject
-		CADKitCore.scr = CADKitCore.scr
-		CADKitElevationMark.scr = CADKitElevationMark.scr
-		CADKitInit.lsp = CADKitInit.lsp
+		CADKit.lsp = CADKit.lsp
+		CADKit.scr = CADKit.scr
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKitElevationMarks", "CADKitElevationMarks\CADKitElevationMarks.csproj", "{E1AAD522-CB31-48AD-82B5-970CCA353EAF}"

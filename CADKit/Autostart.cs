@@ -3,9 +3,18 @@ using CADKit.Contract;
 using CADKit.DIContainer;
 using CADKit.ServiceCAD;
 using System.Windows.Forms;
-using ZwSoft.ZwCAD.Runtime;
 
-// [assembly: ExtensionApplication(typeof(CADKit.Autostart))]
+#if ZwCAD
+using ZwSoft.ZwCAD.Runtime;
+using ZwSoft.ZwCAD.EditorInput;
+#endif
+#if AutoCAD
+using Autodesk.AutoCAD.Runtime;
+using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.EditorInput;
+#endif
+
+[assembly: ExtensionApplication(typeof(CADKit.Autostart))]
 
 namespace CADKit
 {
@@ -13,9 +22,8 @@ namespace CADKit
     {
         public void Initialize()
         {
-            CADProxy.WriteMessage("\nStart CADKit");
+            CADProxy.Editor.WriteMessage("\nStart CADKit");
 
-            // Create DI Container (load all CADKit*.dll modules)
             try
             { 
                 DI.Container = Container.Builder.Build();
@@ -34,10 +42,10 @@ namespace CADKit
             }
             catch (System.Exception ex)
             {
-                CADProxy.WriteMessage("Błąd: \n" + ex.Message);
+                CADProxy.Editor.WriteMessage("Błąd: \n" + ex.Message);
             }
 
-            CADProxy.WriteMessage("\n");
+            CADProxy.Editor.WriteMessage("\n");
         }
 
         public void Terminate()

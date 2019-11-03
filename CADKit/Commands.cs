@@ -6,9 +6,16 @@ using CADKit.ServiceCAD;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using ZwSoft.ZwCAD.EditorInput;
+#if ZwCAD
 using ZwSoft.ZwCAD.Runtime;
-// [assembly: CommandClass(typeof(CADKit.Commands))]
+using ZwSoft.ZwCAD.EditorInput;
+#endif
+#if AutoCAD
+using Autodesk.AutoCAD.Runtime;
+using Autodesk.AutoCAD.EditorInput;
+#endif
+
+[assembly: CommandClass(typeof(CADKit.Commands))]
 
 namespace CADKit
 {

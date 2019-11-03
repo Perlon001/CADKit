@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using CADKit.DIContainer;
 using Autofac;
-using ZwSoft.ZwCAD.ApplicationServices;
 using CADKit.Services;
 using CADKit.Contract.Services;
 

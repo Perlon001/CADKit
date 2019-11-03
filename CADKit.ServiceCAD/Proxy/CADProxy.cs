@@ -3,6 +3,16 @@ using CADKit.ServiceCAD.Proxy;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if ZwCAD
+using ApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
+using EditorInput = ZwSoft.ZwCAD.EditorInput;
+using ZwSoft.ZwCAD.DatabaseServices;
+#endif
+#if AutoCAD
+using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
+using EditorInput = Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.DatabaseServices;
+#endif
 
 namespace CADKit.ServiceCAD
 {
@@ -10,20 +20,7 @@ namespace CADKit.ServiceCAD
     
     public class CADProxy
     {
-        public static IEntityTypeFactory GetEntityFactory()
-        {
-            switch(CADEnvironment.Instance.Platform)
-            {
-                case CADPlatforms.AutoCAD:
-                    return new Proxy.AutoCAD.EntityTypeFactory();
-                case CADPlatforms.ZwCAD:
-                    return new Proxy.ZwCAD.EntityTypeFactory();
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        public static void UsingTransaction(Action<ZwSoft.ZwCAD.DatabaseServices.Transaction> action)
+        public static void UsingTransaction(Action<Transaction> action)
         {
             using (var tr = Database.TransactionManager.StartTransaction())
             {
@@ -40,7 +37,7 @@ namespace CADKit.ServiceCAD
             }
         }
 
-        public static void UsingTransaction(ZwSoft.ZwCAD.DatabaseServices.Database database, Action<ZwSoft.ZwCAD.DatabaseServices.Transaction> action)
+        public static void UsingTransaction(Database database, Action<Transaction> action)
         {
             using (var tr = database.TransactionManager.StartTransaction())
             {
@@ -59,7 +56,7 @@ namespace CADKit.ServiceCAD
 
         public static void SetCustomProperty(string key, string value)
         {
-            ZwSoft.ZwCAD.DatabaseServices.DatabaseSummaryInfoBuilder infoBuilder = new ZwSoft.ZwCAD.DatabaseServices.DatabaseSummaryInfoBuilder(Database.SummaryInfo);
+            DatabaseSummaryInfoBuilder infoBuilder = new DatabaseSummaryInfoBuilder(Database.SummaryInfo);
             IDictionary custProps = infoBuilder.CustomPropertyTable;
             if (custProps.Contains(key))
                 custProps[key] = value;
@@ -70,7 +67,7 @@ namespace CADKit.ServiceCAD
 
         public static string GetCustomProperty(string key)
         {
-            ZwSoft.ZwCAD.DatabaseServices.DatabaseSummaryInfoBuilder sumInfo = new ZwSoft.ZwCAD.DatabaseServices.DatabaseSummaryInfoBuilder(Database.SummaryInfo);
+            DatabaseSummaryInfoBuilder sumInfo = new DatabaseSummaryInfoBuilder(Database.SummaryInfo);
             IDictionary custProps = sumInfo.CustomPropertyTable;
             if (!custProps.Contains(key))
                 custProps.Add(key, "");
@@ -95,7 +92,7 @@ namespace CADKit.ServiceCAD
             return result;
         }
 
-        public static event ZwSoft.ZwCAD.ApplicationServices.CommandEventHandler CommandEnded
+        public static event ApplicationServices.CommandEventHandler CommandEnded
         {
             add
             {
@@ -107,7 +104,7 @@ namespace CADKit.ServiceCAD
             }
         }
 
-        public static event ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventHandler DocumentActivated
+        public static event ApplicationServices.DocumentCollectionEventHandler DocumentActivated
         {
             add
             {
@@ -119,7 +116,7 @@ namespace CADKit.ServiceCAD
             }
         }
 
-        public static event ZwSoft.ZwCAD.ApplicationServices.DocumentDestroyedEventHandler DocumentDestroyed
+        public static event ApplicationServices.DocumentDestroyedEventHandler DocumentDestroyed
         {
             add
             {
@@ -131,7 +128,7 @@ namespace CADKit.ServiceCAD
             }
         }
 
-        public static event ZwSoft.ZwCAD.ApplicationServices.DrawingOpenEventHandler EndDwgOpen
+        public static event ApplicationServices.DrawingOpenEventHandler EndDwgOpen
         {
             add
             {
@@ -143,7 +140,7 @@ namespace CADKit.ServiceCAD
             }
         }
 
-        public static event ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventHandler DocumentCreated
+        public static event ApplicationServices.DocumentCollectionEventHandler DocumentCreated
         {
             add
             {
@@ -155,49 +152,49 @@ namespace CADKit.ServiceCAD
             }
         }
 
-        public static event ZwSoft.ZwCAD.ApplicationServices.SystemVariableChangedEventHandler SystemVariableChanged
+        public static event ApplicationServices.SystemVariableChangedEventHandler SystemVariableChanged
         {
             add
             {
-                ZwSoft.ZwCAD.ApplicationServices.Application.SystemVariableChanged += value;
+                ApplicationServices.Application.SystemVariableChanged += value;
             }
             remove
             {
-                ZwSoft.ZwCAD.ApplicationServices.Application.SystemVariableChanged -= value;
+                ApplicationServices.Application.SystemVariableChanged -= value;
             }
         }
 
         public static void ShowAlertDialog(string message)
         {
-            ZwSoft.ZwCAD.ApplicationServices.Application.ShowAlertDialog(message);
+            ApplicationServices.Application.ShowAlertDialog(message);
         }
 
         public static object GetSystemVariable(string name)
         {
-            return ZwSoft.ZwCAD.ApplicationServices.Application.GetSystemVariable(name);
+            return ApplicationServices.Application.GetSystemVariable(name);
         }
 
         public static void SetSystemVariable(string name, object value)
         {
-            ZwSoft.ZwCAD.ApplicationServices.Application.SetSystemVariable(name, value);
+            ApplicationServices.Application.SetSystemVariable(name, value);
         }
 
-        public static ZwSoft.ZwCAD.ApplicationServices.DocumentCollection DocumentManager
+        public static ApplicationServices.DocumentCollection DocumentManager
         {
-            get { return ZwSoft.ZwCAD.ApplicationServices.Application.DocumentManager; }
+            get { return ApplicationServices.Application.DocumentManager; }
         }
 
-        public static ZwSoft.ZwCAD.ApplicationServices.Document Document
+        public static ApplicationServices.Document Document
         {
-            get { return ZwSoft.ZwCAD.ApplicationServices.Application.DocumentManager.MdiActiveDocument; }
+            get { return ApplicationServices.Application.DocumentManager.MdiActiveDocument; }
         }
 
-        public static ZwSoft.ZwCAD.DatabaseServices.Database Database
+        public static Database Database
         {
             get { return Document.Database; }
         }
 
-        public static ZwSoft.ZwCAD.EditorInput.Editor Editor
+        public static EditorInput.Editor Editor
         {
             get { return Document.Editor; }
         }

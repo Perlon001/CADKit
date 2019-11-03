@@ -5,6 +5,7 @@ using CADKit.Model;
 using CADKit.Presenters;
 using CADKit.ServiceCAD;
 using CADKit.ServiceCAD.Interface;
+using CADKit.ServiceCAD.Proxy;
 using CADKit.Util;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace CADKit
         public string AppPath { get; private set; }
         public string AppName { get; private set; }
         public string Environment { get; private set; }
+
+        public Palette CADKitPalette { get; set; }
 
         public DrawingStandards DrawingStandard
         {
@@ -89,7 +92,6 @@ namespace CADKit
 
             }
         }
-        public IPalette CADKitPalette { get; set; }
 
         public void SetSettingsToDatabase()
         {
@@ -122,7 +124,7 @@ namespace CADKit
 
             AppPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location));
             AppName = this.GetType().Assembly.GetName().Name;
-            CADKitPalette = CADProxy.GetEntityFactory().GetPalette(AppName);
+            CADKitPalette = new Palette(AppName);
      
             GetSettingsFromDatabase();
             SetSettingsToDatabase();

@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CADKit.ServiceCAD</RootNamespace>
-    <AssemblyName>CADKit.ServiceCAD</AssemblyName>
+    <AssemblyName>CADKit.ServiceZwCAD</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -18,10 +18,10 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;ZwCAD</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -62,25 +62,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CADEnvironment.cs" />
-    <Compile Include="Interface\ICADProxy.cs" />
-    <Compile Include="Interface\IDBText.cs" />
-    <Compile Include="Interface\IEntityTypeFactory.cs" />
     <Compile Include="Interface\ILayerService.cs" />
-    <Compile Include="Interface\IPalette.cs" />
     <Compile Include="Interface\ISymbolTableService.cs" />
     <Compile Include="Interface\ITextStyleService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CADPlatforms.cs" />
-    <Compile Include="Proxy\AutoCAD\DBText.cs" />
-    <Compile Include="Proxy\AutoCAD\EntityTypeFactory.cs" />
-    <Compile Include="Proxy\AutoCAD\Palette.cs" />
-    <Compile Include="Proxy\ZwCAD\Palette.cs" />
+    <Compile Include="Proxy\AutoCAD\DatabaseExtensions.cs" />
+    <Compile Include="Proxy\Palette.cs" />
     <Compile Include="Proxy\CADProxy.cs" />
-    <Compile Include="Proxy\SystemVariableChangedEventArgs.cs" />
     <Compile Include="Proxy\ZwCAD\DatabaseExtensions.cs" />
     <Compile Include="Proxy\DocumentCollectionEventArgs.cs" />
-    <Compile Include="Proxy\ZwCAD\DBText.cs" />
-    <Compile Include="Proxy\ZwCAD\EntityTypeFactory.cs" />
     <Compile Include="RegistrationModule.cs" />
     <Compile Include="SymbolTable\LayerService.cs" />
     <Compile Include="SymbolTable\SymbolTableService.cs" />
@@ -95,5 +86,6 @@
       <Name>CADKit.DIContainer</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

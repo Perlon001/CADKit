@@ -3,10 +3,19 @@ using CADKit.Model;
 using CADKitElevationMarks.Contract;
 using System;
 using System.Globalization;
-using ZwSoft.ZwCAD.ApplicationServices;
+#if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
-using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.Geometry;
+using ZwSoft.ZwCAD.ApplicationServices;
+using ZwSoft.ZwCAD.EditorInput;
+#endif
+#if AutoCAD
+using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.EditorInput;
+#endif
+
 using CADKit.DIContainer;
 using CADKit;
 using Autofac;

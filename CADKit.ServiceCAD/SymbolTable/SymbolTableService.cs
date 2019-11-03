@@ -1,8 +1,14 @@
 ﻿using CADKit.ServiceCAD.Interface;
 using System;
 using System.Collections.Generic;
+#if ZwCAD
 using ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.DatabaseServices;
+#endif
+#if AutoCAD
+using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.DatabaseServices;
+#endif
 
 namespace CADKit.ServiceCAD.Service
 {

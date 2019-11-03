@@ -6,8 +6,14 @@ using CADKit.ServiceCAD;
 using CADKit.Services;
 using CADKitElevationMarks.Contract;
 using System;
+#if ZwCAD
 using ZwSoft.ZwCAD.Runtime;
-
+using ZwSoft.ZwCAD.EditorInput;
+#endif
+#if AutoCAD
+using Autodesk.AutoCAD.Runtime;
+using Autodesk.AutoCAD.EditorInput;
+#endif
 // [assembly: CommandClass(typeof(CADKitElevationMarks.Commands))]
 
 namespace CADKitElevationMarks

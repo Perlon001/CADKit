@@ -1,6 +1,13 @@
 ﻿using CADKit.ServiceCAD;
 using System;
+
+#if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
+#endif
+#if AutoCAD
+using Autodesk.AutoCAD.DatabaseServices;
+#endif
+
 
 namespace CADKit.Extensions
 {
@@ -39,7 +46,5 @@ namespace CADKit.Extensions
                 }
             }
         }
-
-
     }
 }
