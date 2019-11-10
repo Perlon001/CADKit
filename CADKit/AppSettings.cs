@@ -1,14 +1,7 @@
-﻿using Autofac;
-using CADKit.Contract;
-using CADKit.DIContainer;
-using CADKit.Model;
-using CADKit.Presenters;
-using CADKit.ServiceCAD;
-using CADKit.ServiceCAD.Interface;
-using CADKit.ServiceCAD.Proxy;
-using CADKit.Util;
+﻿using CADKit.Models;
+using CADKit.Utils;
+using CADProxy;
 using System;
-using System.Collections.Generic;
 
 namespace CADKit
 {
@@ -21,9 +14,8 @@ namespace CADKit
 
         public string AppPath { get; private set; }
         public string AppName { get; private set; }
-        public string Environment { get; private set; }
 
-        public Palette CADKitPalette { get; set; }
+        public CADKitPaletteSet CADKitPalette { get; set; }
 
         public DrawingStandards DrawingStandard
         {
@@ -34,7 +26,7 @@ namespace CADKit
             set
             {
                 drawingStandard = value;
-                CADProxy.SetCustomProperty("CKDrawingStandard",drawingStandard.ToString());
+                ProxyCAD.SetCustomProperty("CKDrawingStandard", drawingStandard.ToString());
             }
         }
         public Units DrawingUnit
@@ -46,7 +38,7 @@ namespace CADKit
             set
             {
                 drawingUnit = value;
-                CADProxy.SetCustomProperty("CKDrawingUnit", drawingUnit.ToString());
+                ProxyCAD.SetCustomProperty("CKDrawingUnit", drawingUnit.ToString());
             }
         }
         public Units DimensionUnit
@@ -58,7 +50,7 @@ namespace CADKit
             set
             {
                 dimensionUnit = value;
-                CADProxy.SetCustomProperty("CKDimensionUnit", dimensionUnit.ToString());
+                ProxyCAD.SetCustomProperty("CKDimensionUnit", dimensionUnit.ToString());
             }
         }
         public string DrawingScale
@@ -70,14 +62,14 @@ namespace CADKit
             set
             {
                 drawingScale = value;
-                CADProxy.SetCustomProperty("CKDrawingScale", drawingScale);
+                ProxyCAD.SetCustomProperty("CKDrawingScale", drawingScale);
             }
         }
         public double ScaleFactor
         {
             get
             {
-                double scale = CADProxy.Database.Cannoscale.Scale;
+                double scale = ProxyCAD.Database.Cannoscale.Scale;
                 switch (DrawingUnit)
                 {
                     case Units.cm:
@@ -95,21 +87,21 @@ namespace CADKit
 
         public void SetSettingsToDatabase()
         {
-            CADProxy.SetCustomProperty("CKDrawingStandard", drawingStandard.ToString());
-            CADProxy.SetCustomProperty("CKDrawingUnit", drawingUnit.ToString());
-            CADProxy.SetCustomProperty("CKDimensionUnit", dimensionUnit.ToString());
-            CADProxy.SetCustomProperty("CKDrawingScale", drawingScale);
+            ProxyCAD.SetCustomProperty("CKDrawingStandard", drawingStandard.ToString());
+            ProxyCAD.SetCustomProperty("CKDrawingUnit", drawingUnit.ToString());
+            ProxyCAD.SetCustomProperty("CKDimensionUnit", dimensionUnit.ToString());
+            ProxyCAD.SetCustomProperty("CKDrawingScale", drawingScale);
         }
 
         public void GetSettingsFromDatabase()
         {
-            drawingStandard = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PN_B_01025);
-            drawingUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingUnit"), Units.mm);
-            dimensionUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDimensionUnit"), Units.mm);
-            drawingScale = CADProxy.GetCustomProperty("CKDrawingScale");
+            drawingStandard = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PN_B_01025);
+            drawingUnit = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDrawingUnit"), Units.mm);
+            dimensionUnit = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDimensionUnit"), Units.mm);
+            drawingScale = ProxyCAD.GetCustomProperty("CKDrawingScale");
             if(drawingScale == "")
             {
-                DrawingScale = CADProxy.Database.Cannoscale.Name;
+                DrawingScale = ProxyCAD.Database.Cannoscale.Name;
             }
         }
 
@@ -124,7 +116,7 @@ namespace CADKit
 
             AppPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location));
             AppName = this.GetType().Assembly.GetName().Name;
-            CADKitPalette = new Palette(AppName);
+            CADKitPalette = new CADKitPaletteSet(AppName);
      
             GetSettingsFromDatabase();
             SetSettingsToDatabase();

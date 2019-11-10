@@ -1,15 +1,15 @@
 ﻿using Autofac;
-using CADKit.Contract;
-using CADKit.DIContainer;
-using CADKit.Model;
-using CADKit.ServiceCAD;
+using CADKit.Models;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
+using CADKit.Utils;
+using CADProxy;
+
 #if ZwCAD
 using ZwSoft.ZwCAD.Runtime;
 using ZwSoft.ZwCAD.EditorInput;
 #endif
+
 #if AutoCAD
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.EditorInput;
@@ -25,7 +25,7 @@ namespace CADKit
         // na podstawie zmiennej systemowej (na razie nie mam pomysłu jakiej) lub na podstawie zdefiniowanej zmiennej globalnej lub AppSettings
         // na razie jest wersja prosta czyli linia komend
         // w przyszlosci do refaktoryzacji
-        [CommandMethod("CK_UNR")]
+        [CommandMethod("CKUNR")]
         public void SetDrawingStandard()
         {
             var settings = DI.Container.Resolve<AppSettings>();
@@ -44,21 +44,13 @@ namespace CADKit
             {
                 keyOptions.Keywords.Add(item.ToString().Replace('_', '-'));
             }
-            keyOptions.Keywords.Default = DI.Container.Resolve<AppSettings>().DrawingStandard.ToString().Replace('_', '-');
-            PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
+            keyOptions.Keywords.Default = settings.DrawingStandard.ToString().Replace('_', '-');
+            PromptResult keyResult = ProxyCAD.Editor.GetKeywords(keyOptions);
             if (keyResult.Status == PromptStatus.OK)
             {
-                switch (keyResult.StringResult)
-                {
-                    case "PN-B-01025":
-                        settings.DrawingStandard = DrawingStandards.PN_B_01025;
-                        break;
-                    case "CADKIT":
-                        settings.DrawingStandard = DrawingStandards.CADKIT;
-                        break;
-                }
+                settings.DrawingStandard = EnumsUtil.GetEnum<DrawingStandards>(keyResult.StringResult.Replace('-', '_'), settings.DrawingStandard);
             }
-            CADProxy.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[settings.DrawingStandard]}\n");
+            ProxyCAD.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[settings.DrawingStandard]}\n");
         }
 
         //[CommandMethod("CK_UJR")]
@@ -113,7 +105,7 @@ namespace CADKit
         //    CADProxy.Editor.WriteMessage($"\nBieżąca skala rysunkowa: {settings.DrawingScale}\n");
         //}
 
-        [CommandMethod("CK_PALETE")]
+        [CommandMethod("CKPALETE")]
         public void ShowPalette()
         {
             var settings = DI.Container.Resolve<AppSettings>();

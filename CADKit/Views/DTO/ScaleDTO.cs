@@ -1,5 +1,5 @@
-﻿using CADKit.Contract.DTO;
-using CADKit.ServiceCAD;
+﻿using CADKit.Contracts.DTO;
+using CADProxy;
 using System;
 
 namespace CADKit.Views.DTO
@@ -13,8 +13,8 @@ namespace CADKit.Views.DTO
         {
             return new ScaleDTO()
             {
-                Name = CADProxy.Database.Cannoscale.Name,
-                UniqueIdentifier = CADProxy.Database.Cannoscale.UniqueIdentifier
+                Name = CADProxy.ProxyCAD.Database.Cannoscale.Name,
+                UniqueIdentifier = CADProxy.ProxyCAD.Database.Cannoscale.UniqueIdentifier
             };
         }
     }

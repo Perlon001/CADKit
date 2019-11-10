@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using CADKit.Contract;
-using CADKit.Contract.Services;
+using CADKit.Contracts;
+using CADKit.Contracts.Services;
 using System;
 
 namespace CADKit.Services

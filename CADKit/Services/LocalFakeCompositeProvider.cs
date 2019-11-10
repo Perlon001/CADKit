@@ -1,6 +1,6 @@
-﻿using CADKit.Contract;
-using CADKit.Contract.Services;
-using CADKit.Model;
+﻿using CADKit.Contracts;
+using CADKit.Contracts.Services;
+using CADKit.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,14 +39,6 @@ namespace CADKit.Services
             });
             kota.AddLeaf(new Composite()
             {
-                LeafName = "contourFill",
-                LeafTitle = "Wypełnienie grotu",
-                Layer = "BYBLOCK",
-                Linetype = "BYLAYER",
-                ColorIndex = 2
-            });
-            kota.AddLeaf(new Composite()
-            {
                 LeafName = "markSign",
                 LeafTitle = "Znak poziomu",
                 Layer = "BYBLOCK",
@@ -78,6 +70,14 @@ namespace CADKit.Services
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
+            });
+            kota.AddLeaf(new Composite()
+            {
+                LeafName = "contourFill",
+                LeafTitle = "Wypełnienie grotu",
+                Layer = "BYBLOCK",
+                Linetype = "BYLAYER",
+                ColorIndex = 2
             });
             kota.AddLeaf(new Composite()
             {
@@ -137,6 +137,41 @@ namespace CADKit.Services
                 Linetype = "BYLAYER",
                 ColorIndex = 7
             });
+            module.AddLeaf(kota);
+
+            composites.Add(module);
+
+            module = new Composite()
+            {
+                LeafName = "markModule",
+                LeafTitle = "Inne obiekty"
+            };
+
+            kota = new Composite()
+            {
+                LeafName = "Dziura",
+                LeafTitle = "Obiekt dziura",
+                Layer = "0",
+                Linetype = "BYLAYER",
+                ColorIndex = 256
+            };
+            kota.AddLeaf(new Composite()
+            {
+                LeafName = "Element dziury",
+                LeafTitle = "Nazwa elementu dziury",
+                Layer = "BYBLOCK",
+                Linetype = "BYLAYER",
+                ColorIndex = 256
+            });
+            kota.AddLeaf(new Composite()
+            {
+                LeafName = "Drugi element dziury",
+                LeafTitle = "Nazwa drugiego elementu dziury",
+                Layer = "BYBLOCK",
+                Linetype = "BYLAYER",
+                ColorIndex = 256
+            });
+
             module.AddLeaf(kota);
 
             composites.Add(module);

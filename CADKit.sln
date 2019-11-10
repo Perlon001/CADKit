@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.136
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKit", "CADKit\CADKit.csproj", "{6A8627B4-C81A-4166-8E95-76A85661A03B}"
 EndProject
@@ -13,15 +13,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKitElevationMarks", "CADKitElevationMarks\CADKitElevationMarks.csproj", "{E1AAD522-CB31-48AD-82B5-970CCA353EAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKit.BaseView", "CADKit.BaseView\CADKit.BaseView.csproj", "{DEB58A40-AFC0-4955-80A4-E11A33F70EB3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKit.Database", "CADKit.Database\CADKit.Database.csproj", "{D0E38B2E-8972-4C29-B812-F4B2F37BA210}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKit.ServiceCAD", "CADKit.ServiceCAD\CADKit.ServiceCAD.csproj", "{87E74953-1A86-4CC5-B5AE-6901611C7033}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKit.DIContainer", "CADKit.DIContainer\CADKit.DIContainer.csproj", "{C11D055E-9E51-47F7-A97D-8D01871AA57E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKit.ConsoleTest", "CADKit.ConsoleTest\CADKit.ConsoleTest.csproj", "{1F43F373-A1A5-41C5-9B07-E905F54BE7B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADProxy", "CADKit.ServiceCAD\CADProxy.csproj", "{87E74953-1A86-4CC5-B5AE-6901611C7033}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{8B3E7F98-D405-4676-B800-BF13594294B3}"
 EndProject
@@ -39,10 +33,6 @@ Global
 		{E1AAD522-CB31-48AD-82B5-970CCA353EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1AAD522-CB31-48AD-82B5-970CCA353EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1AAD522-CB31-48AD-82B5-970CCA353EAF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DEB58A40-AFC0-4955-80A4-E11A33F70EB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEB58A40-AFC0-4955-80A4-E11A33F70EB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEB58A40-AFC0-4955-80A4-E11A33F70EB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEB58A40-AFC0-4955-80A4-E11A33F70EB3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D0E38B2E-8972-4C29-B812-F4B2F37BA210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D0E38B2E-8972-4C29-B812-F4B2F37BA210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0E38B2E-8972-4C29-B812-F4B2F37BA210}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,14 +41,6 @@ Global
 		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C11D055E-9E51-47F7-A97D-8D01871AA57E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C11D055E-9E51-47F7-A97D-8D01871AA57E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C11D055E-9E51-47F7-A97D-8D01871AA57E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C11D055E-9E51-47F7-A97D-8D01871AA57E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F43F373-A1A5-41C5-9B07-E905F54BE7B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F43F373-A1A5-41C5-9B07-E905F54BE7B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F43F373-A1A5-41C5-9B07-E905F54BE7B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F43F373-A1A5-41C5-9B07-E905F54BE7B8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B3E7F98-D405-4676-B800-BF13594294B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B3E7F98-D405-4676-B800-BF13594294B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B3E7F98-D405-4676-B800-BF13594294B3}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,17 +1,15 @@
 ﻿using Autofac;
-using CADKit.Contract;
-using CADKit.DIContainer;
-using CADKit.ServiceCAD;
-using System.Windows.Forms;
+using CADKit.Contracts;
+using CADProxy;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.Runtime;
-using ZwSoft.ZwCAD.EditorInput;
+using ApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
 #endif
+
 #if AutoCAD
 using Autodesk.AutoCAD.Runtime;
 using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.EditorInput;
 #endif
 
 [assembly: ExtensionApplication(typeof(CADKit.Autostart))]
@@ -22,47 +20,48 @@ namespace CADKit
     {
         public void Initialize()
         {
-            CADProxy.Editor.WriteMessage("\nStart CADKit");
-
             try
-            { 
+            {
+                
                 DI.Container = Container.Builder.Build();
+                
                 var settings = DI.Container.Resolve<AppSettings>();
                 var view = DI.Container.Resolve<ISettingsView>();
-                settings.CADKitPalette.Add("Ustawienia", view as Control);
+                settings.CADKitPalette.Add("Ustawienia", view as System.Windows.Forms.Control);
+                settings.GetSettingsFromDatabase();
+                settings.SetSettingsToDatabase();
                 settings.CADKitPalette.Visible = true;
 
-                DI.Container.Resolve<AppSettings>().GetSettingsFromDatabase();
-                DI.Container.Resolve<AppSettings>().SetSettingsToDatabase();
-
-                CADProxy.DocumentCreated -= OnDocumentCreated;
-                CADProxy.DocumentCreated += OnDocumentCreated;
-                CADProxy.DocumentDestroyed -= OnDocumentDestroyed;
-                CADProxy.DocumentDestroyed += OnDocumentDestroyed;
+                ProxyCAD.DocumentCreated -= OnDocumentCreated;
+                ProxyCAD.DocumentCreated += OnDocumentCreated;
+                ProxyCAD.DocumentDestroyed -= OnDocumentDestroyed;
+                ProxyCAD.DocumentDestroyed += OnDocumentDestroyed;
             }
             catch (System.Exception ex)
             {
-                CADProxy.Editor.WriteMessage("Błąd: \n" + ex.Message);
+                ProxyCAD.Editor.WriteMessage("Błąd: \n" + ex.Message);
             }
 
-            CADProxy.Editor.WriteMessage("\n");
+            ProxyCAD.Editor.WriteMessage("\n");
         }
 
         public void Terminate()
         {
         }
 
-        void OnDocumentCreated(object sender, ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventArgs e)
+        void OnDocumentCreated(object sender, ApplicationServices.DocumentCollectionEventArgs e)
         {
-            DI.Container.Resolve<AppSettings>().GetSettingsFromDatabase();
-            DI.Container.Resolve<AppSettings>().SetSettingsToDatabase();
+            var settings = DI.Container.Resolve<AppSettings>();
+            settings.GetSettingsFromDatabase();
+            settings.SetSettingsToDatabase();
         }
 
-        void OnDocumentDestroyed(object sender, ZwSoft.ZwCAD.ApplicationServices.DocumentDestroyedEventArgs e)
+        void OnDocumentDestroyed(object sender, ApplicationServices.DocumentDestroyedEventArgs e)
         {
-            if (CADProxy.Document == null)
+            if (ProxyCAD.Document == null)
             {
-                DI.Container.Resolve<AppSettings>().Reset();
+                var settings = DI.Container.Resolve<AppSettings>();
+                settings.Reset();
             }
         }
     }

@@ -1,5 +1,5 @@
-﻿using CADKit.Contract.Services;
-using CADKit.Model;
+﻿using CADKit.Contracts.Services;
+using CADKit.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

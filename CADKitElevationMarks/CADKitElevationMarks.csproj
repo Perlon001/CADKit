@@ -21,7 +21,7 @@
     <DefineConstants>TRACE;DEBUG;ZwCAD</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,38 +53,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autostart.cs" />
     <Compile Include="Commands.cs" />
-    <Compile Include="Model\ElevationMarkFactory.cs" />
-    <Compile Include="Contract\ElevationMarkType.cs" />
-    <Compile Include="Contract\IElevationMark.cs" />
-    <Compile Include="Contract\IElevationMarkConfig.cs" />
-    <Compile Include="Contract\IElevationMarkFactoryCADKit.cs" />
-    <Compile Include="Contract\IElevationMarkFactoryPNB01025.cs" />
-    <Compile Include="Contract\IElevationMarkLayerGenerator.cs" />
-    <Compile Include="Contract\IElevationMarkTextStyleGenerator.cs" />
-    <Compile Include="Model\ArchitecturalElevationMarkCADKit.cs" />
-    <Compile Include="Model\ArchtecturalElevationMarkPNB01025.cs" />
-    <Compile Include="Model\BaseElevationMark.cs" />
-    <Compile Include="Model\ConstructionElevationMarkCADKit.cs" />
-    <Compile Include="Model\ConstructionElevationMarkPNB01025.cs" />
-    <Compile Include="Model\ElevationMarkConfig.cs" />
-    <Compile Include="Model\ElevationMarkFactoryCADKit.cs" />
-    <Compile Include="Model\ElevationMarkFactoryPNB01025.cs" />
-    <Compile Include="Contract\IElevationMarkFactory.cs" />
-    <Compile Include="Model\Extensions.cs" />
-    <Compile Include="Model\PlaneElevationMarkCADKit.cs" />
-    <Compile Include="Model\PlaneElevationMarkPNB01025.cs" />
-    <Compile Include="Model\RegistrationModule.cs" />
+    <Compile Include="Models\ElevationMarkFactory.cs" />
+    <Compile Include="Contracts\ElevationMarkType.cs" />
+    <Compile Include="Contracts\IElevationMark.cs" />
+    <Compile Include="Contracts\IElevationMarkConfig.cs" />
+    <Compile Include="Contracts\IElevationMarkFactoryCADKit.cs" />
+    <Compile Include="Contracts\IElevationMarkFactoryPNB01025.cs" />
+    <Compile Include="Contracts\IElevationMarkLayerGenerator.cs" />
+    <Compile Include="Contracts\IElevationMarkTextStyleGenerator.cs" />
+    <Compile Include="Models\ArchitecturalElevationMarkCADKit.cs" />
+    <Compile Include="Models\ArchtecturalElevationMarkPNB01025.cs" />
+    <Compile Include="Models\BaseElevationMark.cs" />
+    <Compile Include="Models\ConstructionElevationMarkCADKit.cs" />
+    <Compile Include="Models\ConstructionElevationMarkPNB01025.cs" />
+    <Compile Include="Models\ElevationMarkConfig.cs" />
+    <Compile Include="Models\ElevationMarkFactoryCADKit.cs" />
+    <Compile Include="Models\ElevationMarkFactoryPNB01025.cs" />
+    <Compile Include="Contracts\IElevationMarkFactory.cs" />
+    <Compile Include="Models\Extensions.cs" />
+    <Compile Include="Models\PlaneElevationMarkCADKit.cs" />
+    <Compile Include="Models\PlaneElevationMarkPNB01025.cs" />
+    <Compile Include="Models\RegistrationModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CADKit.DIContainer\CADKit.DIContainer.csproj">
-      <Project>{C11D055E-9E51-47F7-A97D-8D01871AA57E}</Project>
-      <Name>CADKit.DIContainer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\CADKit.ServiceCAD\CADKit.ServiceCAD.csproj">
+    <ProjectReference Include="..\CADKit.ServiceCAD\CADProxy.csproj">
       <Project>{87E74953-1A86-4CC5-B5AE-6901611C7033}</Project>
-      <Name>CADKit.ServiceCAD</Name>
+      <Name>CADProxy</Name>
     </ProjectReference>
     <ProjectReference Include="..\CADKit\CADKit.csproj">
       <Project>{6A8627B4-C81A-4166-8E95-76A85661A03B}</Project>

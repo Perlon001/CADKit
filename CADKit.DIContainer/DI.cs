@@ -4,6 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
+#if ZwCAD
+using ApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
+#endif
+
+#if AutoCAD
+using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
+#endif
+
 namespace CADKit.DIContainer
 {
     public static class DI
@@ -18,19 +26,19 @@ namespace CADKit.DIContainer
         {
             ContainerBuilder builder = new ContainerBuilder();
 
-            string CurrentDomainName = "CADKit";
-            string CurrentDomainDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Remove(0, 6);
+            string product = (string)ApplicationServices.Application.GetSystemVariable("PRODUCT");
+            string currentDomainName = "CADKit";
+            string currentDomainDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Remove(0, 6);
 
-            foreach (string filePath in Directory.GetFiles(CurrentDomainDirectory, CurrentDomainName + "*.dll"))
+            foreach (string filePath in Directory.GetFiles(currentDomainDirectory, currentDomainName + product + "*.dll")
+                .Where(x => Path.GetFileNameWithoutExtension(x) != currentDomainName + product + ".dll"))
             {
+                string fileName = Path.GetFileNameWithoutExtension(filePath);
                 AppDomain.CurrentDomain.Load(Path.GetFileNameWithoutExtension(filePath));
             }
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies()
-               .Where(x => x.FullName.StartsWith(CurrentDomainName, StringComparison.Ordinal));
 
-            // assemblies = assemblies.Reverse();
-
-            foreach (var type in assemblies)
+            foreach (var type in AppDomain.CurrentDomain.GetAssemblies()
+                .Where(x => x.FullName.StartsWith(currentDomainName, StringComparison.Ordinal)))
             {
                 builder.RegisterAssemblyModules(type);
             }

@@ -1,5 +1,6 @@
 ﻿using Autofac;
-using CADKit.Contract;
+using CADKit.Contracts;
+using CADKit.Contracts.Views;
 using System;
 
 namespace CADKit.Views.WF

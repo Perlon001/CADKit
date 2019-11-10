@@ -1,6 +1,7 @@
-﻿using CADKit.Contract;
-using CADKit.Contract.DTO;
-using CADKit.Model;
+﻿using CADKit.Contracts;
+using CADKit.Contracts.DTO;
+using CADKit.Contracts.Presenters;
+using CADKit.Models;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows.Forms;
 
 namespace CADKit.Views.WF
 {
-    public partial class SettingsView : BaseView.WF.BaseViewWF, ISettingsView
+    public partial class SettingsView : BaseViewWF, ISettingsView
     {
         public ISettingsPresenter Presenter { get; set; }
 

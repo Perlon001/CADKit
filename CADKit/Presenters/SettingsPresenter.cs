@@ -1,22 +1,21 @@
-﻿using CADKit.ServiceCAD;
-using CADKit.Contract;
-using CADKit.Contract.DTO;
-using CADKit.Model;
-using CADKit.Util;
+﻿using Autofac;
+using CADKit.Contracts;
+using CADKit.Contracts.DTO;
+using CADKit.Contracts.Presenters;
+using CADKit.Contracts.Services;
+using CADKit.Models;
+using CADKit.Utils;
 using CADKit.Views.DTO;
+using CADProxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CADKit.DIContainer;
-using Autofac;
-using CADKit.Services;
-using CADKit.Contract.Services;
 
 namespace CADKit.Presenters
 {
     public class SettingsPresenter : Presenter<ISettingsView>, ISettingsPresenter
     {
-        private readonly IList<IComponent> leafTree;
+        //private readonly IList<IComponent> leafTree;
 
         private readonly ICompositeService compositeService;
 
@@ -25,12 +24,12 @@ namespace CADKit.Presenters
             View = view;
             View.Presenter = this;
             View.RegisterHandlers();
-            CADProxy.DocumentActivated -= OnDocumentActivate;
-            CADProxy.DocumentActivated += OnDocumentActivate;
-            CADProxy.CommandEnded -= OnCommandEnded;
-            CADProxy.CommandEnded += OnCommandEnded;
-            CADProxy.SystemVariableChanged -= OnSystemVariableChanged;
-            CADProxy.SystemVariableChanged += OnSystemVariableChanged;
+            ProxyCAD.DocumentActivated -= OnDocumentActivate;
+            ProxyCAD.DocumentActivated += OnDocumentActivate;
+            ProxyCAD.CommandEnded -= OnCommandEnded;
+            ProxyCAD.CommandEnded += OnCommandEnded;
+            ProxyCAD.SystemVariableChanged -= OnSystemVariableChanged;
+            ProxyCAD.SystemVariableChanged += OnSystemVariableChanged;
             this.compositeService = compositeService; // DI.Container.Resolve<ICompositeService>();
         }
 
@@ -55,7 +54,7 @@ namespace CADKit.Presenters
 
         public void OnScaleSelect(object sender, EventArgs e)
         {
-            CADProxy.SetSystemVariable("CANNOSCALE", View.SelectedScale.Name);
+            ProxyCAD.SetSystemVariable("CANNOSCALE", View.SelectedScale.Name);
         }
 
         void OnCommandEnded(object sender, ZwSoft.ZwCAD.ApplicationServices.CommandEventArgs arg)
@@ -69,14 +68,13 @@ namespace CADKit.Presenters
         void OnDocumentActivate(object sender, ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventArgs arg)
         {
             BindScaleList();
-            var a = CADProxy.GetCustomProperty("CKDrawingScale");
             View.SelectedScale = new ScaleDTO()
             {
-                UniqueIdentifier = CADProxy.Database.Cannoscale.UniqueIdentifier,
-                Name = CADProxy.Database.Cannoscale.Name
+                UniqueIdentifier = ProxyCAD.Database.Cannoscale.UniqueIdentifier,
+                Name = ProxyCAD.Database.Cannoscale.Name
             };
-            View.SelectedDrawingUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingUnit"), Units.mm);
-            View.SelectedDimensionUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDimensionUnit"), Units.mm);
+            View.SelectedDrawingUnit = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDrawingUnit"), Units.mm);
+            View.SelectedDimensionUnit = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDimensionUnit"), Units.mm);
         }
 
         void OnSystemVariableChanged(object sender, ZwSoft.ZwCAD.ApplicationServices.SystemVariableChangedEventArgs arg)
@@ -89,7 +87,7 @@ namespace CADKit.Presenters
 
         void BindScaleList()
         {
-            var occ = CADProxy.Database.ObjectContextManager.GetContextCollection("ACDB_ANNOTATIONSCALES");
+            var occ = ProxyCAD.Database.ObjectContextManager.GetContextCollection("ACDB_ANNOTATIONSCALES");
             IList<IScaleDTO> scales = new List<IScaleDTO>();
             foreach (ZwSoft.ZwCAD.DatabaseServices.AnnotationScale item in occ )
             {

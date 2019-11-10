@@ -23,7 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,8 +48,8 @@
     <Compile Include="CADKitDbContext.cs" />
     <Compile Include="CADKitDbInitializer.cs" />
     <Compile Include="CADKitMigrationDbContext.cs" />
-    <Compile Include="Contract\IRepository.cs" />
-    <Compile Include="Contract\IUnitOfWork.cs" />
+    <Compile Include="Contracts\IRepository.cs" />
+    <Compile Include="Contracts\IUnitOfWork.cs" />
     <Compile Include="Entity\Layer.cs" />
     <Compile Include="Entity\SchemaInfo.cs" />
     <Compile Include="Entity\History.cs" />
