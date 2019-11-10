@@ -1,14 +1,18 @@
-﻿using CADKit.ServiceCAD;
+﻿using Autofac;
+using CADKit;
 using CADKit.Models;
 using CADKitElevationMarks.Contracts;
 using System;
 using System.Globalization;
+using CADProxy;
+
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
 using ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.EditorInput;
 #endif
+
 #if AutoCAD
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
@@ -16,8 +20,6 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 #endif
 
-using CADKit;
-using Autofac;
 
 namespace CADKitElevationMarks.Models
 {
@@ -39,8 +41,8 @@ namespace CADKitElevationMarks.Models
             this.config = _config;
             this.scaleFactor = DI.Container.Resolve<AppSettings>().ScaleFactor;
             this.texts = new DBText[2];
-            this.ucs = CADProxy.Editor.CurrentUserCoordinateSystem;
-            this.coordinateSystem = CADProxy.Editor.CurrentUserCoordinateSystem.CoordinateSystem3d;
+            this.ucs = ProxyCAD.Editor.CurrentUserCoordinateSystem;
+            this.coordinateSystem = ProxyCAD.Editor.CurrentUserCoordinateSystem.CoordinateSystem3d;
             this.transformMatrix = Matrix3d.AlignCoordinateSystem(
                 Point3d.Origin,
                 Vector3d.XAxis,
@@ -73,7 +75,7 @@ namespace CADKitElevationMarks.Models
         {
             GetPoints();
             PrepareTextFields();
-            CADProxy.UsingTransaction(Draw);
+            ProxyCAD.UsingTransaction(Draw);
             // Extension.UsingTransaction(Draw); // Draw();
         }
 
@@ -106,7 +108,7 @@ namespace CADKitElevationMarks.Models
 
             promptOptions = new PromptPointOptions("\nWskaż punkt wysokościowy: ");
             promptOptions.AllowNone = true;
-            pointResult = CADProxy.Editor.GetPoint(promptOptions);
+            pointResult = ProxyCAD.Editor.GetPoint(promptOptions);
             CheckPromptStatus(osmode, orthomode, pointResult);
             point = pointResult.Value;
 
@@ -116,7 +118,7 @@ namespace CADKitElevationMarks.Models
             promptOptions.Message = "\nWskaż kierunek koty wysokościowej: ";
             promptOptions.UseBasePoint = true;
             promptOptions.BasePoint = point;
-            pointResult = CADProxy.Editor.GetPoint(promptOptions);
+            pointResult = ProxyCAD.Editor.GetPoint(promptOptions);
             CheckPromptStatus(osmode, orthomode, pointResult);
             directionPoint = pointResult.Value;
 

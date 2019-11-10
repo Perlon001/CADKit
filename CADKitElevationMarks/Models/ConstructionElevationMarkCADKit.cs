@@ -1,13 +1,12 @@
-﻿using Autofac;
-using CADKit;
-using CADKit.Models;
-using CADKit.ServiceCAD;
-using CADKit.Utils;
+﻿using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
+using CADProxy;
+
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
 #endif
+
 #if AutoCAD
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
@@ -25,19 +24,19 @@ namespace CADKitElevationMarks.Models
 
         protected override void Draw(Transaction transaction)
         {
-            DBDictionary groupDictionary = (DBDictionary)transaction.GetObject(CADProxy.Database.GroupDictionaryId, OpenMode.ForWrite);
+            DBDictionary groupDictionary = (DBDictionary)transaction.GetObject(ProxyCAD.Database.GroupDictionaryId, OpenMode.ForWrite);
             Group group = new Group();
             groupDictionary.SetAt("*", group);
 
             BlockTableRecord record = Extensions.GetBlockTableRecord(transaction, OpenMode.ForWrite);
-            TextStyleTableRecord textStyle = ((TextStyleTableRecord)transaction.GetObject(CADProxy.Database.Textstyle, OpenMode.ForRead));
+            TextStyleTableRecord textStyle = ((TextStyleTableRecord)transaction.GetObject(ProxyCAD.Database.Textstyle, OpenMode.ForRead));
 
             foreach (var item in this.texts)
             {
                 item.SetDatabaseDefaults();
                 item.VerticalMode = TextVerticalMode.TextVerticalMid;
                 item.ColorIndex = 7;                                    // tez trzeba wczytac z settings !!!
-                item.TextStyle = CADProxy.Database.Textstyle;
+                item.TextStyle = ProxyCAD.Database.Textstyle;
                 item.Oblique = textStyle.ObliquingAngle;
                 item.WidthFactor = textStyle.XScale;
                 // item.Height = DI.Container.Resolve<AppSettings>().TextHigh[TextStyles.normal] * scaleFactor;
@@ -95,7 +94,7 @@ namespace CADKitElevationMarks.Models
             plines.Store(transaction, record, group, transformMatrix);
 
             transaction.AddNewlyCreatedDBObject(group, true);
-            CADProxy.Editor.Regen();
+            ProxyCAD.Editor.Regen();
         }
     }
 }

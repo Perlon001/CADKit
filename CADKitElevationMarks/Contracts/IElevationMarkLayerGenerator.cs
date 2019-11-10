@@ -1,4 +1,5 @@
-﻿using CADKit.ServiceCAD.Contracts;
+﻿using CADProxy.Contracts;
+
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 #endif

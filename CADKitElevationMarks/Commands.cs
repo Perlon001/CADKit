@@ -1,13 +1,12 @@
 ﻿using Autofac;
 using CADKit;
 using CADKit.Models;
-using CADKit.ServiceCAD;
 using CADKit.Services;
 using CADKitElevationMarks.Contracts;
+using CADProxy;
 using System;
 #if ZwCAD
 using ZwSoft.ZwCAD.Runtime;
-using ZwSoft.ZwCAD.EditorInput;
 #endif
 #if AutoCAD
 using Autodesk.AutoCAD.Runtime;
@@ -32,7 +31,7 @@ namespace CADKitElevationMarks
             }
             catch (System.Exception ex)
             {
-                CADProxy.Editor.WriteMessage(ex.Message);
+                ProxyCAD.Editor.WriteMessage(ex.Message);
             }
             finally
             {
@@ -56,7 +55,7 @@ namespace CADKitElevationMarks
             }
             catch (System.Exception ex)
             {
-                CADProxy.Editor.WriteMessage(ex.Message);
+                ProxyCAD.Editor.WriteMessage(ex.Message);
             }
             finally
             {
@@ -77,7 +76,7 @@ namespace CADKitElevationMarks
             }
             catch (System.Exception ex)
             {
-                CADProxy.Editor.WriteMessage(ex.Message);
+                ProxyCAD.Editor.WriteMessage(ex.Message);
             }
             finally
             {

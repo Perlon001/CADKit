@@ -1,8 +1,9 @@
-﻿using CADKit.ServiceCAD;
-#if ZwCAD
+﻿#if ZwCAD
+using CADProxy;
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
 #endif
+
 #if AutoCAD
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
@@ -23,15 +24,15 @@ namespace CADKitElevationMarks.Models
 
         public static bool IsInLayoutPaper()
         {
-            if (CADProxy.Database.TileMode)
+            if (ProxyCAD.Database.TileMode)
                 return false;
             else
             {
-                if (CADProxy.Database.PaperSpaceVportId == ObjectId.Null)
+                if (ProxyCAD.Database.PaperSpaceVportId == ObjectId.Null)
                     return false;
-                else if (CADProxy.Editor.CurrentViewportObjectId == ObjectId.Null)
+                else if (ProxyCAD.Editor.CurrentViewportObjectId == ObjectId.Null)
                     return false;
-                else if (CADProxy.Editor.CurrentViewportObjectId == CADProxy.Database.PaperSpaceVportId)
+                else if (ProxyCAD.Editor.CurrentViewportObjectId == ProxyCAD.Database.PaperSpaceVportId)
                     return true;
                 else
                     return false;
@@ -40,10 +41,10 @@ namespace CADKitElevationMarks.Models
 
         public static BlockTableRecord GetBlockTableRecord(Transaction transaction, OpenMode mode)
         {
-            BlockTable blockTable = (BlockTable)transaction.GetObject(CADProxy.Database.BlockTableId, OpenMode.ForRead);
+            BlockTable blockTable = (BlockTable)transaction.GetObject(ProxyCAD.Database.BlockTableId, OpenMode.ForRead);
 
             BlockTableRecord record;
-            if (CADProxy.Database.TileMode == false && IsInLayoutPaper() == true)
+            if (ProxyCAD.Database.TileMode == false && IsInLayoutPaper() == true)
             {
                 record = (BlockTableRecord)transaction.GetObject(blockTable[BlockTableRecord.PaperSpace], mode);
             }

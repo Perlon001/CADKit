@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CADProxy;
+using System;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -15,7 +16,7 @@ namespace CADKit.Extensions
     {
         public static void UsingTransaction(Action<Transaction> action)
         {
-            using (var tr = TransactionManager.StartTransaction())
+            using (var tr = ProxyCAD.Database.TransactionManager.StartTransaction())
             {
                 try
                 {
