@@ -1,24 +1,17 @@
-﻿using CADProxy;
-using System;
-#if ZwCAD
-using ZwSoft.ZwCAD.Runtime;
-#endif
-#if AutoCAD
-using Autodesk.AutoCAD.Runtime;
-#endif
+﻿using Autofac;
+using CADKit;
+using CADKit.Contracts;
+using CADKitElevationMarks.Contracts.Views;
+using System.Windows.Forms;
 
 namespace CADKitElevationMarks
 {
-    public class Autostart : IExtensionApplication
+    public class Autostart : IAutostart
     {
         public void Initialize()
         {
-            ProxyCAD.Editor.WriteMessage("\nAutostart CADKitElevationMarks...");
-        }
-
-        public void Terminate()
-        {
-            throw new NotImplementedException();
+            var settings = DI.Container.Resolve<AppSettings>();
+            settings.CADKitPalette.Add("Koty wysokościowe", DI.Container.Resolve<IElevationMarksView>() as Control);
         }
     }
 }

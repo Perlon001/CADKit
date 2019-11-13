@@ -13,7 +13,8 @@ namespace CADKit
         private string drawingScale;
 
         public string AppPath { get; private set; }
-        public string AppName { get; private set; }
+
+        public const string AppName = "CADKit";
 
         public CADKitPaletteSet CADKitPalette { get; set; }
 
@@ -115,7 +116,7 @@ namespace CADKit
         {
 
             AppPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location));
-            AppName = this.GetType().Assembly.GetName().Name;
+            // AppName = this.GetType().Assembly.GetName().Name;
             CADKitPalette = new CADKitPaletteSet(AppName);
      
             GetSettingsFromDatabase();

@@ -1,5 +1,15 @@
 ﻿using Autofac;
+using CADProxy.Contracts;
+using CADProxy.SymbolTableServices;
 using System;
+
+#if ZwCAD
+using ZwSoft.ZwCAD.DatabaseServices;
+#endif
+
+#if AutoCAD
+using Autodesk.AutoCAD.DatabaseServices;
+#endif
 
 namespace CADProxy
 {
@@ -8,11 +18,11 @@ namespace CADProxy
         protected override void Load(ContainerBuilder builder)
         {
 
-            //builder
-            //    .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-            //    .AssignableTo<ISymbolTableService>()
-            //    .InstancePerLifetimeScope()
-            //    .AsImplementedInterfaces();
+            builder
+                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .AssignableTo<ISymbolTableService<SymbolTable>>()
+                .InstancePerLifetimeScope()
+                .AsImplementedInterfaces();
         }
     }
 }

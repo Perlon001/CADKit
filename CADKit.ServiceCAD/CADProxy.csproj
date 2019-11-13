@@ -7,8 +7,8 @@
     <ProjectGuid>{87E74953-1A86-4CC5-B5AE-6901611C7033}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CADKit.ServiceCAD</RootNamespace>
-    <AssemblyName>CADKit.ServiceZwCAD</AssemblyName>
+    <RootNamespace>CADProxy</RootNamespace>
+    <AssemblyName>CADProxyZwCAD</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

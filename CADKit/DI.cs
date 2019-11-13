@@ -11,6 +11,7 @@ namespace CADKit
     {
         public static IContainer Container;
     }
+
     public static class Container
     {
         public static readonly ContainerBuilder Builder = CreateBuilder();
@@ -19,17 +20,19 @@ namespace CADKit
         {
             ContainerBuilder builder = new ContainerBuilder();
 
-            string currentDomainName = "CADKit";
             string currentDomainDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().CodeBase).Remove(0, 6);
 
-            foreach (string filePath in Directory.GetFiles(currentDomainDirectory, currentDomainName + "*.dll")
-                .Where(x => Path.GetFileNameWithoutExtension(x) != currentDomainName + CADProxy.ProxyCAD.Product + ".dll"))
+            var files = Directory.GetFiles(currentDomainDirectory, AppSettings.AppName + "*.dll")
+                .Where(x => !Path.GetFileNameWithoutExtension(x).Equals(AppSettings.AppName + ProxyCAD.Product, StringComparison.OrdinalIgnoreCase));
+            foreach (string filePath in files)
             {
+                ProxyCAD.Editor.WriteMessage("\nŁadowanie " + Path.GetFileNameWithoutExtension(filePath) + "...");
                 AppDomain.CurrentDomain.Load(Path.GetFileNameWithoutExtension(filePath));
             }
 
-            foreach (var type in AppDomain.CurrentDomain.GetAssemblies()
-                .Where(x => x.FullName.StartsWith(currentDomainName, StringComparison.Ordinal)))
+            var ass = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(x => x.FullName.StartsWith(AppSettings.AppName, StringComparison.Ordinal));
+            foreach (Assembly type in ass)
             {
                 builder.RegisterAssemblyModules(type);
             }

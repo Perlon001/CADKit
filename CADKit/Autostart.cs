@@ -1,6 +1,13 @@
 ﻿using Autofac;
 using CADKit.Contracts;
 using CADProxy;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Windows.Forms;
+
+using System.Linq;
+
 
 #if ZwCAD
 using ZwSoft.ZwCAD.Runtime;
@@ -20,29 +27,38 @@ namespace CADKit
     {
         public void Initialize()
         {
-            try
-            {
-                
-                DI.Container = Container.Builder.Build();
-                
-                var settings = DI.Container.Resolve<AppSettings>();
-                var view = DI.Container.Resolve<ISettingsView>();
-                settings.CADKitPalette.Add("Ustawienia", view as System.Windows.Forms.Control);
-                settings.GetSettingsFromDatabase();
-                settings.SetSettingsToDatabase();
-                settings.CADKitPalette.Visible = true;
+            DI.Container = Container.Builder.Build();
 
-                ProxyCAD.DocumentCreated -= OnDocumentCreated;
-                ProxyCAD.DocumentCreated += OnDocumentCreated;
-                ProxyCAD.DocumentDestroyed -= OnDocumentDestroyed;
-                ProxyCAD.DocumentDestroyed += OnDocumentDestroyed;
-            }
-            catch (System.Exception ex)
+            var settings = DI.Container.Resolve<AppSettings>();
+            settings.CADKitPalette.Add("Ustawienia", DI.Container.Resolve<ISettingsView>() as Control);
+
+            var ass = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(x => x.FullName.StartsWith(AppSettings.AppName, StringComparison.OrdinalIgnoreCase));
+            foreach (var tp in ass)
             {
-                ProxyCAD.Editor.WriteMessage("Błąd: \n" + ex.Message);
+                var t = tp.GetTypes().Where(x => x.GetTypeInfo().ImplementedInterfaces.Where(y => y.Name == "IAutostart").Count() > 0);
+                foreach(var i in t)
+                {
+                    try
+                    {
+                        var fff = i.AssemblyQualifiedName;
+                        var objectType = Type.GetType(fff);
+                        IAutostart instance = Activator.CreateInstance(objectType) as IAutostart;
+                        instance.Initialize();
+                    }
+                    catch (System.Exception ex)
+                    {
+                        ProxyCAD.Editor.WriteMessage(ex.Message);
+                    }
+                } 
             }
 
-            ProxyCAD.Editor.WriteMessage("\n");
+            settings.CADKitPalette.Visible = true;
+
+            ProxyCAD.DocumentCreated -= OnDocumentCreated;
+            ProxyCAD.DocumentCreated += OnDocumentCreated;
+            ProxyCAD.DocumentDestroyed -= OnDocumentDestroyed;
+            ProxyCAD.DocumentDestroyed += OnDocumentDestroyed;
         }
 
         public void Terminate()

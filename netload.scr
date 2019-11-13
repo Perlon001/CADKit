@@ -1,6 +1,0 @@
-(vl-load-com)
-(setq filename "D:\\_projekty\\Audi_test\\1716_PW.A02.A03.A04.A05.rzuty.dwg")
-(setq vgao (vlax-get-acad-object))
-(setq vgd (vla-get-documents vgao))
-(vla-activate (vla-open vgd filename))                               
-(load "D:\\dev\\CSharp\\Workspace\\CADKit\\autostart.lsp")
