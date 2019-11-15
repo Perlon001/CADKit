@@ -2,6 +2,7 @@
 using CADKit.Utils;
 using CADProxy;
 using System;
+using System.IO;
 
 namespace CADKit
 {
@@ -115,8 +116,7 @@ namespace CADKit
         public AppSettings()
         {
 
-            AppPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(this.GetType().Assembly.Location));
-            // AppName = this.GetType().Assembly.GetName().Name;
+            AppPath = Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location));
             CADKitPalette = new CADKitPaletteSet(AppName);
      
             GetSettingsFromDatabase();

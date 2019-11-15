@@ -34,15 +34,15 @@ namespace CADKit
 
             var ass = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(x => x.FullName.StartsWith(AppSettings.AppName, StringComparison.OrdinalIgnoreCase));
+            
             foreach (var tp in ass)
             {
-                var t = tp.GetTypes().Where(x => x.GetTypeInfo().ImplementedInterfaces.Where(y => y.Name == "IAutostart").Count() > 0);
-                foreach(var i in t)
+                var t = tp.GetTypes().Where(x => x.GetTypeInfo().ImplementedInterfaces.Contains(typeof(IAutostart)));
+                foreach (var i in t)
                 {
                     try
                     {
-                        var fff = i.AssemblyQualifiedName;
-                        var objectType = Type.GetType(fff);
+                        var objectType = Type.GetType(i.AssemblyQualifiedName);
                         IAutostart instance = Activator.CreateInstance(objectType) as IAutostart;
                         instance.Initialize();
                     }
