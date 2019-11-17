@@ -5,14 +5,15 @@ using CADKit.Services;
 using CADKitElevationMarks.Contracts;
 using CADProxy;
 using System;
+
 #if ZwCAD
 using ZwSoft.ZwCAD.Runtime;
 #endif
+
 #if AutoCAD
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.EditorInput;
 #endif
-// [assembly: CommandClass(typeof(CADKitElevationMarks.Commands))]
 
 namespace CADKitElevationMarks
 {
@@ -24,7 +25,7 @@ namespace CADKitElevationMarks
             SystemVariables variables;
             variables = SystemVariableService.GetSystemVariables();
 
-            IElevationMark mark = GetFactory(DI.Container.Resolve<AppSettings>().DrawingStandard).GetElevationMark(ElevationMarkType.archMark);
+            IElevationMark mark = GetFactory(AppSettings.Instance.DrawingStandard).GetElevationMark(ElevationMarkType.archMark);
             try
             {
                 mark.Create();
@@ -48,7 +49,7 @@ namespace CADKitElevationMarks
             SystemVariables variables;
             variables = SystemVariableService.GetSystemVariables();
 
-            IElevationMark mark = GetFactory(DI.Container.Resolve<AppSettings>().DrawingStandard).GetElevationMark(ElevationMarkType.constrMark);
+            IElevationMark mark = GetFactory(AppSettings.Instance.DrawingStandard).GetElevationMark(ElevationMarkType.constrMark);
             try
             {
                 mark.Create();
@@ -69,7 +70,7 @@ namespace CADKitElevationMarks
             SystemVariables variables;
             variables = SystemVariableService.GetSystemVariables();
 
-            IElevationMark mark = GetFactory(DI.Container.Resolve<AppSettings>().DrawingStandard).GetElevationMark(ElevationMarkType.planeMark);
+            IElevationMark mark = GetFactory(AppSettings.Instance.DrawingStandard).GetElevationMark(ElevationMarkType.planeMark);
             try
             {
                 mark.Create();

@@ -6,8 +6,20 @@ using System.IO;
 
 namespace CADKit
 {
-    public class AppSettings
+    public sealed class AppSettings
     {
+        private static readonly AppSettings instance = new AppSettings();
+        static AppSettings() { }
+        private AppSettings() 
+        {
+            AppPath = Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location));
+            CADKitPalette = new CADKitPaletteSet(AppName);
+
+            GetSettingsFromDatabase();
+            SetSettingsToDatabase();
+        }
+        public static AppSettings Instance { get { return instance; } }
+
         private DrawingStandards drawingStandard;
         private Units drawingUnit;
         private Units dimensionUnit;
@@ -111,16 +123,6 @@ namespace CADKit
         {
             CADKitPalette.Visible = false;
             drawingScale = "";
-        }
-
-        public AppSettings()
-        {
-
-            AppPath = Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location));
-            CADKitPalette = new CADKitPaletteSet(AppName);
-     
-            GetSettingsFromDatabase();
-            SetSettingsToDatabase();
         }
     }
 }

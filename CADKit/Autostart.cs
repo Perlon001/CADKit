@@ -19,8 +19,6 @@ using Autodesk.AutoCAD.Runtime;
 using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
 #endif
 
-[assembly: ExtensionApplication(typeof(CADKit.Autostart))]
-
 namespace CADKit
 {
     public class Autostart : IExtensionApplication
@@ -29,8 +27,7 @@ namespace CADKit
         {
             DI.Container = Container.Builder.Build();
 
-            var settings = DI.Container.Resolve<AppSettings>();
-            settings.CADKitPalette.Add("Ustawienia", DI.Container.Resolve<ISettingsView>() as Control);
+            AppSettings.Instance.CADKitPalette.Add("Ustawienia", DI.Container.Resolve<ISettingsView>() as Control);
 
             var ass = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(x => x.FullName.StartsWith(AppSettings.AppName, StringComparison.OrdinalIgnoreCase));
@@ -53,7 +50,7 @@ namespace CADKit
                 } 
             }
 
-            settings.CADKitPalette.Visible = true;
+            AppSettings.Instance.CADKitPalette.Visible = true;
 
             ProxyCAD.DocumentCreated -= OnDocumentCreated;
             ProxyCAD.DocumentCreated += OnDocumentCreated;
@@ -67,17 +64,15 @@ namespace CADKit
 
         void OnDocumentCreated(object sender, ApplicationServices.DocumentCollectionEventArgs e)
         {
-            var settings = DI.Container.Resolve<AppSettings>();
-            settings.GetSettingsFromDatabase();
-            settings.SetSettingsToDatabase();
+            AppSettings.Instance.GetSettingsFromDatabase();
+            AppSettings.Instance.SetSettingsToDatabase();
         }
 
         void OnDocumentDestroyed(object sender, ApplicationServices.DocumentDestroyedEventArgs e)
         {
             if (ProxyCAD.Document == null)
             {
-                var settings = DI.Container.Resolve<AppSettings>();
-                settings.Reset();
+                AppSettings.Instance.Reset();
             }
         }
     }

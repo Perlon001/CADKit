@@ -39,7 +39,7 @@ namespace CADKitElevationMarks.Models
         public BaseElevationMark(IElevationMarkConfig _config)
         {
             this.config = _config;
-            this.scaleFactor = DI.Container.Resolve<AppSettings>().ScaleFactor;
+            this.scaleFactor = AppSettings.Instance.ScaleFactor;
             this.texts = new DBText[2];
             this.ucs = ProxyCAD.Editor.CurrentUserCoordinateSystem;
             this.coordinateSystem = ProxyCAD.Editor.CurrentUserCoordinateSystem.CoordinateSystem3d;
@@ -144,7 +144,7 @@ namespace CADKitElevationMarks.Models
 
         protected double GetElevationFactor()
         {
-            switch( DI.Container.Resolve<AppSettings>().DrawingUnit)
+            switch(AppSettings.Instance.DrawingUnit)
             {
                 case Units.m:
                     return 1;

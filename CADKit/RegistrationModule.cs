@@ -6,10 +6,10 @@ namespace CADKit
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder
-                .RegisterType<AppSettings>()
-                .SingleInstance()
-                .AsSelf();
+            //builder
+            //    .RegisterType<AppSettings>()
+            //    .SingleInstance()
+            //    .AsSelf();
         }
     }
 }

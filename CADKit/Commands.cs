@@ -28,7 +28,6 @@ namespace CADKit
         [CommandMethod("CKUNR")]
         public void SetDrawingStandard()
         {
-            var settings = DI.Container.Resolve<AppSettings>();
             // Lepiej gdyby slownik byl budowany na zewnatrz i gotowy dostarczony metodzie
             // w przyszlosci do refaktoryzacji
             Dictionary<DrawingStandards, string> drawingStandards = new Dictionary<DrawingStandards, string>();
@@ -44,13 +43,13 @@ namespace CADKit
             {
                 keyOptions.Keywords.Add(item.ToString().Replace('_', '-'));
             }
-            keyOptions.Keywords.Default = settings.DrawingStandard.ToString().Replace('_', '-');
+            keyOptions.Keywords.Default = AppSettings.Instance.DrawingStandard.ToString().Replace('_', '-');
             PromptResult keyResult = ProxyCAD.Editor.GetKeywords(keyOptions);
             if (keyResult.Status == PromptStatus.OK)
             {
-                settings.DrawingStandard = EnumsUtil.GetEnum<DrawingStandards>(keyResult.StringResult.Replace('-', '_'), settings.DrawingStandard);
+                AppSettings.Instance.DrawingStandard = EnumsUtil.GetEnum<DrawingStandards>(keyResult.StringResult.Replace('-', '_'), AppSettings.Instance.DrawingStandard);
             }
-            ProxyCAD.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[settings.DrawingStandard]}\n");
+            ProxyCAD.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[AppSettings.Instance.DrawingStandard]}\n");
         }
 
         //[CommandMethod("CK_UJR")]
@@ -108,8 +107,7 @@ namespace CADKit
         [CommandMethod("CKPALETE")]
         public void ShowPalette()
         {
-            var settings = DI.Container.Resolve<AppSettings>();
-            settings.CADKitPalette.Visible = !settings.CADKitPalette.Visible;
+            AppSettings.Instance.CADKitPalette.Visible = !AppSettings.Instance.CADKitPalette.Visible;
         }
     }
 }

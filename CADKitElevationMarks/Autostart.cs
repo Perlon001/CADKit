@@ -10,8 +10,7 @@ namespace CADKitElevationMarks
     {
         public void Initialize()
         {
-            var settings = DI.Container.Resolve<AppSettings>();
-            settings.CADKitPalette.Add("Koty wysokościowe", DI.Container.Resolve<IElevationMarksView>() as Control);
+            AppSettings.Instance.CADKitPalette.Add("Koty wysokościowe", DI.Container.Resolve<IElevationMarksView>() as Control);
         }
     }
 }

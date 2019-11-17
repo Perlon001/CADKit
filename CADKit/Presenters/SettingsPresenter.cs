@@ -1,5 +1,4 @@
-﻿using Autofac;
-using CADKit.Contracts;
+﻿using CADKit.Contracts;
 using CADKit.Contracts.DTO;
 using CADKit.Contracts.Presenters;
 using CADKit.Contracts.Services;
@@ -10,6 +9,14 @@ using CADProxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
+#if ZwCAD
+using CADApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
+#endif
+
+#if AutoCAD
+using CADApplicationServices = Autodesk.AutoCAD.ApplicationServices;
+#endif
 
 namespace CADKit.Presenters
 {
@@ -44,12 +51,12 @@ namespace CADKit.Presenters
 
         public void OnDrawUnitSelect(object sender, EventArgs e)
         {
-            DI.Container.Resolve<AppSettings>().DrawingUnit = View.SelectedDrawingUnit;
+            AppSettings.Instance.DrawingUnit = View.SelectedDrawingUnit;
         }
 
         public void OnDimUnitSelect(object sender, EventArgs e)
         {
-            DI.Container.Resolve<AppSettings>().DimensionUnit = View.SelectedDimensionUnit;
+            AppSettings.Instance.DimensionUnit = View.SelectedDimensionUnit;
         }
 
         public void OnScaleSelect(object sender, EventArgs e)
@@ -57,7 +64,7 @@ namespace CADKit.Presenters
             ProxyCAD.SetSystemVariable("CANNOSCALE", View.SelectedScale.Name);
         }
 
-        void OnCommandEnded(object sender, ZwSoft.ZwCAD.ApplicationServices.CommandEventArgs arg)
+        void OnCommandEnded(object sender, CADApplicationServices.CommandEventArgs arg)
         {
             if(arg.GlobalCommandName == "SCALELISTEDIT")
             {
@@ -65,7 +72,7 @@ namespace CADKit.Presenters
             }
         }
 
-        void OnDocumentActivate(object sender, ZwSoft.ZwCAD.ApplicationServices.DocumentCollectionEventArgs arg)
+        void OnDocumentActivate(object sender, CADApplicationServices.DocumentCollectionEventArgs arg)
         {
             BindScaleList();
             View.SelectedScale = new ScaleDTO()
@@ -77,7 +84,7 @@ namespace CADKit.Presenters
             View.SelectedDimensionUnit = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDimensionUnit"), Units.mm);
         }
 
-        void OnSystemVariableChanged(object sender, ZwSoft.ZwCAD.ApplicationServices.SystemVariableChangedEventArgs arg)
+        void OnSystemVariableChanged(object sender, CADApplicationServices.SystemVariableChangedEventArgs arg)
         {
             if (arg.Name == "CANNOSCALE")
             {
