@@ -1,21 +1,17 @@
-﻿using Autofac;
-using CADKit.Models;
+﻿using CADKit.Models;
 using System;
 using System.Collections.Generic;
 using CADKit.Utils;
 using CADProxy;
+using CADProxy.Runtime;
 
 #if ZwCAD
-using ZwSoft.ZwCAD.Runtime;
 using ZwSoft.ZwCAD.EditorInput;
 #endif
 
 #if AutoCAD
-using Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.EditorInput;
 #endif
-
-[assembly: CommandClass(typeof(CADKit.Commands))]
 
 namespace CADKit
 {

@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationServices\DocumentCollectionEventArgs.cs" />
     <Compile Include="Contracts\ILayerService.cs" />
     <Compile Include="Contracts\ISymbolTableService.cs" />
     <Compile Include="Contracts\ITextStyleService.cs" />
@@ -69,6 +70,9 @@
     <Compile Include="ProxyCAD.cs" />
     <Compile Include="Extensions\DatabaseExtensions.cs" />
     <Compile Include="RegistrationModule.cs" />
+    <Compile Include="Runtime\CommandMethodAttribute.cs" />
+    <Compile Include="Runtime\IExtensionApplication.cs" />
+    <Compile Include="Runtime\WrapperAttribute.cs" />
     <Compile Include="SymbolTableServices\LayerService.cs" />
     <Compile Include="SymbolTableServices\SymbolTableService.cs" />
     <Compile Include="SymbolTableServices\TextStyleService.cs" />

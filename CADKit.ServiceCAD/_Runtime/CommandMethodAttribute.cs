@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 #if ZwCAD
-using CADRuntime = ZwSoft.ZwCAD.Runtime;
 using ZwSoft.ZwCAD.Runtime;
 #endif
 
 #if AutoCAD
-using CADRuntime = Autodesk.AutoCAD.Runtime;
 using Autodesk.AutoCAD.Runtime;
 #endif
 
@@ -17,7 +15,7 @@ namespace CADProxy.Runtime
 {
     public sealed class CommandMethodAttribute : Attribute, ICommandLineCallable
     {
-        private readonly CADRuntime.CommandMethodAttribute proxy;
+        private readonly ZwSoft.ZwCAD.Runtime.CommandMethodAttribute proxy;
         public CommandMethodAttribute(string globalName)
         {
             this.GlobalName = globalName;

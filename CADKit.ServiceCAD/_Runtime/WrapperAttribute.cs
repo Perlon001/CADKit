@@ -1,22 +1,18 @@
 ﻿using System;
-
-#if ZwCAD
-using CADRuntime = ZwSoft.ZwCAD.Runtime;
-#endif
-
-#if AutoCAD
-using CADRuntime = Autodesk.AutoCAD.Runtime;
-#endif
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CADProxy.Runtime
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum, AllowMultiple = false, Inherited = true)]
     public sealed class WrapperAttribute : Attribute
     {
-        private readonly CADRuntime.WrapperAttribute wrapper;
+        private readonly ZwSoft.ZwCAD.Runtime.WrapperAttribute wrapper;
         public WrapperAttribute(string wrappedClass)
         {
-            wrapper = new CADRuntime.WrapperAttribute(wrappedClass);
+            wrapper = new ZwSoft.ZwCAD.Runtime.WrapperAttribute(wrappedClass);
         }
 
         public string WrappedClass { 

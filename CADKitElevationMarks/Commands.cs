@@ -4,16 +4,8 @@ using CADKit.Models;
 using CADKit.Services;
 using CADKitElevationMarks.Contracts;
 using CADProxy;
+using CADProxy.Runtime;
 using System;
-
-#if ZwCAD
-using ZwSoft.ZwCAD.Runtime;
-#endif
-
-#if AutoCAD
-using Autodesk.AutoCAD.Runtime;
-using Autodesk.AutoCAD.EditorInput;
-#endif
 
 namespace CADKitElevationMarks
 {
