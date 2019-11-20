@@ -21,7 +21,6 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 #endif
 
-
 namespace CADKitElevationMarks.Models
 {
     public abstract class BaseElevationMark : IElevationMark
