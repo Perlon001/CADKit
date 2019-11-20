@@ -15,7 +15,7 @@ namespace CADKitElevationMarks.Models
 
         public ElevationMarkConfig()
         {
-            // Create fields and read default value from AppSettings
+            // Create fields and read default value from database
         }
 
     }

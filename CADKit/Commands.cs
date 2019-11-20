@@ -17,6 +17,12 @@ namespace CADKit
 {
     public class Commands
     {
+        public void Test()
+        {
+            var cadAppVersion = ZwSoft.ZwCAD.ApplicationServices.Application.Version;
+            var cadApp = ZwSoft.ZwCAD.ApplicationServices.Application.ZcadApplication;
+        }
+
         // metody powinne byc zamienione na klasy z mozliwoscia wyboru trybu Linia komend/Okno dialogowe
         // na podstawie zmiennej systemowej (na razie nie mam pomysłu jakiej) lub na podstawie zdefiniowanej zmiennej globalnej lub AppSettings
         // na razie jest wersja prosta czyli linia komend
@@ -24,6 +30,7 @@ namespace CADKit
         [CommandMethod("CKUNR")]
         public void SetDrawingStandard()
         {
+            Test();
             // Lepiej gdyby slownik byl budowany na zewnatrz i gotowy dostarczony metodzie
             // w przyszlosci do refaktoryzacji
             Dictionary<DrawingStandards, string> drawingStandards = new Dictionary<DrawingStandards, string>();

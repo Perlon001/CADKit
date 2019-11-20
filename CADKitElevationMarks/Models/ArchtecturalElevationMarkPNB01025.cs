@@ -67,13 +67,13 @@ namespace CADKitElevationMarks.Models
             boundary.AddVertexAt(0, new Point2d(point.X, point.Y + 1 * scaleFactor), 0, 0, 0);
             boundary.Closed = true;
 
-            if (Math.Round(Math.Abs(point.Y) * GetElevationFactor(), 3) == 0)
+            if (Math.Round(Math.Abs(point.Y) * GetElevationUnitFactor(), 3) == 0)
             {
                 IsZero = true;
                 plines[1].Closed = true;
             }
 
-            if (point.Y > directionPoint.Y)
+            if (point.Y > placePoint.Y)
             {
                 plines[0].TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));
                 plines[1].TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));
@@ -82,7 +82,7 @@ namespace CADKitElevationMarks.Models
                 texts[1].AlignmentPoint = new Point3d(texts[1].AlignmentPoint.X, point.Y - 4.5 * scaleFactor, point.Z);
             }
 
-            if (point.X > directionPoint.X)
+            if (point.X > placePoint.X)
             {
                 plines[0].TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(0, 1, 0))));
                 plines[1].TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(0, 1, 0))));

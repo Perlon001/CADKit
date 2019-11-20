@@ -7,39 +7,22 @@ using ZwSoft.ZwCAD.ApplicationServices;
 using CADApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.DatabaseServices;
-using CADDatabaseServices = ZwSoft.ZwCAD.DatabaseServices;
-
-
 #endif
 
 #if AutoCAD
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.DatabaseServices;
-using CADDatabaseServices = Autodesk.AutoCAD.DatabaseServices;
 #endif
 
 namespace CADProxy
 {
     public delegate void SystemVariableChangedEventHandler(object sender, CADApplicationServices.SystemVariableChangedEventArgs e);
-    
-    public class ProxyCAD
-    { 
+   public class ProxyCAD
+    {
         public static void UsingTransaction(Action<Transaction> action)
         {
-            using (var tr = Database.TransactionManager.StartTransaction())
-            {
-                try
-                {
-                    action(tr);
-                    tr.Commit();
-                }
-                catch (Exception ex)
-                {
-                    tr.Abort();
-                    throw ex;
-                }
-            }
+            UsingTransaction(Database,action);
         }
 
         public static void UsingTransaction(Database database, Action<Transaction> action)
@@ -51,7 +34,7 @@ namespace CADProxy
                     action(tr);
                     tr.Commit();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     tr.Abort();
                     throw;
