@@ -5,7 +5,6 @@ using CADKitElevationMarks.Contracts;
 using System;
 using System.Globalization;
 using CADProxy;
-using CADKit.Utils;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -34,7 +33,7 @@ namespace CADKitElevationMarks.Models
 
         protected DBText[] texts;
         protected Point3d point;
-        protected Point3d placePoint;
+        protected Point3d directionPoint;
 
         public BaseElevationMark(IElevationMarkConfig _config)
         {
@@ -68,55 +67,26 @@ namespace CADKitElevationMarks.Models
 
         }
 
-        protected abstract void Draw(Transaction _tr);
+        protected abstract void Draw(Transaction tr);
 
-        public virtual void Run()
+
+        public virtual void Create()
         {
-            int osmode = Convert.ToInt16(Application.GetSystemVariable("Osmode"));
-            int orthomode = Convert.ToInt16(Application.GetSystemVariable("Orthomode"));
-
-            point = GetElevationPoint();
-            texts = PrepareTextFields(point);
-            placePoint = GetPlacePoint(point);
-
+            GetPoints();
+            PrepareTextFields();
             ProxyCAD.UsingTransaction(Draw);
-
-            Application.SetSystemVariable("Osmode", osmode);
-            Application.SetSystemVariable("Orthomode", orthomode);
+            // Extension.UsingTransaction(Draw); // Draw();
         }
 
-        protected virtual Point3d GetElevationPoint()
+        private void PrepareTextFields()
         {
-            PromptPointResult pointResult;
-            PromptPointOptions promptOptions;
-            int osmode = Convert.ToInt16(Application.GetSystemVariable("Osmode"));
-            int orthomode = Convert.ToInt16(Application.GetSystemVariable("Orthomode"));
-
-            Application.SetSystemVariable("Osmode", 512);
-
-            promptOptions = new PromptPointOptions("\nWskaż punkt wysokościowy: ");
-            promptOptions.AllowNone = true;
-            pointResult = ProxyCAD.Editor.GetPoint(promptOptions);
-            CheckPromptStatus(osmode, orthomode, pointResult);
-            
-            return pointResult.Value;
+            texts[0] = new DBText();
+            texts[1] = new DBText();
+            texts[0].TextString = GetSignValue();
+            texts[1].TextString = Math.Round(Math.Abs(point.Y) * GetElevationFactor(), 3).ToString("0.000", CultureInfo.GetCultureInfo("pl-PL"));
         }
 
-        protected virtual Point3d GetPlacePoint(Point3d _point)
-        {
-            return _point;
-        }
-
-        protected virtual DBText[] PrepareTextFields(Point3d _point)
-        {
-            DBText[] texts = { new DBText(), new DBText() };
-            texts[0].TextString = GetElevationSign(_point);
-            texts[1].TextString = Math.Round(Math.Abs(_point.Y) * GetElevationUnitFactor(), 3).ToString("0.000", CultureInfo.GetCultureInfo("pl-PL"));
-            var aaa = EntityInfo.GetTextArea(texts[1]);
-            return texts;
-        }
-
-        protected void CheckPromptStatus(int osmode, int orthomode, PromptPointResult pointResult)
+        private static void CheckPromptStatus(int osmode, int orthomode, PromptPointResult pointResult)
         {
             if (pointResult.Status == PromptStatus.Cancel || pointResult.Status == PromptStatus.None)
             {
@@ -126,7 +96,7 @@ namespace CADKitElevationMarks.Models
             }
         }
 
-        private void GetPoints()
+        protected virtual void GetPoints()
         {
             PromptPointResult pointResult;
             PromptPointOptions promptOptions;
@@ -149,19 +119,19 @@ namespace CADKitElevationMarks.Models
             promptOptions.BasePoint = point;
             pointResult = ProxyCAD.Editor.GetPoint(promptOptions);
             CheckPromptStatus(osmode, orthomode, pointResult);
-            placePoint = pointResult.Value;
+            directionPoint = pointResult.Value;
 
             Application.SetSystemVariable("Osmode", osmode);
             Application.SetSystemVariable("Orthomode", orthomode);
         }
 
-        private string GetElevationSign(Point3d _point)
+        private string GetSignValue()
         {
-            if (Math.Round(Math.Abs(_point.Y) * GetElevationUnitFactor(), 3) == 0) 
+            if (Math.Round(Math.Abs(point.Y) * GetElevationFactor(), 3) == 0) 
             {
                 return "%%p";
             }
-            else if (_point.Y < 0)
+            else if (point.Y < 0)
             {
                 return "-";
             }
@@ -171,7 +141,7 @@ namespace CADKitElevationMarks.Models
             }
         }
 
-        protected double GetElevationUnitFactor()
+        protected double GetElevationFactor()
         {
             switch(AppSettings.Instance.DrawingUnit)
             {

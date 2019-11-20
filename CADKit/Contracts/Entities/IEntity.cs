@@ -9,7 +9,7 @@ namespace CADKit.Contracts.Entities
 {
     public interface IEntity
     {
-        Color Color { get; set; }
         string Layer { get; set; }
+        Color Color { get; set; }
     }
 }

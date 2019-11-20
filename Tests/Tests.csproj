@@ -67,14 +67,6 @@
     <Reference Include="xunit.execution.desktop, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.extensibility.execution.2.4.1\lib\net452\xunit.execution.desktop.dll</HintPath>
     </Reference>
-    <Reference Include="ZwDatabaseMgd, Version=20.10.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2020\ZwDatabaseMgd.dll</HintPath>
-    </Reference>
-    <Reference Include="ZwManaged, Version=20.10.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2020\ZwManaged.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Conventions\ConventionsHelper.cs" />
@@ -82,7 +74,6 @@
     <Compile Include="Conventions\strukture_conventions.cs" />
     <Compile Include="CoreServices\CompositesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Static\EntityInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

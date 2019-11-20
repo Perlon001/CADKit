@@ -2,7 +2,7 @@
 {
     public interface IElevationMarkFactory
     {
-        IElevationMark ElevationMark(ElevationMarkType type);
-        IElevationMark ElevationMark(ElevationMarkType type, IElevationMarkConfig config);
+        IElevationMark GetElevationMark(ElevationMarkType type);
+        IElevationMark GetElevationMark(ElevationMarkType type, IElevationMarkConfig config);
     }
 }

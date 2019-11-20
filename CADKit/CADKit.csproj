@@ -96,7 +96,6 @@
     <Compile Include="Services\CompositeService.cs" />
     <Compile Include="Services\LocalFakeCompositeProvider.cs" />
     <Compile Include="Services\RegistrationModule.cs" />
-    <Compile Include="SomeClass.cs" />
     <Compile Include="Utils\CADKitModuleContainerBuilder.cs" />
     <Compile Include="Utils\CompositeModule.cs" />
     <Compile Include="Models\Leaf.cs" />

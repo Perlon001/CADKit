@@ -5,7 +5,7 @@ namespace CADKitElevationMarks.Models
 {
     public class ElevationMarkFactoryPNB01025 : ElevationMarkFactory, IElevationMarkFactoryPNB01025
     {
-        public override IElevationMark ElevationMark(ElevationMarkType type, IElevationMarkConfig config)
+        public override IElevationMark GetElevationMark(ElevationMarkType type, IElevationMarkConfig config)
         {
             switch(type)
             {

@@ -63,7 +63,7 @@ namespace CADKitElevationMarks.Models
             boundary.AddVertexAt(0, new Point2d(point.X, point.Y), 0, 0, 0);
             boundary.Closed = true;
 
-            if (point.Y > placePoint.Y)
+            if (point.Y > directionPoint.Y)
             {
                 plines.TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));
                 boundary.TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));

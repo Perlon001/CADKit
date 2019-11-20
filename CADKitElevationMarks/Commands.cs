@@ -7,30 +7,22 @@ using CADProxy;
 using CADProxy.Runtime;
 using System;
 
-//using System.Reflection;
-
-//#if ZwCAD
-//using ZwSoft.ZwCAD.ApplicationServices;
-//#endif
-
-//#if AutoCAD
-//using Autodesk.AutoCAD.ApplicationServices;
-//#endif
-
 namespace CADKitElevationMarks
 {
     public class Commands
     {
-        private void CreateElevationMark(ElevationMarkType _markType)
+        [CommandMethod("CK_KOTA_ARCH")]
+        public void ElevationMarkArch()
         {
-            SystemVariables variables = SystemVariableService.GetSystemVariables();
+            SystemVariables variables;
+            variables = SystemVariableService.GetSystemVariables();
 
-            IElevationMarkFactory markFactory = GetFactory(AppSettings.Instance.DrawingStandard);
+            IElevationMark mark = GetFactory(AppSettings.Instance.DrawingStandard).GetElevationMark(ElevationMarkType.archMark);
             try
             {
-                markFactory.ElevationMark(_markType).Run();
+                mark.Create();
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 ProxyCAD.Editor.WriteMessage(ex.Message);
             }
@@ -38,8 +30,51 @@ namespace CADKitElevationMarks
             {
                 SystemVariableService.RestoreSystemVariables(variables);
             }
+
             //object acObject = Application.ZcadApplication;
             //acObject.GetType().InvokeMember("ZoomExtents", BindingFlags.InvokeMethod, null, acObject, null);
+        }
+
+        [CommandMethod("CK_KOTA_KONSTR")]
+        public void ElevationMarkConstr()
+        {
+            SystemVariables variables;
+            variables = SystemVariableService.GetSystemVariables();
+
+            IElevationMark mark = GetFactory(AppSettings.Instance.DrawingStandard).GetElevationMark(ElevationMarkType.constrMark);
+            try
+            {
+                mark.Create();
+            }
+            catch (System.Exception ex)
+            {
+                ProxyCAD.Editor.WriteMessage(ex.Message);
+            }
+            finally
+            {
+                SystemVariableService.RestoreSystemVariables(variables);
+            }
+        }
+
+        [CommandMethod("CK_KOTA_POZIOM")]
+        public void ElevationMarkPlate()
+        {
+            SystemVariables variables;
+            variables = SystemVariableService.GetSystemVariables();
+
+            IElevationMark mark = GetFactory(AppSettings.Instance.DrawingStandard).GetElevationMark(ElevationMarkType.planeMark);
+            try
+            {
+                mark.Create();
+            }
+            catch (System.Exception ex)
+            {
+                ProxyCAD.Editor.WriteMessage(ex.Message);
+            }
+            finally
+            {
+                SystemVariableService.RestoreSystemVariables(variables);
+            }
         }
 
         private IElevationMarkFactory GetFactory(DrawingStandards standards)
@@ -61,24 +96,6 @@ namespace CADKitElevationMarks
             }
 
             return factory;
-        }
-
-        [CommandMethod("CK_KOTA_ARCH")]
-        public void ElevationMarkArch()
-        {
-            CreateElevationMark(ElevationMarkType.archMark);
-        }
-
-        [CommandMethod("CK_KOTA_KONSTR")]
-        public void ElevationMarkConstr()
-        {
-            CreateElevationMark(ElevationMarkType.constrMark);
-        }
-
-        [CommandMethod("CK_KOTA_POZIOM")]
-        public void ElevationMarkPlate()
-        {
-            CreateElevationMark(ElevationMarkType.planeMark);
         }
     }
 }

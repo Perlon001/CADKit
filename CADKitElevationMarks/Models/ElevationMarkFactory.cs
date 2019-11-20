@@ -6,16 +6,16 @@ namespace CADKitElevationMarks.Models
 {
     public abstract class ElevationMarkFactory : IElevationMarkFactory
     {
-        public IElevationMark ElevationMark(ElevationMarkType type)
+        public IElevationMark GetElevationMark(ElevationMarkType type)
         {
             IElevationMarkConfig config;
             using (var scope = DI.Container.BeginLifetimeScope())
             {
                 config = scope.Resolve<IElevationMarkConfig>();
             }
-            return ElevationMark(type, config);
+            return GetElevationMark(type, config);
         }
 
-        public abstract IElevationMark ElevationMark(ElevationMarkType type, IElevationMarkConfig config);
+        public abstract IElevationMark GetElevationMark(ElevationMarkType type, IElevationMarkConfig config);
     }
 }

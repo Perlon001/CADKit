@@ -56,7 +56,7 @@ namespace CADKitElevationMarks.Models
             plines.AddVertexAt(0, new Point2d(point.X - 2 * scaleFactor, point.Y + 3 * scaleFactor), 0, 0, 0);
             plines.AddVertexAt(0, new Point2d(point.X + (textArea[1].X - textArea[0].X + 0.5 * scaleFactor), point.Y + 3 * scaleFactor), 0, 0, 0);
 
-            if (point.Y > placePoint.Y)
+            if (point.Y > directionPoint.Y)
             {
                 plines.TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));
                 texts[0].AlignmentPoint = new Point3d(texts[0].AlignmentPoint.X, point.Y - 4.5 * scaleFactor, point.Z);
