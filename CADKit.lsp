@@ -7,4 +7,5 @@
 		)
 	)
 )
+(command "CK_AAA")
 (princ)

@@ -48,19 +48,19 @@ namespace CADKitElevationMarks.Models
 
             var textArea = EntityInfo.GetTextArea(texts[1]);
 
-            texts[0].AlignmentPoint = new Point3d(point.X - 0.5 * scaleFactor, point.Y + 4.5 * scaleFactor, point.Z);
-            texts[1].AlignmentPoint = new Point3d(point.X + 0.5 * scaleFactor, point.Y + 4.5 * scaleFactor, point.Z);
+            texts[0].AlignmentPoint = new Point3d(elevationPoint.X - 0.5 * scaleFactor, elevationPoint.Y + 4.5 * scaleFactor, elevationPoint.Z);
+            texts[1].AlignmentPoint = new Point3d(elevationPoint.X + 0.5 * scaleFactor, elevationPoint.Y + 4.5 * scaleFactor, elevationPoint.Z);
 
-            plines.AddVertexAt(0, new Point2d(point.X, point.Y + 6 * scaleFactor), 0, 0, 0);
-            plines.AddVertexAt(0, new Point2d(point.X, point.Y), 0, 0, 0);
-            plines.AddVertexAt(0, new Point2d(point.X - 2 * scaleFactor, point.Y + 3 * scaleFactor), 0, 0, 0);
-            plines.AddVertexAt(0, new Point2d(point.X + (textArea[1].X - textArea[0].X + 0.5 * scaleFactor), point.Y + 3 * scaleFactor), 0, 0, 0);
+            plines.AddVertexAt(0, new Point2d(elevationPoint.X, elevationPoint.Y + 6 * scaleFactor), 0, 0, 0);
+            plines.AddVertexAt(0, new Point2d(elevationPoint.X, elevationPoint.Y), 0, 0, 0);
+            plines.AddVertexAt(0, new Point2d(elevationPoint.X - 2 * scaleFactor, elevationPoint.Y + 3 * scaleFactor), 0, 0, 0);
+            plines.AddVertexAt(0, new Point2d(elevationPoint.X + (textArea[1].X - textArea[0].X + 0.5 * scaleFactor), elevationPoint.Y + 3 * scaleFactor), 0, 0, 0);
 
-            if (point.Y > directionPoint.Y)
+            if (elevationPoint.Y > directionPoint.Y)
             {
-                plines.TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));
-                texts[0].AlignmentPoint = new Point3d(texts[0].AlignmentPoint.X, point.Y - 4.5 * scaleFactor, point.Z);
-                texts[1].AlignmentPoint = new Point3d(texts[1].AlignmentPoint.X, point.Y - 4.5 * scaleFactor, point.Z);
+                plines.TransformBy(Matrix3d.Mirroring(new Line3d(elevationPoint, new Vector3d(1, 0, 0))));
+                texts[0].AlignmentPoint = new Point3d(texts[0].AlignmentPoint.X, elevationPoint.Y - 4.5 * scaleFactor, elevationPoint.Z);
+                texts[1].AlignmentPoint = new Point3d(texts[1].AlignmentPoint.X, elevationPoint.Y - 4.5 * scaleFactor, elevationPoint.Z);
             }
 
             foreach (var item in texts)

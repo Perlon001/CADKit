@@ -17,7 +17,7 @@ namespace CADKitElevationMarks.Models
 {
     public class ArchtecturalElevationMarkPNB01025 : BaseElevationMark
     {
-        private Polyline[] plines = new Polyline[2] { new Polyline(), new Polyline() };
+        private Polyline[] plines = new Polyline[] { new Polyline(), new Polyline() };
         private bool IsZero = false;
 
         public ArchtecturalElevationMarkPNB01025(IElevationMarkConfig config) : base(config)
@@ -50,44 +50,44 @@ namespace CADKitElevationMarks.Models
 
             var textArea = EntityInfo.GetTextArea(texts[1]);
 
-            texts[0].AlignmentPoint = new Point3d(point.X + 1 * scaleFactor, point.Y + 4.5 * scaleFactor, point.Z);
-            texts[1].AlignmentPoint = new Point3d(point.X + 1.5 * scaleFactor, point.Y + 4.5 * scaleFactor, point.Z);
+            texts[0].AlignmentPoint = new Point3d(elevationPoint.X + 1 * scaleFactor, elevationPoint.Y + 4.5 * scaleFactor, elevationPoint.Z);
+            texts[1].AlignmentPoint = new Point3d(elevationPoint.X + 1.5 * scaleFactor, elevationPoint.Y + 4.5 * scaleFactor, elevationPoint.Z);
 
-            plines[0].AddVertexAt(0, new Point2d(point.X, point.Y), 0, 0, 0);
-            plines[0].AddVertexAt(0, new Point2d(point.X, point.Y + 3 * scaleFactor), 0, 0, 0);
-            plines[0].AddVertexAt(0, new Point2d(point.X + (textArea[1].X - textArea[0].X + 1.5 * scaleFactor), point.Y + 3 * scaleFactor), 0, 0, 0);
+            plines[0].AddVertexAt(0, new Point2d(elevationPoint.X, elevationPoint.Y), 0, 0, 0);
+            plines[0].AddVertexAt(0, new Point2d(elevationPoint.X, elevationPoint.Y + 3 * scaleFactor), 0, 0, 0);
+            plines[0].AddVertexAt(0, new Point2d(elevationPoint.X + (textArea[1].X - textArea[0].X + 1.5 * scaleFactor), elevationPoint.Y + 3 * scaleFactor), 0, 0, 0);
 
-            plines[1].AddVertexAt(0, new Point2d(point.X - 1 * scaleFactor, point.Y + 1 * scaleFactor), 0, 0, 0);
-            plines[1].AddVertexAt(0, new Point2d(point.X, point.Y), 0, 0, 0);
-            plines[1].AddVertexAt(0, new Point2d(point.X + 1 * scaleFactor, point.Y + 1 * scaleFactor), 0, 0, 0);
+            plines[1].AddVertexAt(0, new Point2d(elevationPoint.X - 1 * scaleFactor, elevationPoint.Y + 1 * scaleFactor), 0, 0, 0);
+            plines[1].AddVertexAt(0, new Point2d(elevationPoint.X, elevationPoint.Y), 0, 0, 0);
+            plines[1].AddVertexAt(0, new Point2d(elevationPoint.X + 1 * scaleFactor, elevationPoint.Y + 1 * scaleFactor), 0, 0, 0);
 
             Polyline boundary = new Polyline();
-            boundary.AddVertexAt(0, new Point2d(point.X, point.Y), 0, 0, 0);
-            boundary.AddVertexAt(0, new Point2d(point.X + 1 * scaleFactor, point.Y + 1 * scaleFactor), 0, 0, 0);
-            boundary.AddVertexAt(0, new Point2d(point.X, point.Y + 1 * scaleFactor), 0, 0, 0);
+            boundary.AddVertexAt(0, new Point2d(elevationPoint.X, elevationPoint.Y), 0, 0, 0);
+            boundary.AddVertexAt(0, new Point2d(elevationPoint.X + 1 * scaleFactor, elevationPoint.Y + 1 * scaleFactor), 0, 0, 0);
+            boundary.AddVertexAt(0, new Point2d(elevationPoint.X, elevationPoint.Y + 1 * scaleFactor), 0, 0, 0);
             boundary.Closed = true;
 
-            if (Math.Round(Math.Abs(point.Y) * GetElevationFactor(), 3) == 0)
+            if (Math.Round(Math.Abs(elevationPoint.Y) * GetElevationFactor(), 3) == 0)
             {
                 IsZero = true;
                 plines[1].Closed = true;
             }
 
-            if (point.Y > directionPoint.Y)
+            if (elevationPoint.Y > directionPoint.Y)
             {
-                plines[0].TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));
-                plines[1].TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));
-                boundary.TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(1, 0, 0))));
-                texts[0].AlignmentPoint = new Point3d(texts[0].AlignmentPoint.X, point.Y - 4.5 * scaleFactor, point.Z);
-                texts[1].AlignmentPoint = new Point3d(texts[1].AlignmentPoint.X, point.Y - 4.5 * scaleFactor, point.Z);
+                plines[0].TransformBy(Matrix3d.Mirroring(new Line3d(elevationPoint, new Vector3d(1, 0, 0))));
+                plines[1].TransformBy(Matrix3d.Mirroring(new Line3d(elevationPoint, new Vector3d(1, 0, 0))));
+                boundary.TransformBy(Matrix3d.Mirroring(new Line3d(elevationPoint, new Vector3d(1, 0, 0))));
+                texts[0].AlignmentPoint = new Point3d(texts[0].AlignmentPoint.X, elevationPoint.Y - 4.5 * scaleFactor, elevationPoint.Z);
+                texts[1].AlignmentPoint = new Point3d(texts[1].AlignmentPoint.X, elevationPoint.Y - 4.5 * scaleFactor, elevationPoint.Z);
             }
 
-            if (point.X > directionPoint.X)
+            if (elevationPoint.X > directionPoint.X)
             {
-                plines[0].TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(0, 1, 0))));
-                plines[1].TransformBy(Matrix3d.Mirroring(new Line3d(point, new Vector3d(0, 1, 0))));
-                texts[0].AlignmentPoint = new Point3d(point.X + 1 * scaleFactor - (textArea[1].X - textArea[0].X + 1.5 * scaleFactor), texts[0].AlignmentPoint.Y, point.Z);
-                texts[1].AlignmentPoint = new Point3d(point.X + 1.5 * scaleFactor - (textArea[1].X - textArea[0].X + 1.5 * scaleFactor), texts[1].AlignmentPoint.Y, point.Z);
+                plines[0].TransformBy(Matrix3d.Mirroring(new Line3d(elevationPoint, new Vector3d(0, 1, 0))));
+                plines[1].TransformBy(Matrix3d.Mirroring(new Line3d(elevationPoint, new Vector3d(0, 1, 0))));
+                texts[0].AlignmentPoint = new Point3d(elevationPoint.X + 1 * scaleFactor - (textArea[1].X - textArea[0].X + 1.5 * scaleFactor), texts[0].AlignmentPoint.Y, elevationPoint.Z);
+                texts[1].AlignmentPoint = new Point3d(elevationPoint.X + 1.5 * scaleFactor - (textArea[1].X - textArea[0].X + 1.5 * scaleFactor), texts[1].AlignmentPoint.Y, elevationPoint.Z);
             }
 
             if (IsZero)
