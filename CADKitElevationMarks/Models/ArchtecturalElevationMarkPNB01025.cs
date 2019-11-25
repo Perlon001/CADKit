@@ -6,11 +6,13 @@ using System;
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
+using ZwSoft.ZwCAD.EditorInput;
 #endif
 
 #if AutoCAD
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.EditorInput;
 #endif
 
 namespace CADKitElevationMarks.Models
@@ -20,7 +22,7 @@ namespace CADKitElevationMarks.Models
         private Polyline[] plines = new Polyline[] { new Polyline(), new Polyline() };
         private bool IsZero = false;
 
-        public ArchtecturalElevationMarkPNB01025(IElevationMarkConfig config) : base(config)
+        public ArchtecturalElevationMarkPNB01025(IElevationMarkConfig _config, DrawJig _jig) : base(_config, _jig)
         {
         }
 

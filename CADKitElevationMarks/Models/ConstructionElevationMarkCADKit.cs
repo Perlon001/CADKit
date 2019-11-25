@@ -4,11 +4,13 @@ using CADProxy;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
+using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.Geometry;
 #endif
 
 #if AutoCAD
 using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 #endif
 
@@ -18,7 +20,7 @@ namespace CADKitElevationMarks.Models
     {
         private Polyline plines = new Polyline();
 
-        public ConstructionElevationMarkCADKit(IElevationMarkConfig config) : base(config)
+        public ConstructionElevationMarkCADKit(IElevationMarkConfig _config, DrawJig _jig) : base(_config, _jig)
         {
         }
 

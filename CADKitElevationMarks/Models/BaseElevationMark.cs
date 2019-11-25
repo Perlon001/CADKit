@@ -29,14 +29,16 @@ namespace CADKitElevationMarks.Models
         protected readonly double scaleFactor = AppSettings.Instance.ScaleFactor;
         protected readonly IElevationMarkConfig config;
         protected readonly Matrix3d transformMatrix;
+        protected readonly DrawJig jig;
 
         protected DBText[] texts;
         protected Point3d elevationPoint;
         protected Point3d directionPoint;
 
-        public BaseElevationMark(IElevationMarkConfig _config)
+        public BaseElevationMark(IElevationMarkConfig _config, DrawJig _jig)
         {
             this.config = _config;
+            this.jig = _jig;
             this.texts = new DBText[] { new DBText(), new DBText() };
 
             this.transformMatrix = Matrix3d.AlignCoordinateSystem(
