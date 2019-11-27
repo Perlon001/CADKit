@@ -22,11 +22,16 @@ namespace CADKitElevationMarks.Models
         private Polyline[] plines = new Polyline[2] { new Polyline(), new Polyline() };
         private bool IsZero = false;
 
-        public ConstructionElevationMarkPNB01025(IElevationMarkConfig _config, DrawJig _jig) : base(_config, _jig)
+        public ConstructionElevationMarkPNB01025(IElevationMarkConfig _config) : base(_config)
         {
         }
 
-        protected override void Draw(Transaction transaction)
+        public override void Draw()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Group DrawEntities(Transaction transaction)
         {
             DBDictionary groupDictionary = (DBDictionary)transaction.GetObject(ProxyCAD.Database.GroupDictionaryId, OpenMode.ForWrite);
             Group group = new Group();
@@ -118,6 +123,8 @@ namespace CADKitElevationMarks.Models
 
             transaction.AddNewlyCreatedDBObject(group, true);
             ProxyCAD.Document.Editor.Regen();
+
+            return group;
         }
     }
 }

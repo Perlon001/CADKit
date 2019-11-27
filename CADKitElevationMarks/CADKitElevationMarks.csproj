@@ -84,8 +84,10 @@
     <Compile Include="Models\ElevationMarkFactoryPNB01025.cs" />
     <Compile Include="Contracts\IElevationMarkFactory.cs" />
     <Compile Include="Models\Extensions.cs" />
-    <Compile Include="Models\JigSectionMarkCADKit.cs" />
-    <Compile Include="Models\JigVMirrorElevationMark.cs" />
+    <Compile Include="Models\JigVerticalConstantVerticalAndHorizontalMirrorMark.cs" />
+    <Compile Include="Models\JigVerticalConstantVerticalMirrorMark.cs" />
+    <Compile Include="Models\JigDisplacement.cs" />
+    <Compile Include="Models\JigVerticalConstantMark.cs" />
     <Compile Include="Models\PlaneElevationMarkCADKit.cs" />
     <Compile Include="Models\PlaneElevationMarkPNB01025.cs" />
     <Compile Include="Models\RegistrationModule.cs" />

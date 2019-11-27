@@ -7,5 +7,5 @@
 		)
 	)
 )
-(command "CK_AAA")
+(command "CK_KOTA_ARCH")
 (princ)

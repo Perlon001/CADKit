@@ -43,6 +43,12 @@ namespace CADKitElevationMarks
                     .Select(ent => (Entity)ent.Clone())
                     .ToList();
 
+
+                PromptPointOptions promptPoint = new PromptPointOptions("Select reference point:");
+                PromptPointResult promptPointResult = ed.GetPoint(promptPoint);
+                if (promptPointResult.Status != PromptStatus.OK)
+                    return;
+
                 List<Entity> entities = new List<Entity>();
                 foreach (ObjectId oid in result.Value.GetObjectIds())
                 {
@@ -50,21 +56,19 @@ namespace CADKitElevationMarks
                     Entity p = ent as Entity;
                     if (p == null)
                         continue;
-                    p.Visible = false;
+//                    p.Visible = false;
                     entities.Add(p);
                 }
                 t.Commit();
 
-                PromptPointOptions promptPoint = new PromptPointOptions("Select reference point:");
-                PromptPointResult promptPointResult = ed.GetPoint(promptPoint);
-                if (promptPointResult.Status != PromptStatus.OK)
-                    return;
                 SimpleGeometryJig jig = new SimpleGeometryJig(clones, promptPointResult.Value.TransformBy((ed.CurrentUserCoordinateSystem)), ed);
                 PromptResult res = ed.Drag(jig);
                 if(res.Status == PromptStatus.OK)
                 {
                     ed.WriteMessage("Commit na obiektach");
-                    var cSpace = (BlockTableRecord)t.GetObject(db.CurrentSpaceId, OpenMode.ForWrite);
+                    var space = db.CurrentSpaceId;
+                    var tab = t.GetObject(space, OpenMode.ForWrite);
+                    var cSpace = (BlockTableRecord)tab;
                     foreach (var p in entities)
                     {
                         p.TransformBy(jig.Transforms);
@@ -73,12 +77,15 @@ namespace CADKitElevationMarks
                         p.Visible = true;
                     }
                 }
-                foreach (var p in clones)
-                {
-                    p.Dispose();
-                }
+                //foreach (var p in clones)
+                //{
+                //    p.Dispose();
+                //}
                 t.Commit();
             }
+            //object acObject = Application.ZcadApplication;
+            //acObject.GetType().InvokeMember("ZoomExtents", BindingFlags.InvokeMethod, null, acObject, null);
+
         }
 
         public class SimpleGeometryJig : DrawJig
@@ -98,7 +105,7 @@ namespace CADKitElevationMarks
                 ed = _ed;
                 foreach(var p in polylines)
                 {
-                    p.Visible = false;
+                    // p.Visible = false;
                 }
             }
 
@@ -128,15 +135,15 @@ namespace CADKitElevationMarks
                     var geometry = draw.Geometry;
                     if (geometry != null)
                     {
-                        geometry.PushModelTransform(Matrix3d.Displacement(referencePosition.GetVectorTo(currentLocation)));
-                        if (currentPosition.Y < referencePosition.Y)
-                        {
-                            geometry.PushModelTransform(Matrix3d.Mirroring(new Line3d(referencePosition, currentLocation)));
-                        }
                         if (currentPosition.X < referencePosition.X)
                         {
-                            geometry.PushModelTransform(Matrix3d.Mirroring(new Line3d(currentLocation,new Vector3d(0,1,0))));
+                            geometry.PushModelTransform(Matrix3d.Mirroring(new Line3d(referencePosition, new Vector3d(0, 1, 0))));
                         }
+                        if (currentPosition.Y < referencePosition.Y)
+                        {
+                            geometry.PushModelTransform(Matrix3d.Mirroring(new Line3d(referencePosition, new Vector3d(1, 0, 0))));
+                        }
+                        geometry.PushModelTransform(Matrix3d.Displacement(referencePosition.GetVectorTo(currentLocation)));
                         foreach (var entity in polylines)
                         {
                             geometry.Draw(entity);

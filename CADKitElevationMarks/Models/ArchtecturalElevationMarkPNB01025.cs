@@ -2,6 +2,9 @@
 using CADKitElevationMarks.Contracts;
 using CADProxy;
 using System;
+using System.Reflection;
+using System.Collections.Generic;
+using System.Linq;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -22,11 +25,52 @@ namespace CADKitElevationMarks.Models
         private Polyline[] plines = new Polyline[] { new Polyline(), new Polyline() };
         private bool IsZero = false;
 
-        public ArchtecturalElevationMarkPNB01025(IElevationMarkConfig _config, DrawJig _jig) : base(_config, _jig)
+        public ArchtecturalElevationMarkPNB01025(IElevationMarkConfig _config) : base(_config)
         {
         }
 
-        protected override void Draw(Transaction transaction)
+        public override void Draw()
+        {
+            GetElevationPoint();
+            PrepareTextFields();
+            using (var tr = ProxyCAD.Database.TransactionManager.StartTransaction())
+            {
+                try
+                {
+                    var groupa = DrawEntities(tr);
+                    group = groupa
+                        .GetAllEntityIds()
+                        .Select(ent => (Entity)ent.GetObject(OpenMode.ForWrite).Clone())
+                        .ToList();
+                    
+                    groupa.SetVisibility(false);
+
+                    jig = new JigVerticalConstantMark(group, elevationPoint.TransformBy((ed.CurrentUserCoordinateSystem)));
+                    PromptResult result = ed.Drag(jig);
+                    if (result.Status == PromptStatus.OK)
+                    {
+                        foreach(var p in groupa.GetAllEntityIds())
+                        {
+                            var ent = p.GetObject(OpenMode.ForWrite) as Entity;
+                            ent.TransformBy(jig.Transforms);
+                        }
+                        groupa.SetVisibility(true);
+                        tr.Commit();
+                    }
+                    else
+                    {
+                        tr.Abort();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    tr.Abort();
+                    ed.WriteMessage(ex.Message);
+                }
+            }
+        }
+
+        protected override Group DrawEntities(Transaction transaction)
         {
             DBDictionary groupDictionary = (DBDictionary)transaction.GetObject(ProxyCAD.Database.GroupDictionaryId, OpenMode.ForWrite);
             Group group = new Group();
@@ -118,7 +162,9 @@ namespace CADKitElevationMarks.Models
             plines[1].Store(transaction, record, group, transformMatrix);
 
             transaction.AddNewlyCreatedDBObject(group, true);
-            ProxyCAD.Editor.Regen();
+            ed.Regen();
+
+            return group;
         }
     }
 }

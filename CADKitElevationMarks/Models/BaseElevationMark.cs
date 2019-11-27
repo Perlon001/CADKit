@@ -5,6 +5,7 @@ using CADKitElevationMarks.Contracts;
 using System;
 using System.Globalization;
 using CADProxy;
+using System.Collections.Generic;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -29,16 +30,19 @@ namespace CADKitElevationMarks.Models
         protected readonly double scaleFactor = AppSettings.Instance.ScaleFactor;
         protected readonly IElevationMarkConfig config;
         protected readonly Matrix3d transformMatrix;
-        protected readonly DrawJig jig;
+        protected readonly Editor ed = ProxyCAD.Editor;
+        protected readonly Database db = ProxyCAD.Database;
+
 
         protected DBText[] texts;
         protected Point3d elevationPoint;
         protected Point3d directionPoint;
+        protected JigDisplacement jig;
+        protected IEnumerable<Entity> group;
 
-        public BaseElevationMark(IElevationMarkConfig _config, DrawJig _jig)
+        public BaseElevationMark(IElevationMarkConfig _config)
         {
             this.config = _config;
-            this.jig = _jig;
             this.texts = new DBText[] { new DBText(), new DBText() };
 
             this.transformMatrix = Matrix3d.AlignCoordinateSystem(
@@ -50,8 +54,6 @@ namespace CADKitElevationMarks.Models
                 coordinateSystem.Xaxis,
                 coordinateSystem.Yaxis,
                 coordinateSystem.Zaxis);
-            
-            Run();
 
             //using (var scope = DI.Container.BeginLifetimeScope())
             //{
@@ -66,33 +68,13 @@ namespace CADKitElevationMarks.Models
             //    acDoc.Database.Textstyle = scope.Resolve<IElevationMarkTextStyleGenerator>().Create<TextStyleTableRecord>();
             //}
             //TextStyleTableRecord textStyle = ((TextStyleTableRecord)transaction.GetObject(acDoc.Database.Textstyle, OpenMode.ForRead));
-
         }
 
-        protected abstract void Draw(Transaction tr);
+        protected abstract Group DrawEntities(Transaction tr);
 
-        private void Run()
-        {
-            GetElevationPoint();
-            PrepareTextFields();
-            GetDirectionPoint();
-            using (var tr = ProxyCAD.Database.TransactionManager.StartTransaction())
-            {
-                try
-                {
-                    Draw(tr);
-                    tr.Commit();
-                }
-                catch (Exception ex)
-                {
-                    tr.Abort();
-                    throw ex;
-                }
-            }
-//            ProxyCAD.UsingTransaction(Draw);
-        }
-
-        private void GetElevationPoint()
+        public abstract void Draw();
+ 
+        protected void GetElevationPoint()
         {
             PromptPointResult pointResult;
             PromptPointOptions promptOptions;
@@ -103,24 +85,24 @@ namespace CADKitElevationMarks.Models
 
             promptOptions = new PromptPointOptions("\nWskaż punkt wysokościowy: ");
             promptOptions.AllowNone = true;
-            pointResult = ProxyCAD.Editor.GetPoint(promptOptions);
+            pointResult = ed.GetPoint(promptOptions);
             CheckPromptStatus(osmode, orthomode, pointResult);
             
             elevationPoint = pointResult.Value;
         }
 
-        private void GetDirectionPoint()
+        protected void GetDirectionPoint()
         {
             directionPoint = elevationPoint;
         }
 
-        private void PrepareTextFields()
+        protected virtual void PrepareTextFields()
         {
             this.texts[0].TextString = GetElevationSign();
             this.texts[1].TextString = Math.Round(Math.Abs(elevationPoint.Y) * GetElevationFactor(), 3).ToString("0.000", CultureInfo.GetCultureInfo("pl-PL"));
         }
 
-        private static void CheckPromptStatus(int osmode, int orthomode, PromptPointResult pointResult)
+        protected static void CheckPromptStatus(int osmode, int orthomode, PromptPointResult pointResult)
         {
             if (pointResult.Status == PromptStatus.Cancel || pointResult.Status == PromptStatus.None)
             {
@@ -130,7 +112,7 @@ namespace CADKitElevationMarks.Models
             }
         }
 
-        private string GetElevationSign()
+        protected string GetElevationSign()
         {
             if (Math.Round(Math.Abs(elevationPoint.Y) * GetElevationFactor(), 3) == 0)
             {
@@ -160,34 +142,5 @@ namespace CADKitElevationMarks.Models
                     throw new Exception("\nNie rozpoznana jednostka rysunkowa");
             }
         }
-
-        //protected virtual void GetPoints()
-        //{
-        //    PromptPointResult pointResult;
-        //    PromptPointOptions promptOptions;
-        //    int osmode = Convert.ToInt16(Application.GetSystemVariable("Osmode"));
-        //    int orthomode = Convert.ToInt16(Application.GetSystemVariable("Orthomode"));
-
-        //    Application.SetSystemVariable("Osmode", 512);
-
-        //    promptOptions = new PromptPointOptions("\nWskaż punkt wysokościowy: ");
-        //    promptOptions.AllowNone = true;
-        //    pointResult = ProxyCAD.Editor.GetPoint(promptOptions);
-        //    CheckPromptStatus(osmode, orthomode, pointResult);
-        //    point = pointResult.Value;
-
-        //    Application.SetSystemVariable("Osmode", 0);
-        //    Application.SetSystemVariable("Orthomode", 0);
-
-        //    promptOptions.Message = "\nWskaż kierunek koty wysokościowej: ";
-        //    promptOptions.UseBasePoint = true;
-        //    promptOptions.BasePoint = point;
-        //    pointResult = ProxyCAD.Editor.GetPoint(promptOptions);
-        //    CheckPromptStatus(osmode, orthomode, pointResult);
-        //    directionPoint = pointResult.Value;
-
-        //    Application.SetSystemVariable("Osmode", osmode);
-        //    Application.SetSystemVariable("Orthomode", orthomode);
-        //}
     }
 }

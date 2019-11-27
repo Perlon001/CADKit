@@ -15,11 +15,16 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneElevationMarkCADKit : BaseElevationMark
     {
-        public PlaneElevationMarkCADKit(IElevationMarkConfig _config, DrawJig _jig) : base(_config, _jig)
+        public PlaneElevationMarkCADKit(IElevationMarkConfig _config) : base(_config)
         {
         }
 
-        protected override void Draw(Transaction transaction)
+        public override void Draw()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override Group DrawEntities(Transaction transaction)
         {
             throw new NotImplementedException();
         }

@@ -8,16 +8,17 @@ using CADApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.DatabaseServices;
 using CADDatabaseServices = ZwSoft.ZwCAD.DatabaseServices;
-
-
 #endif
 
 #if AutoCAD
 using Autodesk.AutoCAD.ApplicationServices;
+using CADApplicationServices = Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.DatabaseServices;
 using CADDatabaseServices = Autodesk.AutoCAD.DatabaseServices;
 #endif
+
+
 
 namespace CADProxy
 {
@@ -207,6 +208,18 @@ namespace CADProxy
         public static string Product
         {
             get { return (string)Application.GetSystemVariable("PRODUCT"); }
+        }
+        public static object ApplicationObject
+        {
+            get 
+            {
+                #if ZwCAD
+                return Application.ZcadApplication;
+                #endif
+                #if AutoCAD
+                return Application.AcadApplication;
+                #endif
+            }
         }
     }
 }
