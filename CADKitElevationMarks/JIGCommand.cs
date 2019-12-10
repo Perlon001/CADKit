@@ -24,7 +24,7 @@ namespace CADKitElevationMarks
 {
     public class JIGCommand
     {
-        [CommandMethod("CK_AAA")]
+        [CommandMethod("CK_BBB")]
         public static void TestAAA()
         {
             Document doc = Application.DocumentManager.MdiActiveDocument;

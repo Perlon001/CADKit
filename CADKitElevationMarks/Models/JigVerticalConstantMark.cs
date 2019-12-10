@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CADProxy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +35,7 @@ namespace CADKitElevationMarks.Models
                 if (geometry != null)
                 {
                     geometry.PushModelTransform(Transforms);
-                    foreach (var entity in group)
+                    foreach (var entity in entityList)
                     {
                         geometry.Draw(entity);
                     }
@@ -45,7 +46,7 @@ namespace CADKitElevationMarks.Models
             }
             catch (Exception ex)
             {
-                ed.WriteMessage(ex.Message);
+                ProxyCAD.Editor.WriteMessage(ex.Message);
                 return false;
             }
         }

@@ -63,9 +63,15 @@
   <ItemGroup>
     <Compile Include="Autostart.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="Contracts\IMarkJigFactory.cs" />
     <Compile Include="Contracts\Presenters\IElevationMarksPresenter.cs" />
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
+    <Compile Include="Contracts\Views\IMarkJig.cs" />
     <Compile Include="JIGCommand.cs" />
+    <Compile Include="Models\BaseElevationMark.cs" />
+    <Compile Include="Models\ElevationMark.cs" />
+    <Compile Include="Models\ElevationValue.cs" />
+    <Compile Include="Models\MarkSidePosition.cs" />
     <Compile Include="Models\ElevationMarkFactory.cs" />
     <Compile Include="Contracts\ElevationMarkType.cs" />
     <Compile Include="Contracts\IElevationMark.cs" />
@@ -75,8 +81,8 @@
     <Compile Include="Contracts\IElevationMarkLayerGenerator.cs" />
     <Compile Include="Contracts\IElevationMarkTextStyleGenerator.cs" />
     <Compile Include="Models\ArchitecturalElevationMarkCADKit.cs" />
-    <Compile Include="Models\ArchtecturalElevationMarkPNB01025.cs" />
-    <Compile Include="Models\BaseElevationMark.cs" />
+    <Compile Include="Models\ArchitecturalElevationMarkPNB01025.cs" />
+    <Compile Include="Models\_BaseElevationMark.cs" />
     <Compile Include="Models\ConstructionElevationMarkCADKit.cs" />
     <Compile Include="Models\ConstructionElevationMarkPNB01025.cs" />
     <Compile Include="Models\ElevationMarkConfig.cs" />
@@ -85,9 +91,10 @@
     <Compile Include="Contracts\IElevationMarkFactory.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\JigVerticalConstantVerticalAndHorizontalMirrorMark.cs" />
-    <Compile Include="Models\JigVerticalConstantVerticalMirrorMark.cs" />
+    <Compile Include="Models\JigVerticalConstantHorizontalMirrorMark.cs" />
     <Compile Include="Models\JigDisplacement.cs" />
     <Compile Include="Models\JigVerticalConstantMark.cs" />
+    <Compile Include="Models\MarkJig.cs" />
     <Compile Include="Models\PlaneElevationMarkCADKit.cs" />
     <Compile Include="Models\PlaneElevationMarkPNB01025.cs" />
     <Compile Include="Models\RegistrationModule.cs" />

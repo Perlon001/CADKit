@@ -1,5 +1,6 @@
 ﻿using CADKitElevationMarks.Contracts;
 using System;
+using System.Collections.Generic;
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.EditorInput;
@@ -15,18 +16,14 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneElevationMarkPNB01025 : BaseElevationMark
     {
-        public PlaneElevationMarkPNB01025(IElevationMarkConfig _config) : base(_config)
+        public PlaneElevationMarkPNB01025(ElevationValue _value, IElevationMarkConfig _config) : base(_value, _config)
         {
         }
 
-        public override void Draw()
+        protected override void CreateEntityList()
         {
-            throw new NotImplementedException();
+            throw new System.NotImplementedException();
         }
 
-        protected override Group DrawEntities(Transaction transaction)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

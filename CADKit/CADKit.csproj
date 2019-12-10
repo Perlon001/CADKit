@@ -88,8 +88,11 @@
     <Compile Include="Contracts\Services\ICompositeProvider.cs" />
     <Compile Include="Contracts\Services\ICompositeService.cs" />
     <Compile Include="DI.cs" />
+    <Compile Include="Extensions\EnumerableEntityExtensions.cs" />
     <Compile Include="Extensions\Extension.cs" />
     <Compile Include="Extensions\TransactionDelegate.cs" />
+    <Compile Include="Extensions\TransactionExtensions.cs" />
+    <Compile Include="JIGCommand.cs" />
     <Compile Include="Models\CanNoScale.cs" />
     <Compile Include="Models\Composite.cs" />
     <Compile Include="Services\CompositeProvider.cs" />

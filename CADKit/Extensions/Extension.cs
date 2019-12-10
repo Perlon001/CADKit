@@ -1,12 +1,11 @@
-﻿using CADProxy;
-using System;
+﻿using System.Reflection;
 
 #if ZwCAD
-using ZwSoft.ZwCAD.DatabaseServices;
+using ZwSoft.ZwCAD.ApplicationServices;
 #endif
 
 #if AutoCAD
-using Autodesk.AutoCAD.DatabaseServices;
+using Autodesk.AutoCAD.ApplicationServices;
 #endif
 
 
@@ -14,38 +13,10 @@ namespace CADKit.Extensions
 {
     public static class Extension
     {
-        public static void UsingTransaction(Action<Transaction> action)
+        public static void ZoomExtens()
         {
-            using (var tr = ProxyCAD.Database.TransactionManager.StartTransaction())
-            {
-                try
-                {
-                    action(tr);
-                    tr.Commit();
-                }
-                catch (Exception ex)
-                {
-                    tr.Abort();
-                    throw ex;
-                }
-            }
-        }
-
-        public static void UsingTransaction(this Database database, Action<Transaction> action)
-        {
-            using (var tr = database.TransactionManager.StartTransaction())
-            {
-                try
-                {
-                    action(tr);
-                    tr.Commit();
-                }
-                catch (Exception)
-                {
-                    tr.Abort();
-                    throw;
-                }
-            }
+            object acObject = Application.ZcadApplication;
+            acObject.GetType().InvokeMember("ZoomExtents", BindingFlags.InvokeMethod, null, acObject, null);
         }
     }
 }

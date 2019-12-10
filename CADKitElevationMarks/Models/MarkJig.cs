@@ -1,7 +1,10 @@
-﻿using CADProxy;
+﻿using CADKitElevationMarks.Contracts.Views;
+using CADProxy;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -16,13 +19,22 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.GraphicsInterface;
 #endif
+
 namespace CADKitElevationMarks.Models
 {
-    public class JigDisplacement : MarkJig
+    public abstract class MarkJig : DrawJig
     {
-        public JigDisplacement(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint)
+        protected Point3d currentPoint;
+        protected Point3d basePoint;
+        protected IEnumerable<Entity> entityList;
+        public Matrix3d Transforms { get; protected set; }
+
+        public MarkJig(IEnumerable<Entity> _entityList, Point3d _basePoint)
         {
+            entityList = _entityList;
+            basePoint = _basePoint;
         }
+
         protected override SamplerStatus Sampler(JigPrompts prompts)
         {
             JigPromptPointOptions jigOpt = new JigPromptPointOptions("Wskaż punkt wstawienia:");
@@ -31,7 +43,7 @@ namespace CADKitElevationMarks.Models
 
             PromptPointResult res = prompts.AcquirePoint(jigOpt);
 
-            if (res.Value.IsEqualTo(currentPoint))
+            if (res.Value.IsEqualTo(basePoint))
             {
                 return SamplerStatus.NoChange;
             }
@@ -64,5 +76,9 @@ namespace CADKitElevationMarks.Models
             }
         }
 
+        protected virtual void EntityListUpdate(IEnumerable<Entity> _entityList)
+        {
+            entityList = _entityList;
+        }
     }
 }
