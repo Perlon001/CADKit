@@ -2,6 +2,7 @@
 using CADKitElevationMarks.Contracts;
 using CADProxy;
 using System.Collections.Generic;
+using CADKitElevationMarks.Modelsm;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -19,7 +20,7 @@ namespace CADKitElevationMarks.Models
 {
     public class ArchitecturalElevationMarkCADKit : ElevationMark
     {
-        protected override IEnumerable<Entity> GetEntityList()
+        protected override void CreateEntityList()
         {
             throw new System.NotImplementedException();
         }

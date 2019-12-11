@@ -1,5 +1,6 @@
 ﻿using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
+using CADKitElevationMarks.Modelsm;
 using CADProxy;
 using System;
 using System.Collections.Generic;
@@ -20,21 +21,15 @@ namespace CADKitElevationMarks.Models
 {
     public class ArchitecturalElevationMarkPNB01025 : ElevationMark
     {
-        protected override IEnumerable<Entity> GetEntityList()
+        public ArchitecturalElevationMarkPNB01025() : base()
+        {
+        }
+
+        protected override void CreateEntityList()
         {
             List<Entity> en = new List<Entity>();
 
             var tx = new DBText();
-            tx.SetDatabaseDefaults();
-            tx.TextStyle = ProxyCAD.Database.Textstyle;
-            tx.HorizontalMode = TextHorizontalMode.TextRight;
-            tx.VerticalMode = TextVerticalMode.TextVerticalMid;
-            tx.ColorIndex = 7;
-            tx.Height = 2;
-            tx.AlignmentPoint = new Point3d(1, 4.5, 0);
-            tx.TextString = this.value.Sign;
-            en.Add(tx);
-
             tx = new DBText();
             tx.SetDatabaseDefaults();
             tx.TextStyle = ProxyCAD.Database.Textstyle;
@@ -48,10 +43,25 @@ namespace CADKitElevationMarks.Models
 
             var textArea = EntityInfo.GetTextArea(tx);
 
+            tx.SetDatabaseDefaults();
+            tx.TextStyle = ProxyCAD.Database.Textstyle;
+            tx.HorizontalMode = TextHorizontalMode.TextRight;
+            tx.VerticalMode = TextVerticalMode.TextVerticalMid;
+            tx.ColorIndex = 7;
+            tx.Height = 2;
+            tx.AlignmentPoint = new Point3d(1, 4.5, 0);
+            tx.TextString = this.value.Sign;
+            en.Add(tx);
+
             var pl = new Polyline();
             pl.AddVertexAt(0, new Point2d(-1, 1), 0, 0, 0);
             pl.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl.AddVertexAt(0, new Point2d(1, 1), 0, 0, 0);
+                if (Math.Round(Math.Abs(this.basePoint.Value.Y) * GetElevationFactor(), 3) == 0)
+                {
+                    tx.TextString = "%%p";
+                    pl.Closed = true;
+                }
             en.Add(pl);
             
             pl = new Polyline();
@@ -60,7 +70,7 @@ namespace CADKitElevationMarks.Models
             pl.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X + 1.5, 3), 0, 0, 0);
             en.Add(pl);
             
-            return en;
+            this.entityList = en;
         }
 
         protected override MarkJig GetMarkJig(Group _group, Point3d _point)

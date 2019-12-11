@@ -1,5 +1,6 @@
 ﻿using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
+using CADKitElevationMarks.Modelsm;
 using CADProxy;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace CADKitElevationMarks.Models
 {
     public class ConstructionElevationMarkPNB01025 : ElevationMark
     {
-        protected override IEnumerable<Entity> GetEntityList()
+        protected override void CreateEntityList()
         {
             throw new NotImplementedException();
         }

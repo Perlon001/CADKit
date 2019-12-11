@@ -25,8 +25,8 @@ namespace CADKitElevationMarks.Modelsm
 {
     public abstract class ElevationMark
     {
-        protected SystemVariables variables;
-        protected PromptPointResult basePoint;
+        protected readonly SystemVariables variables;
+        protected readonly PromptPointResult basePoint;
         protected ElevationValue value;
         protected IElevationMarkConfig config;
         protected IEnumerable<Entity> entityList;
@@ -42,16 +42,20 @@ namespace CADKitElevationMarks.Modelsm
         //        return entityList;
         //    } 
         //}
-
-        public void Create()
+        public ElevationMark()
         {
             variables = SystemVariableService.GetSystemVariables();
             basePoint = GetBasePoint();
+        }
+
+        public void Create()
+        {
             if (basePoint.Status == PromptStatus.OK)
             {
                 value = new ElevationValue(GetElevationSign(), GetElevationValue());
-                GetEntityList();
+                CreateEntityList();
                 var group = entityList
+                    .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor,new Point3d(0,0,0)))
                     .TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(basePoint.Value)))
                     .ToList()
                     .ToGroup();
@@ -86,7 +90,7 @@ namespace CADKitElevationMarks.Modelsm
             SystemVariableService.RestoreSystemVariables(variables);
         }
 
-        protected abstract IEnumerable<Entity> GetEntityList();
+        protected abstract void CreateEntityList();
         protected abstract MarkJig GetMarkJig(Group group, Point3d point);
 
         private PromptPointResult GetBasePoint()
@@ -118,7 +122,7 @@ namespace CADKitElevationMarks.Modelsm
             }
         }
 
-        private double GetElevationFactor()
+        protected double GetElevationFactor()
         {
             switch (AppSettings.Instance.DrawingUnit)
             {

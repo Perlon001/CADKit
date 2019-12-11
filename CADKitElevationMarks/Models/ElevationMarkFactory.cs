@@ -2,6 +2,7 @@
 using Autofac;
 using CADKit;
 using CADKitElevationMarks.Contracts;
+using CADKitElevationMarks.Modelsm;
 
 namespace CADKitElevationMarks.Models
 {

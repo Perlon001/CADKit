@@ -1,4 +1,5 @@
 ﻿using CADKitElevationMarks.Contracts;
+using CADKitElevationMarks.Modelsm;
 using System;
 using System.Collections.Generic;
 #if ZwCAD
@@ -16,7 +17,7 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneElevationMarkCADKit : ElevationMark
     {
-        protected override IEnumerable<Entity> GetEntityList()
+        protected override void CreateEntityList()
         {
             throw new NotImplementedException();
         }
