@@ -17,7 +17,7 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace CADKitElevationMarks.Models
 {
-    public class ArchitecturalElevationMarkCADKit : BaseElevationMark
+    public class ArchitecturalElevationMarkCADKit : ElevationMark
     {
         public ArchitecturalElevationMarkCADKit(ElevationValue _value, IElevationMarkConfig _config) : base(_value, _config)
         {

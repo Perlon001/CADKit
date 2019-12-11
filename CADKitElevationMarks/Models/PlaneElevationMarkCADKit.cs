@@ -14,7 +14,7 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class PlaneElevationMarkCADKit : BaseElevationMark
+    public class PlaneElevationMarkCADKit : ElevationMark
     {
         public PlaneElevationMarkCADKit(ElevationValue _value, IElevationMarkConfig _config) : base(_value, _config)
         {

@@ -68,7 +68,6 @@
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
     <Compile Include="Contracts\Views\IMarkJig.cs" />
     <Compile Include="JIGCommand.cs" />
-    <Compile Include="Models\BaseElevationMark.cs" />
     <Compile Include="Models\ElevationMark.cs" />
     <Compile Include="Models\ElevationValue.cs" />
     <Compile Include="Models\MarkSidePosition.cs" />
