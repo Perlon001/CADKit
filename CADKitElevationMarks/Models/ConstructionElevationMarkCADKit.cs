@@ -19,11 +19,12 @@ namespace CADKitElevationMarks.Models
 {
     public class ConstructionElevationMarkCADKit : ElevationMark
     {
-        public ConstructionElevationMarkCADKit(ElevationValue _value, IElevationMarkConfig _config) : base(_value, _config)
+        protected override IEnumerable<Entity> GetEntityList()
         {
+            throw new System.NotImplementedException();
         }
 
-        protected override void CreateEntityList()
+        protected override MarkJig GetMarkJig(Group group, Point3d point)
         {
             throw new System.NotImplementedException();
         }

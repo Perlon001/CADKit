@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autostart.cs" />
-    <Compile Include="Commands.cs" />
+    <Compile Include="ElevationMarkCommands.cs" />
     <Compile Include="Contracts\IMarkJigFactory.cs" />
     <Compile Include="Contracts\Presenters\IElevationMarksPresenter.cs" />
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
@@ -73,7 +73,6 @@
     <Compile Include="Models\MarkSidePosition.cs" />
     <Compile Include="Models\ElevationMarkFactory.cs" />
     <Compile Include="Contracts\ElevationMarkType.cs" />
-    <Compile Include="Contracts\IElevationMark.cs" />
     <Compile Include="Contracts\IElevationMarkConfig.cs" />
     <Compile Include="Contracts\IElevationMarkFactoryCADKit.cs" />
     <Compile Include="Contracts\IElevationMarkFactoryPNB01025.cs" />

@@ -28,78 +28,84 @@ namespace CADKitElevationMarks
 {
     public class ElevationMarkCommands
     {
+        public ElevationMarkFactory factory { get; set; }
+        public ElevationMarkCommands()
+        {
+            factory = GetElevationMarkFactory();
+        }
+
         [CommandMethod("CK_KOTA_ARCH")]
         public void ElevationMarkArch()
         {
-            CreateElevationMark(ElevationMarkType.archMark);
+            factory.ArchitecturalElevationMark().Create();
         }
 
         [CommandMethod("CK_KOTA_KONSTR")]
         public void ElevationMarkConstr()
         {
-            CreateElevationMark(ElevationMarkType.constrMark);
+            factory.ConstructionElevationMark().Create();
         }
 
         [CommandMethod("CK_KOTA_POZIOM")]
         public void ElevationMarkPlate()
         {
-            CreateElevationMark(ElevationMarkType.planeMark);
+            factory.PlaneElevationMark().Create();
         }
 
         private void CreateElevationMark(ElevationMarkType type)
         {
-            SystemVariables variables = SystemVariableService.GetSystemVariables();
-            PromptPointOptions promptPointOptions = new PromptPointOptions("Wskaż punkt wysokościowy:");
-            PromptPointResult basePoint = ProxyCAD.Editor.GetPoint(promptPointOptions);
-            if (basePoint.Status != PromptStatus.OK) return;
+            //SystemVariables variables = SystemVariableService.GetSystemVariables();
+            //PromptPointOptions promptPointOptions = new PromptPointOptions("Wskaż punkt wysokościowy:");
+            //PromptPointResult basePoint = ProxyCAD.Editor.GetPoint(promptPointOptions);
+            //if (basePoint.Status != PromptStatus.OK) return;
 
-            var elevationMarkFactory = CreateElevationMarkFactory(AppSettings.Instance.DrawingStandard);
-            var elevationMark = elevationMarkFactory.CreateElevationMarkFactory(type, new ElevationValue("%%p", basePoint.Value.Y));
-            Group group = elevationMark.EntityList
-                .TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(basePoint.Value)))
-                .ToList()
-                .ToGroup();
-            using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
-            {
-                var jig = new JigDisplacement(
-                    group.GetAllEntityIds()
-                    .Select(ent => (Entity)ent
-                    .GetObject(OpenMode.ForWrite)
-                    .Clone())
-                    .ToList(),
-                    basePoint.Value);
-                (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
-                PromptResult result = ProxyCAD.Editor.Drag(jig);
-                if (result.Status == PromptStatus.OK)
-                {
-                    foreach (var p in elevationMark.EntityList)
-                    {
-                        p.TransformBy(jig.Transforms);
-                    }
-                    (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(true);
-                }
-                else
-                {
-                    foreach (var id in group.GetAllEntityIds())
-                    {
-                        if (!id.IsErased)
-                        {
-                            tr.GetObject(id, OpenMode.ForWrite).Erase();
-                        }
-                    }
-                    group.Erase(true);
-                }
-                tr.Commit();
-            }
-            SystemVariableService.RestoreSystemVariables(variables);
+            //var elevationMarkFactory = ElevationMarkFactory(AppSettings.Instance.DrawingStandard);
+            //var elevationMark = elevationMarkFactory.CreateElevationMarkFactory(type, new ElevationValue("%%p", basePoint.Value.Y));
+            //Group group = elevationMark.EntityList
+            //    .TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(basePoint.Value)))
+            //    .ToList()
+            //    .ToGroup();
+            //using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+            //{
+            //    var jig = new JigDisplacement(
+            //        group.GetAllEntityIds()
+            //        .Select(ent => (Entity)ent
+            //        .GetObject(OpenMode.ForWrite)
+            //        .Clone())
+            //        .ToList(),
+            //        basePoint.Value);
+            //    (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
+            //    PromptResult result = ProxyCAD.Editor.Drag(jig);
+            //    if (result.Status == PromptStatus.OK)
+            //    {
+            //        foreach (var p in elevationMark.EntityList)
+            //        {
+            //            p.TransformBy(jig.Transforms);
+            //        }
+            //        (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(true);
+            //    }
+            //    else
+            //    {
+            //        foreach (var id in group.GetAllEntityIds())
+            //        {
+            //            if (!id.IsErased)
+            //            {
+            //                tr.GetObject(id, OpenMode.ForWrite).Erase();
+            //            }
+            //        }
+            //        group.Erase(true);
+            //    }
+            //    tr.Commit();
+            //}
+            //SystemVariableService.RestoreSystemVariables(variables);
         }
 
-        private ElevationMarkFactory CreateElevationMarkFactory(DrawingStandards standards)
+        private ElevationMarkFactory GetElevationMarkFactory()
         {
             ElevationMarkFactory factory;
             using (ILifetimeScope scope = DI.Container.BeginLifetimeScope())
             {
-                switch (standards)
+                switch (AppSettings.Instance.DrawingStandard)
                 {
                     case DrawingStandards.PN_B_01025:
                         //factory = scope.Resolve<IElevationMarkFactoryPNB01025>();
@@ -110,7 +116,7 @@ namespace CADKitElevationMarks
                         factory = new ElevationMarkFactoryCADKit();
                         break;
                     default:
-                        throw new NotImplementedException($"Brak implemetacji standardu {standards.ToString()}");
+                        throw new NotImplementedException($"Brak implemetacji standardu {AppSettings.Instance.DrawingStandard.ToString()}");
                 }
             }
 

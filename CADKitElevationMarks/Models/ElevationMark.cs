@@ -1,10 +1,13 @@
-﻿using CADKitElevationMarks.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CADProxy;
+using CADKit;
+using CADKit.Models;
+using CADKit.Services;
+using CADKit.Extensions;
+using CADKitElevationMarks.Contracts;
+using CADKitElevationMarks.Models;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -18,42 +21,117 @@ using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.EditorInput;
 #endif
 
-namespace CADKitElevationMarks.Models
+namespace CADKitElevationMarks.Modelsm
 {
-    public abstract class ElevationMark : IElevationMark
+    public abstract class ElevationMark
     {
-        protected readonly ElevationValue value;
-        protected readonly IElevationMarkConfig config;
+        protected SystemVariables variables;
+        protected PromptPointResult basePoint;
+        protected ElevationValue value;
+        protected IElevationMarkConfig config;
         protected IEnumerable<Entity> entityList;
 
-        public string Sign { get { return value.Sign; } }
+        //public string Sign { get { return value.Sign; } }
 
-        public string Value { get { return value.Value; } }
+        //public string Value { get { return value.Value; } }
 
-        public IEnumerable<Entity> EntityList 
-        { 
-            get 
+        //public IEnumerable<Entity> EntityList 
+        //{ 
+        //    get 
+        //    {
+        //        return entityList;
+        //    } 
+        //}
+
+        public void Create()
+        {
+            variables = SystemVariableService.GetSystemVariables();
+            basePoint = GetBasePoint();
+            if (basePoint.Status == PromptStatus.OK)
             {
-                return entityList;
-            } 
+                value = new ElevationValue(GetElevationSign(), GetElevationValue());
+                GetEntityList();
+                var group = entityList
+                    .TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(basePoint.Value)))
+                    .ToList()
+                    .ToGroup();
+                using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+                {
+                    var jig = GetMarkJig(group, basePoint.Value);
+                    (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
+                    var result = ProxyCAD.Editor.Drag(jig);
+                    if (result.Status == PromptStatus.OK)
+                    {
+                        foreach (var p in entityList)
+                        {
+                            p.TransformBy(jig.Transforms);
+                        }
+                        (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(true);
+                    }
+                    else
+                    {
+                        foreach (var id in group.GetAllEntityIds())
+                        {
+                            if (!id.IsErased)
+                            {
+                                tr.GetObject(id, OpenMode.ForWrite).Erase();
+                            }
+                        }
+                        group.Erase(true);
+                    }
+                    tr.Commit();
+                }
+
+            }
+            SystemVariableService.RestoreSystemVariables(variables);
         }
 
-        public ElevationMark(ElevationValue _value, IElevationMarkConfig _config)
-        {
-            this.value = _value;
-            this.config = _config;
-            entityList = new List<Entity>();
-            CreateEntityList();
-        }
-        
-        protected abstract void CreateEntityList();
+        protected abstract IEnumerable<Entity> GetEntityList();
+        protected abstract MarkJig GetMarkJig(Group group, Point3d point);
 
-        protected PromptPointResult GetBasePoint()
+        private PromptPointResult GetBasePoint()
         {
-            PromptPointOptions promptPointOptions = new PromptPointOptions("Wskaż punkt wysokościowy:");
-            PromptPointResult basePoint = ProxyCAD.Editor.GetPoint(promptPointOptions);
+            var promptPointOptions = new PromptPointOptions("Wskaż punkt wysokościowy:");
+            var basePoint = ProxyCAD.Editor.GetPoint(promptPointOptions);
 
             return basePoint;
         }
+
+        private double GetElevationValue()
+        {
+            return Math.Round(Math.Abs(basePoint.Value.Y) * GetElevationFactor(), 3);
+        }
+
+        private string GetElevationSign()
+        {
+            if (Math.Round(Math.Abs(basePoint.Value.Y) * GetElevationFactor(), 3) == 0)
+            {
+                return "%%p";
+            }
+            else if (basePoint.Value.Y < 0)
+            {
+                return "-";
+            }
+            else
+            {
+                return "+";
+            }
+        }
+
+        private double GetElevationFactor()
+        {
+            switch (AppSettings.Instance.DrawingUnit)
+            {
+                case Units.m:
+                    return 1;
+                case Units.cm:
+                    return 0.01;
+                case Units.mm:
+                    return 0.001;
+                default:
+                    throw new Exception("\nNie rozpoznana jednostka rysunkowa");
+            }
+        }
+
     }
 }

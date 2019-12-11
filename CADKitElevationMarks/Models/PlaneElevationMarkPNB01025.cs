@@ -16,14 +16,14 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneElevationMarkPNB01025 : ElevationMark
     {
-        public PlaneElevationMarkPNB01025(ElevationValue _value, IElevationMarkConfig _config) : base(_value, _config)
+        protected override IEnumerable<Entity> GetEntityList()
         {
+            throw new NotImplementedException();
         }
 
-        protected override void CreateEntityList()
+        protected override MarkJig GetMarkJig(Group group, Point3d point)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
-
     }
 }

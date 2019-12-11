@@ -23,7 +23,7 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace CADKitElevationMarks.Models
 {
-    public abstract class _BaseElevationMark : IElevationMark
+    public abstract class _BaseElevationMark
     {
         //protected readonly Matrix3d ucs = ProxyCAD.Editor.CurrentUserCoordinateSystem;
         //protected readonly CoordinateSystem3d coordinateSystem = ProxyCAD.Editor.CurrentUserCoordinateSystem.CoordinateSystem3d;

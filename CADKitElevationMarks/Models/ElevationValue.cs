@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace CADKitElevationMarks.Models
         }
 
         public string Sign { get { return sign; } }
-        public string Value { get { return value.ToString(); } }
+        public string Value { get { return value.ToString("0.000", CultureInfo.GetCultureInfo("pl-PL")); } }
 
     }
 }

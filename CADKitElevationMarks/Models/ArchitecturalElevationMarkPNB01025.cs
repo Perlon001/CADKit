@@ -1,7 +1,10 @@
 ﻿using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
 using CADProxy;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -17,11 +20,7 @@ namespace CADKitElevationMarks.Models
 {
     public class ArchitecturalElevationMarkPNB01025 : ElevationMark
     {
-        public ArchitecturalElevationMarkPNB01025(ElevationValue _value, IElevationMarkConfig _config) : base(_value, _config)
-        {
-        }
-
-        protected override void CreateEntityList()
+        protected override IEnumerable<Entity> GetEntityList()
         {
             List<Entity> en = new List<Entity>();
 
@@ -33,7 +32,7 @@ namespace CADKitElevationMarks.Models
             tx.ColorIndex = 7;
             tx.Height = 2;
             tx.AlignmentPoint = new Point3d(1, 4.5, 0);
-            tx.TextString = "%%p";
+            tx.TextString = this.value.Sign;
             en.Add(tx);
 
             tx = new DBText();
@@ -44,7 +43,7 @@ namespace CADKitElevationMarks.Models
             tx.ColorIndex = 7;
             tx.Height = 2;
             tx.AlignmentPoint = new Point3d(1.5, 4.5, 0);
-            tx.TextString = "0.000";
+            tx.TextString = this.value.Value;
             en.Add(tx);
 
             var textArea = EntityInfo.GetTextArea(tx);
@@ -60,7 +59,19 @@ namespace CADKitElevationMarks.Models
             pl.AddVertexAt(0, new Point2d(0, 3), 0, 0, 0);
             pl.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X + 1.5, 3), 0, 0, 0);
             en.Add(pl);
-            entityList = en;
+            
+            return en;
+        }
+
+        protected override MarkJig GetMarkJig(Group _group, Point3d _point)
+        {
+            return new JigDisplacement(
+                _group.GetAllEntityIds()
+                .Select(ent => (Entity)ent
+                .GetObject(OpenMode.ForWrite)
+                .Clone())
+                .ToList(),
+                _point);
         }
 
         //public override void Draw()

@@ -18,8 +18,8 @@ namespace CADKitElevationMarks.Contracts
 {
     public interface IElevationMarkFactory
     {
-        IElevationMark CreateElevationMarkFactory(ElevationMarkType type, ElevationValue value);
-        IElevationMark CreateElevationMarkFactory(ElevationMarkType type, ElevationValue value, IElevationMarkConfig config);
+        //IElevationMark CreateElevationMarkFactory(ElevationMarkType type, ElevationValue value);
+        //IElevationMark CreateElevationMarkFactory(ElevationMarkType type, ElevationValue value, IElevationMarkConfig config);
 
         //IElevationMark ArchitecturalElevationMark(ElevationValue value, IElevationMarkConfig config);
         //IElevationMark ConstructionElevationMark(ElevationValue value, IElevationMarkConfig config);
