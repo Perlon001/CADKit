@@ -38,8 +38,6 @@ namespace CADKitElevationMarks.Models
             } 
         }
 
-        protected abstract void CreateEntityList();
-
         public ElevationMark(ElevationValue _value, IElevationMarkConfig _config)
         {
             this.value = _value;
@@ -47,8 +45,10 @@ namespace CADKitElevationMarks.Models
             entityList = new List<Entity>();
             CreateEntityList();
         }
+        
+        protected abstract void CreateEntityList();
 
-        public PromptPointResult GetBasePoint()
+        protected PromptPointResult GetBasePoint()
         {
             PromptPointOptions promptPointOptions = new PromptPointOptions("Wskaż punkt wysokościowy:");
             PromptPointResult basePoint = ProxyCAD.Editor.GetPoint(promptPointOptions);
