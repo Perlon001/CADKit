@@ -18,12 +18,11 @@ namespace CADKit
             GetSettingsFromDatabase();
             SetSettingsToDatabase();
         }
-        public static AppSettings Instance { get { return instance; } }
-
         private DrawingStandards drawingStandard;
         private Units drawingUnit;
         private Units dimensionUnit;
         private string drawingScale;
+        public static AppSettings Instance { get { return instance; } }
 
         public string AppPath { get; private set; }
 

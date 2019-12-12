@@ -1,4 +1,5 @@
-﻿using CADKit.Utils;
+﻿using CADKit;
+using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Modelsm;
 using CADProxy;
@@ -51,10 +52,10 @@ namespace CADKitElevationMarks.Models
             pl1.AddVertexAt(0, new Point2d(-1.5, 1.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(1.5, 1.5), 0, 0, 0);
-            if (Math.Round(Math.Abs(this.basePoint.Value.Y) * GetElevationFactor(), 3) == 0)
+            if (Math.Round(Math.Abs(this.basePoint.Value.Y) * AppSettings.Instance.ScaleFactor, 3) == 0)
             {
                 pl1.Closed = true;
-                AddArrowedHatch(en);
+                AddHatchingArrow(en);
             }
             en.Add(pl1);
 
@@ -70,7 +71,7 @@ namespace CADKitElevationMarks.Models
 
         protected override MarkJig GetMarkJig(Group _group, Point3d _point)
         {
-            return new JigVerticalConstantMark(
+            return new JigVerticalConstantHorizontalMirrorMark(
                 _group.GetAllEntityIds()
                 .Select(ent => (Entity)ent
                 .GetObject(OpenMode.ForWrite)
@@ -79,7 +80,7 @@ namespace CADKitElevationMarks.Models
                 _point);
         }
 
-        private void AddArrowedHatch(IList<Entity> en)
+        private void AddHatchingArrow(IList<Entity> en)
         {
             var hatch = new Hatch();
             using (var tr = ProxyCAD.Database.TransactionManager.StartTransaction())

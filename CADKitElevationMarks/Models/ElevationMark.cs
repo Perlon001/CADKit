@@ -54,25 +54,12 @@ namespace CADKitElevationMarks.Modelsm
                         var jig = GetMarkJig(group, basePoint.Value);
                         (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
                         var result = ProxyCAD.Editor.Drag(jig);
+                        GroupErase(tr, group);
                         if (result.Status == PromptStatus.OK)
                         {
-                            foreach (var p in entityList)
-                            {
-                                p.TransformBy(jig.Transforms);
-                            }
-                            (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(true);
+                            group = jig.GetEntity().ToList().ToGroup();
                         }
-                        else
-                        {
-                            foreach (var id in group.GetAllEntityIds())
-                            {
-                                if (!id.IsErased)
-                                {
-                                    tr.GetObject(id, OpenMode.ForWrite).Erase();
-                                }
-                            }
-                            group.Erase(true);
-                        }
+
                         tr.Commit();
                     }
 
@@ -109,7 +96,7 @@ namespace CADKitElevationMarks.Modelsm
             }
         }
 
-        protected double GetElevationFactor()
+        private double GetElevationFactor()
         {
             switch (AppSettings.Instance.DrawingUnit)
             {
@@ -124,5 +111,16 @@ namespace CADKitElevationMarks.Modelsm
             }
         }
 
+        private void GroupErase(Transaction tr, Group group)
+        {
+            foreach (var id in group.GetAllEntityIds())
+            {
+                if (!id.IsErased)
+                {
+                    tr.GetObject(id, OpenMode.ForWrite).Erase();
+                }
+            }
+            group.Erase(true);
+        }
     }
 }

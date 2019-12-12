@@ -24,15 +24,27 @@ namespace CADKitElevationMarks.Models
 {
     public abstract class MarkJig : DrawJig
     {
+        protected readonly Point3d basePoint;
         protected Point3d currentPoint;
-        protected Point3d basePoint;
         protected IEnumerable<Entity> entityList;
-        public Matrix3d Transforms { get; protected set; }
+        protected Matrix3d transforms;
 
         public MarkJig(IEnumerable<Entity> _entityList, Point3d _basePoint)
         {
             entityList = _entityList;
             basePoint = _basePoint;
+            currentPoint = _basePoint;
+            transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
+        }
+
+        public IEnumerable<Entity> GetEntity()
+        {
+            foreach (var e in entityList)
+            {
+                e.TransformBy(transforms);
+            }
+
+            return entityList;
         }
 
         protected override SamplerStatus Sampler(JigPrompts prompts)
@@ -56,11 +68,10 @@ namespace CADKitElevationMarks.Models
         {
             try
             {
-                Transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
                 var geometry = draw.Geometry;
                 if (geometry != null)
                 {
-                    geometry.PushModelTransform(Transforms);
+                    geometry.PushModelTransform(transforms);
                     foreach (var entity in entityList)
                     {
                         geometry.Draw(entity);

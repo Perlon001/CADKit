@@ -20,9 +20,8 @@ namespace CADKitElevationMarks.Models
 {
     public class JigDisplacement : MarkJig
     {
-        public JigDisplacement(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint)
-        {
-        }
+        public JigDisplacement(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint) { }
+        
         protected override SamplerStatus Sampler(JigPrompts prompts)
         {
             JigPromptPointOptions jigOpt = new JigPromptPointOptions("Wskaż punkt wstawienia:");
@@ -42,26 +41,8 @@ namespace CADKitElevationMarks.Models
 
         protected override bool WorldDraw(WorldDraw draw)
         {
-            try
-            {
-                Transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
-                var geometry = draw.Geometry;
-                if (geometry != null)
-                {
-                    geometry.PushModelTransform(Transforms);
-                    foreach (var entity in entityList)
-                    {
-                        geometry.Draw(entity);
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                ProxyCAD.Editor.WriteMessage(ex.Message);
-                return false;
-            }
+            transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
+            return base.WorldDraw(draw);
         }
 
     }

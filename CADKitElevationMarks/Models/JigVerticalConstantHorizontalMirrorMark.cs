@@ -1,4 +1,5 @@
-﻿using CADProxy;
+﻿using CADKit;
+using CADProxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,37 +42,15 @@ namespace CADKitElevationMarks.Models
             return SamplerStatus.OK;
         }
 
-        private void horizontalMirroring()
-        {
-            foreach (var e in entityList)
-            {
-                if(e.GetType() == typeof(DBText))
-                {
-                    e.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsMirror ? 9 : -9), 0)));
-                } 
-                else e.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(1, 0, 0))));
-            }
-            IsMirror = !IsMirror;
-        }
-
-        private bool needHorizontalMirror
-        {
-            get 
-            { 
-                return (currentPoint.Y < basePoint.Y && !IsMirror) || (currentPoint.Y >= basePoint.Y && IsMirror);
-            }
-        }
-
         protected override bool WorldDraw(WorldDraw draw)
         {
             try
             {
-                Transforms = Matrix3d.Displacement(basePoint.GetVectorTo(new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z)));
+                transforms = Matrix3d.Displacement(basePoint.GetVectorTo(new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z)));
                 var geometry = draw.Geometry;
                 if (geometry != null)
                 {
-                    geometry.PushModelTransform(Transforms);
-
+                    geometry.PushModelTransform(transforms);
                     foreach (var entity in entityList)
                     {
                         geometry.Draw(entity);
@@ -87,5 +66,30 @@ namespace CADKitElevationMarks.Models
                 return false;
             }
         }
+
+        private void horizontalMirroring()
+        {
+            foreach (var e in entityList)
+            {
+                if (e.GetType() == typeof(DBText))
+                {
+                    e.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
+                }
+                else
+                {
+                    e.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(1, 0, 0))));
+                }
+            }
+            IsMirror = !IsMirror;
+        }
+
+        private bool needHorizontalMirror
+        {
+            get
+            {
+                return (currentPoint.Y < basePoint.Y && !IsMirror) || (currentPoint.Y >= basePoint.Y && IsMirror);
+            }
+        }
+
     }
 }
