@@ -109,7 +109,7 @@ namespace CADKit
 
         public void GetSettingsFromDatabase()
         {
-            drawingStandard = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PN_B_01025);
+            drawingStandard = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PNB01025);
             drawingUnit = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDrawingUnit"), Units.mm);
             dimensionUnit = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDimensionUnit"), Units.mm);
             drawingScale = ProxyCAD.GetCustomProperty("CKDrawingScale");
