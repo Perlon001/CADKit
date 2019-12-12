@@ -18,7 +18,7 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class ConstructionElevationMarkCADKit : ElevationMark
+    public class ConstructionElevationMarkCADKit : ElevationMark, IElevationMark
     {
         protected override void CreateEntityList()
         {

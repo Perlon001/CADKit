@@ -7,32 +7,17 @@ namespace CADKitElevationMarks.Models
 {
     public class ElevationMarkFactoryCADKit : ElevationMarkFactory
     {
-        //public override IElevationMark CreateElevationMarkFactory(ElevationMarkType _type, ElevationValue _value, IElevationMarkConfig _config)
-        //{
-        //    switch (_type)
-        //    {
-        //        case ElevationMarkType.archMark:
-        //            return new ArchitecturalElevationMarkCADKit();
-        //        case ElevationMarkType.constrMark:
-        //            return new ConstructionElevationMarkCADKit();
-        //        case ElevationMarkType.planeMark:
-        //            return new PlaneElevationMarkCADKit();
-        //        default:
-        //            throw new NotImplementedException($"Nie zaimplementowany typ {_type.ToString()}");
-        //    }
-        //}
-
-        public override ElevationMark ArchitecturalElevationMark()
+        public override IElevationMark ArchitecturalElevationMark()
         {
             return new ArchitecturalElevationMarkCADKit();
         }
 
-        public override ElevationMark ConstructionElevationMark()
+        public override IElevationMark ConstructionElevationMark()
         {
             return new ConstructionElevationMarkCADKit();
         }
 
-        public override ElevationMark PlaneElevationMark()
+        public override IElevationMark PlaneElevationMark()
         {
             return new PlaneElevationMarkCADKit();
         }

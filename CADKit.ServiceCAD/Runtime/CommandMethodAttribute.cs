@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 #if ZwCAD
 using CADRuntime = ZwSoft.ZwCAD.Runtime;
 using ZwSoft.ZwCAD.Runtime;

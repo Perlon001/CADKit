@@ -62,12 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autostart.cs" />
+    <Compile Include="Contracts\IElevationMark.cs" />
+    <Compile Include="Contracts\IElevationMarkFactory.cs" />
     <Compile Include="ElevationMarkCommands.cs" />
     <Compile Include="Contracts\IMarkJigFactory.cs" />
     <Compile Include="Contracts\Presenters\IElevationMarksPresenter.cs" />
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
     <Compile Include="Contracts\Views\IMarkJig.cs" />
-    <Compile Include="JIGCommand.cs" />
     <Compile Include="Models\ElevationMark.cs" />
     <Compile Include="Models\ElevationValue.cs" />
     <Compile Include="Models\MarkSidePosition.cs" />
@@ -86,7 +87,6 @@
     <Compile Include="Models\ElevationMarkConfig.cs" />
     <Compile Include="Models\ElevationMarkFactoryCADKit.cs" />
     <Compile Include="Models\ElevationMarkFactoryPNB01025.cs" />
-    <Compile Include="Contracts\IElevationMarkFactory.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\JigVerticalConstantVerticalAndHorizontalMirrorMark.cs" />
     <Compile Include="Models\JigVerticalConstantHorizontalMirrorMark.cs" />
@@ -96,7 +96,6 @@
     <Compile Include="Models\PlaneElevationMarkCADKit.cs" />
     <Compile Include="Models\PlaneElevationMarkPNB01025.cs" />
     <Compile Include="Models\RegistrationModule.cs" />
-    <Compile Include="PlacementJig.cs" />
     <Compile Include="Presenters\ElevationMarksPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistrationModule.cs" />

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CADKitElevationMarks.Contracts
 {
-    public interface IElevationMarkFactory
+    public interface IElevationMark
     {
+        void Create();
     }
 }

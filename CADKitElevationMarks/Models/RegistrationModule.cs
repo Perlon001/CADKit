@@ -19,6 +19,7 @@ namespace CADKitElevationMarks.Models
                 .AssignableTo<IElevationMarkConfig>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
+
         }
     }
 }
