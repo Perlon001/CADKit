@@ -2,9 +2,6 @@
 using CADProxy;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -23,10 +20,10 @@ namespace CADKitElevationMarks.Models
 {
     public class JigVerticalConstantHorizontalMirrorMark : JigDisplacement
     {
-        private bool IsMirror;
+        private bool IsHMirror;
         public JigVerticalConstantHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint)
         {
-            IsMirror = false;
+            IsHMirror = false;
         }
 
         protected override SamplerStatus Sampler(JigPrompts prompts)
@@ -73,21 +70,21 @@ namespace CADKitElevationMarks.Models
             {
                 if (e.GetType() == typeof(DBText))
                 {
-                    e.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
+                    e.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
                 }
                 else
                 {
                     e.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(1, 0, 0))));
                 }
             }
-            IsMirror = !IsMirror;
+            IsHMirror = !IsHMirror;
         }
 
         private bool needHorizontalMirror
         {
             get
             {
-                return (currentPoint.Y < basePoint.Y && !IsMirror) || (currentPoint.Y >= basePoint.Y && IsMirror);
+                return (currentPoint.Y < basePoint.Y && !IsHMirror) || (currentPoint.Y >= basePoint.Y && IsHMirror);
             }
         }
 

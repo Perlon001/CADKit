@@ -71,7 +71,7 @@ namespace CADKitElevationMarks.Models
 
         protected override MarkJig GetMarkJig(Group _group, Point3d _point)
         {
-            return new JigVerticalConstantHorizontalMirrorMark(
+            return new JigVerticalConstantVerticalAndHorizontalMirrorMark(
                 _group.GetAllEntityIds()
                 .Select(ent => (Entity)ent
                 .GetObject(OpenMode.ForWrite)
