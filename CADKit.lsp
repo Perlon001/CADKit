@@ -3,9 +3,9 @@
 	((= (getvar "PRODUCT") "ZWCAD") (vl-cmdf "netload" "CADKitZwCAD.dll"))
 	((= (getvar "PRODUCT") "AutoCAD") (vl-cmdf "netload" "CADKitAutoCAD.dll"))
 	(T (progn
-			(princ "\nNieznana platforma CAD. CaDKit nie moze byæ wczytany.")
+			(princ "\nNieznana platforma CAD. CADKit nie mo¿e byæ wczytany.")
 		)
 	)
 )
-(command "CK_KOTA_ARCH")
+(command "CK_KOTA_KONSTR")
 (princ)

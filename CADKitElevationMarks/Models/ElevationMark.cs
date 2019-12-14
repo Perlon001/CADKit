@@ -7,7 +7,6 @@ using CADKit.Models;
 using CADKit.Services;
 using CADKit.Extensions;
 using CADKitElevationMarks.Contracts;
-using CADKitElevationMarks.Models;
 using CADKit.Utils;
 
 #if ZwCAD
@@ -22,7 +21,7 @@ using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.EditorInput;
 #endif
 
-namespace CADKitElevationMarks.Modelsm
+namespace CADKitElevationMarks.Models
 {
     public abstract class ElevationMark
     {
