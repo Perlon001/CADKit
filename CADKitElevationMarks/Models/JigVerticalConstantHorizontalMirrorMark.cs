@@ -1,4 +1,5 @@
 ﻿using CADKit;
+using CADKit.Utils;
 using CADProxy;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class JigVerticalConstantHorizontalMirrorMark : JigDisplacement
+    public class JigVerticalConstantHorizontalMirrorMark : EntityListJig
     {
         private bool IsHMirror;
         public JigVerticalConstantHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint)

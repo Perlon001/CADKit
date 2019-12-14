@@ -18,7 +18,7 @@ using Autodesk.AutoCAD.GraphicsInterface;
 
 namespace CADKit.Utils
 {
-    public abstract class EntityListJig : DrawJig
+    public class EntityListJig : DrawJig
     {
         protected readonly Point3d basePoint;
         protected Point3d currentPoint;
@@ -33,7 +33,7 @@ namespace CADKit.Utils
             transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
         }
 
-        public IEnumerable<Entity> GetEntity()
+        public virtual IEnumerable<Entity> GetEntity()
         {
             foreach (var e in entityList)
             {
@@ -64,6 +64,7 @@ namespace CADKit.Utils
         {
             try
             {
+                transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
                 var geometry = draw.Geometry;
                 if (geometry != null)
                 {
@@ -81,11 +82,6 @@ namespace CADKit.Utils
                 ProxyCAD.Editor.WriteMessage(ex.Message);
                 return false;
             }
-        }
-
-        protected virtual void EntityListUpdate(IEnumerable<Entity> _entityList)
-        {
-            entityList = _entityList;
         }
     }
 }

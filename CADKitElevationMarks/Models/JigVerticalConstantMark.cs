@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CADKit.Utils;
+using System.Collections.Generic;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -14,7 +15,7 @@ using Autodesk.AutoCAD.GraphicsInterface;
 
 namespace CADKitElevationMarks.Models
 {
-    public class JigVerticalConstantMark : JigDisplacement
+    public class JigVerticalConstantMark : EntityListJig
     {
         public JigVerticalConstantMark(IEnumerable<Entity> _group, Point3d _basePoint) : base(_group, _basePoint) { }
 
