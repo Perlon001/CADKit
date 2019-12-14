@@ -21,7 +21,6 @@ namespace CADKitElevationMarks.Models
         protected override void CreateEntityList()
         {
             var en = new List<Entity>();
-            var pl1 = new Polyline();
 
             var tx1 = new DBText();
             tx1.SetDatabaseDefaults();
@@ -46,6 +45,7 @@ namespace CADKitElevationMarks.Models
             en.Add(tx2);
 
             var textArea = EntityInfo.GetTextArea(tx2);
+            var pl1 = new Polyline();
             pl1.AddVertexAt(0, new Point2d(0, 5.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(-2, 3), 0, 0, 0);

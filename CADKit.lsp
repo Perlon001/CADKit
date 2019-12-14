@@ -7,5 +7,5 @@
 		)
 	)
 )
-(command "CK_KOTA_KONSTR")
+(command "CK_KOTA_POZIOM")
 (princ)
