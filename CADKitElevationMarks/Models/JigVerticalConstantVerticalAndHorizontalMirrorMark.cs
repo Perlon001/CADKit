@@ -82,7 +82,6 @@ namespace CADKitElevationMarks.Models
                     textWidth += textArea[1].X - textArea[0].X;
                 }
             }
-            textWidth += 1.5;
             foreach (var e in entityList)
             {
                 if (e.GetType() == typeof(DBText))

@@ -25,7 +25,6 @@ namespace CADKitElevationMarks.Models
         {
             var en = new List<Entity>();
             var tx1 = new DBText();
-            var tx2 = new DBText();
             var pl1 = new Polyline();
             var pl2 = new Polyline();
 
@@ -35,19 +34,9 @@ namespace CADKitElevationMarks.Models
             tx1.VerticalMode = TextVerticalMode.TextVerticalMid;
             tx1.ColorIndex = 7;
             tx1.Height = 2;
-            tx1.AlignmentPoint = new Point3d(2, 4.5, 0);
-            tx1.TextString = this.value.Value;
+            tx1.AlignmentPoint = new Point3d(0, 4.5, 0);
+            tx1.TextString = this.value.Sign + this.value.Value;
             en.Add(tx1);
-
-            tx2.SetDatabaseDefaults();
-            tx2.TextStyle = ProxyCAD.Database.Textstyle;
-            tx2.HorizontalMode = TextHorizontalMode.TextRight;
-            tx2.VerticalMode = TextVerticalMode.TextVerticalMid;
-            tx2.ColorIndex = 7;
-            tx2.Height = 2;
-            tx2.AlignmentPoint = new Point3d(1.5, 4.5, 0);
-            tx2.TextString = this.value.Sign;
-            en.Add(tx2);
 
             pl1.AddVertexAt(0, new Point2d(-1.5, 1.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
@@ -63,7 +52,7 @@ namespace CADKitElevationMarks.Models
             pl2 = new Polyline();
             pl2.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl2.AddVertexAt(0, new Point2d(0, 3), 0, 0, 0);
-            pl2.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X + 2, 3), 0, 0, 0);
+            pl2.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X, 3), 0, 0, 0);
             en.Add(pl2);
             
             this.entityList = en;
