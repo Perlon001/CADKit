@@ -7,7 +7,7 @@
 
     public enum DrawingStandards
     {
-        PNB01025, CADKIT
+        PNB01025, CADKit
     }
 
     public enum TextStyles
