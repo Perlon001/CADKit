@@ -1,8 +1,8 @@
-﻿using CADKitElevationMarks.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
+using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.Geometry;
 #endif
 
@@ -14,6 +14,6 @@ namespace CADKitElevationMarks.Contracts
 {
     public interface IMarkJigFactory
     {
-        MarkJig GetMarkJig(ElevationMarkType type, IEnumerable<Entity> entityList, Point3d basePoint); 
+        EntityJig GetMarkJig(ElevationMarkType type, IEnumerable<Entity> entityList, Point3d basePoint); 
     }
 }

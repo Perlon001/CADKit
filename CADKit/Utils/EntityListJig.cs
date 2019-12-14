@@ -1,10 +1,6 @@
-﻿using CADKitElevationMarks.Contracts.Views;
-using CADProxy;
+﻿using CADProxy;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -20,16 +16,16 @@ using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.GraphicsInterface;
 #endif
 
-namespace CADKitElevationMarks.Models
+namespace CADKit.Utils
 {
-    public abstract class MarkJig : DrawJig
+    public abstract class EntityListJig : DrawJig
     {
         protected readonly Point3d basePoint;
         protected Point3d currentPoint;
         protected IEnumerable<Entity> entityList;
         protected Matrix3d transforms;
 
-        public MarkJig(IEnumerable<Entity> _entityList, Point3d _basePoint)
+        public EntityListJig(IEnumerable<Entity> _entityList, Point3d _basePoint)
         {
             entityList = _entityList;
             basePoint = _basePoint;

@@ -1,5 +1,4 @@
-﻿using CADProxy;
-using System;
+﻿using CADKit.Utils;
 using System.Collections.Generic;
 
 
@@ -16,9 +15,10 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.GraphicsInterface;
 #endif
+
 namespace CADKitElevationMarks.Models
 {
-    public class JigDisplacement : MarkJig
+    public class JigDisplacement : EntityListJig
     {
         public JigDisplacement(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint) { }
         

@@ -92,7 +92,6 @@
     <Compile Include="Models\JigVerticalConstantHorizontalMirrorMark.cs" />
     <Compile Include="Models\JigDisplacement.cs" />
     <Compile Include="Models\JigVerticalConstantMark.cs" />
-    <Compile Include="Models\MarkJig.cs" />
     <Compile Include="Models\PlaneElevationMarkCADKit.cs" />
     <Compile Include="Models\PlaneElevationMarkPNB01025.cs" />
     <Compile Include="Models\RegistrationModule.cs" />

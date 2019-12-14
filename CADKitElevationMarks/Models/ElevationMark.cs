@@ -8,6 +8,7 @@ using CADKit.Services;
 using CADKit.Extensions;
 using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Models;
+using CADKit.Utils;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -31,7 +32,7 @@ namespace CADKitElevationMarks.Modelsm
         protected IEnumerable<Entity> entityList;
 
         protected abstract void CreateEntityList();
-        protected abstract MarkJig GetMarkJig(Group group, Point3d point);
+        protected abstract EntityListJig GetMarkJig(Group group, Point3d point);
 
         public void Create()
         {

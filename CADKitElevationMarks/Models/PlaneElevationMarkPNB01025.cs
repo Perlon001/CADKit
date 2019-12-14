@@ -1,4 +1,5 @@
-﻿using CADKitElevationMarks.Contracts;
+﻿using CADKit.Utils;
+using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Modelsm;
 using System;
 #if ZwCAD
@@ -19,7 +20,7 @@ namespace CADKitElevationMarks.Models
             throw new NotImplementedException();
         }
 
-        protected override MarkJig GetMarkJig(Group group, Point3d point)
+        protected override EntityListJig GetMarkJig(Group group, Point3d point)
         {
             throw new NotImplementedException();
         }

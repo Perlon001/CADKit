@@ -69,7 +69,7 @@ namespace CADKitElevationMarks.Models
             this.entityList = en;
         }
 
-        protected override MarkJig GetMarkJig(Group _group, Point3d _point)
+        protected override EntityListJig GetMarkJig(Group _group, Point3d _point)
         {
             return new JigVerticalConstantVerticalAndHorizontalMirrorMark(
                 _group.GetAllEntityIds()

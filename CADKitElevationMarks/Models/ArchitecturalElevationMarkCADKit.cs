@@ -25,7 +25,7 @@ namespace CADKitElevationMarks.Models
             throw new System.NotImplementedException();
         }
 
-        protected override MarkJig GetMarkJig(Group group, Point3d point)
+        protected override EntityListJig GetMarkJig(Group group, Point3d point)
         {
             throw new System.NotImplementedException();
         }

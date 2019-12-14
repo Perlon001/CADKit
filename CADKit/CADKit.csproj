@@ -113,6 +113,7 @@
     <Compile Include="Models\SystemVariables.cs" />
     <Compile Include="Utils\AuthChecker.cs" />
     <Compile Include="Utils\EntityInfo.cs" />
+    <Compile Include="Utils\EntityListJig.cs" />
     <Compile Include="Utils\EnumsUtil.cs" />
     <Compile Include="Utils\WinRegSettings.cs" />
     <Compile Include="Views\DTO\ScaleDTO.cs" />
