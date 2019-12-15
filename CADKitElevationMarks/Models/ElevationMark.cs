@@ -33,6 +33,9 @@ namespace CADKitElevationMarks.Models
         protected abstract void CreateEntityList();
         protected abstract EntityListJig GetMarkJig(Group group, Point3d point);
 
+        public string Name { get; protected set; }
+        public DrawingStandards DrawingStandard { get; protected set; }
+
         public void Create()
         {
             var variables = SystemVariableService.GetSystemVariables();

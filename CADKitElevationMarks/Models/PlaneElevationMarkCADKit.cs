@@ -1,4 +1,5 @@
-﻿using CADKit.Utils;
+﻿using CADKit.Models;
+using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
 using CADProxy;
 using System.Collections.Generic;
@@ -17,6 +18,12 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneElevationMarkCADKit : ElevationMark, IElevationMark
     {
+        public PlaneElevationMarkCADKit()
+        {
+            Name = "Rzędna wysokościowa obszaru";
+            DrawingStandard = DrawingStandards.CADKit;
+        }
+
         protected override void CreateEntityList()
         {
             var en = new List<Entity>();

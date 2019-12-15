@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CADProxy;
 using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
+using CADKit.Models;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -19,6 +20,12 @@ namespace CADKitElevationMarks.Models
 {
     public class ArchitecturalElevationMarkCADKit : ElevationMark, IElevationMark
     {
+        public ArchitecturalElevationMarkCADKit() : base()
+        {
+            Name = "Kota wysokościowa powierzchni wykończonej";
+            DrawingStandard = DrawingStandards.CADKit;
+        }
+
         protected override void CreateEntityList()
         {
             var en = new List<Entity>();

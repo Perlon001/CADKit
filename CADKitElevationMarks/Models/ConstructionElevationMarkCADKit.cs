@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using CADKit.Models;
 using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
 using CADProxy;
@@ -18,6 +19,12 @@ namespace CADKitElevationMarks.Models
 {
     public class ConstructionElevationMarkCADKit : ElevationMark, IElevationMark
     {
+        public ConstructionElevationMarkCADKit() : base()
+        {
+            Name = "Kota wysokościowa elementu konstrukcyjnego";
+            DrawingStandard = DrawingStandards.CADKit;
+        }
+
         protected override void CreateEntityList()
         {
             var en = new List<Entity>();

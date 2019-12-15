@@ -1,4 +1,5 @@
 ﻿using CADKit;
+using CADKit.Models;
 using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
 using CADProxy;
@@ -20,6 +21,11 @@ namespace CADKitElevationMarks.Models
 {
     public class ArchitecturalElevationMarkPNB01025 : ElevationMark, IElevationMark
     {
+        public ArchitecturalElevationMarkPNB01025() : base()
+        {
+            Name = "Kota wysokościowa";
+            DrawingStandard = DrawingStandards.PNB01025;
+        }
         protected override void CreateEntityList()
         {
             var en = new List<Entity>();
