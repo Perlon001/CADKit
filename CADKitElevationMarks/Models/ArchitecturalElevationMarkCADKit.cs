@@ -22,7 +22,7 @@ namespace CADKitElevationMarks.Models
     {
         public ArchitecturalElevationMarkCADKit() : base()
         {
-            Name = "Kota wysokościowa powierzchni wykończonej";
+            Name = "Kota wysokościowa wykończenia";
             DrawingStandard = DrawingStandards.CADKit;
         }
 

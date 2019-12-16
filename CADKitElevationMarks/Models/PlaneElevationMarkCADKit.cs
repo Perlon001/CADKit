@@ -48,7 +48,7 @@ namespace CADKitElevationMarks.Models
             var c1 = new Circle(new Point3d(0, 0, 0), new Vector3d(0, 0, 1), 1.5);
             en.Add(c1);
 
-            AddHatchingArrow(en);
+            AddHatching(en);
 
             this.entityList = en;
         }
@@ -64,20 +64,22 @@ namespace CADKitElevationMarks.Models
                 _point);
         }
 
-        private void AddHatchingArrow(IList<Entity> en)
+        private void AddHatching(IList<Entity> en)
         {
             var hatch = new Hatch();
             using (var tr = ProxyCAD.Database.TransactionManager.StartTransaction())
             {
-                var bd = new Polyline();
-                bd.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
-                bd.AddVertexAt(0, new Point2d(-2, 3), 0, 0, 0);
-                bd.AddVertexAt(0, new Point2d(0, 3), 0, 0, 0);
-                bd.Closed = true;
+                var p1 = new Polyline();
+                p1.AddVertexAt(0, new Point2d(0, -1.5), 0, 0, 0);
+                p1.AddVertexAt(0, new Point2d(0, 1.5), 0, 0, 0);
+                p1.AddVertexAt(0, new Point2d(1.5, 0), Bulge.GetBulge(new Point2d(0, 0), new Point2d(0, 1.5), new Point2d(1.5, 0)), 0, 0);
+                p1.AddVertexAt(0, new Point2d(-1.5, 0), 0, 0, 0);
+                p1.AddVertexAt(0, new Point2d(0, -1.5), Bulge.GetBulge(new Point2d(0, 0), new Point2d(-1.5, 0), new Point2d(0, -1.5)), 0, 0);
+                p1.Closed = true;
                 BlockTable bt = tr.GetObject(ProxyCAD.Database.BlockTableId, OpenMode.ForRead) as BlockTable;
                 BlockTableRecord btr = tr.GetObject(ProxyCAD.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
-                var bdId = btr.AppendEntity(bd);
-                tr.AddNewlyCreatedDBObject(bd, true);
+                var bdId = btr.AppendEntity(p1);
+                tr.AddNewlyCreatedDBObject(p1, true);
                 ObjectIdCollection ObjIds = new ObjectIdCollection();
                 ObjIds.Add(bdId);
 
@@ -86,7 +88,7 @@ namespace CADKitElevationMarks.Models
                 hatch.Associative = false;
                 hatch.AppendLoop((int)HatchLoopTypes.Default, ObjIds);
                 hatch.EvaluateHatch(true);
-                bd.Erase();
+                p1.Erase();
             }
             en.Add(hatch);
         }
