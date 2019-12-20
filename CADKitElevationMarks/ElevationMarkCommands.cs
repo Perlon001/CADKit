@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 
 using CADKit;
+using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Models;
 using CADProxy;
 using CADProxy.Runtime;
@@ -45,10 +46,17 @@ namespace CADKitElevationMarks
             }
         }
 
+        private IIconServiceFactory GetIconServiceFactory()
+        {
+            var iconServiceFactory = "IconServiceFactory" + AppSettings.Instance.DrawingStandard.ToString();
+            return Activator.CreateInstance(Type.GetType("CADKitElevationMarks.Services." + iconServiceFactory, true)) as IIconServiceFactory;
+        }
+
         private ElevationMarkFactory GetElevationMarkFactory()
         {
             var factoryName = "ElevationMarkFactory" + AppSettings.Instance.DrawingStandard.ToString();
-            return Activator.CreateInstance(Type.GetType("CADKitElevationMarks.Models." + factoryName, true)) as ElevationMarkFactory;
+            var iconServiceFactory = GetIconServiceFactory();
+            return Activator.CreateInstance(Type.GetType("CADKitElevationMarks.Models." + factoryName, true), iconServiceFactory.CreateService()) as ElevationMarkFactory;
 
             //switch (AppSettings.Instance.DrawingStandard)
             //{
