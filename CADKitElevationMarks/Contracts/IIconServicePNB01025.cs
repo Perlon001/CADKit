@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitElevationMarks.Contracts.Views
+namespace CADKitElevationMarks.Contracts
 {
-    public interface IMarkJig
+    public interface IIconServicePNB01025 : IIconService
     {
     }
 }

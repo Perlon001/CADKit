@@ -7,5 +7,5 @@
 		)
 	)
 )
-(command "CK_KOTA_POZIOM")
+(command "CK_KOTA_ARCH")
 (princ)

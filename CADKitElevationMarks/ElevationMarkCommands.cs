@@ -1,8 +1,10 @@
 ﻿// using Autofac;
 using System;
+using System.Linq;
 
 using CADKit;
 using CADKitElevationMarks.Models;
+using CADProxy;
 using CADProxy.Runtime;
 
 namespace CADKitElevationMarks
@@ -12,22 +14,35 @@ namespace CADKitElevationMarks
         [CommandMethod("CK_KOTA_ARCH")]
         public void ElevationMarkArch()
         {
-            var factory = GetElevationMarkFactory();
-            factory.ArchitecturalElevationMark().Create();
+            CreateMark(MarkTypes.finish);
         }
 
-        [CommandMethod("CK_KOTA_KONSTR")]
-        public void ElevationMarkConstr()
-        {
-            var factory = GetElevationMarkFactory();
-            factory.ConstructionElevationMark().Create();
-        }
+        //[CommandMethod("CK_KOTA_KONSTR")]
+        //public void ElevationMarkConstr()
+        //{
+        //    var factory = GetElevationMarkFactory();
+        //    factory.ConstructionElevationMark().Create();
+        //}
 
-        [CommandMethod("CK_KOTA_POZIOM")]
-        public void ElevationMarkPlate()
+        //[CommandMethod("CK_KOTA_POZIOM")]
+        //public void ElevationMarkPlate()
+        //{
+        //    var factory = GetElevationMarkFactory();
+        //    factory.PlaneElevationMark().Create();
+        //}
+
+        private void CreateMark(MarkTypes type)
         {
             var factory = GetElevationMarkFactory();
-            factory.PlaneElevationMark().Create();
+            var item = factory.GetMarkTypeList().FirstOrDefault(m => m.Kind == type);
+            if (item.ElevationMarkType != null)
+            {
+                (Activator.CreateInstance(item.ElevationMarkType) as ElevationMark).Create();
+            }
+            else
+            {
+                ProxyCAD.WriteMessage("\nNie zdefinikowany typ koty wysokościowej");
+            }
         }
 
         private ElevationMarkFactory GetElevationMarkFactory()

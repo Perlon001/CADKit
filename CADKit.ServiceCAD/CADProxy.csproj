@@ -66,6 +66,7 @@
     <Compile Include="Contracts\ISymbolTableService.cs" />
     <Compile Include="Contracts\ITextStyleService.cs" />
     <Compile Include="Models\PaletteSet.cs" />
+    <Compile Include="PromptKeywordOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProxyCAD.cs" />
     <Compile Include="Extensions\DatabaseExtensions.cs" />

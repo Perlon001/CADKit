@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CADKitElevationMarks.Models
 {
-    public class ElevationMarksCollection
+    public enum MarkTypes
     {
-        public ICollection<ElevationMarkItem> MarksCollection { get; set; }
+        finish, construction, plane
     }
 }

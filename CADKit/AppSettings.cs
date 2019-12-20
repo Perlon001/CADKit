@@ -1,6 +1,7 @@
 ﻿using CADKit.Models;
 using CADKit.Utils;
 using CADProxy;
+using Microsoft.Win32;
 using System;
 using System.IO;
 
@@ -29,6 +30,21 @@ namespace CADKit
         public const string AppName = "CADKit";
 
         public CADKitPaletteSet CADKitPalette { get; set; }
+
+        public InterfaceScheme ColorScheme 
+        {
+            get
+            {
+                var schemeValue = (int)Registry.CurrentUser.OpenSubKey("Software\\ZWSOFT\\ZWCAD\\2020\\en-US\\Profiles\\Default\\Config\\COLORSCHEME", false).GetValue("COLORSCHEME");
+                switch (schemeValue)
+                {
+                    case 1:
+                        return InterfaceScheme.light;
+                    default:
+                        return InterfaceScheme.dark;
+                }
+            }
+        }
 
         public DrawingStandards DrawingStandard
         {
@@ -108,7 +124,7 @@ namespace CADKit
 
         public void GetSettingsFromDatabase()
         {
-            drawingStandard = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDrawingStandard"), DrawingStandards.CADKit);
+            drawingStandard = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDrawingStandard"), DrawingStandards.PNB01025);
             drawingUnit = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDrawingUnit"), Units.mm);
             dimensionUnit = EnumsUtil.GetEnum(ProxyCAD.GetCustomProperty("CKDimensionUnit"), Units.mm);
             drawingScale = ProxyCAD.GetCustomProperty("CKDrawingScale");

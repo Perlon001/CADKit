@@ -1,5 +1,6 @@
-﻿#if ZwCAD
-using CADProxy;
+﻿using CADProxy;
+
+#if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
 #endif

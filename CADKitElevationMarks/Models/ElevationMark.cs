@@ -38,7 +38,7 @@ namespace CADKitElevationMarks.Models
 
         public void Create()
         {
-            var variables = SystemVariableService.GetSystemVariables();
+            var variables = SystemVariableService.GetActualSystemVariables();
             try
             {
                 var promptPointOptions = new PromptPointOptions("Wskaż punkt wysokościowy:");

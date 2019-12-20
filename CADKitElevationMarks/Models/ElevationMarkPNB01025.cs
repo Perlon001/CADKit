@@ -19,9 +19,9 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class ArchitecturalElevationMarkPNB01025 : ElevationMark, IElevationMark
+    public class ElevationMarkPNB01025 : ElevationMark, IElevationMark
     {
-        public ArchitecturalElevationMarkPNB01025() : base()
+        public ElevationMarkPNB01025() : base()
         {
             Name = "Kota wysokościowa";
             DrawingStandard = DrawingStandards.PNB01025;

@@ -5,19 +5,17 @@ namespace CADKit.Services
 {
     public class SystemVariableService
     {
-        public static SystemVariables GetSystemVariables()
+        public static SystemVariables GetActualSystemVariables()
         {
             SystemVariables variables = new SystemVariables();
-            variables.CLayer = (string)CADProxy.ProxyCAD.GetSystemVariable("CLayer");
-            // throw new Exception();
+            variables.CLayer = (string)ProxyCAD.GetSystemVariable("CLayer");
 
             return variables;
         }
 
         public static void RestoreSystemVariables(SystemVariables variables)
         {
-            CADProxy.ProxyCAD.SetSystemVariable("CLayer", variables.CLayer);
+            ProxyCAD.SetSystemVariable("CLayer", variables.CLayer);
         }
-
     }
 }

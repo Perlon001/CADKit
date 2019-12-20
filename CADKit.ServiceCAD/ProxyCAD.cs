@@ -8,6 +8,7 @@ using CADApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.DatabaseServices;
 using CADDatabaseServices = ZwSoft.ZwCAD.DatabaseServices;
+using CADEditorInput = ZwSoft.ZwCAD.EditorInput;
 #endif
 
 #if AutoCAD

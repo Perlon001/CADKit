@@ -15,6 +15,15 @@ using ApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
 using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
 #endif
 
+
+/*
+ 
+    HKEY_CURRENT_USER\Software\ZWSOFT\ZWCAD\2020\en-US\Profiles\Default\Config\COLORSCHEME
+    0 - interfejs ciemny
+    1 - interfejs jasny
+    
+ */
+
 namespace CADKit
 {
     public class Autostart : IExtensionApplication
@@ -39,7 +48,7 @@ namespace CADKit
                         IAutostart instance = Activator.CreateInstance(objectType) as IAutostart;
                         instance.Initialize();
                     }
-                    catch (System.Exception ex)
+                    catch (Exception ex)
                     {
                         ProxyCAD.Editor.WriteMessage(ex.Message);
                     }

@@ -2,13 +2,21 @@
 using Autofac;
 using CADKit;
 using CADKitElevationMarks.Contracts;
+using System;
+using System.Collections.Generic;
 
 namespace CADKitElevationMarks.Models
 {
     public abstract class ElevationMarkFactory
     {
-        public abstract IElevationMark ArchitecturalElevationMark();
-        public abstract IElevationMark ConstructionElevationMark();
-        public abstract IElevationMark PlaneElevationMark();
+        protected IIconService iconService;
+
+        public ElevationMarkFactory(IIconService _iconService)
+        {
+            iconService = _iconService;
+        }
+
+        public abstract IEnumerable<ElevationMarkItem> GetMarkTypeList();
+
     }
 }

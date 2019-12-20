@@ -18,9 +18,9 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class ArchitecturalElevationMarkCADKit : ElevationMark, IElevationMark
+    public class FinishElevationMarkCADKit : ElevationMark, IElevationMark
     {
-        public ArchitecturalElevationMarkCADKit() : base()
+        public FinishElevationMarkCADKit() : base()
         {
             Name = "Kota wysokościowa wykończenia";
             DrawingStandard = DrawingStandards.CADKit;

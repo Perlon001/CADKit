@@ -1,9 +1,8 @@
 ﻿using Autofac;
-using CADKit.Contracts;
 using CADKit.Contracts.Views;
 using System;
 
-namespace CADKit.Views.WF
+namespace CADKit.Views
 {
     public class RegistrationModule : Module
     {

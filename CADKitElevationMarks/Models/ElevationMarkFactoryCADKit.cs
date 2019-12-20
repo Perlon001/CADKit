@@ -1,24 +1,22 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using CADKitElevationMarks.Contracts;
 
 namespace CADKitElevationMarks.Models
 {
     public class ElevationMarkFactoryCADKit : ElevationMarkFactory
     {
-        public override IElevationMark ArchitecturalElevationMark()
+        public ElevationMarkFactoryCADKit(IIconService _iconService) : base(_iconService) { }
+        
+        public override IEnumerable<ElevationMarkItem> GetMarkTypeList()
         {
-            return new ArchitecturalElevationMarkCADKit();
+            var result = new List<ElevationMarkItem>();
+            result.Add(new ElevationMarkItem() { ElevationMarkType = typeof(PlaneElevationMarkCADKit), Kind = MarkTypes.plane, Icon=iconService.GetIcon(MarkTypes.plane) });
+            result.Add(new ElevationMarkItem() { ElevationMarkType = typeof(FinishElevationMarkCADKit), Kind = MarkTypes.finish, Icon = iconService.GetIcon(MarkTypes.finish) });
+            result.Add(new ElevationMarkItem() { ElevationMarkType = typeof(ConstructionElevationMarkCADKit), Kind = MarkTypes.construction, Icon = iconService.GetIcon(MarkTypes.construction) });
+
+            return result;
         }
 
-        public override IElevationMark ConstructionElevationMark()
-        {
-            return new ConstructionElevationMarkCADKit();
-        }
-
-        public override IElevationMark PlaneElevationMark()
-        {
-            return new PlaneElevationMarkCADKit();
-        }
     }
 }

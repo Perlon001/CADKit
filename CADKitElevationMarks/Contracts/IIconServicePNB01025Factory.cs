@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitElevationMarks.Models
+namespace CADKitElevationMarks.Contracts
 {
-    public enum MarkSidePosition
+    public interface IIconServicePNB01025Factory : IIconServiceFactory
     {
-        TopRight, TopLeft, BottomRight, BottomLeft
     }
 }

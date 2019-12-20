@@ -88,6 +88,7 @@
     <Compile Include="Conventions\strukture_conventions.cs" />
     <Compile Include="CoreServices\CompositesService.cs" />
     <Compile Include="ElevationMark\TestElevationMarkFactory.cs" />
+    <Compile Include="ElevationMark\TestIconServiceFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
