@@ -46,26 +46,28 @@ namespace CADKitElevationMarks.Models
                 if (basePoint.Status == PromptStatus.OK)
                 {
                     value = new ElevationValue(GetElevationSign(), GetElevationValue());
-                    CreateEntityList();
-                    var group = entityList
-                        .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
-                        .TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(basePoint.Value)))
-                        .ToList()
-                        .ToGroup();
-                    using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+                    using (ProxyCAD.Document.LockDocument())
                     {
-                        var jig = GetMarkJig(group, basePoint.Value);
-                        (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
-                        var result = ProxyCAD.Editor.Drag(jig);
-                        GroupErase(tr, group);
-                        if (result.Status == PromptStatus.OK)
+                        CreateEntityList();
+                        var group = entityList
+                            .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
+                            .TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(basePoint.Value)))
+                            .ToList()
+                            .ToGroup();
+                        using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
                         {
-                            group = jig.GetEntity().ToList().ToGroup();
+                            var jig = GetMarkJig(group, basePoint.Value);
+                            (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
+                            var result = ProxyCAD.Editor.Drag(jig);
+                            GroupErase(tr, group);
+                            if (result.Status == PromptStatus.OK)
+                            {
+                                group = jig.GetEntity().ToList().ToGroup();
+                            }
+
+                            tr.Commit();
                         }
-
-                        tr.Commit();
                     }
-
                 }
             } 
             catch(Exception ex)

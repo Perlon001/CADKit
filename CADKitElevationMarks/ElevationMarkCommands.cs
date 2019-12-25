@@ -12,12 +12,14 @@ namespace CADKitElevationMarks
 {
     public class ElevationMarkCommands
     {
-        [CommandMethod("CK_KOTA_ARCH")]
-        public void ElevationMarkArch()
-        {
+        //[CommandMethod("CK_KOTA_ARCH")]
+        //public void ElevationMarkArch()
+        //{
+        //    var k = new ElevationMarkPNB01025();
+        //    k.Create();
 
-            // CreateMark(MarkTypes.finish);
-        }
+        //    // CreateMark(MarkTypes.finish);
+        //}
 
         //[CommandMethod("CK_KOTA_KONSTR")]
         //public void ElevationMarkConstr()

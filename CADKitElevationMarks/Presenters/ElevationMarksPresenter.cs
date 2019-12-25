@@ -20,7 +20,7 @@ namespace CADKitElevationMarks.Presenters
 
         public void CreateMark(int id)
         {
-            using(var scope = DI.Container.BeginLifetimeScope())
+            using (var scope = DI.Container.BeginLifetimeScope())
             {
                 var service = scope.Resolve<IMarkTypeService>();
                 var markType = service.GetMarkType(id);

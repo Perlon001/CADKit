@@ -16,5 +16,9 @@ namespace CADKitElevationMarks.Contracts.Services
         IList<MarkButtonDTO> GetMarks(DrawingStandards standard, MarkTypes[] types);
         IList<MarkButtonDTO> GetMarks(MarkTypes[] types);
         Type GetMarkType(int markNumber);
+        string GetMarkName(int markNumber);
+        string GetMarkName(DrawingStandards standard, MarkTypes type);
+
+
     }
 }

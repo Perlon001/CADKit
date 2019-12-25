@@ -31,6 +31,7 @@ namespace CADKit.Extensions
 
             return group;
         }
+
         public static Group ToGroup(this IEnumerable<Entity> _entityList, Group _gr)
         {
             using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
