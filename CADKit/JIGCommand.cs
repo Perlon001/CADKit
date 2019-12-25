@@ -6,12 +6,10 @@ using CADKit.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Globalization;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
-using ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.GraphicsInterface;
 
@@ -22,9 +20,11 @@ using Polyline = ZwSoft.ZwCAD.DatabaseServices.Polyline;
 #if AutoCAD
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.GraphicsInterface;
+
+using Polyline = Autodesk.AutoCAD.DatabaseServices.Polyline;
+
 #endif
 
 

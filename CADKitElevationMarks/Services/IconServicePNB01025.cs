@@ -1,19 +1,19 @@
 ﻿using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Models;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CADKitElevationMarks.Services
 {
-    public class IconServicePNB01025 : IIconServicePNB01025
+    public class IconServicePNB01025 : IconService, IIconServicePNB01025
     {
-        public Bitmap GetIcon(MarkTypes type)
+        public IconServicePNB01025() : base()
         {
-            throw new NotImplementedException();
+            icons.Add(MarkTypes.universal, null);
+            icons.Add(MarkTypes.area, null);
+        }
+        public Bitmap GetIcon(MarkTypes _type)
+        {
+            return icons[_type];
         }
     }
 }

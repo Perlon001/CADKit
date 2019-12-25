@@ -13,8 +13,8 @@ namespace CADKitElevationMarks.Models
         public override IEnumerable<ElevationMarkItem> GetMarkTypeList()
         {
             var result = new List<ElevationMarkItem>();
-            result.Add(new ElevationMarkItem() { ElevationMarkType = typeof(PlaneElevationMarkPNB01025), Kind = MarkTypes.plane, Icon = iconService.GetIcon(MarkTypes.plane)});
-            result.Add(new ElevationMarkItem() { ElevationMarkType = typeof(ElevationMarkPNB01025), Kind = MarkTypes.finish, Icon = iconService.GetIcon(MarkTypes.finish) });
+            result.Add(new ElevationMarkItem() { ElevationMarkType = typeof(PlaneElevationMarkPNB01025), Kind = MarkTypes.area, Icon = iconService.GetIcon(MarkTypes.area)});
+            result.Add(new ElevationMarkItem() { ElevationMarkType = typeof(ElevationMarkPNB01025), Kind = MarkTypes.universal, Icon = iconService.GetIcon(MarkTypes.universal) });
 
             return result;
         }

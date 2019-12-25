@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CADKitElevationMarks.Models
+﻿namespace CADKitElevationMarks.Models
 {
     public enum MarkTypes
     {
-        finish, construction, plane
+        finish, construction, area, universal, strainedwater, water
     }
 }

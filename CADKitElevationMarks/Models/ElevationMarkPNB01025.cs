@@ -19,7 +19,7 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class ElevationMarkPNB01025 : ElevationMark, IElevationMark
+    public class ElevationMarkPNB01025 : ElevationMark
     {
         public ElevationMarkPNB01025() : base()
         {

@@ -2,12 +2,7 @@
 using CADKit.Models;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.DTO;
-using CADKitElevationMarks.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CADKitElevationMarks.Contracts.Views
 {
@@ -15,7 +10,8 @@ namespace CADKitElevationMarks.Contracts.Views
     {
         IElevationMarksPresenter Presenter { get; set; }
 
-        void BindMarkTypesList(Dictionary<string,DrawingStandards> standards);
-        void AddMarkButtons(IList<MarkButtonDTO> _listMarks);
+        void BindDrawingStandard(DrawingStandards standard, IList<MarkButtonDTO> listMarks);
+        void BindMarkButtons(DrawingStandards standard, IList<MarkButtonDTO> listMarks);
+
     }
 }

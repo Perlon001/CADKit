@@ -9,6 +9,6 @@ namespace CADKitElevationMarks.Contracts.Presenters
 {
     public interface IElevationMarksPresenter : IPresenter
     {
-        void CreateMark(string kota);
+        void CreateMark(int kota);
     }
 }

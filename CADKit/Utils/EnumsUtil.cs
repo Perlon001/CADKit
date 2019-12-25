@@ -31,4 +31,5 @@ namespace CADKit.Utils
             return dictionary[enumName];
         }
     }
+
 }

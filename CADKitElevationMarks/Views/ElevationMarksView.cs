@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CADKit.Views.WF;
 using CADKitElevationMarks.Contracts.Views;
 using CADKitElevationMarks.Contracts.Presenters;
-using CADKitElevationMarks.Models;
 using CADKit.Models;
 using CADKitElevationMarks.DTO;
 
 namespace CADKitElevationMarks.Views
-{
+{  
     public partial class ElevationMarksView : BaseViewWF, IElevationMarksView
     {
         public IElevationMarksPresenter Presenter { get; set; }
@@ -24,37 +18,51 @@ namespace CADKitElevationMarks.Views
         {
             InitializeComponent();
         }
-
-        public void BindMarkTypesList(Dictionary<string, DrawingStandards> standards)
+        class StandardTabPage : TabPage
         {
-            int i = 1;
-
-            foreach (var item in standards)
+            public DrawingStandards Standard;
+            public StandardTabPage(DrawingStandards _standard) : base(_standard.ToString())
             {
-                CheckBox chb = new CheckBox();
-                chb.Name = "checkbox_" + i++;
-                chb.Text = item.Key+ i;
-                flpDrawingStandards.Controls.Add(chb);
+                this.Standard = _standard;
+                this.Name = _standard.ToString();
+                var flp = new FlowLayoutPanel();
+                flp.Name = _standard.ToString();
+                flp.Dock = DockStyle.Fill;
+                this.Controls.Add(flp);
             }
         }
 
-        public void AddMarkButtons(IList<MarkButtonDTO> _listMarks)
+        class MarkButton : Button
         {
-            int i = 1;
+            public int id;
+        }
+
+        public void BindDrawingStandard(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks)
+        {
+            tabStandards.TabPages.Add(new StandardTabPage(_standard));
+            BindMarkButtons(_standard, _listMarks);
+        }
+        
+        public void BindMarkButtons(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks)
+        {
+            var tab = tabStandards.TabPages[_standard.ToString()];
+            FlowLayoutPanel flp = tab.Controls[_standard.ToString()] as FlowLayoutPanel;
+            flp.Controls.Clear();
             foreach (var item in _listMarks)
             {
-                Button btn = new Button();
+                MarkButton btn = new MarkButton();
+                btn.id = item.id;
                 btn.Size = new Size(50, 50);
-                btn.Name = "button_" + i++;
-                btn.Text = btn.Name;
+                btn.Name = "button_" + item.id;
+                btn.Text = item.name;
                 btn.Click += new EventHandler(btnClick);
-                flpMarksPanel.Controls.Add(btn);
+                flp.Controls.Add(btn);
             }
         }
 
         private void btnClick(object sender, EventArgs e)
         {
-            Presenter.CreateMark("Robię kotę "+sender.ToString());
+            Presenter.CreateMark((sender as MarkButton).id);
         }
     }
 }

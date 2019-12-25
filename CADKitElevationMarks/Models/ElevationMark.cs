@@ -23,7 +23,7 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace CADKitElevationMarks.Models
 {
-    public abstract class ElevationMark
+    public abstract class ElevationMark : IElevationMark
     {
         protected PromptPointResult basePoint;
         protected ElevationValue value;
@@ -36,7 +36,7 @@ namespace CADKitElevationMarks.Models
         public string Name { get; protected set; }
         public DrawingStandards DrawingStandard { get; protected set; }
 
-        public void Create()
+        public virtual void Create()
         {
             var variables = SystemVariableService.GetActualSystemVariables();
             try

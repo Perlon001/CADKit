@@ -9,7 +9,7 @@ namespace CADKitElevationMarks.DTO
 {
     public struct MarkButtonDTO
     {
-        public int number;
+        public int id;
         public Bitmap picture;
         public string name;
     }

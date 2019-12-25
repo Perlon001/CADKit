@@ -69,8 +69,8 @@
     <Compile Include="Contracts\IIconServiceFactory.cs" />
     <Compile Include="Contracts\IIconServicePNB01025.cs" />
     <Compile Include="Contracts\IIconServicePNB01025Factory.cs" />
-    <Compile Include="Contracts\IMarkTypeStandards.cs" />
     <Compile Include="Contracts\IIconServiceCADKitFactory.cs" />
+    <Compile Include="Contracts\Services\IMarkTypeService.cs" />
     <Compile Include="DTO\MarkButtonDTO.cs" />
     <Compile Include="ElevationMarkCommands.cs" />
     <Compile Include="Contracts\IMarkJigFactory.cs" />
@@ -80,6 +80,11 @@
     <Compile Include="Models\ElevationMarkItem.cs" />
     <Compile Include="Models\ElevationMarksCollection.cs" />
     <Compile Include="Models\ElevationValue.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Services\IconService.cs" />
     <Compile Include="Services\IconServiceCADKit.cs" />
     <Compile Include="Services\IconServiceFactoryCADKit.cs" />
@@ -138,6 +143,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ElevationMarksView.resx">
       <DependentUpon>ElevationMarksView.cs</DependentUpon>
     </EmbeddedResource>

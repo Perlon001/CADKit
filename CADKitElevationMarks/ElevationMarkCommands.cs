@@ -15,7 +15,8 @@ namespace CADKitElevationMarks
         [CommandMethod("CK_KOTA_ARCH")]
         public void ElevationMarkArch()
         {
-            CreateMark(MarkTypes.finish);
+
+            // CreateMark(MarkTypes.finish);
         }
 
         //[CommandMethod("CK_KOTA_KONSTR")]

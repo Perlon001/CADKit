@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using CADKitElevationMarks.Contracts;
+using CADKitElevationMarks.Contracts.Services;
 using System;
 
 namespace CADKitElevationMarks.Models
@@ -20,6 +21,11 @@ namespace CADKitElevationMarks.Models
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
 
+            builder
+                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .AssignableTo<IMarkTypeService>()
+                .InstancePerLifetimeScope()
+                .AsImplementedInterfaces();
         }
     }
 }
