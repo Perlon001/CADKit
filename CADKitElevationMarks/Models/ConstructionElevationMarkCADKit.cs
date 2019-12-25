@@ -21,8 +21,8 @@ namespace CADKitElevationMarks.Models
     {
         public ConstructionElevationMarkCADKit() : base()
         {
-            Name = "Kota wysokościowa elementu konstrukcyjnego";
             DrawingStandard = DrawingStandards.CADKit;
+            MarkType = MarkTypes.construction;
         }
 
         protected override void CreateEntityList()

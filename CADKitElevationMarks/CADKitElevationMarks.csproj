@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="Autostart.cs" />
     <Compile Include="Contracts\IElevationMark.cs" />
-    <Compile Include="Contracts\IElevationMarkFactory.cs" />
     <Compile Include="Contracts\IIconService.cs" />
     <Compile Include="Contracts\IIconServiceCADKit.cs" />
     <Compile Include="Contracts\IIconServiceFactory.cs" />
@@ -73,40 +72,21 @@
     <Compile Include="Contracts\Services\IMarkTypeService.cs" />
     <Compile Include="DTO\MarkButtonDTO.cs" />
     <Compile Include="ElevationMarkCommands.cs" />
-    <Compile Include="Contracts\IMarkJigFactory.cs" />
     <Compile Include="Contracts\Presenters\IElevationMarksPresenter.cs" />
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
     <Compile Include="Models\ElevationMark.cs" />
     <Compile Include="Models\ElevationMarkItem.cs" />
-    <Compile Include="Models\ElevationMarksCollection.cs" />
     <Compile Include="Models\ElevationValue.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\IconService.cs" />
-    <Compile Include="Services\IconServiceCADKit.cs" />
-    <Compile Include="Services\IconServiceFactoryCADKit.cs" />
-    <Compile Include="Services\IconServiceFactory.cs" />
-    <Compile Include="Services\IconServicePNB01025.cs" />
-    <Compile Include="Services\IconServiceFactoryPNB01025.cs" />
     <Compile Include="Models\JigVerticalMirrorMark.cs" />
-    <Compile Include="Models\ElevationMarkFactory.cs" />
-    <Compile Include="Contracts\ElevationMarkType.cs" />
-    <Compile Include="Contracts\IElevationMarkConfig.cs" />
-    <Compile Include="Contracts\IElevationMarkFactoryCADKit.cs" />
-    <Compile Include="Contracts\IElevationMarkFactoryPNB01025.cs" />
-    <Compile Include="Contracts\IElevationMarkLayerGenerator.cs" />
-    <Compile Include="Contracts\IElevationMarkTextStyleGenerator.cs" />
     <Compile Include="Models\FinishElevationMarkCADKit.cs" />
     <Compile Include="Models\ElevationMarkPNB01025.cs" />
     <Compile Include="Models\MarkTypes.cs" />
-    <Compile Include="Models\_BaseElevationMark.cs" />
     <Compile Include="Models\ConstructionElevationMarkCADKit.cs" />
-    <Compile Include="Models\ElevationMarkConfig.cs" />
-    <Compile Include="Models\ElevationMarkFactoryCADKit.cs" />
-    <Compile Include="Models\ElevationMarkFactoryPNB01025.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\JigVerticalConstantVerticalAndHorizontalMirrorMark.cs" />
     <Compile Include="Models\JigVerticalConstantHorizontalMirrorMark.cs" />

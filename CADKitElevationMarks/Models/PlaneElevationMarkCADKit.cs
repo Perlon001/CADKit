@@ -20,8 +20,8 @@ namespace CADKitElevationMarks.Models
     {
         public PlaneElevationMarkCADKit()
         {
-            Name = "Rzędna wysokościowa obszaru";
             DrawingStandard = DrawingStandards.CADKit;
+            MarkType = MarkTypes.area;
         }
 
         protected override void CreateEntityList()

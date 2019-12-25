@@ -23,8 +23,8 @@ namespace CADKitElevationMarks.Models
     {
         public ElevationMarkPNB01025() : base()
         {
-            Name = "Kota wysokościowa";
             DrawingStandard = DrawingStandards.PNB01025;
+            MarkType = MarkTypes.universal;
         }
         protected override void CreateEntityList()
         {

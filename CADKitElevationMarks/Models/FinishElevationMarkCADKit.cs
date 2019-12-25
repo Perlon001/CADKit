@@ -22,8 +22,8 @@ namespace CADKitElevationMarks.Models
     {
         public FinishElevationMarkCADKit() : base()
         {
-            Name = "Kota wysokościowa wykończenia";
             DrawingStandard = DrawingStandards.CADKit;
+            MarkType = MarkTypes.finish;
         }
 
         protected override void CreateEntityList()

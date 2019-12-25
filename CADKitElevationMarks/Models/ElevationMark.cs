@@ -27,14 +27,13 @@ namespace CADKitElevationMarks.Models
     {
         protected PromptPointResult basePoint;
         protected ElevationValue value;
-        protected IElevationMarkConfig config;
         protected IEnumerable<Entity> entityList;
 
         protected abstract void CreateEntityList();
         protected abstract EntityListJig GetMarkJig(Group group, Point3d point);
 
-        public string Name { get; protected set; }
         public DrawingStandards DrawingStandard { get; protected set; }
+        public MarkTypes MarkType { get; protected set; }
 
         public virtual void Create()
         {
