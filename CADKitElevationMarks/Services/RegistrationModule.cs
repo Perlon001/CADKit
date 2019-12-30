@@ -2,7 +2,7 @@
 using CADKitElevationMarks.Contracts.Services;
 using System;
 
-namespace CADKitElevationMarks.Models
+namespace CADKitElevationMarks.Services
 {
     public class RegistrationModule : Module
     {
@@ -11,6 +11,12 @@ namespace CADKitElevationMarks.Models
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
                 .AssignableTo<IMarkTypeService>()
+                .InstancePerLifetimeScope()
+                .AsImplementedInterfaces();
+
+            builder
+                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .AssignableTo<IIconService>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
         }

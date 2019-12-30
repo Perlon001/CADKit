@@ -42,6 +42,9 @@
     <Reference Include="acmgd">
       <HintPath>..\acmgd.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.2.0\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
@@ -87,8 +90,10 @@
     <Compile Include="Conventions\naming_conventions.cs" />
     <Compile Include="Conventions\strukture_conventions.cs" />
     <Compile Include="CoreServices\CompositesService.cs" />
-    <Compile Include="ElevationMark\TestElevationMarkFactory.cs" />
+    <Compile Include="ElevationMark\TestIconServiceFactory.cs" />
     <Compile Include="ElevationMark\TestMarkTypeService.cs" />
+    <Compile Include="ElevationMark\TestMarkTypeServiceFactory.cs" />
+    <Compile Include="IoCContainerFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

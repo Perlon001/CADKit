@@ -6,16 +6,19 @@ using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.Contracts.Views;
+using CADKitElevationMarks.Services;
 using System;
 
 namespace CADKitElevationMarks.Presenters
 {
     public class ElevationMarksPresenter : Presenter<IElevationMarksView>, IElevationMarksPresenter
     {
+        private readonly MarkTypeServiceFactory factory;
         public ElevationMarksPresenter(IElevationMarksView _view)
         {
             View = _view;
             View.Presenter = this;
+            factory = new MarkTypeServiceFactory();
         }
 
         public void CreateMark(int id)
@@ -32,13 +35,10 @@ namespace CADKitElevationMarks.Presenters
         public override void OnViewLoaded()
         {
             base.OnViewLoaded();
-            using (var scope = DI.Container.BeginLifetimeScope())
+            foreach (DrawingStandards st in Enum.GetValues(typeof(DrawingStandards)))
             {
-                var service = scope.Resolve<IMarkTypeService>();
-                foreach (DrawingStandards st in Enum.GetValues(typeof(DrawingStandards)))
-                {
-                    View.BindDrawingStandard(st, service.GetMarks(st));
-                }
+                var service = factory.GetMarkTypeService(st);
+                View.BindDrawingStandard(st, service.GetMarks());
             }
         }
     }

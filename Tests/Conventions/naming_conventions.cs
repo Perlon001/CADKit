@@ -13,19 +13,6 @@ namespace Test.Conventions
         [Fact]
         public void each_interface_cadkit_database_name_starts_with_capital_I()
         {
-            var interfaces = ConventionsHelper.Interfaces("CADKit.ServiceCAD");
-
-            Assert.NotEmpty(interfaces);
-
-            var interfacesNotStartingWithI = interfaces
-                .Where(x => x.Name.StartsWith("I", StringComparison.CurrentCulture) == false);
-
-            Assert.Empty(interfacesNotStartingWithI);
-        }
-
-        [Fact]
-        public void each_interface_cadkit_name_starts_with_capital_I()
-        {
             var interfaces = ConventionsHelper.Interfaces("CADKit.Database");
 
             Assert.NotEmpty(interfaces);
@@ -37,9 +24,9 @@ namespace Test.Conventions
         }
 
         [Fact]
-        public void each_interface_cadkit_service_cad_starts_with_capital_I()
+        public void each_interface_cadkit_starts_with_capital_I()
         {
-            var interfaces = ConventionsHelper.Interfaces("CADKit.ServiceCAD");
+            var interfaces = ConventionsHelper.Interfaces("CADKit");
 
             Assert.NotEmpty(interfaces);
 

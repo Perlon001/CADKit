@@ -12,12 +12,9 @@ namespace CADKitElevationMarks.Contracts.Services
     public interface IMarkTypeService
     {
         IList<MarkButtonDTO> GetMarks();
-        IList<MarkButtonDTO> GetMarks(DrawingStandards standard);
-        IList<MarkButtonDTO> GetMarks(DrawingStandards standard, MarkTypes[] types);
-        IList<MarkButtonDTO> GetMarks(MarkTypes[] types);
         Type GetMarkType(int markNumber);
         string GetMarkName(int markNumber);
-        string GetMarkName(DrawingStandards standard, MarkTypes type);
+        string GetMarkName(MarkTypes type);
 
 
     }

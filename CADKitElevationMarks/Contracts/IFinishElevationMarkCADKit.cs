@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace CADKitElevationMarks.Contracts
 {
-    public interface IIconServiceFactory
+    public interface IFinishElevationMarkCADKit : IElevationMark
     {
-        IIconService CreateService();
     }
 }

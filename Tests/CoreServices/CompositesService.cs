@@ -1,6 +1,8 @@
 ﻿using CADKit.Contracts;
+using CADKit.Contracts.Services;
 using CADKit.Models;
 using CADKit.Services;
+using NSubstitute;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,7 +86,11 @@ namespace Tests.CoreServices
         [Fact]
         public void get_composite_return_valid_composites_from_composite()
         {
-            var service = new CompositeService(new LocalFakeCompositeProvider());
+            ICompositeProvider compositeProvider = new LocalFakeCompositeProvider();
+            var service = new CompositeService(compositeProvider);
+            // var service = new CompositeService(Substitute.For<ICompositeProvider>());
+
+
             var item = service.GetComposite("markModule", "kota01");
             var subitem = item.GetLeaf("contourLine01");
 

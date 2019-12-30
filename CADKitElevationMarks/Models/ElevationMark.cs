@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using CADProxy;
+using CADProxy.Internal;
 using CADKit;
 using CADKit.Models;
 using CADKit.Services;
 using CADKit.Extensions;
-using CADKitElevationMarks.Contracts;
 using CADKit.Utils;
+using CADKitElevationMarks.Contracts;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -28,10 +29,8 @@ namespace CADKitElevationMarks.Models
         protected PromptPointResult basePoint;
         protected ElevationValue value;
         protected IEnumerable<Entity> entityList;
-
         protected abstract void CreateEntityList();
         protected abstract EntityListJig GetMarkJig(Group group, Point3d point);
-
         public DrawingStandards DrawingStandard { get; protected set; }
         public MarkTypes MarkType { get; protected set; }
 
@@ -63,7 +62,7 @@ namespace CADKitElevationMarks.Models
                             {
                                 group = jig.GetEntity().ToList().ToGroup();
                             }
-
+                            Utils.FlushGraphics();
                             tr.Commit();
                         }
                     }

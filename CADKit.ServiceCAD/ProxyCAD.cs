@@ -27,6 +27,7 @@ namespace CADProxy
     
     public class ProxyCAD
     { 
+        public object cadApplication { get; }
         public static void UsingTransaction(Action<Transaction> action)
         {
             using (var tr = Database.TransactionManager.StartTransaction())
@@ -210,7 +211,7 @@ namespace CADProxy
         {
             get { return (string)Application.GetSystemVariable("PRODUCT"); }
         }
-        public static object ApplicationObject
+        public static object objectApplication
         {
             get 
             {

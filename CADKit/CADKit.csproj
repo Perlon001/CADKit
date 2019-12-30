@@ -96,6 +96,7 @@
     <Compile Include="Models\CanNoScale.cs" />
     <Compile Include="Models\Composite.cs" />
     <Compile Include="InterfaceScheme.cs" />
+    <Compile Include="Models\IconSize.cs" />
     <Compile Include="Services\CompositeProvider.cs" />
     <Compile Include="Services\CompositeService.cs" />
     <Compile Include="Services\LocalFakeCompositeProvider.cs" />

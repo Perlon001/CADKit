@@ -65,6 +65,7 @@
     <Compile Include="Contracts\ILayerService.cs" />
     <Compile Include="Contracts\ISymbolTableService.cs" />
     <Compile Include="Contracts\ITextStyleService.cs" />
+    <Compile Include="Internal\Utils.cs" />
     <Compile Include="Models\PaletteSet.cs" />
     <Compile Include="PromptKeywordOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitElevationMarks.Contracts
+namespace CADKitElevationMarks.Contracts.Services
 {
-    public interface IIconServicePNB01025Factory : IIconServiceFactory
+    public interface IMarkTypeServiceCADKit : IMarkTypeService
     {
     }
 }
