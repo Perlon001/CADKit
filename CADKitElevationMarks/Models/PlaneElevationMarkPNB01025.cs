@@ -1,17 +1,26 @@
-﻿using CADKit.Models;
+﻿using CADKit;
+using CADKit.Extensions;
+using CADKit.Models;
+using CADKit.Services;
 using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
 using CADProxy;
+using CADProxy.Internal;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
+using ZwSoft.ZwCAD.EditorInput;
 #endif
+
 #if AutoCAD
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.EditorInput;
 #endif
 
 namespace CADKitElevationMarks.Models
@@ -23,6 +32,45 @@ namespace CADKitElevationMarks.Models
             DrawingStandard = DrawingStandards.PNB01025;
             MarkType = MarkTypes.area;
         }
+
+        public override void Create()
+        {
+            var variables = SystemVariableService.GetActualSystemVariables();
+            try
+            {
+                value = new ElevationValue("%%p", 0.00);
+                using (ProxyCAD.Document.LockDocument())
+                {
+                    CreateEntityList();
+                    var group = entityList
+                        .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
+                        .ToList()
+                        .ToGroup();
+                    using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+                    {
+                        var jig = GetMarkJig(group, new Point3d(0, 0, 0));
+                        (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
+                        var result = ProxyCAD.Editor.Drag(jig);
+                        GroupErase(tr, group);
+                        if (result.Status == PromptStatus.OK)
+                        {
+                            group = jig.GetEntity().ToList().ToGroup();
+                        }
+                        Utils.FlushGraphics();
+                        tr.Commit();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ProxyCAD.Editor.WriteMessage(ex.Message);
+            }
+            finally
+            {
+                SystemVariableService.RestoreSystemVariables(variables);
+            }
+        }
+
         protected override void CreateEntityList()
         {
             var en = new List<Entity>();

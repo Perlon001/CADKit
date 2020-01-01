@@ -114,7 +114,7 @@ namespace CADKitElevationMarks.Models
             }
         }
 
-        private void GroupErase(Transaction tr, Group group)
+        protected void GroupErase(Transaction tr, Group group)
         {
             foreach (var id in group.GetAllEntityIds())
             {
