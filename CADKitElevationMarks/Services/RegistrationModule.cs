@@ -19,6 +19,11 @@ namespace CADKitElevationMarks.Services
                 .AssignableTo<IIconService>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
+            
+            builder
+                .RegisterType<MarkTypeServiceFactory>()
+                .InstancePerLifetimeScope()
+                .AsSelf();
         }
     }
 }

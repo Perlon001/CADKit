@@ -8,9 +8,9 @@ namespace CADKitElevationMarks.Services
 {
     public class IconServiceCADKit : IconService, IIconServiceCADKit
     {
-        public override Bitmap GetIcon(MarkTypes type, IconSize size)
+        public override Bitmap GetIcon(MarkTypes _type, IconSize _size)
         {
-            throw new NotImplementedException();
+            return Properties.Resources.mark01_32;
         }
     }
 }

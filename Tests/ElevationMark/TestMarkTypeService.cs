@@ -11,8 +11,15 @@ using Xunit;
 
 namespace Tests.ElevationMark
 {
-    public class TestMarkTypeService
+    public class TestMarkTypeService : IClassFixture<IoCContainerFixture>
     {
-
+        [Fact]
+        public void mark_type_service_get_marks_return_mark_type()
+        {
+            IMarkTypeService service = new MarkTypeServiceCADKit();
+            Type type = service.GetMarkType(1);
+            
+            Assert.Equal(Type.GetType("CADKitElevationMarks.Models.ConstructionElevationMarkCADKit"),type);
+        }
     }
 }

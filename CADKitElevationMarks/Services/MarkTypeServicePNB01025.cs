@@ -1,7 +1,8 @@
-﻿using CADKit.Models;
+﻿using Autofac;
+using CADKit;
+using CADKit.Models;
 using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.Models;
-using System.Drawing;
 
 namespace CADKitElevationMarks.Services
 {
@@ -9,25 +10,29 @@ namespace CADKitElevationMarks.Services
     {
         public MarkTypeServicePNB01025() : base()
         {
-            int i = 0;
-            markCollection.Add(new markItem()
+            using (var scope = DI.Container.BeginLifetimeScope())
             {
-                id = i++,
-                standard = DrawingStandards.PNB01025,
-                type = MarkTypes.universal,
-                markClass = typeof(ElevationMarkPNB01025),
-                picture16 = new Bitmap(16, 16),
-                picture32 = new Bitmap(32, 32)
-            });
-            markCollection.Add(new markItem()
-            {
-                id = i++,
-                standard = DrawingStandards.PNB01025,
-                type = MarkTypes.area,
-                markClass = typeof(PlaneElevationMarkPNB01025),
-                picture16 = new Bitmap(16, 16),
-                picture32 = new Bitmap(32, 32)
-            });
+                iconService = scope.Resolve<IIconServicePNB01025>();
+                int i = 0;
+                markCollection.Add(new markItem()
+                {
+                    id = i++,
+                    standard = DrawingStandards.PNB01025,
+                    type = MarkTypes.universal,
+                    markClass = typeof(ElevationMarkPNB01025),
+                    picture16 = iconService.GetIcon(MarkTypes.universal),
+                    picture32 = iconService.GetIcon(MarkTypes.universal, IconSize.medium)
+                });
+                markCollection.Add(new markItem()
+                {
+                    id = i++,
+                    standard = DrawingStandards.PNB01025,
+                    type = MarkTypes.area,
+                    markClass = typeof(PlaneElevationMarkPNB01025),
+                    picture16 = iconService.GetIcon(MarkTypes.area),
+                    picture32 = iconService.GetIcon(MarkTypes.area, IconSize.medium)
+                });
+            }
         }
     }
 }

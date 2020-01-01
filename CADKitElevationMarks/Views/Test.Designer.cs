@@ -1,6 +1,6 @@
 ﻿namespace CADKitElevationMarks.Views
 {
-    partial class ElevationMarksView
+    partial class Test
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,37 +29,34 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tabStandards = new System.Windows.Forms.TabControl();
-            this.toolTips = new System.Windows.Forms.ToolTip(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
-            // tabStandards
+            // button1
             // 
-            this.tabStandards.Alignment = System.Windows.Forms.TabAlignment.Left;
-            this.tabStandards.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabStandards.Location = new System.Drawing.Point(0, 0);
-            this.tabStandards.Multiline = true;
-            this.tabStandards.Name = "tabStandards";
-            this.tabStandards.SelectedIndex = 0;
-            this.tabStandards.Size = new System.Drawing.Size(243, 367);
-            this.tabStandards.TabIndex = 0;
-            this.tabStandards.SelectedIndexChanged += new System.EventHandler(this.TabChange);
-            this.tabStandards.TabIndexChanged += new System.EventHandler(this.TabChange);
+            this.button1.Image = global::CADKitElevationMarks.Properties.Resources.mark01_32;
+            this.button1.Location = new System.Drawing.Point(257, 233);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 92);
+            this.button1.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.button1, "dsfdsfdfd");
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // ElevationMarksView
+            // Test
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tabStandards);
-            this.Name = "ElevationMarksView";
-            this.Size = new System.Drawing.Size(243, 367);
+            this.Controls.Add(this.button1);
+            this.Name = "Test";
+            this.Size = new System.Drawing.Size(706, 573);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabStandards;
-        private System.Windows.Forms.ToolTip toolTips;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

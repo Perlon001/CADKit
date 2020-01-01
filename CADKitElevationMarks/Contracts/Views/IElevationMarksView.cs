@@ -9,9 +9,8 @@ namespace CADKitElevationMarks.Contracts.Views
     public interface IElevationMarksView : IView
     {
         IElevationMarksPresenter Presenter { get; set; }
-
         void BindDrawingStandard(DrawingStandards standard, IList<MarkButtonDTO> listMarks);
-        void BindMarkButtons(DrawingStandards standard, IList<MarkButtonDTO> listMarks);
+        DrawingStandards GetDrawingStandard();
 
     }
 }

@@ -13,32 +13,49 @@ namespace CADKitElevationMarks.Presenters
 {
     public class ElevationMarksPresenter : Presenter<IElevationMarksView>, IElevationMarksPresenter
     {
-        private readonly MarkTypeServiceFactory factory;
+        IMarkTypeService markTypeService;
+        
         public ElevationMarksPresenter(IElevationMarksView _view)
         {
             View = _view;
             View.Presenter = this;
-            factory = new MarkTypeServiceFactory();
         }
 
-        public void CreateMark(int id)
+        public void ChangeStandardDrawing(DrawingStandards _standard)
         {
-            using (var scope = DI.Container.BeginLifetimeScope())
+            using(var scope = DI.Container.BeginLifetimeScope())
             {
-                var service = scope.Resolve<IMarkTypeService>();
-                var markType = service.GetMarkType(id);
-                var mark = Activator.CreateInstance(markType) as IElevationMark;
-                mark.Create();
+                var factory = scope.Resolve<MarkTypeServiceFactory>();
+                this.markTypeService = factory.GetMarkTypeService(_standard);
             }
+        }
+
+        public void CreateMark(int _id)
+        {
+            var markType = this.markTypeService.GetMarkType(_id);
+            var mark = Activator.CreateInstance(markType) as IElevationMark;
+            mark.Create();
         }
 
         public override void OnViewLoaded()
         {
-            base.OnViewLoaded();
-            foreach (DrawingStandards st in Enum.GetValues(typeof(DrawingStandards)))
+            try
             {
-                var service = factory.GetMarkTypeService(st);
-                View.BindDrawingStandard(st, service.GetMarks());
+                base.OnViewLoaded();
+                using (var scope = DI.Container.BeginLifetimeScope())
+                {
+                    var factory = scope.Resolve<MarkTypeServiceFactory>();
+                    foreach (DrawingStandards st in Enum.GetValues(typeof(DrawingStandards)))
+                    {
+                        View.BindDrawingStandard(st, factory.GetMarkTypeService(st).GetMarks());
+                    }
+                    this.markTypeService = factory.GetMarkTypeService(View.GetDrawingStandard());
+                }
+                View.RegisterHandlers();
+            }
+            catch (Exception ex)
+            {
+                View.ShowException(ex, "Błąd ładowania widokou");
             }
         }
     }

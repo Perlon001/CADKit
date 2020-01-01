@@ -110,6 +110,12 @@
     <Compile Include="Views\ElevationMarksView.Designer.cs">
       <DependentUpon>ElevationMarksView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Test.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Test.Designer.cs">
+      <DependentUpon>Test.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CADKit.ServiceCAD\CADProxy.csproj">
@@ -127,7 +133,9 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="mark01_16.png" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -136,6 +144,15 @@
     <EmbeddedResource Include="Views\ElevationMarksView.resx">
       <DependentUpon>ElevationMarksView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Test.resx">
+      <DependentUpon>Test.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark01_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark01_48.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -11,6 +11,7 @@ namespace CADKitElevationMarks.Services
 {
     public abstract class MarkTypeService : IMarkTypeService
     {
+        protected IIconService iconService;
         protected struct markItem
         {
             public int id;
@@ -22,7 +23,7 @@ namespace CADKitElevationMarks.Services
         }
         protected Dictionary<MarkTypes, string> markTypes = new Dictionary<MarkTypes, string>();
         protected IList<markItem> markCollection = new List<markItem>();
-        protected IconServiceFactory iconServiceFactory = new IconServiceFactory();
+
         public MarkTypeService()
         {
             markTypes.Add(MarkTypes.area, "Rzędna obszaru");
@@ -33,70 +34,50 @@ namespace CADKitElevationMarks.Services
             markTypes.Add(MarkTypes.water, "Swobodne zwierciadło wody");
         }
 
-        //public IList<MarkButtonDTO> GetMarks()
-        //{
-        //    return markCollection
-        //        .Select(y => { return new MarkButtonDTO() { id = y.id, name = this.GetMarkName(y.id), picture = y.picture32 }; })
-        //        .ToList();
-        //}
-
-        //public Type GetMarkType(int markNumber)
-        //{
-        //    var item = markCollection.FirstOrDefault(x => x.id == markNumber);
-        //    if (item.Equals(default(markItem)))
-        //    {
-        //        throw new NotSupportedException("Brak koty wysokosciowej o numerze " + markNumber.ToString());
-        //    }
-        //    else
-        //    {
-        //        return item.markClass;
-        //    }
-        //}
-
-        //public string GetMarkName(int _markNumber)
-        //{
-        //    var item = markCollection.FirstOrDefault(x => x.id == _markNumber);
-        //    if(item.Equals(default(markItem)))
-        //    {
-        //        throw new NotSupportedException("Brak koty wysokosciowej o numerze " + _markNumber.ToString());
-        //    }
-        //    else
-        //    {
-        //        return markTypes[item.type];
-        //    }
-        //}
-
-        //public string GetMarkName(MarkTypes _type)
-        //{
-        //    var item = markCollection.FirstOrDefault(x => x.markClass.Equals(_type));
-        //    if (item.Equals(default(markItem)))
-        //    {
-        //        throw new NotSupportedException("Brak koty wysokosciowej " + _type.ToString());
-        //    }
-        //    else
-        //    {
-        //        return markTypes[item.type];
-        //    }
-        //}
-
-        public string GetMarkName(int markNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetMarkName(MarkTypes type)
-        {
-            throw new NotImplementedException();
-        }
-
         public IList<MarkButtonDTO> GetMarks()
         {
-            throw new NotImplementedException();
+            return markCollection
+                .Select(y => { return new MarkButtonDTO() { id = y.id, name = this.GetMarkName(y.id), picture = y.picture32 }; })
+                .ToList();
         }
 
         public Type GetMarkType(int markNumber)
         {
-            throw new NotImplementedException();
+            var item = markCollection.FirstOrDefault(x => x.id == markNumber);
+            if (item.Equals(default(markItem)))
+            {
+                throw new NotSupportedException("Brak koty wysokosciowej o numerze " + markNumber.ToString());
+            }
+            else
+            {
+                return item.markClass;
+            }
+        }
+
+        public string GetMarkName(int _markNumber)
+        {
+            var item = markCollection.FirstOrDefault(x => x.id == _markNumber);
+            if (item.Equals(default(markItem)))
+            {
+                throw new NotSupportedException("Brak koty wysokosciowej o numerze " + _markNumber.ToString());
+            }
+            else
+            {
+                return markTypes[item.type];
+            }
+        }
+
+        public string GetMarkName(MarkTypes _type)
+        {
+            var item = markCollection.FirstOrDefault(x => x.markClass.Equals(_type));
+            if (item.Equals(default(markItem)))
+            {
+                throw new NotSupportedException("Brak koty wysokosciowej " + _type.ToString());
+            }
+            else
+            {
+                return markTypes[item.type];
+            }
         }
     }
 }
