@@ -10,7 +10,17 @@ namespace CADKitElevationMarks.Services
     {
         public override Bitmap GetIcon(MarkTypes _type, IconSize _size)
         {
-            return Properties.Resources.mark01_32;
+            switch (_type)
+            {
+                case MarkTypes.construction:
+                    return Properties.Resources.mark04_32;
+                case MarkTypes.finish:
+                    return Properties.Resources.mark03_32;
+                case MarkTypes.area:
+                    return Properties.Resources.mark05_32;
+                default:
+                    throw new NotSupportedException("Nie obsługiwany rodzaj koty wysokościowej " + _type.ToString());
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ using CADKit.Extensions;
 using CADKit;
 using CADProxy.Internal;
 using System;
+using CADKitElevationMarks.Extensions;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -32,31 +33,36 @@ namespace CADKitElevationMarks.Models
             MarkType = MarkTypes.area;
         }
 
-        public override void Create()
+        public override void Create(EntitiesSet _entitiesSet)
         {
             var variables = SystemVariableService.GetActualSystemVariables();
             try
             {
-                value = new ElevationValue("%%p", 0.00);
-                using (ProxyCAD.Document.LockDocument())
+                var promptOptions = new PromptStringOptions("Rzędna wysokościowa obszaru:");
+                var textValue = ProxyCAD.Editor.GetString(promptOptions);
+                if (textValue.Status == PromptStatus.OK)
                 {
-                    CreateEntityList();
-                    var group = entityList
-                        .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
-                        .ToList()
-                        .ToGroup();
-                    using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+                    value = new ElevationValue("", textValue.StringResult).Parse();
+                    using (ProxyCAD.Document.LockDocument())
                     {
-                        var jig = GetMarkJig(group, new Point3d(0, 0, 0));
-                        (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
-                        var result = ProxyCAD.Editor.Drag(jig);
-                        GroupErase(tr, group);
-                        if (result.Status == PromptStatus.OK)
+                        CreateEntityList();
+                        var group = entityList
+                            .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
+                            .ToList()
+                            .ToGroup();
+                        using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
                         {
-                            group = jig.GetEntity().ToList().ToGroup();
+                            var jig = GetMarkJig(group, new Point3d(0, 0, 0));
+                            (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
+                            var result = ProxyCAD.Editor.Drag(jig);
+                            GroupErase(tr, group);
+                            if (result.Status == PromptStatus.OK)
+                            {
+                                group = jig.GetEntity().ToList().ToGroup();
+                            }
+                            Utils.FlushGraphics();
+                            tr.Commit();
                         }
-                        Utils.FlushGraphics();
-                        tr.Commit();
                     }
                 }
             }
@@ -67,6 +73,7 @@ namespace CADKitElevationMarks.Models
             finally
             {
                 SystemVariableService.RestoreSystemVariables(variables);
+                Utils.PostCommandPrompt();
             }
         }
 
@@ -81,7 +88,7 @@ namespace CADKitElevationMarks.Models
             tx1.VerticalMode = TextVerticalMode.TextVerticalMid;
             tx1.ColorIndex = 7;
             tx1.Height = 2;
-            tx1.AlignmentPoint = new Point3d(1, 2, 0);
+            tx1.AlignmentPoint = new Point3d(1.5, 2, 0);
             tx1.TextString = this.value.Sign + this.value.Value;
             en.Add(tx1);
 

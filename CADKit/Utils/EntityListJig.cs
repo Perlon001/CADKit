@@ -43,6 +43,8 @@ namespace CADKit.Utils
             return entityList;
         }
 
+        public Point3d Origin { get { return currentPoint; } }
+
         protected override SamplerStatus Sampler(JigPrompts prompts)
         {
             JigPromptPointOptions jigOpt = new JigPromptPointOptions("Wskaż punkt wstawienia:");

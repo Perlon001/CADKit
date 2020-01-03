@@ -15,6 +15,88 @@ namespace CADKit.Extensions
 {
     public static class EnumerableEntityExtensions
     {
+        public static void ToBlock(this IEnumerable<Entity> _entityList, string _blockName, Point3d _origin)
+        {
+            using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+            {
+                var bt = tr.GetObject(ProxyCAD.Database.BlockTableId, OpenMode.ForRead) as BlockTable;
+                if (!bt.Has(_blockName))
+                {
+                    using (var btr = new BlockTableRecord())
+                    {
+                        var i = 0;
+                        btr.Name = _blockName;
+                        btr.Origin = _origin;
+                        foreach (var e in _entityList)
+                        {
+                            if (e.GetType() == typeof(DBText))
+                            {
+                                var att = new AttributeDefinition();
+                                att.Tag = "att" + i.ToString();
+                                att.Prompt = "att" + i.ToString();
+                                att.Position = ((DBText)e).Position;
+                                att.TextString = ((DBText)e).TextString;
+                                att.Height = ((DBText)e).Height;
+                                att.Justify = ((DBText)e).Justify;
+                                //btr.AppendEntity(att);
+                                btr.AppendEntity(e);
+                            }
+                            else
+                            {
+                                btr.AppendEntity(e);
+                            }
+                        }
+                        bt.UpgradeOpen();
+                        bt.Add(btr);
+                        tr.AddNewlyCreatedDBObject(btr, true);
+                    }
+                }
+                tr.Commit();
+            }
+
+            //using(var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+            //{
+            //    var bt = tr.GetObject(ProxyCAD.Database.BlockTableId, OpenMode.ForWrite) as BlockTable;
+            //    if (!bt.Has(_blockName))
+            //    {
+            //        using (var btr = new BlockTableRecord())
+            //        {
+            //            var i = 0;
+            //            btr.Name = _blockName;
+            //            btr.Origin = new Point3d(0, 0, 0);
+            //            foreach(var e in _entityList)
+            //            {
+            //                if(e.GetType() == typeof(DBText))
+            //                {
+            //                    i++;
+            //                    using(var att = new AttributeDefinition())
+            //                    {
+            //                        att.Position = ((DBText)e).AlignmentPoint;
+            //                        att.Verifiable = true;
+            //                        att.Prompt = "att"+i.ToString();
+            //                        att.Tag = "att" + i.ToString();
+            //                        att.TextString = ((DBText)e).TextString;
+            //                        att.Height = ((DBText)e).Height;
+            //                        att.Justify = ((DBText)e).Justify;
+
+            //                        btr.AppendEntity(att);
+
+            //                    }
+            //                }
+            //                else
+            //                {
+            //                    btr.AppendEntity(e);
+            //                }
+            //            }
+            //            // bt.UpgradeOpen();
+            //            bt.Add(btr);
+            //            tr.AddNewlyCreatedDBObject(btr, true);
+            //        }
+            //    }
+            //    tr.Commit();
+            //} 
+        }
+
         public static Group ToGroup(this IEnumerable<Entity> _entityList)
         {
             Group group = new Group();

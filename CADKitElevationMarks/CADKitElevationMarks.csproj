@@ -74,6 +74,8 @@
     <Compile Include="ElevationMarkCommands.cs" />
     <Compile Include="Contracts\Presenters\IElevationMarksPresenter.cs" />
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
+    <Compile Include="Extensions\ElevationValueExtensions.cs" />
+    <Compile Include="Models\ElementsSet.cs" />
     <Compile Include="Models\ElevationMark.cs" />
     <Compile Include="Models\ElevationMarkItem.cs" />
     <Compile Include="Models\ElevationValue.cs" />
@@ -150,6 +152,45 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="mark01_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark01_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark02_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark02_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark02_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark03_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark03_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark03_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark04_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark04_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark04_48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark05_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark05_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mark05_48.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

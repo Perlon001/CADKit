@@ -34,7 +34,7 @@ namespace CADKitElevationMarks.Presenters
         {
             var markType = this.markTypeService.GetMarkType(_id);
             var mark = Activator.CreateInstance(markType) as IElevationMark;
-            mark.Create();
+            mark.Create(View.GetEntitiesSet());
         }
 
         public override void OnViewLoaded()

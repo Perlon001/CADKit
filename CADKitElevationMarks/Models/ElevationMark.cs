@@ -9,6 +9,8 @@ using CADKit.Services;
 using CADKit.Extensions;
 using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
+using CADKitElevationMarks.Extensions;
+using System.Globalization;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -29,12 +31,17 @@ namespace CADKitElevationMarks.Models
         protected PromptPointResult basePoint;
         protected ElevationValue value;
         protected IEnumerable<Entity> entityList;
+        protected string blockName;
+
         protected abstract void CreateEntityList();
+        
         protected abstract EntityListJig GetMarkJig(Group group, Point3d point);
+        
         public DrawingStandards DrawingStandard { get; protected set; }
+        
         public MarkTypes MarkType { get; protected set; }
 
-        public virtual void Create()
+        public virtual void Create(EntitiesSet _entitiesSet) 
         {
             var variables = SystemVariableService.GetActualSystemVariables();
             try
@@ -43,7 +50,7 @@ namespace CADKitElevationMarks.Models
                 basePoint = ProxyCAD.Editor.GetPoint(promptPointOptions);
                 if (basePoint.Status == PromptStatus.OK)
                 {
-                    value = new ElevationValue(GetElevationSign(), GetElevationValue());
+                    value = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
                     using (ProxyCAD.Document.LockDocument())
                     {
                         CreateEntityList();
@@ -60,7 +67,17 @@ namespace CADKitElevationMarks.Models
                             GroupErase(tr, group);
                             if (result.Status == PromptStatus.OK)
                             {
-                                group = jig.GetEntity().ToList().ToGroup();
+                                switch (_entitiesSet)
+                                {
+                                    case EntitiesSet.Group:
+                                        jig.GetEntity().ToList().ToGroup();
+                                        break;
+                                    case EntitiesSet.Block:
+                                        jig.GetEntity().ToList().ToBlock(GetBlockName(), jig.Origin);
+                                        break;
+                                    default:
+                                        throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
+                                }
                             }
                             Utils.FlushGraphics();
                             tr.Commit();
@@ -75,12 +92,13 @@ namespace CADKitElevationMarks.Models
             finally
             {
                 SystemVariableService.RestoreSystemVariables(variables);
+                Utils.PostCommandPrompt();
             }
         }
 
-        private double GetElevationValue()
+        private string GetElevationValue()
         {
-            return Math.Round(Math.Abs(basePoint.Value.Y) * GetElevationFactor(), 3);
+            return Math.Round(Math.Abs(basePoint.Value.Y) * GetElevationFactor(), 3).ToString("0.000");
         }
 
         private string GetElevationSign()
@@ -112,6 +130,11 @@ namespace CADKitElevationMarks.Models
                 default:
                     throw new Exception("\nNie rozpoznana jednostka rysunkowa");
             }
+        }
+
+        private string GetBlockName()
+        {
+            return "CK_EM_" + MarkType.ToString() + DrawingStandard.ToString();
         }
 
         protected void GroupErase(Transaction tr, Group group)

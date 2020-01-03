@@ -7,6 +7,7 @@ using CADKitElevationMarks.Contracts.Views;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKit.Models;
 using CADKitElevationMarks.DTO;
+using CADKitElevationMarks.Models;
 
 namespace CADKitElevationMarks.Views
 {  
@@ -17,6 +18,7 @@ namespace CADKitElevationMarks.Views
         public ElevationMarksView()
         {
             InitializeComponent();
+            rbxGroup.Checked = true;
         }
 
         public override void RegisterHandlers()
@@ -39,11 +41,6 @@ namespace CADKitElevationMarks.Views
                 this.Controls.Add(flp);
             }
         }
-
-        //private class MarkButton : Button
-        //{
-        //    public int id;
-        //}
 
         public void BindDrawingStandard(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks)
         {
@@ -86,6 +83,15 @@ namespace CADKitElevationMarks.Views
         {
             var page = tabStandards.SelectedTab as StandardTabPage;
             Presenter.ChangeStandardDrawing(page.Standard);
+        }
+
+        public EntitiesSet GetEntitiesSet()
+        {
+            if (rbxGroup.Checked)
+                return EntitiesSet.Group;
+            if (rbxBlock.Checked)
+                return EntitiesSet.Block;
+            throw new NotSupportedException();
         }
     }
 }

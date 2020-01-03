@@ -9,17 +9,13 @@ namespace CADKitElevationMarks.Models
 {
     public struct ElevationValue
     {
-        private string sign;
-        private double value;
+        public string Sign { get; set; }
+        public string Value { get; set; }
 
-        public ElevationValue(string _sign, double _value)
+        public ElevationValue(string _sign, string _value)
         {
-            sign = _sign;
-            value = _value;
+            Sign = _sign;
+            Value = _value;
         }
-
-        public string Sign { get { return sign; } }
-        public string Value { get { return value.ToString("0.000", CultureInfo.GetCultureInfo("pl-PL")); } }
-
     }
 }
