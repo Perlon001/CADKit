@@ -53,6 +53,7 @@ namespace CADKitElevationMarks.Models
                     value = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
                     using (ProxyCAD.Document.LockDocument())
                     {
+                        ObjectId objectId;
                         CreateEntityList();
                         var group = entityList
                             .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
@@ -70,10 +71,13 @@ namespace CADKitElevationMarks.Models
                                 switch (_entitiesSet)
                                 {
                                     case EntitiesSet.Group:
-                                        jig.GetEntity().ToList().ToGroup();
+                                        // nie kasuj grupy tylko klony z jig'a a oryginały weź z 0,0
+                                        objectId = jig.GetEntity().ToGroup().ObjectId;
                                         break;
                                     case EntitiesSet.Block:
-                                        jig.GetEntity().ToList().ToBlock(GetBlockName(), jig.Origin);
+                                        // utworz blok w 0,0 a potem wstaw w _origin z jig'a
+                                        objectId = jig.GetEntity().ToBlock(GetBlockName(), jig.Origin);
+                                        var br = new BlockReference(jig.Origin, objectId);
                                         break;
                                     default:
                                         throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");

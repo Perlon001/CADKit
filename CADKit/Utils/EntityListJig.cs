@@ -53,10 +53,10 @@ namespace CADKit.Utils
 
             PromptPointResult res = prompts.AcquirePoint(jigOpt);
 
-            if (res.Value.IsEqualTo(basePoint))
-            {
-                return SamplerStatus.NoChange;
-            }
+            //if (res.Value.IsEqualTo(basePoint))
+            //{
+            //    return SamplerStatus.NoChange;
+            //}
             currentPoint = res.Value;
 
             return SamplerStatus.OK;

@@ -15,18 +15,21 @@ namespace CADKit.Extensions
 {
     public static class EnumerableEntityExtensions
     {
-        public static void ToBlock(this IEnumerable<Entity> _entityList, string _blockName, Point3d _origin)
+        public static ObjectId ToBlock(this IEnumerable<Entity> _entityList, string _blockName, Point3d _origin)
         {
+            ObjectId result;
             using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
             {
                 var bt = tr.GetObject(ProxyCAD.Database.BlockTableId, OpenMode.ForRead) as BlockTable;
                 if (!bt.Has(_blockName))
                 {
-                    using (var btr = new BlockTableRecord())
+                    var i = 0;
+                    using (var btr = new BlockTableRecord
                     {
-                        var i = 0;
-                        btr.Name = _blockName;
-                        btr.Origin = _origin;
+                        Name = _blockName,
+                        Origin = _origin
+                    })
+                    {
                         foreach (var e in _entityList)
                         {
                             if (e.GetType() == typeof(DBText))
@@ -34,12 +37,12 @@ namespace CADKit.Extensions
                                 var att = new AttributeDefinition();
                                 att.Tag = "att" + i.ToString();
                                 att.Prompt = "att" + i.ToString();
-                                att.Position = ((DBText)e).Position;
                                 att.TextString = ((DBText)e).TextString;
                                 att.Height = ((DBText)e).Height;
+                                att.Position = ((DBText)e).Position;
                                 att.Justify = ((DBText)e).Justify;
-                                //btr.AppendEntity(att);
-                                btr.AppendEntity(e);
+                                att.AlignmentPoint = ((DBText)e).AlignmentPoint;
+                                btr.AppendEntity(att);
                             }
                             else
                             {
@@ -49,10 +52,13 @@ namespace CADKit.Extensions
                         bt.UpgradeOpen();
                         bt.Add(btr);
                         tr.AddNewlyCreatedDBObject(btr, true);
+                        tr.Commit();
                     }
                 }
-                tr.Commit();
+                result = bt[_blockName];
             }
+            
+            return result;
 
             //using(var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
             //{
