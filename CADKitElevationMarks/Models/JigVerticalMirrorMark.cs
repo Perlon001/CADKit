@@ -72,7 +72,7 @@ namespace CADKitElevationMarks.Models
             {
                 if (e.GetType() == typeof(DBText))
                 {
-                    var textArea = EntityInfo.GetTextArea(e as DBText);
+                    var textArea = ProxyCAD.GetTextArea(e as DBText);
                     textWidth += textArea[1].X - textArea[0].X;
                 }
             }

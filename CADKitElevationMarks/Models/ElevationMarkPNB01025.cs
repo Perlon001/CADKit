@@ -21,16 +21,16 @@ namespace CADKitElevationMarks.Models
 {
     public class ElevationMarkPNB01025 : ElevationMark
     {
-        public ElevationMarkPNB01025() : base()
-        {
-            DrawingStandard = DrawingStandards.PNB01025;
-            MarkType = MarkTypes.universal;
-        }
+        public ElevationMarkPNB01025() : base() { }
+
+        public override DrawingStandards DrawingStandard { get { return DrawingStandards.PNB01025; } }
+
+        public override MarkTypes MarkType { get { return MarkTypes.universal; } }
 
         protected override void CreateEntityList()
         {
             var en = new List<Entity>();
-            var tx1 = new DBText();
+            var tx1 = new AttributeDefinition();
             var pl1 = new Polyline();
             var pl2 = new Polyline();
 
@@ -40,8 +40,13 @@ namespace CADKitElevationMarks.Models
             tx1.VerticalMode = TextVerticalMode.TextVerticalMid;
             tx1.ColorIndex = 7;
             tx1.Height = 2;
+            tx1.Position = new Point3d(0, 4.5, 0);
             tx1.AlignmentPoint = new Point3d(0, 4.5, 0);
-            tx1.TextString = this.value.Sign + this.value.Value;
+            tx1.Justify = AttachmentPoint.MiddleLeft;
+            tx1.Tag = "Value";
+            tx1.Prompt = "Value";
+            tx1.TextString = this.value.ToString();
+
             en.Add(tx1);
 
             pl1.AddVertexAt(0, new Point2d(-1.5, 1.5), 0, 0, 0);
@@ -51,11 +56,12 @@ namespace CADKitElevationMarks.Models
             {
                 pl1.Closed = true;
                 AddHatchingArrow(en);
+                index = "Zero";
             }
             en.Add(pl1);
 
-            var textArea = EntityInfo.GetTextArea(tx1);
-            pl2 = new Polyline();
+
+            var textArea = ProxyCAD.GetTextArea(ProxyCAD.ToDBText(tx1));
             pl2.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl2.AddVertexAt(0, new Point2d(0, 3), 0, 0, 0);
             pl2.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X, 3), 0, 0, 0);

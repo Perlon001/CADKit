@@ -1,4 +1,5 @@
 ﻿using CADProxy;
+using CADProxy.Extensions;
 using System;
 using System.Collections.Generic;
 
@@ -27,18 +28,20 @@ namespace CADKit.Utils
 
         public EntityListJig(IEnumerable<Entity> _entityList, Point3d _basePoint)
         {
-            entityList = _entityList;
             basePoint = _basePoint;
             currentPoint = _basePoint;
-            transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
+            entityList = _entityList;
+            entityList.TransformBy(Matrix3d.Displacement(new Vector3d( basePoint.X, basePoint.Y, basePoint.Z)));
+        }
+
+        public virtual string GetSuffix()
+        {
+            return "";
         }
 
         public virtual IEnumerable<Entity> GetEntity()
         {
-            foreach (var e in entityList)
-            {
-                e.TransformBy(transforms);
-            }
+            entityList.TransformBy(transforms);
 
             return entityList;
         }
@@ -50,13 +53,7 @@ namespace CADKit.Utils
             JigPromptPointOptions jigOpt = new JigPromptPointOptions("Wskaż punkt wstawienia:");
             jigOpt.UserInputControls = UserInputControls.Accept3dCoordinates;
             jigOpt.BasePoint = basePoint;
-
             PromptPointResult res = prompts.AcquirePoint(jigOpt);
-
-            //if (res.Value.IsEqualTo(basePoint))
-            //{
-            //    return SamplerStatus.NoChange;
-            //}
             currentPoint = res.Value;
 
             return SamplerStatus.OK;

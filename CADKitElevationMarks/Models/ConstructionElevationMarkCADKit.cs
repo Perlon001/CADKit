@@ -19,11 +19,11 @@ namespace CADKitElevationMarks.Models
 {
     public class ConstructionElevationMarkCADKit : ElevationMark, IElevationMark
     {
-        public ConstructionElevationMarkCADKit() : base()
-        {
-            DrawingStandard = DrawingStandards.CADKit;
-            MarkType = MarkTypes.construction;
-        }
+        public ConstructionElevationMarkCADKit() : base() { }
+
+        public override DrawingStandards DrawingStandard { get { return DrawingStandards.CADKit; } }
+        
+        public override MarkTypes MarkType { get { return MarkTypes.construction; } }
 
         protected override void CreateEntityList()
         {
@@ -51,7 +51,7 @@ namespace CADKitElevationMarks.Models
             tx2.TextString = this.value.Value;
             en.Add(tx2);
 
-            var textArea = EntityInfo.GetTextArea(tx2);
+            var textArea = ProxyCAD.GetTextArea(tx2);
             var pl1 = new Polyline();
             pl1.AddVertexAt(0, new Point2d(0, 5.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);

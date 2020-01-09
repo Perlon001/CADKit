@@ -6,11 +6,11 @@ using CADProxy.Internal;
 using CADKit;
 using CADKit.Models;
 using CADKit.Services;
-using CADKit.Extensions;
 using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Extensions;
 using System.Globalization;
+using CADProxy.Extensions;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -31,15 +31,27 @@ namespace CADKitElevationMarks.Models
         protected PromptPointResult basePoint;
         protected ElevationValue value;
         protected IEnumerable<Entity> entityList;
-        protected string blockName;
+        protected string index = "";
 
         protected abstract void CreateEntityList();
         
         protected abstract EntityListJig GetMarkJig(Group group, Point3d point);
+
+        protected void GroupErase(Transaction tr, Group group)
+        {
+            foreach (var id in group.GetAllEntityIds())
+            {
+                if (!id.IsErased)
+                {
+                    tr.GetObject(id, OpenMode.ForWrite).Erase();
+                }
+            }
+            group.Erase(true);
+        }
+
+        public abstract DrawingStandards DrawingStandard { get; }
         
-        public DrawingStandards DrawingStandard { get; protected set; }
-        
-        public MarkTypes MarkType { get; protected set; }
+        public abstract MarkTypes MarkType { get; }
 
         public virtual void Create(EntitiesSet _entitiesSet) 
         {
@@ -53,36 +65,43 @@ namespace CADKitElevationMarks.Models
                     value = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
                     using (ProxyCAD.Document.LockDocument())
                     {
-                        ObjectId objectId;
                         CreateEntityList();
-                        var group = entityList
-                            .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
-                            .TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(basePoint.Value)))
-                            .ToList()
-                            .ToGroup();
                         using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
                         {
-                            var jig = GetMarkJig(group, basePoint.Value);
-                            (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
+                            var jigGroup = entityList.Clone().ToGroup();
+                            var jig = GetMarkJig(jigGroup, basePoint.Value);
+                            (jigGroup.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
                             var result = ProxyCAD.Editor.Drag(jig);
-                            GroupErase(tr, group);
                             if (result.Status == PromptStatus.OK)
                             {
                                 switch (_entitiesSet)
                                 {
                                     case EntitiesSet.Group:
-                                        // nie kasuj grupy tylko klony z jig'a a oryginały weź z 0,0
-                                        objectId = jig.GetEntity().ToGroup().ObjectId;
+                                        jig.GetEntity().ToGroup();
                                         break;
                                     case EntitiesSet.Block:
-                                        // utworz blok w 0,0 a potem wstaw w _origin z jig'a
-                                        objectId = jig.GetEntity().ToBlock(GetBlockName(), jig.Origin);
-                                        var br = new BlockReference(jig.Origin, objectId);
+                                        entityList.ToBlock("aaa", new Point3d(0, 0, 0));
+                                        // jig.GetEntity().ToBlock(GetBlockName() + jig.GetSuffix(), jig.Origin);
+                                        // var group = jig.GetEntity().ToGroup();
+                                        // (jigGroup.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(true);
+                                        // group.ToEnumerable().ToBlock(GetBlockName() + jig.GetSuffix() + index, jig.Origin);
                                         break;
                                     default:
                                         throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
                                 }
                             }
+
+                            //var jig = GetMarkJig(entityList, basePoint.Value);
+                            //var result = ProxyCAD.Editor.Drag(jig);
+                            //var group = entityList.ToGroup();
+                            //    .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
+                            //    .TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(basePoint.Value)));
+                            //    //.ToGroup();
+                            ////var jig = GetMarkJig(group, basePoint.Value);
+                            //var jig = GetMarkJig(entityList, basePoint.Value);
+                            //// (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
+                            //var result = ProxyCAD.Editor.Drag(jig);
+                            GroupErase(tr, jigGroup);
                             Utils.FlushGraphics();
                             tr.Commit();
                         }
@@ -100,6 +119,7 @@ namespace CADKitElevationMarks.Models
             }
         }
 
+        #region private methods
         private string GetElevationValue()
         {
             return Math.Round(Math.Abs(basePoint.Value.Y) * GetElevationFactor(), 3).ToString("0.000");
@@ -140,17 +160,7 @@ namespace CADKitElevationMarks.Models
         {
             return "CK_EM_" + MarkType.ToString() + DrawingStandard.ToString();
         }
+        #endregion
 
-        protected void GroupErase(Transaction tr, Group group)
-        {
-            foreach (var id in group.GetAllEntityIds())
-            {
-                if (!id.IsErased)
-                {
-                    tr.GetObject(id, OpenMode.ForWrite).Erase();
-                }
-            }
-            group.Erase(true);
-        }
     }
 }

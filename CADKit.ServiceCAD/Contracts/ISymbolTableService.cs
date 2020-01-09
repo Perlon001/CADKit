@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 #if ZwCAD
-using DatabaseServices = ZwSoft.ZwCAD.DatabaseServices;
+using ZwSoft.ZwCAD.DatabaseServices;
 #endif
 
 #if AutoCAD
@@ -10,13 +10,13 @@ using Autodesk.AutoCAD.DatabaseServices;
 
 namespace CADProxy.Contracts
 {
-    public interface ISymbolTableService<TTable> where TTable : DatabaseServices.SymbolTable
+    public interface ISymbolTableService<TTable> where TTable : SymbolTable
     {
-        DatabaseServices.ObjectId CreateRecord<TRecord>(TRecord symbol) where TRecord : DatabaseServices.SymbolTableRecord;
+        ObjectId CreateRecord<TRecord>(TRecord symbol) where TRecord : SymbolTableRecord;
 
-        DatabaseServices.ObjectId GetRecord<TRecord>(string symbolName) where TRecord : DatabaseServices.SymbolTableRecord;
+        ObjectId GetRecord<TRecord>(string symbolName) where TRecord : SymbolTableRecord;
 
-        TRecord GetSymbol<TRecord>(string symbolName) where TRecord : DatabaseServices.SymbolTableRecord;
-        IList<DatabaseServices.SymbolTableRecord> GetRecords();
+        TRecord GetSymbol<TRecord>(string symbolName) where TRecord : SymbolTableRecord;
+        IList<SymbolTableRecord> GetRecords();
     }
 }

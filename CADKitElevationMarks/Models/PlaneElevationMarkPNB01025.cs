@@ -1,5 +1,4 @@
 ﻿using CADKit;
-using CADKit.Extensions;
 using CADKit.Models;
 using CADKit.Services;
 using CADKit.Utils;
@@ -12,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
 using CADKitElevationMarks.Extensions;
+using CADProxy.Extensions;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -29,11 +29,11 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneElevationMarkPNB01025 : ElevationMark, IElevationMark
     {
-        public PlaneElevationMarkPNB01025() : base()
-        {
-            DrawingStandard = DrawingStandards.PNB01025;
-            MarkType = MarkTypes.area;
-        }
+        public PlaneElevationMarkPNB01025() : base() { }
+
+        public override DrawingStandards DrawingStandard { get { return DrawingStandards.PNB01025; } }
+
+        public override MarkTypes MarkType { get { return MarkTypes.area; } }
 
         public override void Create(EntitiesSet _entitiesSet)
         {
@@ -48,10 +48,8 @@ namespace CADKitElevationMarks.Models
                     using (ProxyCAD.Document.LockDocument())
                     {
                         CreateEntityList();
-                        var group = entityList
-                            .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
-                            .ToList()
-                            .ToGroup();
+                        entityList.TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)));
+                        var group = entityList.ToGroup();
                         using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
                         {
                             var jig = GetMarkJig(group, new Point3d(0, 0, 0));
@@ -100,7 +98,7 @@ namespace CADKitElevationMarks.Models
             var l2 = new Line(new Point3d(-1.5, 1.5, 0), new Point3d(1.5, -1.5, 0));
             en.Add(l2);
 
-            var textArea = EntityInfo.GetTextArea(tx1);
+            var textArea = ProxyCAD.GetTextArea(tx1);
             var l3 = new Line(new Point3d(0, 0, 0), new Point3d(textArea[1].X - textArea[0].X + 2, 0, 0));
             en.Add(l3);
 
@@ -117,5 +115,6 @@ namespace CADKitElevationMarks.Models
                 .ToList(),
                 _point);
         }
+
     }
 }

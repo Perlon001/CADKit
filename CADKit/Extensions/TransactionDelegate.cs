@@ -7,5 +7,5 @@ using Autodesk.AutoCAD.DatabaseServices;
 
 namespace CADKit.Extensions
 {
-    public delegate void TransactionDelegate(Transaction tr);
+    // public delegate void TransactionDelegate(Transaction tr);
 }

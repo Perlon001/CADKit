@@ -7,6 +7,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 #if AutoCAD
 using Autodesk.AutoCAD.DatabaseServices;
 #endif
+
 namespace CADProxy.SymbolTableServices
 {
     public class TextStyleService : SymbolTableService<TextStyleTable>, ITextStyleService

@@ -17,5 +17,10 @@ namespace CADKitElevationMarks.Models
             Sign = _sign;
             Value = _value;
         }
+
+        public override string ToString()
+        {
+            return Sign + Value;
+        }
     }
 }

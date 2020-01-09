@@ -21,19 +21,26 @@ namespace CADKitElevationMarks.Models
 {
     public class JigVerticalConstantVerticalAndHorizontalMirrorMark : EntityListJig
     {
-        private bool IsVMirror;
-        private bool IsHMirror;
+        private bool isVMirror;
+        private bool isHMirror;
         public JigVerticalConstantVerticalAndHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint)
         {
-            IsVMirror = false;
-            IsHMirror = false;
+            isVMirror = false;
+            isHMirror = false;
+        }
+
+        public override string GetSuffix()
+        {
+            return (isVMirror ? "L" : "R") + (isHMirror ? "B" : "T");
         }
 
         protected override SamplerStatus Sampler(JigPrompts prompts)
         {
             var result = base.Sampler(prompts);
             if (result != SamplerStatus.OK)
+            {
                 return result;
+            }
             if (needVMirror)
             {
                 verticalMirroring();
@@ -50,7 +57,8 @@ namespace CADKitElevationMarks.Models
         {
             try
             {
-                transforms = Matrix3d.Displacement(basePoint.GetVectorTo(new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z)));
+                currentPoint = new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z);
+                transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
                 var geometry = draw.Geometry;
                 if (geometry != null)
                 {
@@ -78,7 +86,7 @@ namespace CADKitElevationMarks.Models
             {
                 if(e.GetType() == typeof(DBText))
                 {
-                    var textArea = EntityInfo.GetTextArea(e as DBText);
+                    var textArea = ProxyCAD.GetTextArea(e as DBText);
                     textWidth += textArea[1].X - textArea[0].X;
                 }
             }
@@ -86,14 +94,14 @@ namespace CADKitElevationMarks.Models
             {
                 if (e.GetType() == typeof(DBText))
                 {
-                    e.TransformBy(Matrix3d.Displacement(new Vector3d((IsVMirror ? textWidth : -textWidth) * AppSettings.Instance.ScaleFactor, 0, 0)));
+                    e.TransformBy(Matrix3d.Displacement(new Vector3d((isVMirror ? textWidth : -textWidth) * AppSettings.Instance.ScaleFactor, 0, 0)));
                 }
                 else
                 {
                     e.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(0, 1, 0))));
                 }
             }
-            IsVMirror = !IsVMirror;
+            isVMirror = !isVMirror;
         }
 
         private void horizontalMirroring()
@@ -102,21 +110,21 @@ namespace CADKitElevationMarks.Models
             {
                 if (e.GetType() == typeof(DBText))
                 {
-                    e.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
+                    e.TransformBy(Matrix3d.Displacement(new Vector3d(0, (isHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
                 }
                 else
                 {
                     e.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(1, 0, 0))));
                 }
             }
-            IsHMirror = !IsHMirror;
+            isHMirror = !isHMirror;
         }
 
         private bool needVMirror
         {
             get
             {
-                return (currentPoint.X < basePoint.X && !IsVMirror) || (currentPoint.X >= basePoint.X && IsVMirror);
+                return (currentPoint.X < basePoint.X && !isVMirror) || (currentPoint.X >= basePoint.X && isVMirror);
             }
         }
 
@@ -124,9 +132,8 @@ namespace CADKitElevationMarks.Models
         {
             get
             {
-                return (currentPoint.Y < basePoint.Y && !IsHMirror) || (currentPoint.Y >= basePoint.Y && IsHMirror);
+                return (currentPoint.Y < basePoint.Y && !isHMirror) || (currentPoint.Y >= basePoint.Y && isHMirror);
             }
         }
-
     }
 }

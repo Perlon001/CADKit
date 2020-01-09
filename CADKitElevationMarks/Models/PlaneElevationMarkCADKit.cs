@@ -5,11 +5,11 @@ using CADKitElevationMarks.Contracts;
 using CADProxy;
 using System.Collections.Generic;
 using System.Linq;
-using CADKit.Extensions;
 using CADKit;
 using CADProxy.Internal;
 using System;
 using CADKitElevationMarks.Extensions;
+using CADProxy.Extensions;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -27,11 +27,11 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneElevationMarkCADKit : ElevationMark, IElevationMark
     {
-        public PlaneElevationMarkCADKit()
-        {
-            DrawingStandard = DrawingStandards.CADKit;
-            MarkType = MarkTypes.area;
-        }
+        public PlaneElevationMarkCADKit() : base() { }
+
+        public override DrawingStandards DrawingStandard { get { return DrawingStandards.CADKit; } }
+
+        public override MarkTypes MarkType { get { return MarkTypes.area; } }
 
         public override void Create(EntitiesSet _entitiesSet)
         {
@@ -46,10 +46,8 @@ namespace CADKitElevationMarks.Models
                     using (ProxyCAD.Document.LockDocument())
                     {
                         CreateEntityList();
-                        var group = entityList
-                            .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
-                            .ToList()
-                            .ToGroup();
+                        entityList.TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)));
+                        var group = entityList.ToGroup();
                         using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
                         {
                             var jig = GetMarkJig(group, new Point3d(0, 0, 0));
@@ -116,6 +114,7 @@ namespace CADKitElevationMarks.Models
                 .ToList(),
                 _point);
         }
+
 
         private void AddHatching(IList<Entity> en)
         {

@@ -88,10 +88,7 @@
     <Compile Include="Contracts\Services\ICompositeProvider.cs" />
     <Compile Include="Contracts\Services\ICompositeService.cs" />
     <Compile Include="DI.cs" />
-    <Compile Include="Extensions\EnumerableEntityExtensions.cs" />
-    <Compile Include="Extensions\Extension.cs" />
     <Compile Include="Extensions\TransactionDelegate.cs" />
-    <Compile Include="Extensions\TransactionExtensions.cs" />
     <Compile Include="JIGCommand.cs" />
     <Compile Include="Models\CanNoScale.cs" />
     <Compile Include="Models\Composite.cs" />
@@ -101,6 +98,7 @@
     <Compile Include="Services\CompositeService.cs" />
     <Compile Include="Services\LocalFakeCompositeProvider.cs" />
     <Compile Include="Services\RegistrationModule.cs" />
+    <Compile Include="TestEnumerable.cs" />
     <Compile Include="Utils\Bulge.cs" />
     <Compile Include="Utils\CADKitModuleContainerBuilder.cs" />
     <Compile Include="Utils\CompositeModule.cs" />
@@ -115,7 +113,6 @@
     <Compile Include="Models\DrawingEnums.cs" />
     <Compile Include="Models\SystemVariables.cs" />
     <Compile Include="Utils\AuthChecker.cs" />
-    <Compile Include="Utils\EntityInfo.cs" />
     <Compile Include="Utils\EntityListJig.cs" />
     <Compile Include="Utils\EnumsUtil.cs" />
     <Compile Include="Utils\WinRegSettings.cs" />

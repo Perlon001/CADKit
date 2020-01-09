@@ -65,7 +65,12 @@
     <Compile Include="Contracts\ILayerService.cs" />
     <Compile Include="Contracts\ISymbolTableService.cs" />
     <Compile Include="Contracts\ITextStyleService.cs" />
+    <Compile Include="DatabaseServices\DBText.cs" />
+    <Compile Include="DatabaseServices\Group.cs" />
     <Compile Include="EditorInput\PromptPointResult.cs" />
+    <Compile Include="Extensions\EnumerableEntityExtensions.cs" />
+    <Compile Include="Extensions\GroupExtensions.cs" />
+    <Compile Include="Geometry\Point3d.cs" />
     <Compile Include="Internal\Utils.cs" />
     <Compile Include="Models\PaletteSet.cs" />
     <Compile Include="PromptKeywordOptions.cs" />

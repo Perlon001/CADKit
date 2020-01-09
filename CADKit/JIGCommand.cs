@@ -6,6 +6,7 @@ using CADKit.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CADProxy.Extensions;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -52,9 +53,8 @@ namespace CADKit
                 return;
 
             markEntities = GetEntities(markPosition.right);
-            Group group = markEntities
-                .TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(promptPoint.Value)))
-                .ToGroup();
+            markEntities.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(promptPoint.Value)));
+            Group group = markEntities.ToGroup();
 
             using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
             {
@@ -107,7 +107,7 @@ namespace CADKit
 
             texts[1].AlignmentPoint = new Point3d(1.5, 4.5, 0);
             texts[1].TextString = "0.000";
-            var textArea = EntityInfo.GetTextArea(texts[1]);
+            var textArea = ProxyCAD.GetTextArea(texts[1]);
 
             plines[0].AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             plines[0].AddVertexAt(0, new Point2d(0, 3), 0, 0, 0);
