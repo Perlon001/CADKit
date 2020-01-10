@@ -79,6 +79,7 @@
     <Compile Include="Models\ElevationMark.cs" />
     <Compile Include="Models\ElevationMarkItem.cs" />
     <Compile Include="Models\ElevationValue.cs" />
+    <Compile Include="Models\MarkOptions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

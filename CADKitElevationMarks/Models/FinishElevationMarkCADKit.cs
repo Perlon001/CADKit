@@ -74,6 +74,10 @@ namespace CADKitElevationMarks.Models
                 _point);
         }
 
+        protected override void InsertMarkBlock(Point3d insertPoint)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
 

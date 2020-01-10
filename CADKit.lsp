@@ -7,5 +7,5 @@
 		)
 	)
 )
-(command "TEST1")
+(command "XDataContextMenuTest")
 (princ)

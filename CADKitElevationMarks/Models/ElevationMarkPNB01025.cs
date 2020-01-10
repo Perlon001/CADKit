@@ -81,6 +81,11 @@ namespace CADKitElevationMarks.Models
                 _point);
         }
 
+        protected override void InsertMarkBlock(Point3d insertPoint)
+        {
+            throw new NotImplementedException();
+        }
+
         private void AddHatchingArrow(IList<Entity> en)
         {
             var hatch = new Hatch();

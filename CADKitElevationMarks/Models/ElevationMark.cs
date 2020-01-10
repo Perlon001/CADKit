@@ -32,10 +32,13 @@ namespace CADKitElevationMarks.Models
         protected ElevationValue value;
         protected IEnumerable<Entity> entityList;
         protected string index = "";
+        protected string blockName;
 
         protected abstract void CreateEntityList();
         
         protected abstract EntityListJig GetMarkJig(Group group, Point3d point);
+
+        protected abstract void InsertMarkBlock(Point3d insertPoint);
 
         protected void GroupErase(Transaction tr, Group group)
         {
@@ -80,27 +83,14 @@ namespace CADKitElevationMarks.Models
                                         jig.GetEntity().ToGroup();
                                         break;
                                     case EntitiesSet.Block:
-                                        entityList.ToBlock("aaa", new Point3d(0, 0, 0));
-                                        // jig.GetEntity().ToBlock(GetBlockName() + jig.GetSuffix(), jig.Origin);
-                                        // var group = jig.GetEntity().ToGroup();
-                                        // (jigGroup.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(true);
-                                        // group.ToEnumerable().ToBlock(GetBlockName() + jig.GetSuffix() + index, jig.Origin);
+                                        blockName = GetBlockName() + jig.GetSuffix() + index;
+                                        entityList.ToBlock(blockName, new Point3d(0, 0, 0));
+                                        InsertMarkBlock(jig.Origin);
                                         break;
                                     default:
                                         throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
                                 }
                             }
-
-                            //var jig = GetMarkJig(entityList, basePoint.Value);
-                            //var result = ProxyCAD.Editor.Drag(jig);
-                            //var group = entityList.ToGroup();
-                            //    .TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)))
-                            //    .TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(basePoint.Value)));
-                            //    //.ToGroup();
-                            ////var jig = GetMarkJig(group, basePoint.Value);
-                            //var jig = GetMarkJig(entityList, basePoint.Value);
-                            //// (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
-                            //var result = ProxyCAD.Editor.Drag(jig);
                             GroupErase(tr, jigGroup);
                             Utils.FlushGraphics();
                             tr.Commit();

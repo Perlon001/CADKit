@@ -139,6 +139,7 @@
     <Compile Include="Views\WPF\BaseViewWPF.xaml.cs">
       <DependentUpon>BaseViewWPF.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CommandXDataContextMenuTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
