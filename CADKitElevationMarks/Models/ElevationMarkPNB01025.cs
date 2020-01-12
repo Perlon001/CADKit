@@ -3,6 +3,7 @@ using CADKit.Models;
 using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
 using CADProxy;
+using CADProxy.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,13 +73,24 @@ namespace CADKitElevationMarks.Models
 
         protected override EntityListJig GetMarkJig(Group _group, Point3d _point)
         {
-            return new JigVerticalConstantVerticalAndHorizontalMirrorMark(
-                _group.GetAllEntityIds()
-                .Select(ent => (Entity)ent
-                .GetObject(OpenMode.ForWrite)
-                .Clone())
-                .ToList(),
-                _point);
+            return new JigMark(_group.GetAllEntityIds()
+            .Select(ent => (Entity)ent
+            .GetObject(OpenMode.ForWrite)
+            .Clone())
+            .ToList(),
+            _point);
+            //return new JigVerticalConstantVerticalAndHorizontalMirrorMark(
+            //_group.GetAllEntityIds()
+            //.Select(ent => (Entity)ent
+            //.GetObject(OpenMode.ForWrite)
+            //.Clone())
+            //.ToList(),
+            //    _point);
+        }
+
+        protected override EntityListJig GetMarkJig(IEnumerable<Entity> _listEntity, Point3d _point)
+        {
+            return new JigMark(_listEntity, _point);
         }
 
         protected override void InsertMarkBlock(Point3d insertPoint)

@@ -38,6 +38,8 @@ namespace CADKitElevationMarks.Models
         
         protected abstract EntityListJig GetMarkJig(Group group, Point3d point);
 
+        protected abstract EntityListJig GetMarkJig(IEnumerable<Entity> listEntity, Point3d point);
+
         protected abstract void InsertMarkBlock(Point3d insertPoint);
 
         protected void GroupErase(Transaction tr, Group group)
@@ -71,9 +73,10 @@ namespace CADKitElevationMarks.Models
                         CreateEntityList();
                         using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
                         {
-                            var jigGroup = entityList.Clone().ToGroup();
-                            var jig = GetMarkJig(jigGroup, basePoint.Value);
-                            (jigGroup.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
+                            //var jigGroup = entityList.Clone().ToGroup();
+                            //var jig = GetMarkJig(jigGroup.ToEnumerable().Clone().ToList(), basePoint.Value);
+                            var jig = GetMarkJig(entityList, basePoint.Value);
+                            //(jigGroup.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
                             var result = ProxyCAD.Editor.Drag(jig);
                             if (result.Status == PromptStatus.OK)
                             {
@@ -91,7 +94,7 @@ namespace CADKitElevationMarks.Models
                                         throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
                                 }
                             }
-                            GroupErase(tr, jigGroup);
+                            //GroupErase(tr, jigGroup);
                             Utils.FlushGraphics();
                             tr.Commit();
                         }

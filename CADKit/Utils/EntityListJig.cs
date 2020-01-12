@@ -2,6 +2,7 @@
 using CADProxy.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -19,19 +20,34 @@ using Autodesk.AutoCAD.GraphicsInterface;
 
 namespace CADKit.Utils
 {
-    public class EntityListJig : DrawJig
+    public abstract class EntityListJig : DrawJig
     {
         protected readonly Point3d basePoint;
         protected Point3d currentPoint;
         protected IEnumerable<Entity> entityList;
         protected Matrix3d transforms;
 
-        public EntityListJig(IEnumerable<Entity> _entityList, Point3d _basePoint)
+        protected EntityListJig(IEnumerable<Entity> _entityList, Point3d _basePoint) : base()
         {
             basePoint = _basePoint;
             currentPoint = _basePoint;
-            entityList = _entityList;
+            var jigGroup = _entityList.Clone().ToGroup();
+
+            //entityList = jigGroup.ToEnumerable().Clone().ToList();
+            entityList = _entityList.Clone().ToList();
+            
+            // tu jeszcze zamienic atrybut na text !!!
+            // i mozna wywalic jigGroup :)
+
             entityList.TransformBy(Matrix3d.Displacement(new Vector3d( basePoint.X, basePoint.Y, basePoint.Z)));
+            foreach (var id in jigGroup.GetAllEntityIds())
+            {
+                if (!id.IsErased)
+                {
+                    id.GetObject(OpenMode.ForWrite).Erase();
+                }
+            }
+            jigGroup.Erase(true);
         }
 
         public virtual string GetSuffix()

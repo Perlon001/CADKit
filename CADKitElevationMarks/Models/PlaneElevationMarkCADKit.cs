@@ -106,13 +106,18 @@ namespace CADKitElevationMarks.Models
 
         protected override EntityListJig GetMarkJig(Group _group, Point3d _point)
         {
-            return new EntityListJig(
+            return new JigMark(
                 _group.GetAllEntityIds()
                 .Select(ent => (Entity)ent
                 .GetObject(OpenMode.ForWrite)
                 .Clone())
                 .ToList(),
                 _point);
+        }
+
+        protected override EntityListJig GetMarkJig(IEnumerable<Entity> listEntity, Point3d point)
+        {
+            throw new NotImplementedException();
         }
 
         protected override void InsertMarkBlock(Point3d insertPoint)
