@@ -90,7 +90,7 @@ namespace CADKitElevationMarks.Models
 
         protected override EntityListJig GetMarkJig(IEnumerable<Entity> _listEntity, Point3d _point)
         {
-            return new JigMark(_listEntity, _point);
+            return new JigMark(_listEntity, _point, new AttributeToDBTextConverter());
         }
 
         protected override void InsertMarkBlock(Point3d insertPoint)

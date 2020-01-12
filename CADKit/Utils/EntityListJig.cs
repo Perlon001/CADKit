@@ -1,4 +1,5 @@
-﻿using CADProxy;
+﻿using CADKit.Contracts.Services;
+using CADProxy;
 using CADProxy.Extensions;
 using System;
 using System.Collections.Generic;
@@ -27,27 +28,17 @@ namespace CADKit.Utils
         protected IEnumerable<Entity> entityList;
         protected Matrix3d transforms;
 
-        protected EntityListJig(IEnumerable<Entity> _entityList, Point3d _basePoint) : base()
+        protected EntityListJig(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConvert converter = null) : base()
         {
             basePoint = _basePoint;
             currentPoint = _basePoint;
-            //var jigGroup = _entityList.Clone().ToGroup();
-
-            //entityList = jigGroup.ToEnumerable().Clone().ToList();
-            entityList = _entityList.Clone().ToList();
-            
-            // tu jeszcze zamienic atrybut na text !!!
-            // i mozna wywalic jigGroup :)
-
+            entityList = _entityList.Clone();
+            if (converter != null)
+            {
+                entityList = converter.Convert(entityList);
+            }
+            entityList = entityList.ToList();
             entityList.TransformBy(Matrix3d.Displacement(new Vector3d( basePoint.X, basePoint.Y, basePoint.Z)));
-            //foreach (var id in jigGroup.GetAllEntityIds())
-            //{
-            //    if (!id.IsErased)
-            //    {
-            //        id.GetObject(OpenMode.ForWrite).Erase();
-            //    }
-            //}
-            //jigGroup.Erase(true);
         }
 
         public virtual string GetSuffix()

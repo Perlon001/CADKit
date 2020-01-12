@@ -1,4 +1,5 @@
-﻿using CADKit.Utils;
+﻿using CADKit.Contracts.Services;
+using CADKit.Utils;
 using CADProxy.Extensions;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace CADKitElevationMarks.Models
 {
     public class JigMark : EntityListJig
     {
-        public JigMark(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint)
+        public JigMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConvert _converter = null) : base(_entityList, _basePoint, _converter)
         {
         }
     }
