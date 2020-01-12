@@ -31,7 +31,7 @@ namespace CADKit.Utils
         {
             basePoint = _basePoint;
             currentPoint = _basePoint;
-            var jigGroup = _entityList.Clone().ToGroup();
+            //var jigGroup = _entityList.Clone().ToGroup();
 
             //entityList = jigGroup.ToEnumerable().Clone().ToList();
             entityList = _entityList.Clone().ToList();
@@ -40,14 +40,14 @@ namespace CADKit.Utils
             // i mozna wywalic jigGroup :)
 
             entityList.TransformBy(Matrix3d.Displacement(new Vector3d( basePoint.X, basePoint.Y, basePoint.Z)));
-            foreach (var id in jigGroup.GetAllEntityIds())
-            {
-                if (!id.IsErased)
-                {
-                    id.GetObject(OpenMode.ForWrite).Erase();
-                }
-            }
-            jigGroup.Erase(true);
+            //foreach (var id in jigGroup.GetAllEntityIds())
+            //{
+            //    if (!id.IsErased)
+            //    {
+            //        id.GetObject(OpenMode.ForWrite).Erase();
+            //    }
+            //}
+            //jigGroup.Erase(true);
         }
 
         public virtual string GetSuffix()
