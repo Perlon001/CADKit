@@ -25,7 +25,7 @@ namespace CADKitElevationMarks.Models
         
         public override MarkTypes MarkType { get { return MarkTypes.construction; } }
 
-        protected override void CreateEntityList()
+        public override void CreateEntityList()
         {
             var en = new List<Entity>();
 
@@ -64,23 +64,12 @@ namespace CADKitElevationMarks.Models
             this.entityList = en;
         }
 
-        protected override EntityListJig GetMarkJig(Group _group, Point3d _point)
-        {
-            return new JigVerticalConstantHorizontalMirrorMark(
-                _group.GetAllEntityIds()
-                .Select(ent => (Entity)ent
-                .GetObject(OpenMode.ForWrite)
-                .Clone())
-                .ToList(),
-                _point);
-        }
-
         protected override EntityListJig GetMarkJig(IEnumerable<Entity> listEntity, Point3d point)
         {
             throw new System.NotImplementedException();
         }
 
-        protected override void InsertMarkBlock(Point3d insertPoint)
+        protected override void SetAttributeValue(BlockReference blockReference)
         {
             throw new System.NotImplementedException();
         }

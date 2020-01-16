@@ -1,89 +1,121 @@
-﻿// using Autofac;
-using System;
-using System.Linq;
+﻿using ZwSoft.ZwCAD.DatabaseServices;
+using ZwSoft.ZwCAD.EditorInput;
+using ZwSoft.ZwCAD.Geometry;
+using ZwSoft.ZwCAD.GraphicsInterface;
+using ZwSoft.ZwCAD.ApplicationServices;
+using ZwSoft.ZwCAD.Runtime;
 
-using CADKit;
-using CADKitElevationMarks.Contracts;
-using CADKitElevationMarks.Models;
-using CADProxy;
-using CADProxy.Runtime;
-
-namespace CADKitElevationMarks
+namespace JigTest
 {
-    public class ElevationMarkCommands
+    public class Jig : DrawJig
     {
-        //[CommandMethod("CK_KOTA_ARCH")]
-        //public void ElevationMarkArch()
-        //{
-        //    var k = new ElevationMarkPNB01025();
-        //    k.Create();
+        private readonly Point3d basePoint;
+        private readonly Entity entity;
+        private Point3d currentPoint;
+        private Matrix3d transformation;
 
-        //    // CreateMark(MarkTypes.finish);
-        //}
+        public Jig(Entity txt, Point3d point) : base()
+        {
+            entity = txt;
+            basePoint = new Point3d(0, 0, 0);
+        }
 
-        //[CommandMethod("CK_KOTA_KONSTR")]
-        //public void ElevationMarkConstr()
-        //{
-        //    var factory = GetElevationMarkFactory();
-        //    factory.ConstructionElevationMark().Create();
-        //}
+        public Entity GetEntity()
+        {
+            var result = entity.Clone() as Entity;
+            result.TransformBy(transformation);
 
-        //[CommandMethod("CK_KOTA_POZIOM")]
-        //public void ElevationMarkPlate()
-        //{
-        //    var factory = GetElevationMarkFactory();
-        //    factory.PlaneElevationMark().Create();
-        //}
+            return result;
+        }
 
-        //private void CreateMark(MarkTypes type)
-        //{
-        //    var factory = GetElevationMarkFactory();
-        //    var item = factory.GetMarkTypeList().FirstOrDefault(m => m.Kind == type);
-        //    if (item.ElevationMarkType != null)
-        //    {
-        //        (Activator.CreateInstance(item.ElevationMarkType) as ElevationMark).Create();
-        //    }
-        //    else
-        //    {
-        //        ProxyCAD.WriteMessage("\nNie zdefiniowany typ koty wysokościowej");
-        //    }
-        //}
+        protected override SamplerStatus Sampler(JigPrompts prompts)
+        {
+            var jigOpt = new JigPromptPointOptions("Wskaż punkt wstawienia:")
+            {
+                UserInputControls = UserInputControls.Accept3dCoordinates,
+                BasePoint = basePoint
+            };
+            var res = prompts.AcquirePoint(jigOpt);
+            currentPoint = res.Value;
 
-        //private IIconServiceFactory GetIconServiceFactory()
-        //{
-        //    var iconServiceFactory = "IconServiceFactory" + AppSettings.Instance.DrawingStandard.ToString();
-        //    return Activator.CreateInstance(Type.GetType("CADKitElevationMarks.Services." + iconServiceFactory, true)) as IIconServiceFactory;
-        //}
+            return SamplerStatus.OK;
+        }
 
-        //private ElevationMarkFactory GetElevationMarkFactory()
-        //{
-        //    var factoryName = "ElevationMarkFactory" + AppSettings.Instance.DrawingStandard.ToString();
-        //    var iconServiceFactory = GetIconServiceFactory();
-        //    return Activator.CreateInstance(Type.GetType("CADKitElevationMarks.Models." + factoryName, true), iconServiceFactory.CreateService()) as ElevationMarkFactory;
+        protected override bool WorldDraw(WorldDraw draw)
+        {
+            transformation = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
+            var geometry = draw.Geometry;
+            if (geometry != null)
+            {
+                geometry.PushModelTransform(transformation);
+                geometry.Draw(entity);
+            }
 
-        //    //switch (AppSettings.Instance.DrawingStandard)
-        //    //{
-        //    //    case DrawingStandards.PNB01025:
-        //    //        return factory = new ElevationMarkFactoryPNB01025();
-        //    //    case DrawingStandards.CADKIT:
-        //    //        return factory = new ElevationMarkFactoryCADKit();
-        //    //    default:
-        //    //        throw new NotImplementedException($"Brak implemetacji standardu {AppSettings.Instance.DrawingStandard.ToString()}");
-        //    //}
+            return true;
+        }
+    }
 
-        //    // Alternative code using Autofac Dependecy Injection Container 
-        //    //using (ILifetimeScope scope = DI.Container.BeginLifetimeScope())
-        //    //{
-        //    //    switch (AppSettings.Instance.DrawingStandard)
-        //    //    {
-        //    //        case DrawingStandards.PNB01025:
-        //    //            return factory = scope.Resolve<IElevationMarkFactoryPNB01025>();
-        //    //        case DrawingStandards.CADKIT:
-        //    //            return factory = scope.Resolve<IElevationMarkFactoryCADKit>();
-        //    //        default:
-        //    //            throw new NotImplementedException($"Brak implemetacji standardu {AppSettings.Instance.DrawingStandard.ToString()}");
-        //    //    }
-        //    //}
-        //}
+    public class JigCommands
+    {
+        [CommandMethod("JIG")]
+        public void Jig()
+        {
+            try
+            {
+                var tx1 = new DBText();
+                tx1.SetDatabaseDefaults();
+                tx1.Height = 2;
+                tx1.Position = new Point3d(0, 0, 0);
+                tx1.TextString = "Tekst";
+                tx1.VerticalMode = TextVerticalMode.TextVerticalMid;
+
+                var jig = new Jig(tx1, new Point3d(0, 0, 0));
+                var result = Application.DocumentManager.MdiActiveDocument.Editor.Drag(jig);
+                if (result.Status == PromptStatus.OK)
+                {
+                    SaveToDatabase(jig.GetEntity());
+                }
+            }
+            catch (Exception ex)
+            {
+                Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage(ex.Message);
+            }
+        }
+
+        public static void SaveToDatabase(Entity ent)
+        {
+            var doc = Application.DocumentManager.MdiActiveDocument;
+            using (var tr = doc.TransactionManager.StartTransaction())
+            {
+                var btr = tr.GetObject(doc.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+                btr.AppendEntity(ent);
+                tr.AddNewlyCreatedDBObject(ent, true);
+                tr.Commit();
+            }
+        }
+        public static void EraseFromDatabase(Entity ent)
+        {
+            using (var tr = Application.DocumentManager.MdiActiveDocument.TransactionManager.StartTransaction())
+            {
+                ent.ObjectId.GetObject(OpenMode.ForWrite).Erase(true);
+                tr.Commit();
+            }
+        }
+    }
+
+    public static class Extensions
+    {
+        public static void Flush(this DBText txt)
+        {
+            var doc = Application.DocumentManager.MdiActiveDocument;
+            using (var tr = doc.TransactionManager.StartTransaction())
+            {
+                var btr = tr.GetObject(doc.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+                btr.AppendEntity(txt);
+                tr.AddNewlyCreatedDBObject(txt, true);
+                txt.Erase();
+                tr.Commit();
+            }
+        }
     }
 }

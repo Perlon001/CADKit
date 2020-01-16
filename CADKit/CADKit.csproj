@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddBlockCommand.cs" />
     <Compile Include="Autostart.cs" />
     <Compile Include="CADKitPaletteSet.cs" />
     <Compile Include="Commands.cs" />

@@ -34,31 +34,16 @@ namespace CADKitElevationMarks.Models
         protected string index = "";
         protected string blockName;
 
-        protected abstract void CreateEntityList();
-        
-        protected abstract EntityListJig GetMarkJig(Group group, Point3d point);
+        public abstract DrawingStandards DrawingStandard { get; }
+        public abstract MarkTypes MarkType { get; }
 
         protected abstract EntityListJig GetMarkJig(IEnumerable<Entity> listEntity, Point3d point);
 
-        protected abstract void InsertMarkBlock(Point3d insertPoint);
+        protected abstract void SetAttributeValue(BlockReference blockReference);
 
-        protected void GroupErase(Transaction tr, Group group)
-        {
-            foreach (var id in group.GetAllEntityIds())
-            {
-                if (!id.IsErased)
-                {
-                    tr.GetObject(id, OpenMode.ForWrite).Erase();
-                }
-            }
-            group.Erase(true);
-        }
+        public abstract void CreateEntityList();
 
-        public abstract DrawingStandards DrawingStandard { get; }
-        
-        public abstract MarkTypes MarkType { get; }
-
-        public virtual void Create(EntitiesSet _entitiesSet) 
+        public virtual void Create(EntitiesSet _entitiesSet)
         {
             var variables = SystemVariableService.GetActualSystemVariables();
             try
@@ -71,37 +56,30 @@ namespace CADKitElevationMarks.Models
                     using (ProxyCAD.Document.LockDocument())
                     {
                         CreateEntityList();
-                        using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+                        var jig = GetMarkJig(entityList, basePoint.Value);
+                        var result = ProxyCAD.Editor.Drag(jig);
+                        if (result.Status == PromptStatus.OK)
                         {
-                            //var jigGroup = entityList.Clone().ToGroup();
-                            //var jig = GetMarkJig(jigGroup.ToEnumerable().Clone().ToList(), basePoint.Value);
-                            var jig = GetMarkJig(entityList, basePoint.Value);
-                            //(jigGroup.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
-                            var result = ProxyCAD.Editor.Drag(jig);
-                            if (result.Status == PromptStatus.OK)
+                            switch (_entitiesSet)
                             {
-                                switch (_entitiesSet)
-                                {
-                                    case EntitiesSet.Group:
-                                        jig.GetEntity().ToGroup();
-                                        break;
-                                    case EntitiesSet.Block:
-                                        blockName = GetBlockName() + jig.GetSuffix() + index;
-                                        entityList.ToBlock(blockName, new Point3d(0, 0, 0));
-                                        InsertMarkBlock(jig.Origin);
-                                        break;
-                                    default:
-                                        throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
-                                }
+                                case EntitiesSet.Group:
+                                    entityList.TransformBy(Matrix3d.Displacement(new Point3d(0,0,0).GetVectorTo(jig.JigPointResult)));
+                                    entityList.ToGroup();
+                                    break;
+                                case EntitiesSet.Block:
+                                    blockName = GetBlockName() + jig.GetSuffix() + index;
+                                    var defBlock = entityList.ToBlock(blockName, new Point3d(0, 0, 0));
+                                    InsertMarkBlock(defBlock, jig.JigPointResult);
+                                    break;
+                                default:
+                                    throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
                             }
-                            //GroupErase(tr, jigGroup);
-                            Utils.FlushGraphics();
-                            tr.Commit();
                         }
+                        Utils.FlushGraphics();
                     }
                 }
-            } 
-            catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 ProxyCAD.Editor.WriteMessage(ex.Message);
             }
@@ -153,7 +131,28 @@ namespace CADKitElevationMarks.Models
         {
             return "CK_EM_" + MarkType.ToString() + DrawingStandard.ToString();
         }
-        #endregion
 
+        private void InsertMarkBlock(BlockTableRecord blockTableRecord, Point3d insertPoint)
+        {
+            using (var transaction = ProxyCAD.Document.TransactionManager.StartTransaction())
+            {
+                //var bt = ProxyCAD.Database.BlockTableId.GetObject(OpenMode.ForRead) as BlockTable;
+                //var btr = bt[blockName].GetObject(OpenMode.ForRead) as BlockTableRecord;
+                var space = ProxyCAD.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite) as BlockTableRecord;
+                using (var blockReference = new BlockReference(insertPoint, blockTableRecord.ObjectId))
+                {
+                    space.AppendEntity(blockReference);
+                    transaction.AddNewlyCreatedDBObject(blockReference, true);
+                    SetAttributeValue(blockReference);
+                    foreach(ObjectId id in blockReference.AttributeCollection)
+                    {
+                        transaction.AddNewlyCreatedDBObject(id.GetObject(OpenMode.ForRead), true);
+                    }
+                }
+                transaction.Commit();
+            }
+        }
+
+        #endregion
     }
 }

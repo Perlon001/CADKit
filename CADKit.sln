@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADProxy", "CADKit.ServiceC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{8B3E7F98-D405-4676-B800-BF13594294B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKitXData", "CADKitXData\CADKitXData.csproj", "{138A9BA1-EA1F-496A-8AD8-DBA8B23C82DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{8B3E7F98-D405-4676-B800-BF13594294B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B3E7F98-D405-4676-B800-BF13594294B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B3E7F98-D405-4676-B800-BF13594294B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{138A9BA1-EA1F-496A-8AD8-DBA8B23C82DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{138A9BA1-EA1F-496A-8AD8-DBA8B23C82DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{138A9BA1-EA1F-496A-8AD8-DBA8B23C82DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{138A9BA1-EA1F-496A-8AD8-DBA8B23C82DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

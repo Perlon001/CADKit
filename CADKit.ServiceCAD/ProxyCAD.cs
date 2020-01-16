@@ -321,6 +321,23 @@ namespace CADProxy
 
             return result;
         }
-    
+
+        public static void GroupDelete(Group _group)
+        {
+            using(var tr = Document.TransactionManager.StartTransaction())
+            {
+                var gr = _group.ObjectId.GetObject(OpenMode.ForWrite) as Group;
+                foreach (var id in gr.GetAllEntityIds())
+                {
+                    if (!id.IsErased)
+                    {
+                        tr.GetObject(id, OpenMode.ForWrite).Erase();
+                    }
+                }
+                gr.Erase(true);
+                tr.Commit();
+            }
+        }
+
     }
 }

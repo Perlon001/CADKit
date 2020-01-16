@@ -24,21 +24,22 @@ namespace CADKit.Utils
     public abstract class EntityListJig : DrawJig
     {
         protected readonly Point3d basePoint;
+        protected readonly IEnumerable<Entity> entityList;
         protected Point3d currentPoint;
-        protected IEnumerable<Entity> entityList;
         protected Matrix3d transforms;
+
+        public Point3d JigPointResult { get { return currentPoint; } }
 
         protected EntityListJig(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConvert converter = null) : base()
         {
             basePoint = _basePoint;
-            currentPoint = _basePoint;
             entityList = _entityList.Clone();
             if (converter != null)
             {
                 entityList = converter.Convert(entityList);
             }
-            entityList = entityList.ToList();
-            entityList.TransformBy(Matrix3d.Displacement(new Vector3d( basePoint.X, basePoint.Y, basePoint.Z)));
+            entityList.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(_basePoint)));
+            ProxyCAD.UsingTransaction(PrepareEntity);
         }
 
         public virtual string GetSuffix()
@@ -46,14 +47,17 @@ namespace CADKit.Utils
             return "";
         }
 
-        public virtual IEnumerable<Entity> GetEntity()
+        public virtual IEnumerable<Entity> GetEntities()
         {
-            entityList.TransformBy(transforms);
+            var result = new List<Entity>();
+            entityList.Clone().ForEach(x => 
+            { 
+                x.TransformBy(transforms);
+                result.Add(x);
+            });
 
-            return entityList;
+            return result;
         }
-
-        public Point3d Origin { get { return currentPoint; } }
 
         protected override SamplerStatus Sampler(JigPrompts prompts)
         {
@@ -89,5 +93,18 @@ namespace CADKit.Utils
                 return false;
             }
         }
+
+        #region private methods
+        private void PrepareEntity(Transaction tr)
+        {
+            var btr = tr.GetObject(ProxyCAD.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+            foreach (var ent in entityList)
+            {
+                btr.AppendEntity(ent);
+                tr.AddNewlyCreatedDBObject(ent, true);
+                ent.Erase(true);
+            }
+        }
+        #endregion
     }
 }

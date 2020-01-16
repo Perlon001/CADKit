@@ -7,5 +7,6 @@
 		)
 	)
 )
-(command "XDataContextMenuTest")
+(vl-cmdf "netload" "CADKitXData.dll")
+(command "CK_XDAPPLIST")
 (princ)

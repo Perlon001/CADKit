@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
 #endif
+
 #if AutoCAD
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -30,15 +29,26 @@ namespace CADProxy.Extensions
         public static void TransformBy(this IEnumerable<Entity> _entityList, Matrix3d _matrix)
         {
             _entityList.ForEach(x => x.TransformBy(_matrix));
-            //foreach (var e in _entityList)
-            //{
-            //    e.TransformBy(_matrix);
-            //}
         }
 
         public static IEnumerable<Entity> Clone(this IEnumerable<Entity> _entityList)
         {
             return _entityList.Select(x => x.Clone() as Entity);
+        }
+
+        public static void StoreToDatabase(this IEnumerable<Entity> _entities)
+        {
+            using(var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+            {
+                var doc = ProxyCAD.Document;
+                var btr = tr.GetObject(doc.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+                foreach (var e in _entities)
+                {
+                    btr.AppendEntity(e);
+                    tr.AddNewlyCreatedDBObject(e, true);
+                }
+                tr.Commit();
+            }
         }
 
         public static Group ToGroup(this IEnumerable<Entity> _entities)

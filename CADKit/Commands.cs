@@ -10,7 +10,7 @@ using ZwSoft.ZwCAD.EditorInput;
 #endif
 
 #if AutoCAD
-// using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.EditorInput;
 #endif
 
 namespace CADKit

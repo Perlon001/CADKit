@@ -50,14 +50,14 @@ namespace CADKitElevationMarks.Models
                         var group = entityList.ToGroup();
                         using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
                         {
-                            var jig = GetMarkJig(group, new Point3d(0, 0, 0));
-                            (group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
-                            var result = ProxyCAD.Editor.Drag(jig);
-                            GroupErase(tr, group);
-                            if (result.Status == PromptStatus.OK)
-                            {
-                                group = jig.GetEntity().ToList().ToGroup();
-                            }
+                            //var jig = GetMarkJig(group, new Point3d(0, 0, 0));
+                            //(group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
+                            //var result = ProxyCAD.Editor.Drag(jig);
+                            //GroupErase(tr, group);
+                            //if (result.Status == PromptStatus.OK)
+                            //{
+                            //    group = jig.GetEntities().ToList().ToGroup();
+                            //}
                             Utils.FlushGraphics();
                             tr.Commit();
                         }
@@ -75,7 +75,7 @@ namespace CADKitElevationMarks.Models
             }
         }
 
-        protected override void CreateEntityList()
+        public override void CreateEntityList()
         {
             var en = new List<Entity>();
 
@@ -104,23 +104,12 @@ namespace CADKitElevationMarks.Models
             this.entityList = en;
         }
 
-        protected override EntityListJig GetMarkJig(Group _group, Point3d _point)
-        {
-            return new JigMark(
-                _group.GetAllEntityIds()
-                .Select(ent => (Entity)ent
-                .GetObject(OpenMode.ForWrite)
-                .Clone())
-                .ToList(),
-                _point);
-        }
-
         protected override EntityListJig GetMarkJig(IEnumerable<Entity> listEntity, Point3d point)
         {
             throw new NotImplementedException();
         }
 
-        protected override void InsertMarkBlock(Point3d insertPoint)
+        protected override void SetAttributeValue(BlockReference blockReference)
         {
             throw new NotImplementedException();
         }
