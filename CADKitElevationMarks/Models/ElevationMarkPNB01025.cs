@@ -68,9 +68,9 @@ namespace CADKitElevationMarks.Models
             this.entityList = en;
         }
 
-        protected override EntityListJig GetMarkJig(IEnumerable<Entity> _listEntity, Point3d _point)
+        protected override EntityListJig GetMarkJig()
         {
-            return new JigMark(_listEntity, _point, new AttributeToDBTextConverter());
+            return new JigVerticalConstantVerticalAndHorizontalMirrorMark(entityList, basePoint.Value, new AttributeToDBTextConverter());
         }
 
         protected override void SetAttributeValue(BlockReference blockReference)

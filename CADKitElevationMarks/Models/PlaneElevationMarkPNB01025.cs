@@ -44,25 +44,30 @@ namespace CADKitElevationMarks.Models
                 var textValue = ProxyCAD.Editor.GetString(promptOptions);
                 if (textValue.Status == PromptStatus.OK)
                 {
-                    value = new ElevationValue("",textValue.StringResult).Parse();
+                    value = new ElevationValue("", textValue.StringResult).Parse();
                     using (ProxyCAD.Document.LockDocument())
                     {
                         CreateEntityList();
-                        entityList.TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)));
-                        var group = entityList.ToGroup();
-                        using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+                        var jig = GetMarkJig();
+                        var result = ProxyCAD.Editor.Drag(jig);
+                        if (result.Status == PromptStatus.OK)
                         {
-                            //var jig = GetMarkJig(group, new Point3d(0, 0, 0));
-                            //(group.ObjectId.GetObject(OpenMode.ForWrite) as Group).SetVisibility(false);
-                            //var result = ProxyCAD.Editor.Drag(jig);
-                            //GroupErase(tr, group);
-                            //if (result.Status == PromptStatus.OK)
-                            //{
-                            //    group = jig.GetEntities().ToList().ToGroup();
-                            //}
-                            Utils.FlushGraphics();
-                            tr.Commit();
+                            switch (_entitiesSet)
+                            {
+                                case EntitiesSet.Group:
+                                    var entities = jig.GetEntity();
+                                    entities.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(jig.JigPointResult)));
+                                    break;
+                                case EntitiesSet.Block:
+                                    blockName = GetBlockName() + jig.GetSuffix() + index;
+                                    var defBlock = jig.GetEntity().ToBlock(blockName, new Point3d(0, 0, 0));
+                                    InsertMarkBlock(defBlock, jig.JigPointResult);
+                                    break;
+                                default:
+                                    throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
+                            }
                         }
+                        Utils.FlushGraphics();
                     }
                 }
             }
@@ -81,16 +86,18 @@ namespace CADKitElevationMarks.Models
         {
             var en = new List<Entity>();
 
-            var tx1 = new DBText();
-            tx1.SetDatabaseDefaults();
-            tx1.TextStyle = ProxyCAD.Database.Textstyle;
-            tx1.HorizontalMode = TextHorizontalMode.TextLeft;
-            tx1.VerticalMode = TextVerticalMode.TextVerticalMid;
-            tx1.ColorIndex = 7;
-            tx1.Height = 2;
-            tx1.AlignmentPoint = new Point3d(2, 1.5, 0);
-            tx1.TextString = this.value.Sign + this.value.Value;
-            en.Add(tx1);
+            var txt1 = new AttributeDefinition();
+            txt1.SetDatabaseDefaults();
+            txt1.TextStyle = ProxyCAD.Database.Textstyle;
+            txt1.HorizontalMode = TextHorizontalMode.TextLeft;
+            txt1.VerticalMode = TextVerticalMode.TextVerticalMid;
+            txt1.ColorIndex = 7;
+            txt1.Height = 2;
+            txt1.AlignmentPoint = new Point3d(2, 1.5, 0);
+            txt1.Tag = "Value";
+            txt1.Prompt = "Value"; 
+            txt1.TextString = this.value.Sign + this.value.Value;
+            en.Add(txt1);
 
             var l1 = new Line(new Point3d(-1.5, -1.5, 0), new Point3d(1.5, 1.5, 0));
             en.Add(l1);
@@ -98,21 +105,31 @@ namespace CADKitElevationMarks.Models
             var l2 = new Line(new Point3d(-1.5, 1.5, 0), new Point3d(1.5, -1.5, 0));
             en.Add(l2);
 
-            var textArea = ProxyCAD.GetTextArea(tx1);
+            var textArea = ProxyCAD.GetTextArea(txt1);
             var l3 = new Line(new Point3d(0, 0, 0), new Point3d(textArea[1].X - textArea[0].X + 2, 0, 0));
             en.Add(l3);
 
             this.entityList = en;
         }
 
-        protected override EntityListJig GetMarkJig(IEnumerable<Entity> listEntity, Point3d point)
+        protected override EntityListJig GetMarkJig()
         {
-            throw new NotImplementedException();
+            return new JigMark(entityList, basePoint.Value, new AttributeToDBTextConverter());
         }
 
         protected override void SetAttributeValue(BlockReference blockReference)
         {
-            throw new NotImplementedException();
+            using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
+            {
+                var attDef = blockTableRecord.GetAttribDefinition("Value");
+                if (!attDef.Constant)
+                {
+                    var attRef = new AttributeReference();
+                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
+                    attRef.TextString = value.Sign + value.Value;
+                    blockReference.AttributeCollection.AppendAttribute(attRef);
+                }
+            }
         }
     }
 }

@@ -24,7 +24,8 @@ namespace CADKit.Utils
     public abstract class EntityListJig : DrawJig
     {
         protected readonly Point3d basePoint;
-        protected readonly IEnumerable<Entity> entityList;
+        protected IEnumerable<Entity> entityList;
+        protected IEnumerable<Entity> entityBuffer;
         protected Point3d currentPoint;
         protected Matrix3d transforms;
 
@@ -32,8 +33,9 @@ namespace CADKit.Utils
 
         protected EntityListJig(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConvert converter = null) : base()
         {
-            basePoint = _basePoint;
+            entityBuffer = _entityList;
             entityList = _entityList.Clone();
+            basePoint = _basePoint;
             if (converter != null)
             {
                 entityList = converter.Convert(entityList);
@@ -47,18 +49,6 @@ namespace CADKit.Utils
             return "";
         }
 
-        public virtual IEnumerable<Entity> GetEntities()
-        {
-            var result = new List<Entity>();
-            entityList.Clone().ForEach(x => 
-            { 
-                x.TransformBy(transforms);
-                result.Add(x);
-            });
-
-            return result;
-        }
-
         protected override SamplerStatus Sampler(JigPrompts prompts)
         {
             JigPromptPointOptions jigOpt = new JigPromptPointOptions("Wskaż punkt wstawienia:");
@@ -68,6 +58,13 @@ namespace CADKit.Utils
             currentPoint = res.Value;
 
             return SamplerStatus.OK;
+        }
+
+        public IEnumerable<Entity> GetEntity()
+        {
+            //entityBuffer.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(currentPoint)));
+
+            return entityBuffer;
         }
 
         protected override bool WorldDraw(WorldDraw draw)
@@ -102,7 +99,7 @@ namespace CADKit.Utils
             {
                 btr.AppendEntity(ent);
                 tr.AddNewlyCreatedDBObject(ent, true);
-                ent.Erase(true);
+                ent.Erase();
             }
         }
         #endregion

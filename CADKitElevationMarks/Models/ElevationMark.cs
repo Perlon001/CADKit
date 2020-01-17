@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using CADProxy;
 using CADProxy.Internal;
 using CADKit;
@@ -37,7 +36,7 @@ namespace CADKitElevationMarks.Models
         public abstract DrawingStandards DrawingStandard { get; }
         public abstract MarkTypes MarkType { get; }
 
-        protected abstract EntityListJig GetMarkJig(IEnumerable<Entity> listEntity, Point3d point);
+        protected abstract EntityListJig GetMarkJig();
 
         protected abstract void SetAttributeValue(BlockReference blockReference);
 
@@ -56,19 +55,19 @@ namespace CADKitElevationMarks.Models
                     using (ProxyCAD.Document.LockDocument())
                     {
                         CreateEntityList();
-                        var jig = GetMarkJig(entityList, basePoint.Value);
+                        var jig = GetMarkJig();
                         var result = ProxyCAD.Editor.Drag(jig);
                         if (result.Status == PromptStatus.OK)
                         {
                             switch (_entitiesSet)
                             {
                                 case EntitiesSet.Group:
-                                    entityList.TransformBy(Matrix3d.Displacement(new Point3d(0,0,0).GetVectorTo(jig.JigPointResult)));
-                                    entityList.ToGroup();
+                                    var entities = jig.GetEntity();
+                                    entities.TransformBy(Matrix3d.Displacement(new Point3d(0,0,0).GetVectorTo(jig.JigPointResult)));
                                     break;
                                 case EntitiesSet.Block:
                                     blockName = GetBlockName() + jig.GetSuffix() + index;
-                                    var defBlock = entityList.ToBlock(blockName, new Point3d(0, 0, 0));
+                                    var defBlock = jig.GetEntity().ToBlock(blockName, new Point3d(0, 0, 0));
                                     InsertMarkBlock(defBlock, jig.JigPointResult);
                                     break;
                                 default:
@@ -87,6 +86,30 @@ namespace CADKitElevationMarks.Models
             {
                 SystemVariableService.RestoreSystemVariables(variables);
                 Utils.PostCommandPrompt();
+            }
+        }
+
+        protected string GetBlockName()
+        {
+            return "ElevMark" + MarkType.ToString() + DrawingStandard.ToString();
+        }
+
+        protected void InsertMarkBlock(BlockTableRecord blockTableRecord, Point3d insertPoint)
+        {
+            using (var transaction = ProxyCAD.Document.TransactionManager.StartTransaction())
+            {
+                var space = ProxyCAD.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite) as BlockTableRecord;
+                using (var blockReference = new BlockReference(insertPoint, blockTableRecord.ObjectId))
+                {
+                    space.AppendEntity(blockReference);
+                    transaction.AddNewlyCreatedDBObject(blockReference, true);
+                    SetAttributeValue(blockReference);
+                    foreach (ObjectId id in blockReference.AttributeCollection)
+                    {
+                        transaction.AddNewlyCreatedDBObject(id.GetObject(OpenMode.ForRead), true);
+                    }
+                }
+                transaction.Commit();
             }
         }
 
@@ -126,33 +149,6 @@ namespace CADKitElevationMarks.Models
                     throw new Exception("\nNie rozpoznana jednostka rysunkowa");
             }
         }
-
-        private string GetBlockName()
-        {
-            return "CK_EM_" + MarkType.ToString() + DrawingStandard.ToString();
-        }
-
-        private void InsertMarkBlock(BlockTableRecord blockTableRecord, Point3d insertPoint)
-        {
-            using (var transaction = ProxyCAD.Document.TransactionManager.StartTransaction())
-            {
-                //var bt = ProxyCAD.Database.BlockTableId.GetObject(OpenMode.ForRead) as BlockTable;
-                //var btr = bt[blockName].GetObject(OpenMode.ForRead) as BlockTableRecord;
-                var space = ProxyCAD.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite) as BlockTableRecord;
-                using (var blockReference = new BlockReference(insertPoint, blockTableRecord.ObjectId))
-                {
-                    space.AppendEntity(blockReference);
-                    transaction.AddNewlyCreatedDBObject(blockReference, true);
-                    SetAttributeValue(blockReference);
-                    foreach(ObjectId id in blockReference.AttributeCollection)
-                    {
-                        transaction.AddNewlyCreatedDBObject(id.GetObject(OpenMode.ForRead), true);
-                    }
-                }
-                transaction.Commit();
-            }
-        }
-
         #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CADKit;
+using CADKit.Contracts.Services;
 using CADKit.Utils;
 using CADProxy;
 using System;
@@ -23,7 +24,7 @@ namespace CADKitElevationMarks.Models
     {
         private bool isVMirror;
         private bool isHMirror;
-        public JigVerticalConstantVerticalAndHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint)
+        public JigVerticalConstantVerticalAndHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConvert _converter = null) : base(_entityList, _basePoint, _converter)
         {
             isVMirror = false;
             isHMirror = false;
@@ -41,13 +42,13 @@ namespace CADKitElevationMarks.Models
             {
                 return result;
             }
-            if (needVMirror)
+            if (NeedVMirror)
             {
-                verticalMirroring();
+                VerticalMirroring();
             }
-            if (needHMirror)
+            if (NeedHMirror)
             {
-                horizontalMirroring();
+                HorizontalMirroring();
             }
 
             return SamplerStatus.OK;
@@ -79,61 +80,85 @@ namespace CADKitElevationMarks.Models
             }
         }
 
-        private void verticalMirroring()
+        private void VerticalMirroring()
         {
             double textWidth = 0;
-            foreach(var e in entityList)
+            foreach (var e in entityList)
             {
-                if(e.GetType() == typeof(DBText))
+                if (e.GetType() == typeof(DBText))
                 {
                     var textArea = ProxyCAD.GetTextArea(e as DBText);
                     textWidth += textArea[1].X - textArea[0].X;
                 }
             }
-            foreach (var e in entityList)
+            using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
             {
-                if (e.GetType() == typeof(DBText))
+                foreach (var e in entityList)
                 {
-                    e.TransformBy(Matrix3d.Displacement(new Vector3d((isVMirror ? textWidth : -textWidth) * AppSettings.Instance.ScaleFactor, 0, 0)));
+                    var ent = e.ObjectId.GetObject(OpenMode.ForWrite, true) as Entity;
+                    ent.Erase(false);
+                    if (ent.GetType() == typeof(DBText))
+                    {
+                        ent.TransformBy(Matrix3d.Displacement(new Vector3d((isVMirror ? textWidth : -textWidth) * AppSettings.Instance.ScaleFactor, 0, 0)));
+                    }
+                    else
+                    {
+                        ent.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(0, 1, 0))));
+                    }
+                    ent.Erase();
+                }
+                tr.Commit();
+            }
+            foreach (var ent in entityBuffer)
+            {
+                if (ent.GetType() == typeof(DBText) || ent.GetType() == typeof(AttributeDefinition))
+                {
+                    ent.TransformBy(Matrix3d.Displacement(new Vector3d((isVMirror ? textWidth : -textWidth) * AppSettings.Instance.ScaleFactor, 0, 0)));
                 }
                 else
                 {
-                    e.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(0, 1, 0))));
+                    ent.TransformBy(Matrix3d.Mirroring(new Line3d(new Point3d(0, 0, 0), new Vector3d(0, 1, 0))));
                 }
             }
             isVMirror = !isVMirror;
         }
 
-        private void horizontalMirroring()
+        private void HorizontalMirroring()
         {
-            foreach (var e in entityList)
+            using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
             {
-                if (e.GetType() == typeof(DBText))
+                foreach (var e in entityList)
                 {
-                    e.TransformBy(Matrix3d.Displacement(new Vector3d(0, (isHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
+                    var ent = e.ObjectId.GetObject(OpenMode.ForWrite, true) as Entity;
+                    ent.Erase(false);
+                    if (ent.GetType() == typeof(DBText))
+                    {
+                        ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (isHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
+                    }
+                    else
+                    {
+                        ent.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(1, 0, 0))));
+                    }
+                    ent.Erase();
+                }
+                tr.Commit();
+            }
+            foreach(var ent in entityBuffer)
+            {
+                if (ent.GetType() == typeof(DBText) || ent.GetType() == typeof(AttributeDefinition))
+                {
+                    ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (isHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
                 }
                 else
                 {
-                    e.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(1, 0, 0))));
+                    ent.TransformBy(Matrix3d.Mirroring(new Line3d(new Point3d(0, 0, 0), new Vector3d(1, 0, 0))));
                 }
             }
             isHMirror = !isHMirror;
         }
 
-        private bool needVMirror
-        {
-            get
-            {
-                return (currentPoint.X < basePoint.X && !isVMirror) || (currentPoint.X >= basePoint.X && isVMirror);
-            }
-        }
+        private bool NeedVMirror => (currentPoint.X < basePoint.X && !isVMirror) || (currentPoint.X >= basePoint.X && isVMirror);
 
-        private bool needHMirror
-        {
-            get
-            {
-                return (currentPoint.Y < basePoint.Y && !isHMirror) || (currentPoint.Y >= basePoint.Y && isHMirror);
-            }
-        }
+        private bool NeedHMirror => (currentPoint.Y < basePoint.Y && !isHMirror) || (currentPoint.Y >= basePoint.Y && isHMirror);
     }
 }

@@ -274,14 +274,14 @@ namespace CADProxy
     
         public static DBText ToDBText(AttributeDefinition att)
         {
-            var result = new DBText();
+            DBText result = new DBText();
             result.Annotative = att.Annotative;
             result.CastShadows = att.CastShadows;
             result.Color = att.Color;
             result.ColorIndex = att.ColorIndex;
-            // result.EdgeStyleId = att.EdgeStyleId;
-            // result.FaceStyleId = att.FaceStyleId;
-            // result.ForceAnnoAllVisible = att.ForceAnnoAllVisible;
+            //result.EdgeStyleId = att.EdgeStyleId;
+            //result.FaceStyleId = att.FaceStyleId;
+            //result.ForceAnnoAllVisible = att.ForceAnnoAllVisible;
             result.HasSaveVersionOverride = att.HasSaveVersionOverride;
             result.Height = att.Height;
             result.HorizontalMode = att.HorizontalMode;
@@ -295,12 +295,12 @@ namespace CADProxy
             result.LineWeight = att.LineWeight;
             result.Material = att.Material;
             result.MaterialId = att.MaterialId;
-            // result.MaterialMapper = att.MaterialMapper;
-            // result.MergeStyle = att.MergeStyle;
+            //result.MaterialMapper = att.MaterialMapper;
+            //result.MergeStyle = att.MergeStyle;
             result.Normal = att.Normal;
             result.Oblique = att.Oblique;
-            // result.PlotStyleName = att.PlotStyleName;
-            // result.PlotStyleNameId = att.PlotStyleNameId;
+            //result.PlotStyleName = att.PlotStyleName;
+            //result.PlotStyleNameId = att.PlotStyleNameId;
             
             result.Position = att.Position;
             result.Justify = att.Justify;
@@ -315,9 +315,9 @@ namespace CADProxy
             result.Transparency = att.Transparency;
             result.VerticalMode = att.VerticalMode;
             result.Visible = att.Visible;
-            // result.VisualStyleId = att.VisualStyleId;
+            //result.VisualStyleId = att.VisualStyleId;
             result.WidthFactor = att.WidthFactor;
-            // result.XData = att.XData;
+            //result.XData = att.XData;
 
             return result;
         }
