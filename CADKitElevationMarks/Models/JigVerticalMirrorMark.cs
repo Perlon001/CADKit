@@ -1,5 +1,5 @@
 ﻿using CADKit;
-using CADKit.Utils;
+using CADKit.Contracts.Services;
 using CADProxy;
 using System;
 using System.Collections.Generic;
@@ -19,10 +19,10 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class JigVerticalMirrorMark : EntityListJig
+    public class JigVerticalMirrorMark : JigMark
     {
         private bool IsVMirror;
-        public JigVerticalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint)
+        public JigVerticalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConvert _converter = null) : base(_entityList, _basePoint, _converter)
         {
             IsVMirror = false;
         }
@@ -31,7 +31,9 @@ namespace CADKitElevationMarks.Models
         {
             var result = base.Sampler(prompts);
             if (result != SamplerStatus.OK)
+            {
                 return result;
+            }
             if (needVMirror)
             {
                 verticalMirroring();
@@ -44,6 +46,7 @@ namespace CADKitElevationMarks.Models
         {
             try
             {
+                currentPoint = new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z);
                 transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
                 var geometry = draw.Geometry;
                 if (geometry != null)

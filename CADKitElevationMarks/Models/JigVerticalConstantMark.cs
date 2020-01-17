@@ -15,7 +15,7 @@ using Autodesk.AutoCAD.GraphicsInterface;
 
 namespace CADKitElevationMarks.Models
 {
-    public class JigVerticalConstantMark : EntityListJig
+    public class JigVerticalConstantMark : JigMark
     {
         public JigVerticalConstantMark(IEnumerable<Entity> _group, Point3d _basePoint) : base(_group, _basePoint) { }
 

@@ -7,7 +7,6 @@ using CADKit.Models;
 using CADKit.Services;
 using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
-using CADKitElevationMarks.Extensions;
 using System.Globalization;
 using CADProxy.Extensions;
 
@@ -36,7 +35,7 @@ namespace CADKitElevationMarks.Models
         public abstract DrawingStandards DrawingStandard { get; }
         public abstract MarkTypes MarkType { get; }
 
-        protected abstract EntityListJig GetMarkJig();
+        protected abstract JigMark GetMarkJig();
 
         protected abstract void SetAttributeValue(BlockReference blockReference);
 
@@ -52,30 +51,7 @@ namespace CADKitElevationMarks.Models
                 if (basePoint.Status == PromptStatus.OK)
                 {
                     value = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
-                    using (ProxyCAD.Document.LockDocument())
-                    {
-                        CreateEntityList();
-                        var jig = GetMarkJig();
-                        var result = ProxyCAD.Editor.Drag(jig);
-                        if (result.Status == PromptStatus.OK)
-                        {
-                            switch (_entitiesSet)
-                            {
-                                case EntitiesSet.Group:
-                                    var entities = jig.GetEntity();
-                                    entities.TransformBy(Matrix3d.Displacement(new Point3d(0,0,0).GetVectorTo(jig.JigPointResult)));
-                                    break;
-                                case EntitiesSet.Block:
-                                    blockName = GetBlockName() + jig.GetSuffix() + index;
-                                    var defBlock = jig.GetEntity().ToBlock(blockName, new Point3d(0, 0, 0));
-                                    InsertMarkBlock(defBlock, jig.JigPointResult);
-                                    break;
-                                default:
-                                    throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
-                            }
-                        }
-                        Utils.FlushGraphics();
-                    }
+                    PersistEntities(_entitiesSet);
                 }
             }
             catch (Exception ex)
@@ -92,6 +68,35 @@ namespace CADKitElevationMarks.Models
         protected string GetBlockName()
         {
             return "ElevMark" + MarkType.ToString() + DrawingStandard.ToString();
+        }
+
+        protected void PersistEntities(EntitiesSet _entitiesSet)
+        {
+            using (ProxyCAD.Document.LockDocument())
+            {
+                CreateEntityList();
+                var jig = GetMarkJig();
+                var result = ProxyCAD.Editor.Drag(jig);
+                if (result.Status == PromptStatus.OK)
+                {
+                    switch (_entitiesSet)
+                    {
+                        case EntitiesSet.Group:
+                            var entities = jig.GetEntity();
+                            entities.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(jig.JigPointResult)));
+                            entities.ToGroup();
+                            break;
+                        case EntitiesSet.Block:
+                            blockName = GetBlockName() + jig.GetSuffix() + index;
+                            var defBlock = jig.GetEntity().ToBlock(blockName, new Point3d(0, 0, 0));
+                            InsertMarkBlock(defBlock, jig.JigPointResult);
+                            break;
+                        default:
+                            throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
+                    }
+                }
+                Utils.FlushGraphics();
+            }
         }
 
         protected void InsertMarkBlock(BlockTableRecord blockTableRecord, Point3d insertPoint)

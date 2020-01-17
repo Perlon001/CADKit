@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Globalization;
-using CADKitElevationMarks.Extensions;
 using CADProxy.Extensions;
 
 #if ZwCAD
@@ -29,8 +28,6 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneElevationMarkPNB01025 : ElevationMark, IElevationMark
     {
-        public PlaneElevationMarkPNB01025() : base() { }
-
         public override DrawingStandards DrawingStandard { get { return DrawingStandards.PNB01025; } }
 
         public override MarkTypes MarkType { get { return MarkTypes.area; } }
@@ -44,31 +41,8 @@ namespace CADKitElevationMarks.Models
                 var textValue = ProxyCAD.Editor.GetString(promptOptions);
                 if (textValue.Status == PromptStatus.OK)
                 {
-                    value = new ElevationValue("", textValue.StringResult).Parse();
-                    using (ProxyCAD.Document.LockDocument())
-                    {
-                        CreateEntityList();
-                        var jig = GetMarkJig();
-                        var result = ProxyCAD.Editor.Drag(jig);
-                        if (result.Status == PromptStatus.OK)
-                        {
-                            switch (_entitiesSet)
-                            {
-                                case EntitiesSet.Group:
-                                    var entities = jig.GetEntity();
-                                    entities.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(jig.JigPointResult)));
-                                    break;
-                                case EntitiesSet.Block:
-                                    blockName = GetBlockName() + jig.GetSuffix() + index;
-                                    var defBlock = jig.GetEntity().ToBlock(blockName, new Point3d(0, 0, 0));
-                                    InsertMarkBlock(defBlock, jig.JigPointResult);
-                                    break;
-                                default:
-                                    throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
-                            }
-                        }
-                        Utils.FlushGraphics();
-                    }
+                    value = new ElevationValue(textValue.StringResult).Parse();
+                    PersistEntities(_entitiesSet);
                 }
             }
             catch (Exception ex)
@@ -93,10 +67,12 @@ namespace CADKitElevationMarks.Models
             txt1.VerticalMode = TextVerticalMode.TextVerticalMid;
             txt1.ColorIndex = 7;
             txt1.Height = 2;
+            txt1.Position = new Point3d(2, 1.5, 0);
+            txt1.Justify = AttachmentPoint.MiddleLeft;
             txt1.AlignmentPoint = new Point3d(2, 1.5, 0);
             txt1.Tag = "Value";
             txt1.Prompt = "Value"; 
-            txt1.TextString = this.value.Sign + this.value.Value;
+            txt1.TextString = value.ToString();
             en.Add(txt1);
 
             var l1 = new Line(new Point3d(-1.5, -1.5, 0), new Point3d(1.5, 1.5, 0));
@@ -105,16 +81,16 @@ namespace CADKitElevationMarks.Models
             var l2 = new Line(new Point3d(-1.5, 1.5, 0), new Point3d(1.5, -1.5, 0));
             en.Add(l2);
 
-            var textArea = ProxyCAD.GetTextArea(txt1);
+            var textArea = ProxyCAD.GetTextArea(ProxyCAD.ToDBText(txt1));
             var l3 = new Line(new Point3d(0, 0, 0), new Point3d(textArea[1].X - textArea[0].X + 2, 0, 0));
             en.Add(l3);
 
-            this.entityList = en;
+            entityList = en;
         }
 
-        protected override EntityListJig GetMarkJig()
+        protected override JigMark GetMarkJig()
         {
-            return new JigMark(entityList, basePoint.Value, new AttributeToDBTextConverter());
+            return new JigMark(entityList, new Point3d(0, 0, 0), new AttributeToDBTextConverter());
         }
 
         protected override void SetAttributeValue(BlockReference blockReference)

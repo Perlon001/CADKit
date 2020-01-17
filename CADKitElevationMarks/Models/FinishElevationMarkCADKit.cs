@@ -5,6 +5,7 @@ using CADProxy;
 using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
 using CADKit.Models;
+using CADProxy.Extensions;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -20,8 +21,6 @@ namespace CADKitElevationMarks.Models
 {
     public class FinishElevationMarkCADKit : ElevationMark, IElevationMark
     {
-        public FinishElevationMarkCADKit() : base() { }
-
         public override DrawingStandards DrawingStandard { get { return DrawingStandards.CADKit; } }
 
         public override MarkTypes MarkType { get { return MarkTypes.finish; } }
@@ -29,48 +28,64 @@ namespace CADKitElevationMarks.Models
         public override void CreateEntityList()
         {
             var en = new List<Entity>();
-            var pl1 = new Polyline();
 
-            var tx1 = new DBText();
-            tx1.SetDatabaseDefaults();
-            tx1.TextStyle = ProxyCAD.Database.Textstyle;
-            tx1.HorizontalMode = TextHorizontalMode.TextRight;
-            tx1.VerticalMode = TextVerticalMode.TextVerticalMid;
-            tx1.ColorIndex = 7;
-            tx1.Height = 2;
-            tx1.AlignmentPoint = new Point3d(-0.5, 4.5, 0);
-            tx1.TextString = this.value.Sign;
-            en.Add(tx1);
+            var txt1 = new AttributeDefinition();
+            txt1.SetDatabaseDefaults();
+            txt1.TextStyle = ProxyCAD.Database.Textstyle;
+            txt1.HorizontalMode = TextHorizontalMode.TextRight;
+            txt1.VerticalMode = TextVerticalMode.TextVerticalMid;
+            txt1.ColorIndex = 7;
+            txt1.Height = 2;
+            txt1.Position = new Point3d(-0.5, 4.5, 0);
+            txt1.Justify = AttachmentPoint.MiddleRight;
+            txt1.AlignmentPoint = new Point3d(-0.5, 4.5, 0);
+            txt1.Tag = "Sign";
+            txt1.Prompt = "Sign";
+            txt1.TextString = value.Sign;
+            en.Add(txt1);
             
-            var tx2 = new DBText();
-            tx2.SetDatabaseDefaults();
-            tx2.TextStyle = ProxyCAD.Database.Textstyle;
-            tx2.HorizontalMode = TextHorizontalMode.TextLeft;
-            tx2.VerticalMode = TextVerticalMode.TextVerticalMid;
-            tx2.ColorIndex = 7;
-            tx2.Height = 2;
-            tx2.AlignmentPoint = new Point3d(0.5, 4.5, 0);
-            tx2.TextString = this.value.Value;
-            en.Add(tx2);
+            var txt2 = new AttributeDefinition();
+            txt2.SetDatabaseDefaults();
+            txt2.TextStyle = ProxyCAD.Database.Textstyle;
+            txt2.HorizontalMode = TextHorizontalMode.TextLeft;
+            txt2.VerticalMode = TextVerticalMode.TextVerticalMid;
+            txt2.ColorIndex = 7;
+            txt2.Height = 2;
+            txt2.Position = new Point3d(0.5, 4.5, 0);
+            txt2.Justify = AttachmentPoint.MiddleRight;
+            txt2.AlignmentPoint = new Point3d(0.5, 4.5, 0);
+            txt2.TextString = value.Value;
+            en.Add(txt2);
 
-            var textArea = ProxyCAD.GetTextArea(tx2);
+            var textArea = ProxyCAD.GetTextArea(txt2);
+            var pl1 = new Polyline();
             pl1.AddVertexAt(0, new Point2d(0, 5.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(-2, 3), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X + 0.5, 3), 0, 0, 0);
             en.Add(pl1);
 
-            this.entityList = en;
+            entityList = en;
         }
 
-        protected override EntityListJig GetMarkJig()
+        protected override JigMark GetMarkJig()
         {
-            throw new System.NotImplementedException();
+            return new JigVerticalMirrorMark(entityList, new Point3d(0, 0, 0), new AttributeToDBTextConverter());
         }
 
         protected override void SetAttributeValue(BlockReference blockReference)
         {
-            throw new System.NotImplementedException();
+            using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
+            {
+                var attDef = blockTableRecord.GetAttribDefinition("Value");
+                if (!attDef.Constant)
+                {
+                    var attRef = new AttributeReference();
+                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
+                    attRef.TextString = value.Sign + value.Value;
+                    blockReference.AttributeCollection.AppendAttribute(attRef);
+                }
+            }
         }
     }
 }

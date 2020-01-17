@@ -68,7 +68,7 @@ namespace CADKitElevationMarks.Models
             this.entityList = en;
         }
 
-        protected override EntityListJig GetMarkJig()
+        protected override JigMark GetMarkJig()
         {
             return new JigVerticalConstantVerticalAndHorizontalMirrorMark(entityList, basePoint.Value, new AttributeToDBTextConverter());
         }

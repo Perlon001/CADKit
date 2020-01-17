@@ -19,7 +19,7 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class JigVerticalConstantHorizontalMirrorMark : EntityListJig
+    public class JigVerticalConstantHorizontalMirrorMark : JigMark
     {
         private bool IsHMirror;
         public JigVerticalConstantHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint)

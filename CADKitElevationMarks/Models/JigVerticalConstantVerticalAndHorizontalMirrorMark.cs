@@ -1,6 +1,5 @@
 ﻿using CADKit;
 using CADKit.Contracts.Services;
-using CADKit.Utils;
 using CADProxy;
 using System;
 using System.Collections.Generic;
@@ -16,11 +15,12 @@ using ZwSoft.ZwCAD.GraphicsInterface;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
+using Autodesk.AutoCAD.GraphicsInterface;
 #endif
 
 namespace CADKitElevationMarks.Models
 {
-    public class JigVerticalConstantVerticalAndHorizontalMirrorMark : EntityListJig
+    public class JigVerticalConstantVerticalAndHorizontalMirrorMark : JigMark
     {
         private bool isVMirror;
         private bool isHMirror;

@@ -64,7 +64,7 @@ namespace CADKitElevationMarks.Models
             this.entityList = en;
         }
 
-        protected override EntityListJig GetMarkJig()
+        protected override JigMark GetMarkJig()
         {
             throw new System.NotImplementedException();
         }
