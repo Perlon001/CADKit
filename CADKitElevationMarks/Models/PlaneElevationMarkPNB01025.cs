@@ -1,5 +1,4 @@
-﻿using CADKit;
-using CADKit.Models;
+﻿using CADKit.Models;
 using CADKit.Services;
 using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
@@ -8,8 +7,6 @@ using CADProxy.Internal;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Globalization;
 using CADProxy.Extensions;
 
 #if ZwCAD

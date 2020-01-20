@@ -1,5 +1,4 @@
 ﻿using CADKit.Contracts.DTO;
-using CADProxy;
 using System;
 
 namespace CADKit.Views.DTO

@@ -22,8 +22,6 @@ namespace CADKit.Presenters
 {
     public class SettingsPresenter : Presenter<ISettingsView>, ISettingsPresenter
     {
-        //private readonly IList<IComponent> leafTree;
-
         private readonly ICompositeService compositeService;
 
         public SettingsPresenter(ISettingsView view, ICompositeService compositeService)

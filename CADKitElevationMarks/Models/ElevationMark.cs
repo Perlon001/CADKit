@@ -5,7 +5,6 @@ using CADProxy.Internal;
 using CADKit;
 using CADKit.Models;
 using CADKit.Services;
-using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
 using System.Globalization;
 using CADProxy.Extensions;

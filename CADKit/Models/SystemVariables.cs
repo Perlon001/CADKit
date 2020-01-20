@@ -3,6 +3,5 @@
     public struct SystemVariables
     {
         public string CLayer;
-
     }
 }

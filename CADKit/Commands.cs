@@ -17,14 +17,14 @@ namespace CADKit
 {
     public class Commands
     {
-        // metody powinne byc zamienione na klasy z mozliwoscia wyboru trybu Linia komend/Okno dialogowe
+        // TODO: metody powinne byc zamienione na klasy z mozliwoscia wyboru trybu Linia komend/Okno dialogowe
         // na podstawie zmiennej systemowej (na razie nie mam pomysłu jakiej) lub na podstawie zdefiniowanej zmiennej globalnej lub AppSettings
         // na razie jest wersja prosta czyli linia komend
         // w przyszlosci do refaktoryzacji
         [CommandMethod("CKUNR")]
         public void SetDrawingStandard()
         {
-            // Lepiej gdyby slownik byl budowany na zewnatrz i gotowy dostarczony metodzie
+            // TODO: Lepiej gdyby slownik byl budowany na zewnatrz i gotowy dostarczony metodzie
             // w przyszlosci do refaktoryzacji
             Dictionary<DrawingStandards, string> drawingStandards = new Dictionary<DrawingStandards, string>();
             foreach (var item in Enum.GetValues(typeof(DrawingStandards)))

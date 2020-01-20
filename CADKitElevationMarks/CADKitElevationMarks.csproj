@@ -27,7 +27,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;ZwCAD</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="Autostart.cs" />
     <Compile Include="Contracts\IElevationMark.cs" />
-    <Compile Include="Contracts\IFinishElevationMarkCADKit.cs" />
     <Compile Include="Contracts\Services\IIconService.cs" />
     <Compile Include="Contracts\Services\IIconServiceCADKit.cs" />
     <Compile Include="Contracts\Services\IIconServicePNB01025.cs" />
@@ -71,12 +70,10 @@
     <Compile Include="Contracts\Services\IMarkTypeServicePNB01025.cs" />
     <Compile Include="Contracts\Services\IMarkTypeService.cs" />
     <Compile Include="DTO\MarkButtonDTO.cs" />
-    <Compile Include="ElevationMarkCommands.cs" />
     <Compile Include="Contracts\Presenters\IElevationMarksPresenter.cs" />
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
     <Compile Include="Models\ElementsSet.cs" />
     <Compile Include="Models\ElevationMark.cs" />
-    <Compile Include="Models\ElevationMarkItem.cs" />
     <Compile Include="Models\ElevationValue.cs" />
     <Compile Include="Models\JigMark.cs" />
     <Compile Include="Models\MarkOptions.cs" />
@@ -105,7 +102,6 @@
     <Compile Include="Services\RegistrationModule.cs" />
     <Compile Include="Presenters\ElevationMarksPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegistrationModule.cs" />
     <Compile Include="Services\MarkTypeService.cs" />
     <Compile Include="Views\ElevationMarksView.cs">
       <SubType>UserControl</SubType>
@@ -194,9 +190,7 @@
   <ItemGroup>
     <None Include="Bitmaps\Icons\mark05_48.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>rem copy $(TargetPath) $(SolutionDir)\CADKit\bin\Debug</PostBuildEvent>

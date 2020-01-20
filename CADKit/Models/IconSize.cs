@@ -1,5 +1,4 @@
-﻿
-namespace CADKit.Models
+﻿namespace CADKit.Models
 {
     public enum IconSize
     {

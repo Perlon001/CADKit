@@ -1,11 +1,7 @@
-﻿using CADKit.Models;
-using CADKitElevationMarks.DTO;
+﻿using CADKitElevationMarks.DTO;
 using CADKitElevationMarks.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CADKitElevationMarks.Contracts.Services
 {

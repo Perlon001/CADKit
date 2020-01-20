@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using CADKit.Contracts;
 using CADKit.Contracts.Services;
 using System;
 

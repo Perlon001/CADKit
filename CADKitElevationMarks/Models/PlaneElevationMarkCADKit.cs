@@ -1,7 +1,6 @@
 ﻿using CADKit.Models;
 using CADKit.Services;
 using CADKit.Utils;
-using CADKitElevationMarks.Contracts;
 using CADProxy;
 using System.Collections.Generic;
 using CADProxy.Internal;
@@ -22,7 +21,7 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace CADKitElevationMarks.Models
 {
-    public class PlaneElevationMarkCADKit : ElevationMark, IElevationMark
+    public class PlaneElevationMarkCADKit : ElevationMark
     {
         public override DrawingStandards DrawingStandard { get { return DrawingStandards.CADKit; } }
 
