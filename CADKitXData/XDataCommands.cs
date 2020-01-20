@@ -1,8 +1,4 @@
-﻿using CADKit.Models;
-using System;
-using System.Collections.Generic;
-using CADKit.Utils;
-using CADProxy;
+﻿using CADProxy;
 using CADProxy.Runtime;
 
 #if ZwCAD
@@ -19,7 +15,7 @@ namespace CADKitXData
 {
     public class XDataCommands
     {
-        private string appName = "e-cad Zelbet";
+        private readonly string appName = "e-cad Zelbet";
 
         [CommandMethod("CK_XDAPPLIST")]
         public void GetXDataApplicationList()
