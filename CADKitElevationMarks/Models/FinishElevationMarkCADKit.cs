@@ -19,7 +19,7 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class FinishElevationMarkCADKit : ElevationMark, IElevationMark
+    public class FinishElevationMarkCADKit : ElevationMark
     {
         public override DrawingStandards DrawingStandard { get { return DrawingStandards.CADKit; } }
 
@@ -52,12 +52,14 @@ namespace CADKitElevationMarks.Models
             txt2.ColorIndex = 7;
             txt2.Height = 2;
             txt2.Position = new Point3d(0.5, 4.5, 0);
-            txt2.Justify = AttachmentPoint.MiddleRight;
+            txt2.Justify = AttachmentPoint.MiddleLeft;
             txt2.AlignmentPoint = new Point3d(0.5, 4.5, 0);
+            txt2.Tag = "Value";
+            txt2.Prompt = "Value";
             txt2.TextString = value.Value;
             en.Add(txt2);
 
-            var textArea = ProxyCAD.GetTextArea(txt2);
+            var textArea = ProxyCAD.GetTextArea(ProxyCAD.ToDBText(txt2));
             var pl1 = new Polyline();
             pl1.AddVertexAt(0, new Point2d(0, 5.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
@@ -70,19 +72,27 @@ namespace CADKitElevationMarks.Models
 
         protected override JigMark GetMarkJig()
         {
-            return new JigVerticalMirrorMark(entityList, new Point3d(0, 0, 0), new AttributeToDBTextConverter());
+            return new JigVerticalConstantHorizontalMirrorMark(entityList, basePoint.Value, new AttributeToDBTextConverter());
         }
 
         protected override void SetAttributeValue(BlockReference blockReference)
         {
             using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
             {
-                var attDef = blockTableRecord.GetAttribDefinition("Value");
+                var attDef = blockTableRecord.GetAttribDefinition("Sign");
                 if (!attDef.Constant)
                 {
                     var attRef = new AttributeReference();
                     attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Sign + value.Value;
+                    attRef.TextString = value.Sign;
+                    blockReference.AttributeCollection.AppendAttribute(attRef);
+                }
+                attDef = blockTableRecord.GetAttribDefinition("Value");
+                if (!attDef.Constant)
+                {
+                    var attRef = new AttributeReference();
+                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
+                    attRef.TextString = value.Value;
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
             }

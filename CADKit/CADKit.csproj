@@ -83,15 +83,13 @@
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IScale.cs" />
     <Compile Include="Contracts\Presenters\ISettingsPresenter.cs" />
-    <Compile Include="Contracts\Services\IEntityConvert.cs" />
+    <Compile Include="Contracts\Services\IEntityConverter.cs" />
     <Compile Include="Contracts\Views\ISettingsView.cs" />
     <Compile Include="Contracts\IComponent.cs" />
     <Compile Include="Contracts\Views\IView.cs" />
     <Compile Include="Contracts\Services\ICompositeProvider.cs" />
     <Compile Include="Contracts\Services\ICompositeService.cs" />
     <Compile Include="DI.cs" />
-    <Compile Include="Extensions\TransactionDelegate.cs" />
-    <Compile Include="JIGCommand.cs" />
     <Compile Include="Models\CanNoScale.cs" />
     <Compile Include="Models\Composite.cs" />
     <Compile Include="InterfaceScheme.cs" />
@@ -100,7 +98,6 @@
     <Compile Include="Services\CompositeService.cs" />
     <Compile Include="Services\LocalFakeCompositeProvider.cs" />
     <Compile Include="Services\RegistrationModule.cs" />
-    <Compile Include="TestEnumerable.cs" />
     <Compile Include="Utils\AttributeToDBTextConverter.cs" />
     <Compile Include="Utils\Bulge.cs" />
     <Compile Include="Utils\CADKitModuleContainerBuilder.cs" />

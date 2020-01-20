@@ -12,7 +12,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 
 namespace CADKit.Utils
 {
-    public class AttributeToDBTextConverter : IEntityConvert
+    public class AttributeToDBTextConverter : IEntityConverter
     {
         public IEnumerable<Entity> Convert(IEnumerable<Entity> _entities)
         {

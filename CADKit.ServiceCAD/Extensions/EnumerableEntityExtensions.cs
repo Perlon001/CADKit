@@ -88,14 +88,19 @@ namespace CADProxy.Extensions
             Document doc = Application.DocumentManager.MdiActiveDocument;
             using (var tr = doc.TransactionManager.StartTransaction())
             {
+                BlockTableRecord btr;
                 var bt = tr.GetObject(doc.Database.BlockTableId, OpenMode.ForRead) as BlockTable;
-                BlockTableRecord btr = new BlockTableRecord()
+                if(bt.Has(_blockName))
                 {
-                    Name = _blockName,
-                    Origin = _origin
-                };
-                if (!bt.Has(_blockName))
+                    btr = bt[_blockName].GetObject(OpenMode.ForRead) as BlockTableRecord;
+                }
+                else
                 {
+                    btr = new BlockTableRecord()
+                    {
+                        Name = _blockName,
+                        Origin = _origin
+                    }; 
                     foreach (var e in _entityList.Clone())
                     {
                         btr.AppendEntity(e);
@@ -104,7 +109,9 @@ namespace CADProxy.Extensions
                     bt.Add(btr);
                     tr.AddNewlyCreatedDBObject(btr, true);
                     tr.Commit();
+                    
                 }
+             
                 return btr;
             }
         }

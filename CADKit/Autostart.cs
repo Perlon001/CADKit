@@ -15,13 +15,10 @@ using ApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
 using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
 #endif
 
-
 /*
- 
     HKEY_CURRENT_USER\Software\ZWSOFT\ZWCAD\2020\en-US\Profiles\Default\Config\COLORSCHEME
     0 - interfejs ciemny
     1 - interfejs jasny
-    
  */
 
 namespace CADKit

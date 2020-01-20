@@ -22,7 +22,7 @@ namespace CADKitElevationMarks.Models
     public class JigVerticalMirrorMark : JigMark
     {
         private bool IsVMirror;
-        public JigVerticalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConvert _converter = null) : base(_entityList, _basePoint, _converter)
+        public JigVerticalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConverter _converter = null) : base(_entityList, _basePoint, _converter)
         {
             IsVMirror = false;
         }

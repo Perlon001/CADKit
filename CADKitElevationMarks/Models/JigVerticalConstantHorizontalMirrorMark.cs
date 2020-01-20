@@ -1,4 +1,5 @@
 ﻿using CADKit;
+using CADKit.Contracts.Services;
 using CADKit.Utils;
 using CADProxy;
 using System;
@@ -22,9 +23,14 @@ namespace CADKitElevationMarks.Models
     public class JigVerticalConstantHorizontalMirrorMark : JigMark
     {
         private bool IsHMirror;
-        public JigVerticalConstantHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint) : base(_entityList, _basePoint)
+        public JigVerticalConstantHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConverter _converter) : base(_entityList, _basePoint, _converter)
         {
             IsHMirror = false;
+        }
+
+        public override string GetSuffix()
+        {
+            return (IsHMirror ? "B" : "T");
         }
 
         protected override SamplerStatus Sampler(JigPrompts prompts)
@@ -32,9 +38,9 @@ namespace CADKitElevationMarks.Models
             var result = base.Sampler(prompts);
             if ( result != SamplerStatus.OK) 
                 return result;
-            if (needHorizontalMirror)
+            if (NeedHMirror)
             {
-                horizontalMirroring();
+                HorizontalMirroring();
             }
 
             return SamplerStatus.OK;
@@ -44,7 +50,8 @@ namespace CADKitElevationMarks.Models
         {
             try
             {
-                transforms = Matrix3d.Displacement(basePoint.GetVectorTo(new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z)));
+                currentPoint = new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z);
+                transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
                 var geometry = draw.Geometry;
                 if (geometry != null)
                 {
@@ -65,29 +72,40 @@ namespace CADKitElevationMarks.Models
             }
         }
 
-        private void horizontalMirroring()
+        private void HorizontalMirroring()
         {
-            foreach (var e in entityList)
+            using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
             {
-                if (e.GetType() == typeof(DBText))
+                foreach (var e in entityList)
                 {
-                    e.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
+                    var ent = e.ObjectId.GetObject(OpenMode.ForWrite, true) as Entity;
+                    ent.Erase(false);
+                    if (ent.GetType() == typeof(DBText))
+                    {
+                        ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
+                    }
+                    else
+                    {
+                        ent.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(1, 0, 0))));
+                    }
+                    ent.Erase();
+                }
+                tr.Commit();
+            }
+            foreach (var ent in entityBuffer)
+            {
+                if (ent.GetType() == typeof(DBText) || ent.GetType() == typeof(AttributeDefinition))
+                {
+                    ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
                 }
                 else
                 {
-                    e.TransformBy(Matrix3d.Mirroring(new Line3d(basePoint, new Vector3d(1, 0, 0))));
+                    ent.TransformBy(Matrix3d.Mirroring(new Line3d(new Point3d(0, 0, 0), new Vector3d(1, 0, 0))));
                 }
             }
             IsHMirror = !IsHMirror;
         }
 
-        private bool needHorizontalMirror
-        {
-            get
-            {
-                return (currentPoint.Y < basePoint.Y && !IsHMirror) || (currentPoint.Y >= basePoint.Y && IsHMirror);
-            }
-        }
-
+        private bool NeedHMirror => (currentPoint.Y < basePoint.Y && !IsHMirror) || (currentPoint.Y >= basePoint.Y && IsHMirror);
     }
 }

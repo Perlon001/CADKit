@@ -137,12 +137,13 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark01_16.png" />
+    <None Include="Bitmaps\Icons\mark01_16.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ElevationMarksView.resx">
       <DependentUpon>ElevationMarksView.cs</DependentUpon>
@@ -152,53 +153,53 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark01_32.png" />
+    <None Include="Bitmaps\Icons\mark01_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark01_48.png" />
+    <None Include="Bitmaps\Icons\mark01_48.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark02_16.png" />
+    <None Include="Bitmaps\Icons\mark02_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark02_32.png" />
+    <None Include="Bitmaps\Icons\mark02_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark02_48.png" />
+    <None Include="Bitmaps\Icons\mark02_48.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark03_16.png" />
+    <None Include="Bitmaps\Icons\mark03_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark03_32.png" />
+    <None Include="Bitmaps\Icons\mark03_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark03_48.png" />
+    <None Include="Bitmaps\Icons\mark03_48.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark04_16.png" />
+    <None Include="Bitmaps\Icons\mark04_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark04_32.png" />
+    <None Include="Bitmaps\Icons\mark04_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark04_48.png" />
+    <None Include="Bitmaps\Icons\mark04_48.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark05_16.png" />
+    <None Include="Bitmaps\Icons\mark05_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark05_32.png" />
+    <None Include="Bitmaps\Icons\mark05_32.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="mark05_48.png" />
+    <None Include="Bitmaps\Icons\mark05_48.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\CADKit\bin\Debug</PostBuildEvent>
+    <PostBuildEvent>rem copy $(TargetPath) $(SolutionDir)\CADKit\bin\Debug</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

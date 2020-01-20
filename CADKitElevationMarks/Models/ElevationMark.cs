@@ -65,11 +65,6 @@ namespace CADKitElevationMarks.Models
             }
         }
 
-        protected string GetBlockName()
-        {
-            return "ElevMark" + MarkType.ToString() + DrawingStandard.ToString();
-        }
-
         protected void PersistEntities(EntitiesSet _entitiesSet)
         {
             using (ProxyCAD.Document.LockDocument())
@@ -87,7 +82,7 @@ namespace CADKitElevationMarks.Models
                             entities.ToGroup();
                             break;
                         case EntitiesSet.Block:
-                            blockName = GetBlockName() + jig.GetSuffix() + index;
+                            blockName = GetPrefix() + jig.GetSuffix() + index;
                             var defBlock = jig.GetEntity().ToBlock(blockName, new Point3d(0, 0, 0));
                             InsertMarkBlock(defBlock, jig.JigPointResult);
                             break;
@@ -119,6 +114,11 @@ namespace CADKitElevationMarks.Models
         }
 
         #region private methods
+        private string GetPrefix()
+        {
+            return "ElevMark" + MarkType.ToString() + DrawingStandard.ToString();
+        }
+
         private string GetElevationValue()
         {
             return Math.Round(Math.Abs(basePoint.Value.Y) * GetElevationFactor(), 3).ToString("0.000");

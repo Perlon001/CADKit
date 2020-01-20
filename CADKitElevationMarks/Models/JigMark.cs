@@ -31,7 +31,7 @@ namespace CADKitElevationMarks.Models
 
         public Point3d JigPointResult { get { return currentPoint; } }
 
-        public JigMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConvert _converter = null) : base()
+        public JigMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConverter _converter = null) : base()
         {
             entityBuffer = _entityList;
             entityList = _entityList.Clone();

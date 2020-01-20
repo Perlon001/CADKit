@@ -24,7 +24,7 @@ namespace CADKitElevationMarks.Models
     {
         private bool isVMirror;
         private bool isHMirror;
-        public JigVerticalConstantVerticalAndHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConvert _converter = null) : base(_entityList, _basePoint, _converter)
+        public JigVerticalConstantVerticalAndHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEntityConverter _converter = null) : base(_entityList, _basePoint, _converter)
         {
             isVMirror = false;
             isHMirror = false;

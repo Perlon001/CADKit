@@ -10,7 +10,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 
 namespace CADKit.Contracts.Services
 {
-    public interface IEntityConvert
+    public interface IEntityConverter
     {
         IEnumerable<Entity> Convert(IEnumerable<Entity> entities);
     }
