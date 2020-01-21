@@ -96,7 +96,7 @@ namespace CADKitElevationMarks.Models
             {
                 if (ent.GetType() == typeof(DBText) || ent.GetType() == typeof(AttributeDefinition))
                 {
-                    ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
+                    ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? 9 : -9), 0)));
                 }
                 else
                 {

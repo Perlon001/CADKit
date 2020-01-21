@@ -77,6 +77,7 @@ namespace CADKitElevationMarks.Models
                     {
                         case EntitiesSet.Group:
                             var entities = jig.GetEntity();
+                            entities.TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)));
                             entities.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(jig.JigPointResult)));
                             entities.ToGroup();
                             break;
@@ -100,6 +101,7 @@ namespace CADKitElevationMarks.Models
                 var space = ProxyCAD.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite) as BlockTableRecord;
                 using (var blockReference = new BlockReference(insertPoint, blockTableRecord.ObjectId))
                 {
+                    blockReference.ScaleFactors = new Scale3d(AppSettings.Instance.ScaleFactor);
                     space.AppendEntity(blockReference);
                     transaction.AddNewlyCreatedDBObject(blockReference, true);
                     SetAttributeValue(blockReference);

@@ -67,7 +67,11 @@
     <Compile Include="Contracts\ITextStyleService.cs" />
     <Compile Include="DatabaseServices\DBText.cs" />
     <Compile Include="DatabaseServices\Group.cs" />
+    <Compile Include="EditorInput\PromptEditorOptions.cs" />
+    <Compile Include="EditorInput\PromptKeywordOptions.cs" />
+    <Compile Include="EditorInput\PromptOptions.cs" />
     <Compile Include="EditorInput\PromptPointResult.cs" />
+    <Compile Include="EditorInput\PromptResult.cs" />
     <Compile Include="Extensions\BlockReferenceExtensions.cs" />
     <Compile Include="Extensions\BlockTableRecordExtensions.cs" />
     <Compile Include="Extensions\DBTextExtensions.cs" />

@@ -99,7 +99,7 @@ namespace CADKitElevationMarks.Models
                     ent.Erase(false);
                     if (ent.GetType() == typeof(DBText))
                     {
-                        ent.TransformBy(Matrix3d.Displacement(new Vector3d((isVMirror ? textWidth : -textWidth) * AppSettings.Instance.ScaleFactor, 0, 0)));
+                        ent.TransformBy(Matrix3d.Displacement(new Vector3d((isVMirror ? textWidth : -textWidth), 0, 0)));
                     }
                     else
                     {
@@ -113,7 +113,7 @@ namespace CADKitElevationMarks.Models
             {
                 if (ent.GetType() == typeof(DBText) || ent.GetType() == typeof(AttributeDefinition))
                 {
-                    ent.TransformBy(Matrix3d.Displacement(new Vector3d((isVMirror ? textWidth : -textWidth) * AppSettings.Instance.ScaleFactor, 0, 0)));
+                    ent.TransformBy(Matrix3d.Displacement(new Vector3d((isVMirror ? textWidth : -textWidth) / AppSettings.Instance.ScaleFactor, 0, 0)));
                 }
                 else
                 {
@@ -147,7 +147,7 @@ namespace CADKitElevationMarks.Models
             {
                 if (ent.GetType() == typeof(DBText) || ent.GetType() == typeof(AttributeDefinition))
                 {
-                    ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (isHMirror ? 9 : -9) * AppSettings.Instance.ScaleFactor, 0)));
+                    ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (isHMirror ? 9 : -9), 0)));
                 }
                 else
                 {

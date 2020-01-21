@@ -190,7 +190,9 @@
   <ItemGroup>
     <None Include="Bitmaps\Icons\mark05_48.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\options.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>rem copy $(TargetPath) $(SolutionDir)\CADKit\bin\Debug</PostBuildEvent>

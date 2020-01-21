@@ -3,6 +3,7 @@ using CADKit.Utils;
 using CADProxy;
 using Microsoft.Win32;
 using System;
+using System.Drawing;
 using System.IO;
 
 namespace CADKit
@@ -15,7 +16,12 @@ namespace CADKit
         {
             AppPath = Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location));
             CADKitPalette = new CADKitPaletteSet(AppName);
-
+            // TODO: Nalezy usunąć zależność od ZwSoft.ZwCAD.Windows
+            //CADKitPalette.Dock = ZwSoft.ZwCAD.Windows.DockSides.Left;
+            //CADKitPalette.DockEnabled = ZwSoft.ZwCAD.Windows.DockSides.Left;
+            //CADKitPalette.SizeChanged -= OnResize;
+            CADKitPalette.SizeChanged += OnResize;
+            //CADKitPalette.Load += OnLoad;
             GetSettingsFromDatabase();
             SetSettingsToDatabase();
         }
@@ -138,6 +144,11 @@ namespace CADKit
         {
             CADKitPalette.Visible = false;
             drawingScale = "";
+        }
+
+        private void OnResize(object sender, EventArgs e)
+        {
+            CADKitPalette.Name = "CADKit " + CADKitPalette.Size.Width;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+
 #if ZwCAD
 using CADRuntime = ZwSoft.ZwCAD.Runtime;
 using ZwSoft.ZwCAD.Runtime;
@@ -16,59 +17,39 @@ namespace CADProxy.Runtime
         private readonly CADRuntime.CommandMethodAttribute proxy;
         public CommandMethodAttribute(string globalName)
         {
-            this.GlobalName = globalName;
+            proxy = new CADRuntime.CommandMethodAttribute(globalName);
         }
         public CommandMethodAttribute(string globalName, CommandFlags flags)
         {
-            this.GlobalName = globalName;
-            this.Flags = flags;
+            proxy = new CADRuntime.CommandMethodAttribute(globalName, flags);
         }
         public CommandMethodAttribute(string groupName, string globalName, CommandFlags flags)
         {
-            this.GroupName = groupName;
-            this.GlobalName = globalName;
-            this.Flags = flags;
+            proxy = new CADRuntime.CommandMethodAttribute(groupName, globalName, flags);
         }
         public CommandMethodAttribute(string groupName, string globalName, string localizedNameId, CommandFlags flags)
         {
-            this.GroupName = groupName;
-            this.GlobalName = globalName;
-            this.LocalizedNameId = localizedNameId;
-            this.Flags = flags;
+            proxy = new CADRuntime.CommandMethodAttribute(groupName, globalName, localizedNameId, flags);
         }
         public CommandMethodAttribute(string groupName, string globalName, string localizedNameId, CommandFlags flags, Type contextMenuExtensionType)
         {
-            this.GroupName = groupName;
-            this.GlobalName = globalName;
-            this.LocalizedNameId = localizedNameId;
-            this.Flags = flags;
-            this.ContextMenuExtensionType = contextMenuExtensionType;
+            proxy = new CADRuntime.CommandMethodAttribute(groupName, globalName, localizedNameId, flags, contextMenuExtensionType);
         }
         public CommandMethodAttribute(string groupName, string globalName, string localizedNameId, CommandFlags flags, string helpTopic)
         {
-            this.GroupName = groupName;
-            this.GlobalName = globalName;
-            this.LocalizedNameId = localizedNameId;
-            this.Flags = flags;
-            this.HelpTopic = helpTopic;
+            proxy = new CADRuntime.CommandMethodAttribute(groupName, globalName, localizedNameId, flags, helpTopic);
         }
         public CommandMethodAttribute(string groupName, string globalName, string localizedNameId, CommandFlags flags, Type contextMenuExtensionType, string helpFileName, string helpTopic)
         {
-            this.GroupName = groupName;
-            this.GlobalName = globalName;
-            this.LocalizedNameId = localizedNameId;
-            this.Flags = flags;
-            this.ContextMenuExtensionType = contextMenuExtensionType;
-            this.HelpFileName = helpFileName;
-            this.HelpTopic = helpTopic;
+            proxy = new CADRuntime.CommandMethodAttribute(groupName, globalName, localizedNameId, flags, contextMenuExtensionType, helpFileName, helpTopic);
         }
 
-        public string LocalizedNameId { get; }
-        public string HelpTopic { get; }
-        public string HelpFileName { get; }
-        public string GroupName { get; }
-        public string GlobalName { get; }
-        public CommandFlags Flags { get; }
-        public Type ContextMenuExtensionType { get; }
+        public string LocalizedNameId { get { return proxy.LocalizedNameId; } }
+        public string HelpTopic { get { return proxy.HelpTopic; } }
+        public string HelpFileName { get { return proxy.HelpFileName; } }
+        public string GroupName { get { return proxy.GroupName; } }
+        public string GlobalName { get { return proxy.GlobalName; } }
+        public CommandFlags Flags { get { return proxy.Flags; } }
+        public Type ContextMenuExtensionType { get { return proxy.ContextMenuExtensionType; } }
     }
 }
