@@ -72,6 +72,7 @@
     <Compile Include="DTO\MarkButtonDTO.cs" />
     <Compile Include="Contracts\Presenters\IElevationMarksPresenter.cs" />
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
+    <Compile Include="Events\BeginMarkCreateEventHandler.cs" />
     <Compile Include="Models\ElementsSet.cs" />
     <Compile Include="Models\ElevationMark.cs" />
     <Compile Include="Models\ElevationValue.cs" />

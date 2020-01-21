@@ -339,5 +339,32 @@ namespace CADProxy
             }
         }
 
+        public static void CancelRunningCommand()
+        {
+            string cmds = GetSystemVariable("CMDNAMES") as string;
+            string esc = string.Empty;
+
+            if (cmds.Length > 0)
+            {
+                // case of a command line command to be cancelled
+                int cmdNum = cmds.Split('\\').Length;
+                for (int i = 0; i < cmdNum; i++)
+                {
+                    esc += "\x03";
+                }
+                Document.SendStringToExecute(esc, true, false, true);
+            }
+            else if (!Editor.IsQuiescent)
+            {
+                // case of a prompt to be cancelled
+                esc = "\x03";
+                Document.SendStringToExecute(esc, true, false, true);
+            }
+            else
+            {
+                // nothing to cancel                
+            }
+        }
+
     }
 }

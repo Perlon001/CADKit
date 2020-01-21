@@ -15,13 +15,21 @@ namespace CADKit
         private AppSettings() 
         {
             AppPath = Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location));
-            CADKitPalette = new CADKitPaletteSet(AppName);
-            // TODO: Nalezy usunąć zależność od ZwSoft.ZwCAD.Windows
-            //CADKitPalette.Dock = ZwSoft.ZwCAD.Windows.DockSides.Left;
-            //CADKitPalette.DockEnabled = ZwSoft.ZwCAD.Windows.DockSides.Left;
-            //CADKitPalette.SizeChanged -= OnResize;
-            CADKitPalette.SizeChanged += OnResize;
-            //CADKitPalette.Load += OnLoad;
+            CADKitPalette = new CADKitPaletteSet(AppName, new Guid("53607c72-90e4-4bf8-b83d-c3da5a19c845"))
+            {
+
+                // TODO: Eliminacja zaleznosci do ZwSOFT.ZwCAD
+                // Visible must set to true before Dock settings
+                Visible = true,
+                Dock = ZwSoft.ZwCAD.Windows.DockSides.Left,
+                // TODO: Ustalenie minimalnego wymiaru palety
+                MinimumSize = new Size(450, 460),
+                KeepFocus = true
+            };
+
+            CADKitPalette.PaletteSetDestroy += OnDestroy;
+            CADKitPalette.StateChanged += OnStateChanged;
+
             GetSettingsFromDatabase();
             SetSettingsToDatabase();
         }
@@ -149,6 +157,15 @@ namespace CADKit
         private void OnResize(object sender, EventArgs e)
         {
             CADKitPalette.Name = "CADKit " + CADKitPalette.Size.Width;
+        }
+
+        private void OnDestroy(object sender, EventArgs e)
+        {
+            //ProxyCAD.Editor.WriteMessage("\nOnDestroj");
+        }
+        private void OnStateChanged(object sender, EventArgs e)
+        {
+            //ProxyCAD.Editor.WriteMessage("\nOnStateChanged");
         }
     }
 }

@@ -3,6 +3,7 @@ using CADKit.Views.WF;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.Contracts.Views;
 using CADKitElevationMarks.DTO;
+using CADKitElevationMarks.Events;
 using CADKitElevationMarks.Models;
 using System;
 using System.Collections.Generic;
@@ -21,9 +22,12 @@ namespace CADKitElevationMarks.Views
             rbxGroup.Checked = true;
         }
 
+        public event BeginCreateMarkEventHandler BeginCreateMark;
+
         public override void RegisterHandlers()
         {
             base.RegisterHandlers();
+            BeginCreateMark += Presenter.CreateMark;
         }
 
         private class StandardTabPage : TabPage
@@ -76,7 +80,7 @@ namespace CADKitElevationMarks.Views
         private void ButtonClick(object sender, EventArgs e)
         {
             var button = sender as Button;
-            Presenter.CreateMark(Convert.ToInt16(button.Tag));
+            BeginCreateMark?.Invoke(sender, new BeginCreateMarkEventArgs(Convert.ToInt16(button.Tag)));
         }
 
         private void TabChange(object sender, EventArgs e)

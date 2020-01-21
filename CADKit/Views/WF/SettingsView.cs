@@ -78,15 +78,6 @@ namespace CADKit.Views.WF
             }
         }
 
-        public void BindingComposites(ICollection<Composite> component)
-        {
-            foreach(var item in component)
-            {
-                trvComposites.Nodes.Add(new TreeNode(item.LeafTitle,AddNode(item.GetLeafs())));
-                trvComposites.Nodes[trvComposites.Nodes.Count-1].Expand();
-            }
-        }
-
         private TreeNode[] AddNode(ICollection<IComponent> composite)
         {
             var com = composite.ToList();

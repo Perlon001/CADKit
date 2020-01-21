@@ -68,6 +68,10 @@ namespace CADKit
         {
             AppSettings.Instance.GetSettingsFromDatabase();
             AppSettings.Instance.SetSettingsToDatabase();
+            if(ProxyCAD.DocumentManager.Count == 1 && AppSettings.Instance.CADKitPalette.PaletteState)
+            {
+                AppSettings.Instance.CADKitPalette.Visible = true;
+            }
         }
 
         void OnDocumentDestroyed(object sender, ApplicationServices.DocumentDestroyedEventArgs e)

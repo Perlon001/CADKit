@@ -16,6 +16,5 @@ namespace CADKit.Contracts
         void BindingDrawingUnits(IList<KeyValuePair<string, Units>> units);
         void BindingDimensionUnits(IList<KeyValuePair<string, Units>> units);
         void BindingScale(IList<IScaleDTO> scales);
-        void BindingComposites(ICollection<Composite> collection);
     }
 }

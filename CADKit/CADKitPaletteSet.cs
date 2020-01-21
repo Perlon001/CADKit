@@ -21,6 +21,7 @@ namespace CADKit
         {
         }
 
+        public bool PaletteState { get; protected set; }
 
         public void AddPage(IPalettePage page)
         {
@@ -31,5 +32,6 @@ namespace CADKit
         {
             palettePages.Add(page);
         }
+
     }
 }

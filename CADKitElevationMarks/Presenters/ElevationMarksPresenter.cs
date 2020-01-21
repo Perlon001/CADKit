@@ -6,6 +6,7 @@ using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.Contracts.Views;
+using CADKitElevationMarks.Events;
 using CADKitElevationMarks.Services;
 using System;
 
@@ -30,9 +31,9 @@ namespace CADKitElevationMarks.Presenters
             }
         }
 
-        public void CreateMark(int _id)
+        public void CreateMark(object sender, BeginCreateMarkEventArgs e)
         {
-            var markType = this.markTypeService.GetMarkType(_id);
+            var markType = markTypeService.GetMarkType(e.ID);
             var mark = Activator.CreateInstance(markType) as IElevationMark;
             mark.Create(View.GetEntitiesSet());
         }

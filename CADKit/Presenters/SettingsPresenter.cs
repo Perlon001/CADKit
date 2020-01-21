@@ -43,7 +43,6 @@ namespace CADKit.Presenters
             BindDrawingUnit();
             BindDimensionUnit();
             BindScaleList();
-            BindLeadTree();
             View.SelectedScale = ScaleDTO.GetCurrentScale();
         }
 
@@ -114,9 +113,5 @@ namespace CADKit.Presenters
             View.BindingDimensionUnits(EnumsUtil.GetEnumDictionary<Units>().ToList());
         }
 
-        void BindLeadTree()
-        {
-            View.BindingComposites(compositeService.GetComposites());
-        }
     }
 }

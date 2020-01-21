@@ -27,7 +27,7 @@ namespace CADKitElevationMarks.Models
 
         public override MarkTypes MarkType { get { return MarkTypes.area; } }
 
-        public override void Create(EntitiesSet _entitiesSet)
+        protected override void CreateMark()
         {
             var variables = SystemVariableService.GetActualSystemVariables();
             try
@@ -37,7 +37,7 @@ namespace CADKitElevationMarks.Models
                 if (textValue.Status == PromptStatus.OK)
                 {
                     value = new ElevationValue(textValue.StringResult).Parse();
-                    PersistEntities(_entitiesSet);
+                    PersistEntities();
                 }
             }
             catch (Exception ex)

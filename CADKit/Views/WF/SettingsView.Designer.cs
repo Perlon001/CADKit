@@ -35,10 +35,7 @@
             this.cmbDrawUnit = new System.Windows.Forms.ComboBox();
             this.lblDrawUnit = new System.Windows.Forms.Label();
             this.gbxScale = new System.Windows.Forms.GroupBox();
-            this.gbxLayers = new System.Windows.Forms.GroupBox();
-            this.trvComposites = new System.Windows.Forms.TreeView();
             this.gbxScale.SuspendLayout();
-            this.gbxLayers.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbScale
@@ -107,7 +104,7 @@
             this.gbxScale.Controls.Add(this.cmbDimUnit);
             this.gbxScale.Controls.Add(this.lblDimUnit);
             this.gbxScale.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbxScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.gbxScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.gbxScale.Location = new System.Drawing.Point(0, 0);
             this.gbxScale.Name = "gbxScale";
             this.gbxScale.Size = new System.Drawing.Size(209, 66);
@@ -115,37 +112,14 @@
             this.gbxScale.TabStop = false;
             this.gbxScale.Text = "Jednostki";
             // 
-            // gbxLayers
-            // 
-            this.gbxLayers.Controls.Add(this.trvComposites);
-            this.gbxLayers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxLayers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.gbxLayers.Location = new System.Drawing.Point(0, 66);
-            this.gbxLayers.Name = "gbxLayers";
-            this.gbxLayers.Size = new System.Drawing.Size(209, 248);
-            this.gbxLayers.TabIndex = 2;
-            this.gbxLayers.TabStop = false;
-            this.gbxLayers.Text = "Obiekty";
-            // 
-            // trvComposites
-            // 
-            this.trvComposites.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trvComposites.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.trvComposites.Location = new System.Drawing.Point(3, 16);
-            this.trvComposites.Name = "trvComposites";
-            this.trvComposites.Size = new System.Drawing.Size(203, 229);
-            this.trvComposites.TabIndex = 0;
-            // 
             // SettingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.Controls.Add(this.gbxLayers);
             this.Controls.Add(this.gbxScale);
             this.Name = "SettingsView";
             this.Size = new System.Drawing.Size(209, 314);
             this.gbxScale.ResumeLayout(false);
             this.gbxScale.PerformLayout();
-            this.gbxLayers.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -158,7 +132,5 @@
         private System.Windows.Forms.ComboBox cmbDrawUnit;
         private System.Windows.Forms.Label lblDrawUnit;
         private System.Windows.Forms.GroupBox gbxScale;
-        private System.Windows.Forms.GroupBox gbxLayers;
-        private System.Windows.Forms.TreeView trvComposites;
     }
 }

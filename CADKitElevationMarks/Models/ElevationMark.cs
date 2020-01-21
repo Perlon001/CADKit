@@ -13,12 +13,14 @@ using CADProxy.Extensions;
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
 using ZwSoft.ZwCAD.EditorInput;
+using ZwSoft.ZwCAD.ApplicationServices;
 #endif
 
 #if AutoCAD
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.EditorInput;
+using Autodesk.AutoCAD.ApplicationServices;
 #endif
 
 namespace CADKitElevationMarks.Models
@@ -30,6 +32,9 @@ namespace CADKitElevationMarks.Models
         protected IEnumerable<Entity> entityList;
         protected string index = "";
         protected string blockName;
+        protected bool isMarkCreateRunning = false;
+        private EntitiesSet entitiesSet;
+
 
         public abstract DrawingStandards DrawingStandard { get; }
         public abstract MarkTypes MarkType { get; }
@@ -40,7 +45,7 @@ namespace CADKitElevationMarks.Models
 
         public abstract void CreateEntityList();
 
-        public virtual void Create(EntitiesSet _entitiesSet)
+        protected virtual void CreateMark()
         {
             var variables = SystemVariableService.GetActualSystemVariables();
             try
@@ -50,7 +55,7 @@ namespace CADKitElevationMarks.Models
                 if (basePoint.Status == PromptStatus.OK)
                 {
                     value = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
-                    PersistEntities(_entitiesSet);
+                    PersistEntities();
                 }
             }
             catch (Exception ex)
@@ -64,7 +69,36 @@ namespace CADKitElevationMarks.Models
             }
         }
 
-        protected void PersistEntities(EntitiesSet _entitiesSet)
+        public void Create(EntitiesSet _entitiesSet)
+        {
+            entitiesSet = _entitiesSet;
+            // TODO: mayby check actual environment settings
+            var cmdActive = Convert.ToInt32(ProxyCAD.GetSystemVariable("CMDACTIVE"));
+            if(cmdActive > 0)
+            {
+                isMarkCreateRunning = true;
+                ProxyCAD.Document.CommandCancelled += CommandCancelled;
+                ProxyCAD.CancelRunningCommand();
+            }
+            else
+            {
+                Application.MainWindow.Focus();
+                CreateMark();
+            }
+        }
+
+        private void CommandCancelled(object sender, CommandEventArgs e)
+        {
+            if (isMarkCreateRunning)
+            {
+                isMarkCreateRunning = false;
+                ProxyCAD.Document.CommandCancelled -= CommandCancelled;
+                Application.MainWindow.Focus();
+                CreateMark();
+            }
+        }
+
+        protected void PersistEntities()
         {
             using (ProxyCAD.Document.LockDocument())
             {
@@ -73,7 +107,7 @@ namespace CADKitElevationMarks.Models
                 var result = ProxyCAD.Editor.Drag(jig);
                 if (result.Status == PromptStatus.OK)
                 {
-                    switch (_entitiesSet)
+                    switch (entitiesSet)
                     {
                         case EntitiesSet.Group:
                             var entities = jig.GetEntity();
