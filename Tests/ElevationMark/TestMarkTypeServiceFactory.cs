@@ -44,9 +44,9 @@ namespace Tests.ElevationMark
             //arrange
             MarkTypeServiceFactory serviceFactory = new MarkTypeServiceFactory();
             //act 
-            IMarkTypeService service = serviceFactory.GetMarkTypeService(DrawingStandards.CADKit);
+            IMarkTypeService service = serviceFactory.GetMarkTypeService(DrawingStandards.Std01);
             //assert
-            Assert.IsType<MarkTypeServiceCADKit>(service);
+            Assert.IsType<MarkTypeServiceStd01>(service);
         }
 
         [Fact]

@@ -39,14 +39,14 @@ namespace Tests.ElevationMark
         }
 
         [Fact]
-        public void icon_service_factory_return_IconServiceCADKit()
+        public void icon_service_factory_return_IconServiceStd01()
         {
             //arrange
             IconServiceFactory serviceFactory = new IconServiceFactory();
             //act 
-            IIconService service = serviceFactory.GetIconService(DrawingStandards.CADKit);
+            IIconService service = serviceFactory.GetIconService(DrawingStandards.Std01);
             //assert
-            Assert.IsType<IconServiceCADKit>(service);
+            Assert.IsType<IconServiceStd01>(service);
         }
 
         [Fact]
@@ -59,5 +59,17 @@ namespace Tests.ElevationMark
             //assert
             Assert.IsType<IconServicePNB01025>(service);
         }
+
+        [Fact]
+        public void icon_service_factory_return_IconServiceDefault()
+        {
+            //arrange
+            IconServiceFactory serviceFactory = new IconServiceFactory();
+            //act 
+            IIconService service = serviceFactory.GetIconService(DrawingStandards.Std02);
+            //assert
+            Assert.IsType<IconServiceDefault>(service);
+        }
+
     }
 }

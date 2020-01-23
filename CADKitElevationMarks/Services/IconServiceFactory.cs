@@ -1,6 +1,7 @@
-﻿using CADKit.Models;
+﻿using CADKit;
+using CADKit.Models;
 using CADKitElevationMarks.Contracts.Services;
-using System;
+using Autofac;
 
 namespace CADKitElevationMarks.Services
 {
@@ -8,15 +9,20 @@ namespace CADKitElevationMarks.Services
     {
         public IIconService GetIconService(DrawingStandards _standard)
         {
-            switch (_standard)
+            using(var scope = DI.Container.BeginLifetimeScope())
             {
-                case DrawingStandards.PNB01025:
-                    return new IconServicePNB01025();
-                case DrawingStandards.CADKit:
-                    return new IconServiceCADKit();
-                default:
-                    throw new NotSupportedException("Nie zaimplementowany standard " + _standard.ToString());
+                switch (_standard)
+                {
+                    case DrawingStandards.PNB01025:
+                        return scope.Resolve<IIconServicePNB01025>();
+                    case DrawingStandards.Std01:
+                        return scope.Resolve<IIconServiceStd01>();
+                    default:
+                        return scope.Resolve<IIconServiceDefault>();
+                }
             }
+
+
         }
     }
 }

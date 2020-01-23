@@ -16,7 +16,7 @@ namespace Tests.ElevationMark
         [Fact]
         public void mark_type_service_get_marks_return_mark_type()
         {
-            IMarkTypeService service = new MarkTypeServiceCADKit();
+            IMarkTypeService service = new MarkTypeServiceStd01();
             Type type = service.GetMarkType(1);
             
             Assert.Equal(Type.GetType("CADKitElevationMarks.Models.ConstructionElevationMarkCADKit"),type);

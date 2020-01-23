@@ -12,8 +12,10 @@ namespace CADKitElevationMarks.Services
             {
                 case DrawingStandards.PNB01025:
                     return new MarkTypeServicePNB01025();
-                case DrawingStandards.CADKit:
-                    return new MarkTypeServiceCADKit();
+                case DrawingStandards.Std01:
+                    return new MarkTypeServiceStd01();
+                case DrawingStandards.Std02:
+                    return new MarkTypeServiceStd02();
                 default:
                     throw new NotSupportedException("Nie obsługiwany standard " + _standard.ToString());
             }

@@ -19,9 +19,9 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class FinishElevationMarkCADKit : ElevationMark
+    public class FinishElevationMarkStd01 : ElevationMark
     {
-        public override DrawingStandards DrawingStandard { get { return DrawingStandards.CADKit; } }
+        public override DrawingStandards DrawingStandard { get { return DrawingStandards.Std01; } }
 
         public override MarkTypes MarkType { get { return MarkTypes.finish; } }
 

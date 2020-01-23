@@ -12,6 +12,7 @@ using System.Windows.Forms;
 
 namespace CADKitElevationMarks.Views
 {
+
     public partial class ElevationMarksView : BaseViewWF, IElevationMarksView
     {
         public IElevationMarksPresenter Presenter { get; set; }
@@ -22,7 +23,8 @@ namespace CADKitElevationMarks.Views
             rbxGroup.Checked = true;
         }
 
-        public event BeginCreateMarkEventHandler BeginCreateMark;
+        // public event BeginCreateMarkEventHandler BeginCreateMark;
+        public Action<object, BeginCreateMarkEventArgs> BeginCreateMark;
 
         public override void RegisterHandlers()
         {

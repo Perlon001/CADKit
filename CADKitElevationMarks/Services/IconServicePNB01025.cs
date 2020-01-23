@@ -16,9 +16,9 @@ namespace CADKitElevationMarks.Services
                     return Properties.Resources.mark01_32;
                 case MarkTypes.area:
                     return Properties.Resources.mark02_32;
-                default:
-                    throw new NotSupportedException("Nie obsługiwany rodzaj koty wysokościowej " + _type.ToString());
             }
+
+            return DefaultIcon;
         }
     }
 }

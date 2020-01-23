@@ -1,6 +1,6 @@
 ﻿namespace CADKitElevationMarks.Contracts.Services
 {
-    public interface IMarkTypeServiceCADKit : IMarkTypeService
+    public interface IIconServiceStd01 : IIconService
     {
     }
 }

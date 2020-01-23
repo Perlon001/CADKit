@@ -27,7 +27,7 @@ namespace CADKitElevationMarks.Presenters
             using(var scope = DI.Container.BeginLifetimeScope())
             {
                 var factory = scope.Resolve<MarkTypeServiceFactory>();
-                this.markTypeService = factory.GetMarkTypeService(_standard);
+                markTypeService = factory.GetMarkTypeService(_standard);
             }
         }
 
@@ -50,13 +50,13 @@ namespace CADKitElevationMarks.Presenters
                     {
                         View.BindDrawingStandard(st, factory.GetMarkTypeService(st).GetMarks());
                     }
-                    this.markTypeService = factory.GetMarkTypeService(View.GetDrawingStandard());
+                    markTypeService = factory.GetMarkTypeService(View.GetDrawingStandard());
                 }
                 View.RegisterHandlers();
             }
             catch (Exception ex)
             {
-                View.ShowException(ex, "Błąd ładowania widokou");
+                View.ShowException(ex, "Błąd ładowania widoku");
             }
         }
     }

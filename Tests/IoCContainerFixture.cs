@@ -15,11 +15,11 @@ namespace Tests
         {
             Assembly.LoadFrom(@"C:\Program Files\ZWSOFT\ZWCAD 2020\ZwDatabaseMgd.dll");
             Assembly.LoadFrom(@"C:\Program Files\ZWSOFT\ZWCAD 2020\ZwManaged.dll");
-            // DI.Container = Container.Builder.Build();
+            DI.Container = Container.Builder.Build();
         }
         public void Dispose()
         {
-            // DI.Container.Dispose();
+            DI.Container.Dispose();
         }
     }
 }

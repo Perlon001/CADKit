@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace CADKitElevationMarks.Services
 {
-    public class IconServiceCADKit : IconService, IIconServiceCADKit
+    public class IconServiceStd01 : IconService, IIconServiceStd01
     {
         public override Bitmap GetIcon(MarkTypes _type, IconSize _size)
         {
@@ -18,9 +18,9 @@ namespace CADKitElevationMarks.Services
                     return Properties.Resources.mark03_32;
                 case MarkTypes.area:
                     return Properties.Resources.mark05_32;
-                default:
-                    throw new NotSupportedException("Nie obsługiwany rodzaj koty wysokościowej " + _type.ToString());
             }
+
+            return DefaultIcon;
         }
     }
 }

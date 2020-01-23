@@ -21,9 +21,9 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace CADKitElevationMarks.Models
 {
-    public class PlaneElevationMarkCADKit : ElevationMark
+    public class PlaneElevationMarkStd01 : ElevationMark
     {
-        public override DrawingStandards DrawingStandard { get { return DrawingStandards.CADKit; } }
+        public override DrawingStandards DrawingStandard { get { return DrawingStandards.Std01; } }
 
         public override MarkTypes MarkType { get { return MarkTypes.area; } }
 

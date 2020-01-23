@@ -15,9 +15,9 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class ConstructionElevationMarkCADKit : FinishElevationMarkCADKit
+    public class ConstructionElevationMarkStd01 : FinishElevationMarkStd01
     {
-        public ConstructionElevationMarkCADKit() : base() { }
+        public ConstructionElevationMarkStd01() : base() { }
 
         public override MarkTypes MarkType { get { return MarkTypes.construction; } }
 
