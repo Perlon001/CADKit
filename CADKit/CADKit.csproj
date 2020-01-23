@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6A8627B4-C81A-4166-8E95-76A85661A03B}</ProjectGuid>
+    <ProjectGuid>{87E74953-1A86-4CC5-B5AE-6901611C7033}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CADKit</RootNamespace>
-    <AssemblyName>CADKitZwCAD</AssemblyName>
+    <RootNamespace>CADProxy</RootNamespace>
+    <AssemblyName>CADProxyZwCAD</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,144 +27,74 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;ZwCAD</DefineConstants>
+    <DefineConstants>TRACE;ZwCADCAD</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="acdbmgd, Version=19.1.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\dev\CSharp\Workspace\CADKit\acdbmgd.dll</HintPath>
+    <Reference Include="acdbmgd">
+      <HintPath>..\..\acdbmgd.dll</HintPath>
     </Reference>
     <Reference Include="acmgd">
-      <HintPath>..\..\..\..\..\dev\CSharp\Workspace\CADKit\acmgd.dll</HintPath>
+      <HintPath>..\..\acmgd.dll</HintPath>
     </Reference>
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="WindowsFormsIntegration" />
     <Reference Include="ZwDatabaseMgd">
       <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2020\ZwDatabaseMgd.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="ZwManaged">
       <HintPath>C:\Program Files\ZWSOFT\ZWCAD 2020\ZwManaged.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddBlockCommand.cs" />
-    <Compile Include="Autostart.cs" />
-    <Compile Include="CADKitPaletteSet.cs" />
-    <Compile Include="Commands.cs" />
-    <Compile Include="Contracts\DTO\IScaleDTO.cs" />
-    <Compile Include="Contracts\IAutostart.cs" />
-    <Compile Include="Contracts\ICompositeContainer.cs" />
-    <Compile Include="Contracts\Entities\IEnetityText.cs" />
-    <Compile Include="Contracts\Entities\IEntity.cs" />
-    <Compile Include="Contracts\Entities\IEntityHatch.cs" />
-    <Compile Include="Contracts\Entities\IEntityPline.cs" />
-    <Compile Include="Contracts\Entities\IEntityPoint.cs" />
-    <Compile Include="Contracts\IPalettePage.cs" />
-    <Compile Include="Contracts\Presenters\IPresenter.cs" />
-    <Compile Include="Contracts\IRepository.cs" />
-    <Compile Include="Contracts\IScale.cs" />
-    <Compile Include="Contracts\Presenters\ISettingsPresenter.cs" />
-    <Compile Include="Contracts\Services\IEntityConverter.cs" />
-    <Compile Include="Contracts\Views\ISettingsView.cs" />
-    <Compile Include="Contracts\IComponent.cs" />
-    <Compile Include="Contracts\Views\IView.cs" />
-    <Compile Include="Contracts\Services\ICompositeProvider.cs" />
-    <Compile Include="Contracts\Services\ICompositeService.cs" />
-    <Compile Include="DI.cs" />
-    <Compile Include="Models\CanNoScale.cs" />
-    <Compile Include="Models\Composite.cs" />
-    <Compile Include="InterfaceScheme.cs" />
-    <Compile Include="Models\IconSize.cs" />
-    <Compile Include="Services\CompositeProvider.cs" />
-    <Compile Include="Services\CompositeService.cs" />
-    <Compile Include="Services\LocalFakeCompositeProvider.cs" />
-    <Compile Include="Services\RegistrationModule.cs" />
-    <Compile Include="Utils\AttributeToDBTextConverter.cs" />
-    <Compile Include="Utils\Bulge.cs" />
-    <Compile Include="Utils\CADKitModuleContainerBuilder.cs" />
-    <Compile Include="Utils\CompositeModule.cs" />
-    <Compile Include="Models\Leaf.cs" />
-    <Compile Include="RegistrationModule.cs" />
-    <Compile Include="Services\SystemVariableService.cs" />
-    <Compile Include="Presenters\Presenter.cs" />
-    <Compile Include="Presenters\RegistrationModule.cs" />
-    <Compile Include="Presenters\SettingsPresenter.cs" />
+    <Compile Include="ApplicationServices\DocumentCollectionEventArgs.cs" />
+    <Compile Include="Contracts\ILayerService.cs" />
+    <Compile Include="Contracts\ISymbolTableService.cs" />
+    <Compile Include="Contracts\ITextStyleService.cs" />
+    <Compile Include="DatabaseServices\DBText.cs" />
+    <Compile Include="DatabaseServices\Group.cs" />
+    <Compile Include="EditorInput\PromptEditorOptions.cs" />
+    <Compile Include="EditorInput\PromptKeywordOptions.cs" />
+    <Compile Include="EditorInput\PromptOptions.cs" />
+    <Compile Include="EditorInput\PromptPointResult.cs" />
+    <Compile Include="EditorInput\PromptResult.cs" />
+    <Compile Include="Extensions\BlockReferenceExtensions.cs" />
+    <Compile Include="Extensions\BlockTableRecordExtensions.cs" />
+    <Compile Include="Extensions\DBTextExtensions.cs" />
+    <Compile Include="Extensions\EnumerableEntityExtensions.cs" />
+    <Compile Include="Extensions\GroupExtensions.cs" />
+    <Compile Include="Geometry\Point3d.cs" />
+    <Compile Include="Internal\Utils.cs" />
+    <Compile Include="Models\PaletteSet.cs" />
+    <Compile Include="PromptKeywordOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AppSettings.cs" />
-    <Compile Include="Models\DrawingEnums.cs" />
-    <Compile Include="Models\SystemVariables.cs" />
-    <Compile Include="Utils\AuthChecker.cs" />
-    <Compile Include="Utils\EnumsUtil.cs" />
-    <Compile Include="Utils\WinRegSettings.cs" />
-    <Compile Include="Views\DTO\ScaleDTO.cs" />
-    <Compile Include="Views\WF\BaseViewWF.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\WF\BaseViewWF.Designer.cs">
-      <DependentUpon>BaseViewWF.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RegistrationModule.cs" />
-    <Compile Include="Views\WF\SettingsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\WF\SettingsView.Designer.cs">
-      <DependentUpon>SettingsView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WF\TestControll.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\WF\TestControll.Designer.cs">
-      <DependentUpon>TestControll.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WPF\BaseViewWPF.xaml.cs">
-      <DependentUpon>BaseViewWPF.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="CommandXDataContextMenuTest.cs" />
+    <Compile Include="ProxyCAD.cs" />
+    <Compile Include="Extensions\DatabaseExtensions.cs" />
+    <Compile Include="RegistrationModule.cs" />
+    <Compile Include="Runtime\CommandMethodAttribute.cs" />
+    <Compile Include="Runtime\IExtensionApplication.cs" />
+    <Compile Include="Runtime\WrapperAttribute.cs" />
+    <Compile Include="SymbolTableServices\LayerService.cs" />
+    <Compile Include="SymbolTableServices\SymbolTableService.cs" />
+    <Compile Include="SymbolTableServices\TextStyleService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CADKit.ServiceCAD\CADProxy.csproj">
-      <Project>{87e74953-1a86-4cc5-b5ae-6901611c7033}</Project>
-      <Name>CADProxy</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\WPF\BaseViewWPF.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\WF\SettingsView.resx">
-      <DependentUpon>SettingsView.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\WF\TestControll.resx">
-      <DependentUpon>TestControll.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>rem del $(OutDir)CADKitElevationMarksZwCAD.dll</PreBuildEvent>
-  </PropertyGroup>
 </Project>

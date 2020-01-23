@@ -57,13 +57,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CADKit.ServiceCAD\CADProxy.csproj">
-      <Project>{87E74953-1A86-4CC5-B5AE-6901611C7033}</Project>
-      <Name>CADProxy</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CADKit\CADKit.csproj">
-      <Project>{6a8627b4-c81a-4166-8e95-76a85661a03b}</Project>
+      <Project>{87E74953-1A86-4CC5-B5AE-6901611C7033}</Project>
       <Name>CADKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CADKitBasic\CADKitBasic.csproj">
+      <Project>{6a8627b4-c81a-4166-8e95-76a85661a03b}</Project>
+      <Name>CADKitBasic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

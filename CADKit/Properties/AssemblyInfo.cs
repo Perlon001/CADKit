@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CADKit")]
+[assembly: AssemblyTitle("CADKit.ServiceCAD")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CADKit")]
+[assembly: AssemblyProduct("CADKit.ServiceCAD")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6a8627b4-c81a-4166-8e95-76a85661a03b")]
+[assembly: Guid("87e74953-1a86-4cc5-b5ae-6901611c7033")]
 
 // Version information for an assembly consists of the following four values:
 //

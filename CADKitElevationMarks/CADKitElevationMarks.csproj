@@ -124,13 +124,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CADKit.ServiceCAD\CADProxy.csproj">
-      <Project>{87E74953-1A86-4CC5-B5AE-6901611C7033}</Project>
-      <Name>CADProxy</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CADKit\CADKit.csproj">
-      <Project>{6A8627B4-C81A-4166-8E95-76A85661A03B}</Project>
+      <Project>{87E74953-1A86-4CC5-B5AE-6901611C7033}</Project>
       <Name>CADKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CADKitBasic\CADKitBasic.csproj">
+      <Project>{6A8627B4-C81A-4166-8E95-76A85661A03B}</Project>
+      <Name>CADKitBasic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

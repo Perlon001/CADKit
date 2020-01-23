@@ -1,23 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29503.13
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKit", "CADKit\CADKit.csproj", "{6A8627B4-C81A-4166-8E95-76A85661A03B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E5603DE-E6BA-4441-8CFF-59246AC6E836}"
 	ProjectSection(SolutionItems) = preProject
 		CADKit.lsp = CADKit.lsp
 		CADKit.scr = CADKit.scr
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{8B3E7F98-D405-4676-B800-BF13594294B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKit", "CADKit\CADKit.csproj", "{87E74953-1A86-4CC5-B5AE-6901611C7033}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKitBasic", "CADKitBasic\CADKitBasic.csproj", "{6A8627B4-C81A-4166-8E95-76A85661A03B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKitElevationMarks", "CADKitElevationMarks\CADKitElevationMarks.csproj", "{E1AAD522-CB31-48AD-82B5-970CCA353EAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKit.Database", "CADKit.Database\CADKit.Database.csproj", "{D0E38B2E-8972-4C29-B812-F4B2F37BA210}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADProxy", "CADKit.ServiceCAD\CADProxy.csproj", "{87E74953-1A86-4CC5-B5AE-6901611C7033}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{8B3E7F98-D405-4676-B800-BF13594294B3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKitDatabase", "CADKitDatabase\CADKitDatabase.csproj", "{D0E38B2E-8972-4C29-B812-F4B2F37BA210}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKitXData", "CADKitXData\CADKitXData.csproj", "{138A9BA1-EA1F-496A-8AD8-DBA8B23C82DD}"
 EndProject
@@ -29,6 +29,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6A8627B4-C81A-4166-8E95-76A85661A03B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6A8627B4-C81A-4166-8E95-76A85661A03B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A8627B4-C81A-4166-8E95-76A85661A03B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,10 +45,6 @@ Global
 		{D0E38B2E-8972-4C29-B812-F4B2F37BA210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0E38B2E-8972-4C29-B812-F4B2F37BA210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0E38B2E-8972-4C29-B812-F4B2F37BA210}.Release|Any CPU.Build.0 = Release|Any CPU
-		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{87E74953-1A86-4CC5-B5AE-6901611C7033}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8B3E7F98-D405-4676-B800-BF13594294B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8B3E7F98-D405-4676-B800-BF13594294B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B3E7F98-D405-4676-B800-BF13594294B3}.Release|Any CPU.ActiveCfg = Release|Any CPU

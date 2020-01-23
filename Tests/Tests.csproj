@@ -104,21 +104,21 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\CADKit.Database\CADKit.Database.csproj">
+    <ProjectReference Include="..\CADKitDatabase\CADKitDatabase.csproj">
       <Project>{d0e38b2e-8972-4c29-b812-f4b2f37ba210}</Project>
-      <Name>CADKit.Database</Name>
+      <Name>CADKitDatabase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CADKit.ServiceCAD\CADProxy.csproj">
+    <ProjectReference Include="..\CADKit\CADKit.csproj">
       <Project>{87e74953-1a86-4cc5-b5ae-6901611c7033}</Project>
-      <Name>CADProxy</Name>
+      <Name>CADKit</Name>
     </ProjectReference>
     <ProjectReference Include="..\CADKitElevationMarks\CADKitElevationMarks.csproj">
       <Project>{e1aad522-cb31-48ad-82b5-970cca353eaf}</Project>
       <Name>CADKitElevationMarks</Name>
     </ProjectReference>
-    <ProjectReference Include="..\CADKit\CADKit.csproj">
+    <ProjectReference Include="..\CADKitBasic\CADKitBasic.csproj">
       <Project>{6a8627b4-c81a-4166-8e95-76a85661a03b}</Project>
-      <Name>CADKit</Name>
+      <Name>CADKitBasic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
