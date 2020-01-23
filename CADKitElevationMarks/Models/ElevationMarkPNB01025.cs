@@ -1,10 +1,11 @@
-﻿using CADKit;
-using CADKit.Models;
-using CADKit.Utils;
-using CADProxy;
+﻿using CADKitBasic;
+using CADKitBasic.Models;
+using CADKitBasic.Utils;
+using CADKit;
 using System;
 using System.Collections.Generic;
-using CADProxy.Extensions;
+using CADKit.Extensions;
+using CADKit.Proxy;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -34,7 +35,7 @@ namespace CADKitElevationMarks.Models
             var pl2 = new Polyline();
 
             txt1.SetDatabaseDefaults();
-            txt1.TextStyle = ProxyCAD.Database.Textstyle;
+            txt1.TextStyle = CADProxy.Database.Textstyle;
             txt1.HorizontalMode = TextHorizontalMode.TextLeft;
             txt1.VerticalMode = TextVerticalMode.TextVerticalMid;
             txt1.ColorIndex = 7;
@@ -58,7 +59,7 @@ namespace CADKitElevationMarks.Models
             }
             en.Add(pl1);
 
-            var textArea = ProxyCAD.GetTextArea(ProxyCAD.ToDBText(txt1));
+            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(txt1));
             pl2.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl2.AddVertexAt(0, new Point2d(0, 3), 0, 0, 0);
             pl2.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X, 3), 0, 0, 0);
@@ -89,7 +90,7 @@ namespace CADKitElevationMarks.Models
 
         private void AddHatchingArrow(IList<Entity> entity)
         {
-            using (var transaction = ProxyCAD.Database.TransactionManager.StartTransaction())
+            using (var transaction = CADProxy.Database.TransactionManager.StartTransaction())
             {
                 var polyline = new Polyline();
                 polyline.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
@@ -97,7 +98,7 @@ namespace CADKitElevationMarks.Models
                 polyline.AddVertexAt(0, new Point2d(0, 1.5), 0, 0, 0);
                 polyline.Closed = true;
 
-                var blockTableRecord = transaction.GetObject(ProxyCAD.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+                var blockTableRecord = transaction.GetObject(CADProxy.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
                 var objIds = new ObjectIdCollection()
                 {
                     blockTableRecord.AppendEntity(polyline)

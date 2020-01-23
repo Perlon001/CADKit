@@ -1,7 +1,7 @@
-﻿using CADKit.Contracts;
+﻿using CADKitBasic.Contracts;
 using System;
 
-namespace CADKit.Models
+namespace CADKitBasic.Models
 {
     public class CanNoScale : IScale
     {

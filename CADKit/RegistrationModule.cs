@@ -1,6 +1,5 @@
 ﻿using Autofac;
-using CADProxy.Contracts;
-using CADProxy.SymbolTableServices;
+using CADKit.Contracts;
 using System;
 
 #if ZwCAD
@@ -11,7 +10,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 using Autodesk.AutoCAD.DatabaseServices;
 #endif
 
-namespace CADProxy
+namespace CADKit
 {
     public class RegistrationModule : Module
     {
@@ -23,6 +22,20 @@ namespace CADProxy
                 .AssignableTo<ISymbolTableService<SymbolTable>>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
+
+            builder
+                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .AssignableTo<IPresenter>()
+                .InstancePerLifetimeScope()
+                .AsImplementedInterfaces();
+
+            builder
+                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .AssignableTo<IView>()
+                .InstancePerLifetimeScope()
+                .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies)
+                .AsImplementedInterfaces();
+
         }
     }
 }

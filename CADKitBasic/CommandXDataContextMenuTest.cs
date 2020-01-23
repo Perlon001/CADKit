@@ -7,7 +7,7 @@ using ZwSoft.ZwCAD.Geometry;
 using ZwSoft.ZwCAD.Runtime;
 using ZwSoft.ZwCAD.Windows;
 
-namespace CADKit
+namespace CADKitBasic
 {
     public class CommandXDataContextMenuTest
     {

@@ -1,8 +1,7 @@
-﻿using CADKit.Models;
-using CADKitElevationMarks.Contracts.Services;
+﻿using CADKitElevationMarks.Contracts.Services;
+using CADKitElevationMarks.Models;
 using CADKitElevationMarks.Services;
 using NSubstitute;
-using System;
 using Xunit;
 
 namespace Tests.ElevationMark

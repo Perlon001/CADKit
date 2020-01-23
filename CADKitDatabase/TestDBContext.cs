@@ -1,11 +1,11 @@
-﻿using CADKit.Database.Entity;
+﻿using CADKitBasic.Database.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKit.Database
+namespace CADKitBasic.Database
 {
     public class TestDBContext
     {

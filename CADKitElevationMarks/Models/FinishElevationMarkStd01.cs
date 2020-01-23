@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-using CADProxy;
-using CADKit.Utils;
+using CADKit;
+using CADKitBasic.Utils;
 using CADKitElevationMarks.Contracts;
-using CADKit.Models;
-using CADProxy.Extensions;
+using CADKitBasic.Models;
+using CADKit.Extensions;
+using CADKit.Proxy;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -31,7 +32,7 @@ namespace CADKitElevationMarks.Models
 
             var txt1 = new AttributeDefinition();
             txt1.SetDatabaseDefaults();
-            txt1.TextStyle = ProxyCAD.Database.Textstyle;
+            txt1.TextStyle = CADProxy.Database.Textstyle;
             txt1.HorizontalMode = TextHorizontalMode.TextRight;
             txt1.VerticalMode = TextVerticalMode.TextVerticalMid;
             txt1.ColorIndex = 7;
@@ -46,7 +47,7 @@ namespace CADKitElevationMarks.Models
             
             var txt2 = new AttributeDefinition();
             txt2.SetDatabaseDefaults();
-            txt2.TextStyle = ProxyCAD.Database.Textstyle;
+            txt2.TextStyle = CADProxy.Database.Textstyle;
             txt2.HorizontalMode = TextHorizontalMode.TextLeft;
             txt2.VerticalMode = TextVerticalMode.TextVerticalMid;
             txt2.ColorIndex = 7;
@@ -59,7 +60,7 @@ namespace CADKitElevationMarks.Models
             txt2.TextString = value.Value;
             en.Add(txt2);
 
-            var textArea = ProxyCAD.GetTextArea(ProxyCAD.ToDBText(txt2));
+            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(txt2));
             var pl1 = new Polyline();
             pl1.AddVertexAt(0, new Point2d(0, 5.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);

@@ -1,8 +1,8 @@
-﻿using CADKit.Database.Entity;
+﻿using CADKitBasic.Database.Entity;
 using SQLite.CodeFirst;
 using System.Data.Entity;
 
-namespace CADKit.Database
+namespace CADKitBasic.Database
 {
     public class CADKitDbInitializer : SqliteCreateDatabaseIfNotExists<CADKitMigrationDbContext>
     {

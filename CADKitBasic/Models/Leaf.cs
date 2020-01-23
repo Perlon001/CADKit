@@ -1,6 +1,6 @@
-﻿using CADKit.Contracts;
+﻿using CADKitBasic.Contracts;
 
-namespace CADKit.Models
+namespace CADKitBasic.Models
 {
     public class Leaf : IComponent
     {

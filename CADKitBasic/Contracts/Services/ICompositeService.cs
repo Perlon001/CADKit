@@ -1,7 +1,7 @@
-﻿using CADKit.Models;
+﻿using CADKitBasic.Models;
 using System.Collections.Generic;
 
-namespace CADKit.Contracts.Services
+namespace CADKitBasic.Contracts.Services
 {
     public interface ICompositeService
     {

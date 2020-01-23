@@ -1,4 +1,4 @@
-﻿using CADKit.Utils;
+﻿using CADKitBasic.Utils;
 using System.Collections.Generic;
 
 #if ZwCAD

@@ -1,7 +1,7 @@
-﻿using CADKit.Contracts;
-using CADKit.Contracts.Services;
-using CADKit.Models;
-using CADKit.Services;
+﻿using CADKitBasic.Contracts;
+using CADKitBasic.Contracts.Services;
+using CADKitBasic.Models;
+using CADKitBasic.Services;
 using NSubstitute;
 using System;
 using System.Collections.Generic;

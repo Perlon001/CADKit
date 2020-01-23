@@ -1,8 +1,8 @@
-﻿using CADKit;
-using CADKit.Contracts.Services;
-using CADProxy;
+﻿using CADKitBasic.Contracts.Services;
+using CADKit;
 using System;
 using System.Collections.Generic;
+using CADKit.Proxy;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -75,7 +75,7 @@ namespace CADKitElevationMarks.Models
             }
             catch (Exception ex)
             {
-                ProxyCAD.Editor.WriteMessage(ex.Message);
+                CADProxy.Editor.WriteMessage(ex.Message);
                 return false;
             }
         }
@@ -87,11 +87,11 @@ namespace CADKitElevationMarks.Models
             {
                 if (e.GetType() == typeof(DBText))
                 {
-                    var textArea = ProxyCAD.GetTextArea(e as DBText);
+                    var textArea = CADProxy.GetTextArea(e as DBText);
                     textWidth += textArea[1].X - textArea[0].X;
                 }
             }
-            using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+            using (var tr = CADProxy.Document.TransactionManager.StartTransaction())
             {
                 foreach (var e in entityList)
                 {
@@ -125,7 +125,7 @@ namespace CADKitElevationMarks.Models
 
         private void HorizontalMirroring()
         {
-            using (var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+            using (var tr = CADProxy.Document.TransactionManager.StartTransaction())
             {
                 foreach (var e in entityList)
                 {

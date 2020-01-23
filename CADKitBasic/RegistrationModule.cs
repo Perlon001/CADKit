@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace CADKit
+namespace CADKitBasic
 {
     public class RegistrationModule : Module
     {

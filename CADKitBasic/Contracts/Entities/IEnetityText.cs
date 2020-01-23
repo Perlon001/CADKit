@@ -5,7 +5,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 using Autodesk.AutoCAD.DatabaseServices;
 #endif
 
-namespace CADKit.Contracts.Entities
+namespace CADKitBasic.Contracts.Entities
 {
     public interface IEntityText : IEntity
     {

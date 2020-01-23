@@ -1,10 +1,10 @@
-﻿using CADKit.Database.Entity;
+﻿using CADKitBasic.Database.Entity;
 using System.Data.Common;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 
-namespace CADKit.Database
+namespace CADKitBasic.Database
 {
     public class CADKitMigrationDbContext : DbContext
     {

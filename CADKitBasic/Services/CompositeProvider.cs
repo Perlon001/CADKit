@@ -1,8 +1,8 @@
-﻿using CADKit.Contracts.Services;
-using CADKit.Models;
+﻿using CADKitBasic.Contracts.Services;
+using CADKitBasic.Models;
 using System.Collections.Generic;
 
-namespace CADKit.Services
+namespace CADKitBasic.Services
 {
     public abstract class CompositeProvider : ICompositeProvider
     {

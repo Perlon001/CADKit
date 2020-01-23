@@ -3,7 +3,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
 using ZwSoft.ZwCAD.Runtime;
 
-namespace CADKit
+namespace CADKitBasic
 {
     public class AddBlockCommand
     {

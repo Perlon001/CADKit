@@ -1,9 +1,9 @@
-﻿using CADKit.Contracts;
+﻿using CADKitBasic.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CADKit.Models
+namespace CADKitBasic.Models
 {
     public class Composite : IComponent
     {

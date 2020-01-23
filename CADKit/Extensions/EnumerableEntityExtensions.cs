@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CADKit.Proxy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,7 +15,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 #endif
 
-namespace CADProxy.Extensions
+namespace CADKit.Extensions
 {
     public static class EnumerableEntityExtensions
     {
@@ -38,9 +39,9 @@ namespace CADProxy.Extensions
 
         public static void StoreToDatabase(this IEnumerable<Entity> _entities)
         {
-            using(var tr = ProxyCAD.Document.TransactionManager.StartTransaction())
+            using(var tr = CADProxy.Document.TransactionManager.StartTransaction())
             {
-                var doc = ProxyCAD.Document;
+                var doc = CADProxy.Document;
                 var btr = tr.GetObject(doc.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
                 foreach (var e in _entities)
                 {
@@ -67,7 +68,7 @@ namespace CADProxy.Extensions
                     Entity ent;
                     if (e.GetType().Equals(typeof(AttributeDefinition)))
                     {
-                        ent = ProxyCAD.ToDBText((AttributeDefinition)e);
+                        ent = CADProxy.ToDBText((AttributeDefinition)e);
                     }
                     else
                     {

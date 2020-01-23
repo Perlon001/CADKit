@@ -1,4 +1,4 @@
-﻿namespace CADKit.Utils
+﻿namespace CADKitBasic.Utils
 {
     public abstract class CompositeModule
     {

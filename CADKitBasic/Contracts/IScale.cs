@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CADKit.Contracts
+namespace CADKitBasic.Contracts
 {
     public interface IScale
     {

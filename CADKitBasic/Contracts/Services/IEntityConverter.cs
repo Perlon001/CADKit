@@ -8,7 +8,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 using Autodesk.AutoCAD.DatabaseServices;
 #endif
 
-namespace CADKit.Contracts.Services
+namespace CADKitBasic.Contracts.Services
 {
     public interface IEntityConverter
     {

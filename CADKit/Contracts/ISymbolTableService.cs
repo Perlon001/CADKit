@@ -8,7 +8,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 using Autodesk.AutoCAD.DatabaseServices;
 #endif
 
-namespace CADProxy.Contracts
+namespace CADKit.Contracts
 {
     public interface ISymbolTableService<TTable> where TTable : SymbolTable
     {

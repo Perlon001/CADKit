@@ -1,4 +1,4 @@
-﻿namespace CADKit.Database.Entity
+﻿namespace CADKitBasic.Database.Entity
 {
     interface IEntity
     {

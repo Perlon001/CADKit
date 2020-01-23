@@ -1,10 +1,10 @@
-﻿using CADKit.Contracts.DTO;
-using CADKit.Contracts.Presenters;
-using CADKit.Contracts.Views;
+﻿using CADKit.Contracts;
 using CADKit.Models;
+using CADKitBasic.Contracts.DTO;
+using CADKitBasic.Contracts.Presenters;
 using System.Collections.Generic;
 
-namespace CADKit.Contracts
+namespace CADKitBasic.Contracts
 {
     public interface ISettingsView : IView
     {

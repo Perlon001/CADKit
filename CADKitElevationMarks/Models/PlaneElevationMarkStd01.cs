@@ -1,11 +1,12 @@
-﻿using CADKit.Models;
-using CADKit.Services;
-using CADKit.Utils;
-using CADProxy;
+﻿using CADKitBasic.Models;
+using CADKitBasic.Services;
+using CADKitBasic.Utils;
+using CADKit;
 using System.Collections.Generic;
-using CADProxy.Internal;
+using CADKit.Internal;
 using System;
-using CADProxy.Extensions;
+using CADKit.Extensions;
+using CADKit.Proxy;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -33,7 +34,7 @@ namespace CADKitElevationMarks.Models
             try
             {
                 var promptOptions = new PromptStringOptions("\nRzędna wysokościowa obszaru:");
-                var textValue = ProxyCAD.Editor.GetString(promptOptions);
+                var textValue = CADProxy.Editor.GetString(promptOptions);
                 if (textValue.Status == PromptStatus.OK)
                 {
                     value = new ElevationValue(textValue.StringResult).Parse();
@@ -42,7 +43,7 @@ namespace CADKitElevationMarks.Models
             }
             catch (Exception ex)
             {
-                ProxyCAD.Editor.WriteMessage(ex.Message);
+                CADProxy.Editor.WriteMessage(ex.Message);
             }
             finally
             {
@@ -57,7 +58,7 @@ namespace CADKitElevationMarks.Models
 
             var txt1 = new AttributeDefinition();
             txt1.SetDatabaseDefaults();
-            txt1.TextStyle = ProxyCAD.Database.Textstyle;
+            txt1.TextStyle = CADProxy.Database.Textstyle;
             txt1.HorizontalMode = TextHorizontalMode.TextLeft;
             txt1.VerticalMode = TextVerticalMode.TextVerticalMid;
             txt1.ColorIndex = 7;
@@ -107,7 +108,7 @@ namespace CADKitElevationMarks.Models
         private void AddHatching(IList<Entity> en)
         {
             var hatch = new Hatch();
-            using (var tr = ProxyCAD.Database.TransactionManager.StartTransaction())
+            using (var tr = CADProxy.Database.TransactionManager.StartTransaction())
             {
                 var p1 = new Polyline();
                 p1.AddVertexAt(0, new Point2d(0, -1.5), 0, 0, 0);
@@ -116,8 +117,8 @@ namespace CADKitElevationMarks.Models
                 p1.AddVertexAt(0, new Point2d(-1.5, 0), 0, 0, 0);
                 p1.AddVertexAt(0, new Point2d(0, -1.5), Bulge.GetBulge(new Point2d(0, 0), new Point2d(-1.5, 0), new Point2d(0, -1.5)), 0, 0);
                 p1.Closed = true;
-                BlockTable bt = tr.GetObject(ProxyCAD.Database.BlockTableId, OpenMode.ForRead) as BlockTable;
-                BlockTableRecord btr = tr.GetObject(ProxyCAD.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+                BlockTable bt = tr.GetObject(CADProxy.Database.BlockTableId, OpenMode.ForRead) as BlockTable;
+                BlockTableRecord btr = tr.GetObject(CADProxy.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
                 var bdId = btr.AppendEntity(p1);
                 tr.AddNewlyCreatedDBObject(p1, true);
                 ObjectIdCollection ObjIds = new ObjectIdCollection();

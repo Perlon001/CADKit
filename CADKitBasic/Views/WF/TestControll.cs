@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CADKit.Views.WF
+namespace CADKitBasic.Views.WF
 {
     public partial class TestControll : UserControl
     {

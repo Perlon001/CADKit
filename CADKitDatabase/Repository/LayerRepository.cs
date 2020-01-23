@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKit.Database.Repository
+namespace CADKitBasic.Database.Repository
 {
     public class LayerRepository
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 
-namespace CADKit.Utils
+namespace CADKitBasic.Utils
 {
     public static class WinRegSettings
     {

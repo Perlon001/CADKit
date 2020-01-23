@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using CADProxy;
-using CADProxy.Internal;
 using CADKit;
-using CADKit.Models;
-using CADKit.Services;
+using CADKit.Internal;
+using CADKitBasic;
+using CADKitBasic.Services;
 using CADKitElevationMarks.Contracts;
 using System.Globalization;
-using CADProxy.Extensions;
+using CADKit.Extensions;
+using CADKit.Models;
+using CADKit.Proxy;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -51,7 +52,7 @@ namespace CADKitElevationMarks.Models
             try
             {
                 var promptPointOptions = new PromptPointOptions("Wskaż punkt wysokościowy:");
-                basePoint = ProxyCAD.Editor.GetPoint(promptPointOptions);
+                basePoint = CADProxy.Editor.GetPoint(promptPointOptions);
                 if (basePoint.Status == PromptStatus.OK)
                 {
                     value = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
@@ -60,7 +61,7 @@ namespace CADKitElevationMarks.Models
             }
             catch (Exception ex)
             {
-                ProxyCAD.Editor.WriteMessage(ex.Message);
+                CADProxy.Editor.WriteMessage(ex.Message);
             }
             finally
             {
@@ -73,12 +74,12 @@ namespace CADKitElevationMarks.Models
         {
             entitiesSet = _entitiesSet;
             // TODO: mayby check actual environment settings
-            var cmdActive = Convert.ToInt32(ProxyCAD.GetSystemVariable("CMDACTIVE"));
+            var cmdActive = Convert.ToInt32(CADProxy.GetSystemVariable("CMDACTIVE"));
             if(cmdActive > 0)
             {
                 isMarkCreateRunning = true;
-                ProxyCAD.Document.CommandCancelled += CommandCancelled;
-                ProxyCAD.CancelRunningCommand();
+                CADProxy.Document.CommandCancelled += CommandCancelled;
+                CADProxy.CancelRunningCommand();
             }
             else
             {
@@ -92,7 +93,7 @@ namespace CADKitElevationMarks.Models
             if (isMarkCreateRunning)
             {
                 isMarkCreateRunning = false;
-                ProxyCAD.Document.CommandCancelled -= CommandCancelled;
+                CADProxy.Document.CommandCancelled -= CommandCancelled;
                 Application.MainWindow.Focus();
                 CreateMark();
             }
@@ -100,11 +101,11 @@ namespace CADKitElevationMarks.Models
 
         protected void PersistEntities()
         {
-            using (ProxyCAD.Document.LockDocument())
+            using (CADProxy.Document.LockDocument())
             {
                 CreateEntityList();
                 var jig = GetMarkJig();
-                var result = ProxyCAD.Editor.Drag(jig);
+                var result = CADProxy.Editor.Drag(jig);
                 if (result.Status == PromptStatus.OK)
                 {
                     switch (entitiesSet)
@@ -130,9 +131,9 @@ namespace CADKitElevationMarks.Models
 
         protected void InsertMarkBlock(BlockTableRecord blockTableRecord, Point3d insertPoint)
         {
-            using (var transaction = ProxyCAD.Document.TransactionManager.StartTransaction())
+            using (var transaction = CADProxy.Document.TransactionManager.StartTransaction())
             {
-                var space = ProxyCAD.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite) as BlockTableRecord;
+                var space = CADProxy.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite) as BlockTableRecord;
                 using (var blockReference = new BlockReference(insertPoint, blockTableRecord.ObjectId))
                 {
                     blockReference.ScaleFactors = new Scale3d(AppSettings.Instance.ScaleFactor);

@@ -67,4 +67,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\CADKit\bin\Debug</PostBuildEvent>
+  </PropertyGroup>
 </Project>

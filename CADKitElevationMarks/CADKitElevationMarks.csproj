@@ -32,12 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="acdbmgd">
-      <HintPath>..\acdbmgd.dll</HintPath>
-    </Reference>
-    <Reference Include="acmgd">
-      <HintPath>..\acmgd.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
@@ -76,6 +70,7 @@
     <Compile Include="Contracts\Presenters\IElevationMarksPresenter.cs" />
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
     <Compile Include="Events\BeginMarkCreateEventHandler.cs" />
+    <Compile Include="Models\DrawingStandards.cs" />
     <Compile Include="Models\ElementsSet.cs" />
     <Compile Include="Models\ElevationMark.cs" />
     <Compile Include="Models\ElevationValue.cs" />
@@ -205,7 +200,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>rem copy $(TargetPath) $(SolutionDir)\CADKit\bin\Debug</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\CADKit\bin\Debug</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

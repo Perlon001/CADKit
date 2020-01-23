@@ -7,8 +7,8 @@
     <ProjectGuid>{6A8627B4-C81A-4166-8E95-76A85661A03B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CADKit</RootNamespace>
-    <AssemblyName>CADKitZwCAD</AssemblyName>
+    <RootNamespace>CADKitBasic</RootNamespace>
+    <AssemblyName>CADKitBasicZwCAD</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -33,13 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="acdbmgd, Version=19.1.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\dev\CSharp\Workspace\CADKit\acdbmgd.dll</HintPath>
-    </Reference>
-    <Reference Include="acmgd">
-      <HintPath>..\..\..\..\..\dev\CSharp\Workspace\CADKit\acmgd.dll</HintPath>
-    </Reference>
     <Reference Include="Autofac, Version=4.8.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.8.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
@@ -68,31 +61,24 @@
   <ItemGroup>
     <Compile Include="AddBlockCommand.cs" />
     <Compile Include="Autostart.cs" />
-    <Compile Include="CADKitPaletteSet.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Contracts\DTO\IScaleDTO.cs" />
-    <Compile Include="Contracts\IAutostart.cs" />
     <Compile Include="Contracts\ICompositeContainer.cs" />
     <Compile Include="Contracts\Entities\IEnetityText.cs" />
     <Compile Include="Contracts\Entities\IEntity.cs" />
     <Compile Include="Contracts\Entities\IEntityHatch.cs" />
     <Compile Include="Contracts\Entities\IEntityPline.cs" />
     <Compile Include="Contracts\Entities\IEntityPoint.cs" />
-    <Compile Include="Contracts\IPalettePage.cs" />
-    <Compile Include="Contracts\Presenters\IPresenter.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IScale.cs" />
     <Compile Include="Contracts\Presenters\ISettingsPresenter.cs" />
     <Compile Include="Contracts\Services\IEntityConverter.cs" />
     <Compile Include="Contracts\Views\ISettingsView.cs" />
     <Compile Include="Contracts\IComponent.cs" />
-    <Compile Include="Contracts\Views\IView.cs" />
     <Compile Include="Contracts\Services\ICompositeProvider.cs" />
     <Compile Include="Contracts\Services\ICompositeService.cs" />
-    <Compile Include="DI.cs" />
     <Compile Include="Models\CanNoScale.cs" />
     <Compile Include="Models\Composite.cs" />
-    <Compile Include="InterfaceScheme.cs" />
     <Compile Include="Models\IconSize.cs" />
     <Compile Include="Services\CompositeProvider.cs" />
     <Compile Include="Services\CompositeService.cs" />
@@ -105,24 +91,19 @@
     <Compile Include="Models\Leaf.cs" />
     <Compile Include="RegistrationModule.cs" />
     <Compile Include="Services\SystemVariableService.cs" />
-    <Compile Include="Presenters\Presenter.cs" />
-    <Compile Include="Presenters\RegistrationModule.cs" />
     <Compile Include="Presenters\SettingsPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AppSettings.cs" />
-    <Compile Include="Models\DrawingEnums.cs" />
     <Compile Include="Models\SystemVariables.cs" />
     <Compile Include="Utils\AuthChecker.cs" />
-    <Compile Include="Utils\EnumsUtil.cs" />
     <Compile Include="Utils\WinRegSettings.cs" />
+    <Compile Include="CommandXDataContextMenuTest.cs" />
     <Compile Include="Views\DTO\ScaleDTO.cs" />
-    <Compile Include="Views\WF\BaseViewWF.cs">
+    <Compile Include="Views\WF\_BaseViewWF.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\WF\BaseViewWF.Designer.cs">
-      <DependentUpon>BaseViewWF.cs</DependentUpon>
+    <Compile Include="Views\WF\_BaseViewWF.Designer.cs">
+      <DependentUpon>_BaseViewWF.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\RegistrationModule.cs" />
     <Compile Include="Views\WF\SettingsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -138,7 +119,6 @@
     <Compile Include="Views\WPF\BaseViewWPF.xaml.cs">
       <DependentUpon>BaseViewWPF.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CommandXDataContextMenuTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -149,12 +129,7 @@
       <Name>CADKit</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\WPF\BaseViewWPF.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Views\WF\SettingsView.resx">
       <DependentUpon>SettingsView.cs</DependentUpon>
@@ -164,8 +139,18 @@
       <DependentUpon>TestControll.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\WPF\BaseViewWPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>rem del $(OutDir)CADKitElevationMarksZwCAD.dll</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\CADKit\bin\Debug</PostBuildEvent>
   </PropertyGroup>
 </Project>

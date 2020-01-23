@@ -1,4 +1,4 @@
-﻿namespace CADKit.Models
+﻿namespace CADKitBasic.Models
 {
     public struct SystemVariables
     {

@@ -8,7 +8,7 @@ using ZwSoft.ZwCAD.Geometry;
 using Autodesk.AutoCAD.Geometry;
 #endif
 
-namespace CADKit.Utils
+namespace CADKitBasic.Utils
 {
     public static class Bulge
     {

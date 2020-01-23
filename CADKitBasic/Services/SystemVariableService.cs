@@ -1,21 +1,22 @@
-﻿using CADKit.Models;
-using CADProxy;
+﻿using CADKitBasic.Models;
+using CADKit;
+using CADKit.Proxy;
 
-namespace CADKit.Services
+namespace CADKitBasic.Services
 {
     public class SystemVariableService
     {
         public static SystemVariables GetActualSystemVariables()
         {
             SystemVariables variables = new SystemVariables();
-            variables.CLayer = (string)ProxyCAD.GetSystemVariable("CLayer");
+            variables.CLayer = (string)CADProxy.GetSystemVariable("CLayer");
 
             return variables;
         }
 
         public static void RestoreSystemVariables(SystemVariables variables)
         {
-            ProxyCAD.SetSystemVariable("CLayer", variables.CLayer);
+            CADProxy.SetSystemVariable("CLayer", variables.CLayer);
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using CADKit;
-using CADKit.Contracts.Services;
-using CADProxy;
-using CADProxy.Extensions;
+﻿using CADKitBasic;
+using CADKitBasic.Contracts.Services;
+using CADKit;
+using CADKit.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CADKit.Proxy;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -43,7 +44,7 @@ namespace CADKitElevationMarks.Models
             }
             entityList.TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)));
             entityList.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(_basePoint)));
-            ProxyCAD.UsingTransaction(PrepareEntity);
+            CADProxy.UsingTransaction(PrepareEntity);
         }
 
         public virtual string GetSuffix()
@@ -86,7 +87,7 @@ namespace CADKitElevationMarks.Models
             }
             catch (Exception ex)
             {
-                ProxyCAD.Editor.WriteMessage(ex.Message);
+                CADProxy.Editor.WriteMessage(ex.Message);
                 return false;
             }
         }
@@ -94,7 +95,7 @@ namespace CADKitElevationMarks.Models
         #region private methods
         private void PrepareEntity(Transaction tr)
         {
-            var btr = tr.GetObject(ProxyCAD.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
+            var btr = tr.GetObject(CADProxy.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
             foreach (var ent in entityList)
             {
                 btr.AppendEntity(ent);

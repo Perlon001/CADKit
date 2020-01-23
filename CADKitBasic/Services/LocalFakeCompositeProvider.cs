@@ -1,7 +1,7 @@
-﻿using CADKit.Contracts.Services;
-using CADKit.Models;
+﻿using CADKitBasic.Contracts.Services;
+using CADKitBasic.Models;
 
-namespace CADKit.Services
+namespace CADKitBasic.Services
 {
     public class LocalFakeCompositeProvider : CompositeProvider, ICompositeProvider
     {

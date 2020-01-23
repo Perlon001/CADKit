@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CADKit.Views.WPF
+namespace CADKitBasic.Views.WPF
 {
     /// <summary>
     /// Interaction logic for BaseViewWPF.xaml
@@ -22,7 +22,7 @@ namespace CADKit.Views.WPF
     {
         public BaseViewWPF()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
         public void ShowInfo(string content, string caption = "Informacja")
         {

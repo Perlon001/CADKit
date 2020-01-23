@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CADKit.Contracts.DTO
+namespace CADKitBasic.Contracts.DTO
 {
     public interface IScaleDTO
     {

@@ -1,13 +1,13 @@
-﻿using CADKit.Models;
-using CADKit.Services;
-using CADKit.Utils.Fluent;
+﻿using CADKitBasic.Models;
+using CADKitBasic.Services;
+using CADKitBasic.Utils.Fluent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKit.Utils
+namespace CADKitBasic.Utils
 {
     public class CADKitModuleContainerBuilder
     {

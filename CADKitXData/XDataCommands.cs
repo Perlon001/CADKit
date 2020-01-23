@@ -1,8 +1,7 @@
-﻿using CADProxy;
-using CADProxy.Runtime;
+﻿using CADKit.Runtime;
+using CADKit.Proxy;
 
 #if ZwCAD
-using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.DatabaseServices;
 #endif
 
@@ -20,14 +19,14 @@ namespace CADKitXData
         [CommandMethod("CK_XDAPPLIST")]
         public void GetXDataApplicationList()
         {
-            var doc = ProxyCAD.Document;
+            var doc = CADProxy.Document;
             using( var tr = doc.TransactionManager.StartTransaction())
             {
                 var rat = tr.GetObject(doc.Database.RegAppTableId, OpenMode.ForRead) as RegAppTable;
                 foreach(var id in rat)
                 {
                     var ratr = tr.GetObject(id, OpenMode.ForRead) as RegAppTableRecord;
-                    ProxyCAD.Editor.WriteMessage("\n"+ratr.Name);
+                    CADProxy.Editor.WriteMessage("\n"+ratr.Name);
                 }
             }
         }

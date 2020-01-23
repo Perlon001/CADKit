@@ -13,7 +13,7 @@ using ZwSoft.ZwCAD.Geometry;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 #endif
-namespace CADProxy.Extensions
+namespace CADKit.Extensions
 {
     public static class BlockReferenceExtensions
     {

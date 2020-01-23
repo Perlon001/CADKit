@@ -1,4 +1,4 @@
-﻿namespace CADKit.Views.WF
+﻿namespace CADKitBasic.Views.WF
 {
     partial class TestControll
     {

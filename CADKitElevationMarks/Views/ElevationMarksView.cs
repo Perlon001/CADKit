@@ -1,5 +1,5 @@
-﻿using CADKit.Models;
-using CADKit.Views.WF;
+﻿using CADKitBasic.Models;
+using CADKitBasic.Views.WF;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.Contracts.Views;
 using CADKitElevationMarks.DTO;
@@ -13,7 +13,7 @@ using System.Windows.Forms;
 namespace CADKitElevationMarks.Views
 {
 
-    public partial class ElevationMarksView : BaseViewWF, IElevationMarksView
+    public partial class ElevationMarksView : _BaseViewWF, IElevationMarksView
     {
         public IElevationMarksPresenter Presenter { get; set; }
 

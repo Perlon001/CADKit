@@ -1,13 +1,14 @@
-﻿using CADKit.Models;
-using CADKit.Services;
-using CADKit.Utils;
+﻿using CADKitBasic.Models;
+using CADKitBasic.Services;
+using CADKitBasic.Utils;
 using CADKitElevationMarks.Contracts;
-using CADProxy;
-using CADProxy.Internal;
+using CADKit;
+using CADKit.Internal;
 
 using System;
 using System.Collections.Generic;
-using CADProxy.Extensions;
+using CADKit.Extensions;
+using CADKit.Proxy;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -35,7 +36,7 @@ namespace CADKitElevationMarks.Models
             try
             {
                 var promptOptions = new PromptStringOptions("\nRzędna wysokościowa obszaru:");
-                var textValue = ProxyCAD.Editor.GetString(promptOptions);
+                var textValue = CADProxy.Editor.GetString(promptOptions);
                 if (textValue.Status == PromptStatus.OK)
                 {
                     value = new ElevationValue(textValue.StringResult).Parse();
@@ -44,7 +45,7 @@ namespace CADKitElevationMarks.Models
             }
             catch (Exception ex)
             {
-                ProxyCAD.Editor.WriteMessage(ex.Message);
+                CADProxy.Editor.WriteMessage(ex.Message);
             }
             finally
             {
@@ -59,7 +60,7 @@ namespace CADKitElevationMarks.Models
 
             var txt1 = new AttributeDefinition();
             txt1.SetDatabaseDefaults();
-            txt1.TextStyle = ProxyCAD.Database.Textstyle;
+            txt1.TextStyle = CADProxy.Database.Textstyle;
             txt1.HorizontalMode = TextHorizontalMode.TextLeft;
             txt1.VerticalMode = TextVerticalMode.TextVerticalMid;
             txt1.ColorIndex = 7;
@@ -78,7 +79,7 @@ namespace CADKitElevationMarks.Models
             var l2 = new Line(new Point3d(-1.5, 1.5, 0), new Point3d(1.5, -1.5, 0));
             en.Add(l2);
 
-            var textArea = ProxyCAD.GetTextArea(ProxyCAD.ToDBText(txt1));
+            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(txt1));
             var l3 = new Line(new Point3d(0, 0, 0), new Point3d(textArea[1].X - textArea[0].X + 2, 0, 0));
             en.Add(l3);
 

@@ -1,6 +1,7 @@
-﻿using CADKit.Contracts.Services;
-using CADProxy;
+﻿using CADKitBasic.Contracts.Services;
+using CADKit;
 using System.Collections.Generic;
+using CADKit.Proxy;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -10,7 +11,7 @@ using ZwSoft.ZwCAD.DatabaseServices;
 using Autodesk.AutoCAD.DatabaseServices;
 #endif
 
-namespace CADKit.Utils
+namespace CADKitBasic.Utils
 {
     public class AttributeToDBTextConverter : IEntityConverter
     {
@@ -21,7 +22,7 @@ namespace CADKit.Utils
             {
                 if (true && item.GetType().Equals(typeof(AttributeDefinition)))
                 {
-                    result.Add(ProxyCAD.ToDBText((AttributeDefinition)item));
+                    result.Add(CADProxy.ToDBText((AttributeDefinition)item));
                 }
                 else
                 {

@@ -1,9 +1,10 @@
-﻿using CADKit.Models;
+﻿using CADKitBasic.Models;
 using System;
 using System.Collections.Generic;
-using CADKit.Utils;
-using CADProxy;
-using CADProxy.Runtime;
+using CADKitBasic.Utils;
+using CADKit;
+using CADKit.Runtime;
+using CADKit.Extensions;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.EditorInput;
@@ -13,7 +14,7 @@ using ZwSoft.ZwCAD.EditorInput;
 using Autodesk.AutoCAD.EditorInput;
 #endif
 
-namespace CADKit
+namespace CADKitBasic
 {
     public class Commands
     {
@@ -21,32 +22,32 @@ namespace CADKit
         // na podstawie zmiennej systemowej (na razie nie mam pomysłu jakiej) lub na podstawie zdefiniowanej zmiennej globalnej lub AppSettings
         // na razie jest wersja prosta czyli linia komend
         // w przyszlosci do refaktoryzacji
-        [CommandMethod("CKUNR")]
-        public void SetDrawingStandard()
-        {
-            // TODO: Lepiej gdyby slownik byl budowany na zewnatrz i gotowy dostarczony metodzie
-            // w przyszlosci do refaktoryzacji
-            Dictionary<DrawingStandards, string> drawingStandards = new Dictionary<DrawingStandards, string>();
-            foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
-            {
-                drawingStandards.Add((DrawingStandards)item, item.ToString().Replace('_', '-'));
-            }
-            PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nNorma rysunkowa:")
-            {
-                AllowNone = true
-            };
-            foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
-            {
-                keyOptions.Keywords.Add(item.ToString().Replace('_', '-'));
-            }
-            keyOptions.Keywords.Default = AppSettings.Instance.DrawingStandard.ToString().Replace('_', '-');
-            PromptResult keyResult = ProxyCAD.Editor.GetKeywords(keyOptions);
-            if (keyResult.Status == PromptStatus.OK)
-            {
-                AppSettings.Instance.DrawingStandard = EnumsUtil.GetEnum<DrawingStandards>(keyResult.StringResult.Replace('-', '_'), AppSettings.Instance.DrawingStandard);
-            }
-            ProxyCAD.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[AppSettings.Instance.DrawingStandard]}\n");
-        }
+        //[CommandMethod("CKUNR")]
+        //public void SetDrawingStandard()
+        //{
+        //    // TODO: Lepiej gdyby slownik byl budowany na zewnatrz i gotowy dostarczony metodzie
+        //    // w przyszlosci do refaktoryzacji
+        //    Dictionary<DrawingStandards, string> drawingStandards = new Dictionary<DrawingStandards, string>();
+        //    foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
+        //    {
+        //        drawingStandards.Add((DrawingStandards)item, item.ToString().Replace('_', '-'));
+        //    }
+        //    PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nNorma rysunkowa:")
+        //    {
+        //        AllowNone = true
+        //    };
+        //    foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
+        //    {
+        //        keyOptions.Keywords.Add(item.ToString().Replace('_', '-'));
+        //    }
+        //    keyOptions.Keywords.Default = AppSettings.Instance.DrawingStandard.ToString().Replace('_', '-');
+        //    PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
+        //    if (keyResult.Status == PromptStatus.OK)
+        //    {
+        //        AppSettings.Instance.DrawingStandard = EnumsUtil.GetEnum<DrawingStandards>(keyResult.StringResult.Replace('-', '_'), AppSettings.Instance.DrawingStandard);
+        //    }
+        //    CADProxy.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[AppSettings.Instance.DrawingStandard]}\n");
+        //}
 
         //[CommandMethod("CK_UJR")]
         //public void SetDrawingUnits()

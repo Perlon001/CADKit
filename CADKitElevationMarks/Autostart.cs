@@ -1,12 +1,17 @@
 ﻿using Autofac;
 using CADKit;
 using CADKit.Contracts;
+using CADKit.Proxy;
 using CADKitElevationMarks.Contracts.Views;
-using CADKitElevationMarks.Views;
-using CADProxy;
-using System;
 using System.Windows.Forms;
+
+#if ZwCAD
 using ZwSoft.ZwCAD.ApplicationServices;
+#endif
+
+#if AutoCAD
+using Autodesk.AutoCAD.ApplicationServices;
+#endif
 
 namespace CADKitElevationMarks
 {
@@ -16,12 +21,12 @@ namespace CADKitElevationMarks
         {
             var control = DI.Container.Resolve<IElevationMarksView>() as Control;
             AppSettings.Instance.CADKitPalette.Add("Koty wysokościowe", control);
-            ProxyCAD.Document.CommandCancelled += TestCanceled;
+            CADProxy.Document.CommandCancelled += TestCanceled;
         }
 
         private void TestCanceled(object sender, CommandEventArgs e)
         {
-            ProxyCAD.Editor.WriteMessage("Cancel {0}", e.GlobalCommandName);
+            CADProxy.Editor.WriteMessage("Cancel {0}", e.GlobalCommandName);
         }
     }
 }

@@ -5,7 +5,7 @@ using ZwSoft.ZwCAD.Colors;
 using Autodesk.AutoCAD.Colors;
 #endif
 
-namespace CADKit.Contracts.Entities
+namespace CADKitBasic.Contracts.Entities
 {
     public interface IEntity
     {
