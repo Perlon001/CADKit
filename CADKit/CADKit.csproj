@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
     <Compile Include="Autostart.cs" />
+    <Compile Include="Commands.cs" />
     <Compile Include="Contracts\IAutostart.cs" />
     <Compile Include="Contracts\IPalettePage.cs" />
     <Compile Include="Contracts\IPresenter.cs" />
@@ -69,9 +70,11 @@
     <Compile Include="Extensions\EnumsUtil.cs" />
     <Compile Include="Models\InterfaceScheme.cs" />
     <Compile Include="Models\Units.cs" />
+    <Compile Include="Proxy\ApplicationServices\SystemVriableChangedEventHandler.cs" />
+    <Compile Include="Proxy\Runtime\Exception.cs" />
+    <Compile Include="Proxy\Runtime\IExtensionApplication.cs" />
     <Compile Include="UI\CADKitPaletteSet.cs" />
     <Compile Include="UI\Presenter.cs" />
-    <Compile Include="Proxy\ApplicationServices\DocumentCollectionEventArgs.cs" />
     <Compile Include="Contracts\ILayerService.cs" />
     <Compile Include="Contracts\ISymbolTableService.cs" />
     <Compile Include="Contracts\ITextStyleService.cs" />
@@ -95,7 +98,6 @@
     <Compile Include="Extensions\DatabaseExtensions.cs" />
     <Compile Include="RegistrationModule.cs" />
     <Compile Include="Proxy\Runtime\CommandMethodAttribute.cs" />
-    <Compile Include="Proxy\Runtime\IExtensionApplication.cs" />
     <Compile Include="Proxy\Runtime\WrapperAttribute.cs" />
     <Compile Include="Services\LayerService.cs" />
     <Compile Include="Services\SymbolTableService.cs" />

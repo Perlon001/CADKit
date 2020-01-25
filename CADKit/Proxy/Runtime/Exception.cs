@@ -5,9 +5,8 @@ using CADRuntime = ZwSoft.ZwCAD.Runtime;
 #if AutoCAD
 using CADRuntime = Autodesk.AutoCAD.Runtime;
 #endif
+
 namespace CADKit.Proxy.Runtime
 {
-    public interface IExtensionApplication : CADRuntime.IExtensionApplication
-    {
-    }
+    public class Exception : CADRuntime.Exception { }
 }

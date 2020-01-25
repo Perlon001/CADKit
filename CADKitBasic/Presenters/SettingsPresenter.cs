@@ -1,5 +1,4 @@
 ﻿using CADKitBasic.Contracts;
-using CADKitBasic.Contracts.DTO;
 using CADKitBasic.Contracts.Presenters;
 using CADKitBasic.Contracts.Services;
 using CADKitBasic.Views.DTO;
@@ -94,7 +93,7 @@ namespace CADKitBasic.Presenters
         void BindScaleList()
         {
             var occ = CADProxy.Database.ObjectContextManager.GetContextCollection("ACDB_ANNOTATIONSCALES");
-            IList<IScaleDTO> scales = new List<IScaleDTO>();
+            IList<ScaleDTO> scales = new List<ScaleDTO>();
             foreach (ZwSoft.ZwCAD.DatabaseServices.AnnotationScale item in occ )
             {
                 scales.Add(new ScaleDTO(){

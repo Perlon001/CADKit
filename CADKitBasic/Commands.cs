@@ -5,6 +5,9 @@ using CADKitBasic.Utils;
 using CADKit;
 using CADKit.Runtime;
 using CADKit.Extensions;
+using CADKit.Proxy;
+using CADKit.Models;
+using Autofac;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.EditorInput;
@@ -18,69 +21,70 @@ namespace CADKitBasic
 {
     public class Commands
     {
-        // TODO: metody powinne byc zamienione na klasy z mozliwoscia wyboru trybu Linia komend/Okno dialogowe
-        // na podstawie zmiennej systemowej (na razie nie mam pomysłu jakiej) lub na podstawie zdefiniowanej zmiennej globalnej lub AppSettings
+        //TODO: metody powinne byc zamienione na klasy z mozliwoscia wyboru trybu Linia komend/Okno dialogowe
+        // na podstawie zmiennej systemowej(na razie nie mam pomysłu jakiej) lub na podstawie zdefiniowanej zmiennej globalnej lub AppSettings
         // na razie jest wersja prosta czyli linia komend
         // w przyszlosci do refaktoryzacji
-        //[CommandMethod("CKUNR")]
-        //public void SetDrawingStandard()
-        //{
-        //    // TODO: Lepiej gdyby slownik byl budowany na zewnatrz i gotowy dostarczony metodzie
-        //    // w przyszlosci do refaktoryzacji
-        //    Dictionary<DrawingStandards, string> drawingStandards = new Dictionary<DrawingStandards, string>();
-        //    foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
-        //    {
-        //        drawingStandards.Add((DrawingStandards)item, item.ToString().Replace('_', '-'));
-        //    }
-        //    PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nNorma rysunkowa:")
-        //    {
-        //        AllowNone = true
-        //    };
-        //    foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
-        //    {
-        //        keyOptions.Keywords.Add(item.ToString().Replace('_', '-'));
-        //    }
-        //    keyOptions.Keywords.Default = AppSettings.Instance.DrawingStandard.ToString().Replace('_', '-');
-        //    PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
-        //    if (keyResult.Status == PromptStatus.OK)
-        //    {
-        //        AppSettings.Instance.DrawingStandard = EnumsUtil.GetEnum<DrawingStandards>(keyResult.StringResult.Replace('-', '_'), AppSettings.Instance.DrawingStandard);
-        //    }
-        //    CADProxy.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[AppSettings.Instance.DrawingStandard]}\n");
-        //}
+        // [CommandMethod("CKUNR")]
+        // public void SetDrawingStandard()
+        // {
+        // TODO: Lepiej gdyby slownik byl budowany na zewnatrz i gotowy dostarczony metodzie
+        // w przyszlosci do refaktoryzacji
 
-        //[CommandMethod("CK_UJR")]
-        //public void SetDrawingUnits()
-        //{
-        //    var settings = DI.Container.Resolve<AppSettings>();
+        //Dictionary<DrawingStandards, string> drawingStandards = new Dictionary<DrawingStandards, string>();
+        //     foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
+        //     {
+        //         drawingStandards.Add((DrawingStandards)item, item.ToString().Replace('_', '-'));
+        //     }
+        //     PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nNorma rysunkowa:")
+        //     {
+        //         AllowNone = true
+        //     };
+        //     foreach (var item in Enum.GetValues(typeof(DrawingStandards)))
+        //     {
+        //         keyOptions.Keywords.Add(item.ToString().Replace('_', '-'));
+        //     }
+        //     keyOptions.Keywords.Default = AppSettings.Instance.DrawingStandard.ToString().Replace('_', '-');
+        //     PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
+        //     if (keyResult.Status == PromptStatus.OK)
+        //     {
+        //         AppSettings.Instance.DrawingStandard = EnumsUtil.GetEnum<DrawingStandards>(keyResult.StringResult.Replace('-', '_'), AppSettings.Instance.DrawingStandard);
+        //     }
+        //     CADProxy.Editor.WriteMessage($"\nBieżąca norma rysunkowa : {drawingStandards[AppSettings.Instance.DrawingStandard]}\n");
+        // }
 
-        //    PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nJednostka rysunkowa:")
-        //    {
-        //        AllowNone = true
-        //    };
-        //    keyOptions.Keywords.Default = settings.DrawingUnit.ToString();
-        //    foreach (var item in Enum.GetValues(typeof(Units)))
-        //    {
-        //        keyOptions.Keywords.Add(item.ToString());
-        //    }
-        //    PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
-        //    if (keyResult.Status == PromptStatus.OK)
-        //    {
-        //        switch (keyResult.StringResult)
-        //        {
-        //            case "mm":
-        //                settings.DrawingUnit = Units.mm;
-        //                break;
-        //            case "cm":
-        //                settings.DrawingUnit = Units.cm;
-        //                break;
-        //            case "m":
-        //                settings.DrawingUnit = Units.m;
-        //                break;
-        //        }
-        //    }
-        //    CADProxy.Editor.WriteMessage($"\nBieżąca jednostka rysunkowa : {settings.DrawingUnit}\n");
-        //}
+
+
+        [CommandMethod("CK_UJR")]
+        public void SetDrawingUnits()
+        {
+            PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nJednostka rysunkowa:")
+            {
+                AllowNone = true
+            };
+            keyOptions.Keywords.Default = AppSettings.Instance.DrawingUnit.ToString();
+            foreach (var item in Enum.GetValues(typeof(Units)))
+            {
+                keyOptions.Keywords.Add(item.ToString());
+            }
+            PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
+            if (keyResult.Status == PromptStatus.OK)
+            {
+                switch (keyResult.StringResult)
+                {
+                    case "mm":
+                        AppSettings.Instance.DrawingUnit = Units.mm;
+                        break;
+                    case "cm":
+                        AppSettings.Instance.DrawingUnit = Units.cm;
+                        break;
+                    case "m":
+                        AppSettings.Instance.DrawingUnit = Units.m;
+                        break;
+                }
+            }
+            CADProxy.Editor.WriteMessage($"\nBieżąca jednostka rysunkowa : {AppSettings.Instance.DrawingUnit}\n");
+        }
 
         //[CommandMethod("CK_USR")]
         //public void SetDrawingScale()
@@ -101,10 +105,6 @@ namespace CADKitBasic
         //    CADProxy.Editor.WriteMessage($"\nBieżąca skala rysunkowa: {settings.DrawingScale}\n");
         //}
 
-        [CommandMethod("CKPALETE")]
-        public void ShowPalette()
-        {
-            AppSettings.Instance.CADKitPalette.Visible = !AppSettings.Instance.CADKitPalette.Visible;
-        }
+
     }
 }

@@ -9,8 +9,6 @@ using CADApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
-using CADDatabaseServices = ZwSoft.ZwCAD.DatabaseServices;
-using CADEditorInput = ZwSoft.ZwCAD.EditorInput;
 #endif
 
 #if AutoCAD
@@ -19,15 +17,12 @@ using CADApplicationServices = Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using CADDatabaseServices = Autodesk.AutoCAD.DatabaseServices;
 #endif
 
 
 
 namespace CADKit.Proxy
-{
-    public delegate void SystemVariableChangedEventHandler(object sender, CADApplicationServices.SystemVariableChangedEventArgs e);
-    
+{  
     public class CADProxy
     { 
         public object cadApplication { get; }
@@ -87,11 +82,6 @@ namespace CADKit.Proxy
             return (string)custProps[key];
         }
 
-        public static void WriteMessage(string message)
-        {
-            Editor.WriteMessage(message);
-        }
-
         public static Dictionary<string, string> GetCustomProperties()
         {
             Dictionary<string, string> result = new Dictionary<string, string>();
@@ -102,6 +92,21 @@ namespace CADKit.Proxy
                 result.Add((string)entry.Key, (string)entry.Value);
             }
             return result;
+        }
+
+        public static object GetSystemVariable(string name)
+        {
+            return Application.GetSystemVariable(name);
+        }
+
+        public static void SetSystemVariable(string name, object value)
+        {
+            Application.SetSystemVariable(name, value);
+        }
+
+        public static void WriteMessage(string message)
+        {
+            Editor.WriteMessage(message);
         }
 
         public static event CommandEventHandler CommandEnded
@@ -176,51 +181,6 @@ namespace CADKit.Proxy
             }
         }
 
-        public static void ZoomExtens()
-        {
-            objectApplication.GetType().InvokeMember("ZoomExtents", BindingFlags.InvokeMethod, null, objectApplication, null);
-        }
-
-        public static void ShowAlertDialog(string message)
-        {
-            Application.ShowAlertDialog(message);
-        }
-
-        public static object GetSystemVariable(string name)
-        {
-            return Application.GetSystemVariable(name);
-        }
-
-        public static void SetSystemVariable(string name, object value)
-        {
-            Application.SetSystemVariable(name, value);
-        }
-
-        public static bool IsInLayoutPaper()
-        {
-            if (Database.TileMode)
-                return false;
-            else
-            {
-                if (Database.PaperSpaceVportId == ObjectId.Null)
-                    return false;
-                else if (Editor.CurrentViewportObjectId == ObjectId.Null)
-                    return false;
-                else if (Editor.CurrentViewportObjectId == Database.PaperSpaceVportId)
-                    return true;
-                else
-                    return false;
-            }
-        }
-
-        public static Point3d[] GetTextArea(DBText text)
-        {
-            Point3d leftBottom = text.GeometricExtents.MinPoint;
-            Point3d rightTop = text.GeometricExtents.MaxPoint;
-
-            return new Point3d[2] { leftBottom, rightTop };
-        }
-
         public static BlockTableRecord GetBlockTableRecord(Transaction transaction, OpenMode mode)
         {
             var blockTable = transaction.GetObject(Database.BlockTableId, OpenMode.ForRead) as BlockTable;
@@ -271,7 +231,42 @@ namespace CADKit.Proxy
                 #endif
             }
         }
-    
+
+        public static void ZoomExtens()
+        {
+            objectApplication.GetType().InvokeMember("ZoomExtents", BindingFlags.InvokeMethod, null, objectApplication, null);
+        }
+
+        public static void ShowAlertDialog(string message)
+        {
+            Application.ShowAlertDialog(message);
+        }
+
+        public static bool IsInLayoutPaper()
+        {
+            if (Database.TileMode)
+                return false;
+            else
+            {
+                if (Database.PaperSpaceVportId == ObjectId.Null)
+                    return false;
+                else if (Editor.CurrentViewportObjectId == ObjectId.Null)
+                    return false;
+                else if (Editor.CurrentViewportObjectId == Database.PaperSpaceVportId)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        public static Point3d[] GetTextArea(DBText text)
+        {
+            Point3d leftBottom = text.GeometricExtents.MinPoint;
+            Point3d rightTop = text.GeometricExtents.MaxPoint;
+
+            return new Point3d[2] { leftBottom, rightTop };
+        }
+
         public static DBText ToDBText(AttributeDefinition att)
         {
             DBText result = new DBText();

@@ -1,10 +1,9 @@
 ﻿using CADKit.Proxy;
-using CADKitBasic.Contracts.DTO;
 using System;
 
 namespace CADKitBasic.Views.DTO
 {
-    public class ScaleDTO : IScaleDTO
+    public class ScaleDTO
     {
         public IntPtr UniqueIdentifier { get; set; }
         public string Name { get; set; }

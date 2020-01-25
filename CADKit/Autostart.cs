@@ -2,17 +2,9 @@
 using System;
 using System.Reflection;
 using System.Linq;
-using CADKit.Runtime;
 using CADKit.Contracts;
 using CADKit.Proxy;
-
-#if ZwCAD
-using ApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
-#endif
-
-#if AutoCAD
-using ApplicationServices = Autodesk.AutoCAD.ApplicationServices;
-#endif
+using CADKit.Proxy.Runtime;
 
 /*
     HKEY_CURRENT_USER\Software\ZWSOFT\ZWCAD\2020\en-US\Profiles\Default\Config\COLORSCHEME
@@ -44,7 +36,7 @@ namespace CADKit
                         IAutostart instance = Activator.CreateInstance(objectType) as IAutostart;
                         instance.Initialize();
                     }
-                    catch (Exception ex)
+                    catch (System.Exception ex)
                     {
                         CADProxy.Editor.WriteMessage(ex.Message);
                     }
@@ -56,6 +48,5 @@ namespace CADKit
         public void Terminate()
         {
         }
-
     }
 }

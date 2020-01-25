@@ -15,6 +15,7 @@ namespace CADKit.Runtime
     public sealed class CommandMethodAttribute : Attribute, ICommandLineCallable
     {
         private readonly CADRuntime.CommandMethodAttribute proxy;
+
         public CommandMethodAttribute(string globalName)
         {
             proxy = new CADRuntime.CommandMethodAttribute(globalName);

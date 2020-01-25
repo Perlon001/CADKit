@@ -1,12 +1,20 @@
-﻿using CADKit;
-using CADKit.Extensions;
+﻿using CADKit.Extensions;
 using CADKit.Models;
 using CADKit.Proxy;
+using CADKit.Runtime;
 using CADKit.UI;
 using Microsoft.Win32;
 using System;
 using System.Drawing;
 using System.IO;
+
+#if ZwCAD
+using ZwSoft.ZwCAD.ApplicationServices;
+#endif
+
+#if AutoCAD
+using Autodesk.AutoCAD.ApplicationServices;
+#endif
 
 namespace CADKit
 {
@@ -20,12 +28,18 @@ namespace CADKit
         private string drawingScale;
 
         static AppSettings() { }
+
         private AppSettings() 
         {
             AppPath = Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location));
 
-            GetSettingsFromDatabase();
-            SetSettingsToDatabase();
+            CADProxy.DocumentCreated -= OnDocumentCreated;
+            CADProxy.DocumentCreated += OnDocumentCreated;
+            CADProxy.DocumentDestroyed -= OnDocumentDestroyed;
+            CADProxy.DocumentDestroyed += OnDocumentDestroyed;
+
+            GetSettingsFromDocument();
+            SetSettingsToDocument();
         }
 
         public static AppSettings Instance { get { return instance; } }
@@ -128,14 +142,14 @@ namespace CADKit
             }
         }
 
-        public void SetSettingsToDatabase()
+        public void SetSettingsToDocument()
         {
             CADProxy.SetCustomProperty("CKDrawingUnit", drawingUnit.ToString());
             CADProxy.SetCustomProperty("CKDimensionUnit", dimensionUnit.ToString());
             CADProxy.SetCustomProperty("CKDrawingScale", drawingScale);
         }
 
-        public void GetSettingsFromDatabase()
+        public void GetSettingsFromDocument()
         {
             drawingUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingUnit"), Units.mm);
             dimensionUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDimensionUnit"), Units.mm);
@@ -152,6 +166,18 @@ namespace CADKit
             drawingScale = "";
         }
 
+        public void FlipPalette()
+        {
+            if(palette != null)
+            {
+                palette.Visible = !palette.Visible;
+            }
+            else
+            {
+                CADProxy.Editor.WriteMessage("\nPleta nie zainicjalizowana\n");
+            }
+        }
+
         private void OnResize(object sender, EventArgs e)
         {
             CADKitPalette.Name = "CADKit " + CADKitPalette.Size.Width;
@@ -161,9 +187,28 @@ namespace CADKit
         {
             //CADProxy.Editor.WriteMessage("\nOnDestroj");
         }
+
         private void OnStateChanged(object sender, EventArgs e)
         {
             //CADProxy.Editor.WriteMessage("\nOnStateChanged");
+        }
+
+        private void OnDocumentCreated(object sender, DocumentCollectionEventArgs e)
+        {
+            Instance.GetSettingsFromDocument();
+            Instance.SetSettingsToDocument();
+            if (CADProxy.DocumentManager.Count == 1 && Instance.CADKitPalette.PaletteState)
+            {
+                Instance.CADKitPalette.Visible = true;
+            }
+        }
+
+        private void OnDocumentDestroyed(object sender, DocumentDestroyedEventArgs e)
+        {
+            if (CADProxy.Document == null)
+            {
+                Instance.Reset();
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using CADKit.Models;
 using CADKit.UI.WF;
 using CADKitBasic.Contracts;
-using CADKitBasic.Contracts.DTO;
 using CADKitBasic.Contracts.Presenters;
 using CADKitBasic.Models;
+using CADKitBasic.Views.DTO;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -27,9 +27,9 @@ namespace CADKitBasic.Views.WF
             set { cmbDimUnit.SelectedValue = value; }
         }
 
-        public IScaleDTO SelectedScale
+        public ScaleDTO SelectedScale
         {
-            get { return (IScaleDTO)cmbScale.SelectedItem; }
+            get { return (ScaleDTO)cmbScale.SelectedItem; }
             set { cmbScale.SelectedValue = value.Name; }
         }
 
@@ -66,7 +66,7 @@ namespace CADKitBasic.Views.WF
             }
         }
 
-        public void BindingScale(IList<IScaleDTO> scales)
+        public void BindingScale(IList<ScaleDTO> scales)
         {
             cmbScale.SelectedIndexChanged -= Presenter.OnScaleSelect;
             cmbScale.BackColor = SystemColors.Control;
