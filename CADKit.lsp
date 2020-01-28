@@ -7,6 +7,6 @@
 		)
 	)
 )
-(vl-cmdf "netload" "CADKitXData.dll")
-(command "CK_XDAPPLIST")
+;(vl-cmdf "netload" "CADKitXData.dll")
+;(command "CK_XDAPPLIST")
 (princ)
