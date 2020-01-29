@@ -1,5 +1,4 @@
-﻿using CADKitBasic.Models;
-using CADKitBasic.Views.WF;
+﻿using CADKitBasic.Views.WF;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.Contracts.Views;
 using CADKitElevationMarks.DTO;
@@ -23,8 +22,7 @@ namespace CADKitElevationMarks.Views
             rbxGroup.Checked = true;
         }
 
-        // public event BeginCreateMarkEventHandler BeginCreateMark;
-        public Action<object, BeginCreateMarkEventArgs> BeginCreateMark;
+        public event BeginCreateMarkEventHandler BeginCreateMark;
 
         public override void RegisterHandlers()
         {
