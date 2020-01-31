@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using CADKit.Models;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.ApplicationServices;
@@ -18,8 +19,6 @@ using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 #endif
-
-
 
 namespace CADKit.Proxy
 {  

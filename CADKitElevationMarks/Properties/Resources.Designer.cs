@@ -83,6 +83,16 @@ namespace CADKitElevationMarks.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mark01_32_dark {
+            get {
+                object obj = ResourceManager.GetObject("mark01_32_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mark01_48 {
             get {
                 object obj = ResourceManager.GetObject("mark01_48", resourceCulture);
@@ -106,6 +116,16 @@ namespace CADKitElevationMarks.Properties {
         internal static System.Drawing.Bitmap mark02_32 {
             get {
                 object obj = ResourceManager.GetObject("mark02_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mark02_32_dark {
+            get {
+                object obj = ResourceManager.GetObject("mark02_32_dark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,6 +163,16 @@ namespace CADKitElevationMarks.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mark03_32_dark {
+            get {
+                object obj = ResourceManager.GetObject("mark03_32_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mark03_48 {
             get {
                 object obj = ResourceManager.GetObject("mark03_48", resourceCulture);
@@ -166,6 +196,16 @@ namespace CADKitElevationMarks.Properties {
         internal static System.Drawing.Bitmap mark04_32 {
             get {
                 object obj = ResourceManager.GetObject("mark04_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mark04_32_dark {
+            get {
+                object obj = ResourceManager.GetObject("mark04_32_dark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,6 +243,16 @@ namespace CADKitElevationMarks.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mark05_32_dark {
+            get {
+                object obj = ResourceManager.GetObject("mark05_32_dark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mark05_48 {
             get {
                 object obj = ResourceManager.GetObject("mark05_48", resourceCulture);
@@ -216,6 +266,16 @@ namespace CADKitElevationMarks.Properties {
         internal static System.Drawing.Bitmap options {
             get {
                 object obj = ResourceManager.GetObject("options", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap options_dark {
+            get {
+                object obj = ResourceManager.GetObject("options_dark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

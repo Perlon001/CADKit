@@ -78,8 +78,13 @@
             // 
             // cmbDrawUnit
             // 
+            this.cmbDrawUnit.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.cmbDrawUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmbDrawUnit.FormattingEnabled = true;
+            this.cmbDrawUnit.Items.AddRange(new object[] {
+            "sfgsdg",
+            "dsfgdsfg",
+            "dfgsdfg"});
             this.cmbDrawUnit.Location = new System.Drawing.Point(6, 35);
             this.cmbDrawUnit.Name = "cmbDrawUnit";
             this.cmbDrawUnit.Size = new System.Drawing.Size(55, 21);
@@ -97,6 +102,7 @@
             // 
             // gbxScale
             // 
+            this.gbxScale.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.gbxScale.Controls.Add(this.cmbScale);
             this.gbxScale.Controls.Add(this.lblDrawUnit);
             this.gbxScale.Controls.Add(this.lblScale);
@@ -105,6 +111,7 @@
             this.gbxScale.Controls.Add(this.lblDimUnit);
             this.gbxScale.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbxScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.gbxScale.ForeColor = System.Drawing.SystemColors.MenuBar;
             this.gbxScale.Location = new System.Drawing.Point(0, 0);
             this.gbxScale.Name = "gbxScale";
             this.gbxScale.Size = new System.Drawing.Size(209, 66);
@@ -115,6 +122,7 @@
             // SettingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.BackColor = System.Drawing.Color.Red;
             this.Controls.Add(this.gbxScale);
             this.Name = "SettingsView";
             this.Size = new System.Drawing.Size(209, 314);

@@ -25,6 +25,12 @@ namespace CADKit
 
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .AssignableTo<IColorSchemeService>()
+                .InstancePerLifetimeScope()
+                .AsImplementedInterfaces();
+
+            builder
+                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
                 .AssignableTo<IPresenter>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
@@ -35,6 +41,7 @@ namespace CADKit
                 .InstancePerLifetimeScope()
                 .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies)
                 .AsImplementedInterfaces();
+
 
         }
     }

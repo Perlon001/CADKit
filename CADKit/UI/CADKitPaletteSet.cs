@@ -1,7 +1,9 @@
 ﻿using CADKit.Contracts;
 using CADKit.Models;
+using CADKit.Proxy;
 using System;
 using System.Collections.Generic;
+using ZwSoft.ZwCAD.ApplicationServices;
 
 namespace CADKit.UI
 {
@@ -32,6 +34,5 @@ namespace CADKit.UI
         {
             palettePages.Add(page);
         }
-
     }
 }

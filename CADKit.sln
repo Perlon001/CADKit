@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9E5603DE-E6BA-4441-8CFF-59246AC6E836}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		CADKit.lsp = CADKit.lsp
 		CADKit.scr = CADKit.scr
 	EndProjectSection

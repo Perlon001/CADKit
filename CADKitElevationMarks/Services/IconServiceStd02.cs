@@ -1,18 +1,21 @@
-﻿using CADKitBasic.Models;
+﻿using CADKit.Contracts;
+using CADKitBasic.Models;
 using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.Models;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CADKitElevationMarks.Services
 {
     public class IconServiceStd02 : IconService, IIconServiceStd02
     {
-        public override Bitmap GetIcon(MarkTypes _type, IconSize _size)
+        public IconServiceStd02(IColorSchemeService _service) : base(_service) { }
+
+        protected override Bitmap GetIconForDarkScheme(MarkTypes type, IconSize size)
+        {
+            return DefaultIcon;
+        }
+
+        protected override Bitmap GetIconForLightScheme(MarkTypes type, IconSize size)
         {
             return DefaultIcon;
         }

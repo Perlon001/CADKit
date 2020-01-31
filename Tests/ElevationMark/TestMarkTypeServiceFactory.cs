@@ -1,5 +1,5 @@
-﻿using CADKitElevationMarks.Contracts.Services;
-using CADKitElevationMarks.Models;
+﻿using CADKitElevationMarks.Contracts;
+using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.Services;
 using NSubstitute;
 using Xunit;

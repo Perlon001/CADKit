@@ -42,7 +42,7 @@ namespace CADKitElevationMarks.Models
             {
                 entityList = _converter.Convert(entityList);
             }
-            entityList.TransformBy(Matrix3d.Scaling(AppSettings.Instance.ScaleFactor, new Point3d(0, 0, 0)));
+            entityList.TransformBy(Matrix3d.Scaling(AppSettings.Get.ScaleFactor, new Point3d(0, 0, 0)));
             entityList.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(_basePoint)));
             CADProxy.UsingTransaction(PrepareEntity);
         }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using CADKit.Extensions;
 using CADKit.Proxy;
+using CADKitElevationMarks.Contracts;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -51,7 +52,7 @@ namespace CADKitElevationMarks.Models
             pl1.AddVertexAt(0, new Point2d(-1.5, 1.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(1.5, 1.5), 0, 0, 0);
-            if (Math.Round(Math.Abs(this.basePoint.Value.Y) * AppSettings.Instance.ScaleFactor, 3) == 0)
+            if (Math.Round(Math.Abs(this.basePoint.Value.Y) * AppSettings.Get.ScaleFactor, 3) == 0)
             {
                 pl1.Closed = true;
                 AddHatchingArrow(en);

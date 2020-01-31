@@ -85,7 +85,7 @@ namespace CADKitElevationMarks.Models
             {
                 if (e.GetType() == typeof(DBText))
                 {
-                    e.TransformBy(Matrix3d.Displacement(new Vector3d((IsVMirror ? textWidth : -textWidth) * AppSettings.Instance.ScaleFactor, 0, 0)));
+                    e.TransformBy(Matrix3d.Displacement(new Vector3d((IsVMirror ? textWidth : -textWidth) * AppSettings.Get.ScaleFactor, 0, 0)));
                 }
                 else
                 {

@@ -1,4 +1,5 @@
-﻿using CADKitBasic.Models;
+﻿using CADKit.Services;
+using CADKitBasic.Models;
 using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.DTO;
 using CADKitElevationMarks.Services;
@@ -16,7 +17,7 @@ namespace Tests.ElevationMark
         [Fact]
         public void mark_type_service_get_marks_return_mark_type()
         {
-            IMarkTypeService service = new MarkTypeServiceStd01();
+            IMarkTypeService service = new MarkTypeServiceStd01(new IconServiceStd01(new ColorSchemeService()));
             Type type = service.GetMarkType(1);
             
             Assert.Equal(Type.GetType("CADKitElevationMarks.Models.ConstructionElevationMarkCADKit"),type);

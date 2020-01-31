@@ -11,8 +11,7 @@ namespace CADKit.Contracts
         void ShowError(string content, string caption = "");
         void ShowException(Exception ex, string caption = "");
         bool ShowYesNoQuestion(string content, string caption = "");
-
         void RegisterHandlers();
-
+        void SetColorScheme(IColorSchemeService service);
     }
 }

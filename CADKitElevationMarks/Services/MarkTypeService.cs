@@ -1,4 +1,4 @@
-﻿using CADKitBasic.Models;
+﻿using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.DTO;
 using CADKitElevationMarks.Models;
@@ -11,7 +11,7 @@ namespace CADKitElevationMarks.Services
 {
     public abstract class MarkTypeService : IMarkTypeService
     {
-        protected IIconService iconService;
+        protected readonly IIconService iconService;
         protected struct markItem
         {
             public int id;
@@ -24,8 +24,9 @@ namespace CADKitElevationMarks.Services
         protected Dictionary<MarkTypes, string> markTypes = new Dictionary<MarkTypes, string>();
         protected IList<markItem> markCollection = new List<markItem>();
 
-        public MarkTypeService()
+        public MarkTypeService(IIconService _iconService)
         {
+            iconService = _iconService;
             markTypes.Add(MarkTypes.area, "Rzędna obszaru");
             markTypes.Add(MarkTypes.universal, "Kota wysokościowa");
             markTypes.Add(MarkTypes.construction, "Kota wysokościowa konstrukcji");

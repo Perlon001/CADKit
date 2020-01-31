@@ -69,8 +69,8 @@
     <Compile Include="DTO\MarkButtonDTO.cs" />
     <Compile Include="Contracts\Presenters\IElevationMarksPresenter.cs" />
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
-    <Compile Include="Events\BeginMarkCreateEventHandler.cs" />
-    <Compile Include="Models\DrawingStandards.cs" />
+    <Compile Include="Events\BeginMarkCreateEvent.cs" />
+    <Compile Include="Contracts\DrawingStandards.cs" />
     <Compile Include="Models\ElementsSet.cs" />
     <Compile Include="Models\ElevationMark.cs" />
     <Compile Include="Models\ElevationValue.cs" />
@@ -117,6 +117,7 @@
     <Compile Include="Views\Test.Designer.cs">
       <DependentUpon>Test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\WFHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CADKit\CADKit.csproj">
@@ -197,6 +198,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Bitmaps\Icons\question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\options_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\mark01_32_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\mark02_32_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\mark03_32_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\mark04_32_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\mark05_32_dark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

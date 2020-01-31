@@ -50,14 +50,14 @@
             this.tabStandards.Multiline = true;
             this.tabStandards.Name = "tabStandards";
             this.tabStandards.SelectedIndex = 0;
-            this.tabStandards.Size = new System.Drawing.Size(163, 310);
+            this.tabStandards.Size = new System.Drawing.Size(414, 481);
+            this.tabStandards.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabStandards.TabIndex = 0;
-            this.tabStandards.SelectedIndexChanged += new System.EventHandler(this.TabChange);
-            this.tabStandards.TabIndexChanged += new System.EventHandler(this.TabChange);
             // 
             // rbxGroup
             // 
             this.rbxGroup.AutoSize = true;
+            this.rbxGroup.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.rbxGroup.Location = new System.Drawing.Point(6, 7);
             this.rbxGroup.Name = "rbxGroup";
             this.rbxGroup.Size = new System.Drawing.Size(54, 17);
@@ -69,6 +69,7 @@
             // rbxBlock
             // 
             this.rbxBlock.AutoSize = true;
+            this.rbxBlock.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.rbxBlock.Location = new System.Drawing.Point(66, 7);
             this.rbxBlock.Name = "rbxBlock";
             this.rbxBlock.Size = new System.Drawing.Size(46, 17);
@@ -81,11 +82,12 @@
             // 
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.flowLayoutPanel1.Controls.Add(this.gbxOutputFormat);
             this.flowLayoutPanel1.Controls.Add(this.btnOptions);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(163, 45);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(414, 45);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // gbxOutputFormat
@@ -100,21 +102,25 @@
             // 
             // btnOptions
             // 
-            this.btnOptions.Image = global::CADKitElevationMarks.Properties.Resources.options;
+            this.btnOptions.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOptions.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnOptions.Image = global::CADKitElevationMarks.Properties.Resources.mark05_32_dark;
             this.btnOptions.Location = new System.Drawing.Point(129, 3);
             this.btnOptions.Name = "btnOptions";
-            this.btnOptions.Size = new System.Drawing.Size(30, 30);
+            this.btnOptions.Size = new System.Drawing.Size(33, 33);
             this.btnOptions.TabIndex = 4;
-            this.btnOptions.UseVisualStyleBackColor = true;
+            this.btnOptions.UseVisualStyleBackColor = false;
             // 
             // ElevationMarksView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.tabStandards);
             this.Name = "ElevationMarksView";
-            this.Size = new System.Drawing.Size(169, 367);
+            this.Size = new System.Drawing.Size(420, 538);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.gbxOutputFormat.ResumeLayout(false);
             this.gbxOutputFormat.PerformLayout();

@@ -62,7 +62,7 @@ namespace CADKitBasic
             {
                 AllowNone = true
             };
-            keyOptions.Keywords.Default = AppSettings.Instance.DrawingUnit.ToString();
+            keyOptions.Keywords.Default = AppSettings.Get.DrawingUnit.ToString();
             foreach (var item in Enum.GetValues(typeof(Units)))
             {
                 keyOptions.Keywords.Add(item.ToString());
@@ -73,17 +73,17 @@ namespace CADKitBasic
                 switch (keyResult.StringResult)
                 {
                     case "mm":
-                        AppSettings.Instance.DrawingUnit = Units.mm;
+                        AppSettings.Get.DrawingUnit = Units.mm;
                         break;
                     case "cm":
-                        AppSettings.Instance.DrawingUnit = Units.cm;
+                        AppSettings.Get.DrawingUnit = Units.cm;
                         break;
                     case "m":
-                        AppSettings.Instance.DrawingUnit = Units.m;
+                        AppSettings.Get.DrawingUnit = Units.m;
                         break;
                 }
             }
-            CADProxy.Editor.WriteMessage($"\nBieżąca jednostka rysunkowa : {AppSettings.Instance.DrawingUnit}\n");
+            CADProxy.Editor.WriteMessage($"\nBieżąca jednostka rysunkowa : {AppSettings.Get.DrawingUnit}\n");
         }
 
         //[CommandMethod("CK_USR")]

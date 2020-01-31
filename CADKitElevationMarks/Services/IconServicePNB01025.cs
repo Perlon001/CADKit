@@ -1,24 +1,47 @@
-﻿using CADKitBasic.Models;
+﻿using CADKit.Contracts;
+using CADKitBasic.Models;
 using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.Models;
-using System;
 using System.Drawing;
 
 namespace CADKitElevationMarks.Services
 {
     public class IconServicePNB01025 : IconService, IIconServicePNB01025
     {
-        public override Bitmap GetIcon(MarkTypes _type, IconSize _size)
+        public IconServicePNB01025(IColorSchemeService _service) : base(_service) { }
+
+        protected override Bitmap GetIconForLightScheme(MarkTypes _type, IconSize _size)
         {
+            Bitmap result = DefaultIcon;
+
             switch (_type)
             {
                 case MarkTypes.universal:
-                    return Properties.Resources.mark01_32;
+                    result = Properties.Resources.mark01_32;
+                    break;
                 case MarkTypes.area:
-                    return Properties.Resources.mark02_32;
+                    result = Properties.Resources.mark02_32;
+                    break;
             }
 
-            return DefaultIcon;
+            return result;
+
+        }
+        protected override Bitmap GetIconForDarkScheme(MarkTypes _type, IconSize _size)
+        {
+            Bitmap result = DefaultIcon;
+
+            switch (_type)
+            {
+                case MarkTypes.universal:
+                    result = Properties.Resources.mark01_32_dark;
+                    break;
+                case MarkTypes.area:
+                    result = Properties.Resources.mark02_32_dark;
+                    break;
+            }
+
+            return result;
         }
     }
 }

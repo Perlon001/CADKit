@@ -1,11 +1,11 @@
 ﻿using CADKit.Contracts;
-using System;
 
 namespace CADKit.UI
 {
     public abstract class Presenter<TView> : IPresenter where TView : IView
     {
         private TView view;
+
         public TView View
         {
             get
@@ -19,19 +19,12 @@ namespace CADKit.UI
             }
         }
 
-        public virtual void OnExceptionOccurrence(Exception ex)
+        public virtual void Dispose()
         {
-            View.ShowException(ex);
         }
 
         public virtual void OnViewLoaded()
         {
-
-        }
-
-        public virtual void Dispose()
-        {
-
         }
     }
 }

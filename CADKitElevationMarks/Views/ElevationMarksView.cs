@@ -1,4 +1,6 @@
-﻿using CADKitBasic.Views.WF;
+﻿using CADKit.Contracts;
+using CADKit.UI.WF;
+using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.Contracts.Views;
 using CADKitElevationMarks.DTO;
@@ -12,44 +14,43 @@ using System.Windows.Forms;
 namespace CADKitElevationMarks.Views
 {
 
-    public partial class ElevationMarksView : _BaseViewWF, IElevationMarksView
+    public partial class ElevationMarksView : BaseViewWF, IElevationMarksView
     {
         public IElevationMarksPresenter Presenter { get; set; }
+        public event BeginCreateMarkEventHandler BeginCreateMark;
 
         public ElevationMarksView()
         {
             InitializeComponent();
             rbxGroup.Checked = true;
+            tabStandards.Controls.Clear();
         }
-
-        public event BeginCreateMarkEventHandler BeginCreateMark;
 
         public override void RegisterHandlers()
         {
             base.RegisterHandlers();
+
+            BeginCreateMark -= Presenter.CreateMark;
             BeginCreateMark += Presenter.CreateMark;
+            tabStandards.SelectedIndexChanged -= TabChange;
+            tabStandards.SelectedIndexChanged += TabChange;
         }
 
-        private class StandardTabPage : TabPage
+        public void ClearDrawingStandars()
         {
-            public DrawingStandards Standard;
-            public StandardTabPage(DrawingStandards _standard) : base(_standard.ToString())
+            tabStandards.SelectedIndexChanged -= TabChange;
+            tabStandards.Controls.Clear();
+            tabStandards.SelectedIndexChanged += TabChange;
+        }
+
+        public void BindDrawingStandard(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks, IColorSchemeService _colorService)
+        {
+            var tab = new StandardTabPage(_standard, _colorService)
             {
-                this.Standard = _standard;
-                this.Name = _standard.ToString();
-                var flp = new FlowLayoutPanel
-                {
-                    Name = _standard.ToString(),
-                    Dock = DockStyle.Fill
-                };
-                this.Controls.Add(flp);
-            }
-        }
-
-        public void BindDrawingStandard(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks)
-        {
-            tabStandards.TabPages.Add(new StandardTabPage(_standard));
-            BindMarkButtons(_standard, _listMarks);
+                UseVisualStyleBackColor = true
+            };
+            tabStandards.TabPages.Add(tab);
+            BindMarkButtons(_standard, _listMarks, _colorService);
         }
 
         public DrawingStandards GetDrawingStandard()
@@ -57,7 +58,28 @@ namespace CADKitElevationMarks.Views
             return (tabStandards.SelectedTab as StandardTabPage).Standard;
         }
 
-        private void BindMarkButtons(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks)
+        public EntitiesSet GetSetSelection()
+        {
+            if (rbxGroup.Checked)
+                return EntitiesSet.Group;
+            if (rbxBlock.Checked)
+                return EntitiesSet.Block;
+            throw new NotSupportedException();
+        }
+
+        public void SetColorScheme(IColorSchemeService _service)
+        {
+            this.ChangeColorSchema(_service.GetForeColor(), _service.GetBackColor());
+            flowLayoutPanel1.ChangeColorSchema(this.ForeColor, this.BackColor);
+            gbxOutputFormat.ChangeColorSchema(this.ForeColor, this.BackColor);
+            rbxGroup.ChangeColorSchema(this.ForeColor, this.BackColor);
+            rbxBlock.ChangeColorSchema(this.ForeColor, this.BackColor);
+            btnOptions.ChangeColorSchema(this.BackColor, this.BackColor);
+            btnOptions.Image = Presenter.GetOptionIcon();
+            tabStandards.ChangeColorSchema(this.ForeColor, this.BackColor);
+        }
+
+        private void BindMarkButtons(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks, IColorSchemeService _colorService)
         {
             var tab = tabStandards.TabPages[_standard.ToString()];
             var flp = tab.Controls[_standard.ToString()] as FlowLayoutPanel;
@@ -69,6 +91,9 @@ namespace CADKitElevationMarks.Views
                     Tag = item.id,
                     Size = new Size(50, 50),
                     Name = "button_" + item.id,
+                    FlatStyle = FlatStyle.Flat,
+                    BackColor = _colorService.GetBackColor(),
+                    ForeColor = _colorService.GetBackColor(),
                     Image = item.picture
                 };
                 btn.Click += new EventHandler(ButtonClick);
@@ -77,25 +102,34 @@ namespace CADKitElevationMarks.Views
             }
         }
 
-        private void ButtonClick(object sender, EventArgs e)
+        private void ButtonClick(object _sender, EventArgs _arg)
         {
-            var button = sender as Button;
-            BeginCreateMark?.Invoke(sender, new BeginCreateMarkEventArgs(Convert.ToInt16(button.Tag)));
+            BeginCreateMark?.Invoke(_sender, new BeginCreateMarkEventArgs(Convert.ToInt16(((Button)_sender).Tag)));
         }
 
-        private void TabChange(object sender, EventArgs e)
+        private void TabChange(object _sender, EventArgs _arg)
         {
             var page = tabStandards.SelectedTab as StandardTabPage;
             Presenter.ChangeStandardDrawing(page.Standard);
         }
 
-        public EntitiesSet GetEntitiesSet()
+        private class StandardTabPage : TabPage
         {
-            if (rbxGroup.Checked)
-                return EntitiesSet.Group;
-            if (rbxBlock.Checked)
-                return EntitiesSet.Block;
-            throw new NotSupportedException();
+            public DrawingStandards Standard;
+            public StandardTabPage(DrawingStandards _standard, IColorSchemeService _colorService) : base(_standard.ToString())
+            {
+                this.Standard = _standard;
+                this.Name = _standard.ToString();
+                var flp = new FlowLayoutPanel
+                {
+                    Name = _standard.ToString(),
+                    Dock = DockStyle.Fill,
+                    ForeColor = _colorService.GetBackColor(),
+                    BackColor = _colorService.GetBackColor()
+                };
+                this.Controls.Add(flp);
+            }
         }
+
     }
 }

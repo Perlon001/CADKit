@@ -1,5 +1,4 @@
 ﻿using CADKit.Contracts;
-using CADKitBasic.Models;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.DTO;
 using CADKitElevationMarks.Models;
@@ -10,9 +9,10 @@ namespace CADKitElevationMarks.Contracts.Views
     public interface IElevationMarksView : IView
     {
         IElevationMarksPresenter Presenter { get; set; }
-        void BindDrawingStandard(DrawingStandards standard, IList<MarkButtonDTO> listMarks);
+        void ClearDrawingStandars();
+        void BindDrawingStandard(DrawingStandards standard, IList<MarkButtonDTO> listMarks, IColorSchemeService service);
         DrawingStandards GetDrawingStandard();
 
-        EntitiesSet GetEntitiesSet();
+        EntitiesSet GetSetSelection();
     }
 }

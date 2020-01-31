@@ -1,8 +1,7 @@
 ﻿using CADKit.Contracts;
-using CADKitBasic.Contracts.Presenters;
-using CADKitBasic.Models;
 using CADKitElevationMarks.Events;
 using CADKitElevationMarks.Models;
+using System.Drawing;
 
 namespace CADKitElevationMarks.Contracts.Presenters
 {
@@ -12,5 +11,8 @@ namespace CADKitElevationMarks.Contracts.Presenters
 
         void CreateMark(object sender, BeginCreateMarkEventArgs e);
 
+        Bitmap GetOptionIcon();
+
+        void FillTabs();
     }
 }

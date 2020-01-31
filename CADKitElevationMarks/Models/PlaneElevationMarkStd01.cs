@@ -7,6 +7,7 @@ using CADKit.Internal;
 using System;
 using CADKit.Extensions;
 using CADKit.Proxy;
+using CADKitElevationMarks.Contracts;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;

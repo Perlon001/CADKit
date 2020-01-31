@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CADKitElevationMarks.Models
+namespace CADKitElevationMarks.Contracts
 {
     public enum DrawingStandards
     {

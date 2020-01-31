@@ -1,7 +1,8 @@
-﻿using CADKit.Extensions;
+﻿using CADKit.Events;
+using CADKit.Extensions;
 using CADKit.Models;
 using CADKit.Proxy;
-using CADKit.Runtime;
+using CADKit.Services;
 using CADKit.UI;
 using Microsoft.Win32;
 using System;
@@ -10,10 +11,12 @@ using System.IO;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.ApplicationServices;
+using ZwSoft.ZwCAD.Windows;
 #endif
 
 #if AutoCAD
 using Autodesk.AutoCAD.ApplicationServices;
+using Autodesk.AutoCAD.Windows;
 #endif
 
 namespace CADKit
@@ -37,12 +40,16 @@ namespace CADKit
             CADProxy.DocumentCreated += OnDocumentCreated;
             CADProxy.DocumentDestroyed -= OnDocumentDestroyed;
             CADProxy.DocumentDestroyed += OnDocumentDestroyed;
+            CADProxy.SystemVariableChanged -= OnSystemVariableChanged;
+            CADProxy.SystemVariableChanged += OnSystemVariableChanged;
 
             GetSettingsFromDocument();
             SetSettingsToDocument();
         }
 
-        public static AppSettings Instance { get { return instance; } }
+        public event ChangeColorSchemeEventHandler ChangeColorScheme;
+
+        public static AppSettings Get { get { return instance; } }
 
         public string AppPath { get; private set; }
 
@@ -54,11 +61,11 @@ namespace CADKit
                 {
                     palette = new CADKitPaletteSet("CADKit", new Guid("53607c72-90e4-4bf8-b83d-c3da5a19c845"))
                     {
-                        // TODO: Eliminacja zaleznosci do ZwSOFT.ZwCAD
-                        // Visible must set to true before Dock settings
+                        // Visible must set to true before Dock setting!
                         Visible = true,
-                        Dock = ZwSoft.ZwCAD.Windows.DockSides.Left,
-                        // TODO: Ustalenie minimalnego wymiaru palety
+                        Dock = DockSides.Left,
+                        
+                        // TODO: Set minimum size of palette not work :(
                         MinimumSize = new Size(450, 460),
                         KeepFocus = true
                     };
@@ -67,21 +74,6 @@ namespace CADKit
 
                 }
                 return palette;
-            }
-        }
-
-        public InterfaceScheme ColorScheme 
-        {
-            get
-            {
-                var schemeValue = (int)Registry.CurrentUser.OpenSubKey("Software\\ZWSOFT\\ZWCAD\\2020\\en-US\\Profiles\\Default\\Config\\COLORSCHEME", false).GetValue("COLORSCHEME");
-                switch (schemeValue)
-                {
-                    case 1:
-                        return InterfaceScheme.light;
-                    default:
-                        return InterfaceScheme.dark;
-                }
             }
         }
 
@@ -110,6 +102,7 @@ namespace CADKit
                 CADProxy.SetCustomProperty("CKDimensionUnit", dimensionUnit.ToString());
             }
         }
+
         public string DrawingScale
         {
             get
@@ -122,6 +115,7 @@ namespace CADKit
                 CADProxy.SetCustomProperty("CKDrawingScale", drawingScale);
             }
         }
+
         public double ScaleFactor
         {
             get
@@ -138,43 +132,24 @@ namespace CADKit
                     default:
                         throw new Exception("Nie rozpoznana jednostka rysunkowa");
                 }
-
             }
         }
 
-        public void SetSettingsToDocument()
+        private void SetSettingsToDocument()
         {
             CADProxy.SetCustomProperty("CKDrawingUnit", drawingUnit.ToString());
             CADProxy.SetCustomProperty("CKDimensionUnit", dimensionUnit.ToString());
             CADProxy.SetCustomProperty("CKDrawingScale", drawingScale);
         }
 
-        public void GetSettingsFromDocument()
+        private void GetSettingsFromDocument()
         {
             drawingUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDrawingUnit"), Units.mm);
             dimensionUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDimensionUnit"), Units.mm);
             drawingScale = CADProxy.GetCustomProperty("CKDrawingScale");
-            if(drawingScale == "")
+            if (drawingScale == "")
             {
                 DrawingScale = CADProxy.Database.Cannoscale.Name;
-            }
-        }
-
-        public void Reset()
-        {
-            CADKitPalette.Visible = false;
-            drawingScale = "";
-        }
-
-        public void FlipPalette()
-        {
-            if(palette != null)
-            {
-                palette.Visible = !palette.Visible;
-            }
-            else
-            {
-                CADProxy.Editor.WriteMessage("\nPleta nie zainicjalizowana\n");
             }
         }
 
@@ -185,21 +160,21 @@ namespace CADKit
 
         private void OnDestroy(object sender, EventArgs e)
         {
-            //CADProxy.Editor.WriteMessage("\nOnDestroj");
+            // CADProxy.Editor.WriteMessage("\nOnDestroj");
         }
 
         private void OnStateChanged(object sender, EventArgs e)
         {
-            //CADProxy.Editor.WriteMessage("\nOnStateChanged");
+            // CADProxy.Editor.WriteMessage("\nOnStateChanged");
         }
 
         private void OnDocumentCreated(object sender, DocumentCollectionEventArgs e)
         {
-            Instance.GetSettingsFromDocument();
-            Instance.SetSettingsToDocument();
-            if (CADProxy.DocumentManager.Count == 1 && Instance.CADKitPalette.PaletteState)
+            GetSettingsFromDocument();
+            SetSettingsToDocument();
+            if (CADProxy.DocumentManager.Count == 1 && Get.CADKitPalette.PaletteState)
             {
-                Instance.CADKitPalette.Visible = true;
+                Get.CADKitPalette.Visible = true;
             }
         }
 
@@ -207,7 +182,16 @@ namespace CADKit
         {
             if (CADProxy.Document == null)
             {
-                Instance.Reset();
+                CADKitPalette.Visible = false;
+            }
+            drawingScale = "";
+        }
+
+        private void OnSystemVariableChanged(object sender, SystemVariableChangedEventArgs arg)
+        {
+            if (arg.Name == "COLORSCHEME")
+            {
+                ChangeColorScheme?.Invoke(sender, new ChangeColorSchemeEventArgs(ColorSchemeService.ColorScheme));
             }
         }
     }

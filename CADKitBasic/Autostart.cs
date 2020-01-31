@@ -11,8 +11,8 @@ namespace CADKitBasic
     {
         public void Initialize()
         {
-            AppSettings.Instance.CADKitPalette.Add("Ustawienia", DI.Container.Resolve<ISettingsView>() as Control);
-            AppSettings.Instance.CADKitPalette.Visible = true;
+            AppSettings.Get.CADKitPalette.Add("Ustawienia", DI.Container.Resolve<ISettingsView>() as Control);
+            AppSettings.Get.CADKitPalette.Visible = true;
             CADProxy.SetSystemVariable("CANNOSCALE", "1:100");
         }
     }

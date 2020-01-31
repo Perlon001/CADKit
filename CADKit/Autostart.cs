@@ -1,16 +1,10 @@
 ﻿using Autofac;
-using System;
-using System.Reflection;
-using System.Linq;
 using CADKit.Contracts;
 using CADKit.Proxy;
 using CADKit.Proxy.Runtime;
-
-/*
-    HKEY_CURRENT_USER\Software\ZWSOFT\ZWCAD\2020\en-US\Profiles\Default\Config\COLORSCHEME
-    0 - interfejs ciemny
-    1 - interfejs jasny
- */
+using System;
+using System.Linq;
+using System.Reflection;
 
 namespace CADKit
 {
@@ -42,7 +36,6 @@ namespace CADKit
                     }
                 } 
             }
-
         }
 
         public void Terminate()

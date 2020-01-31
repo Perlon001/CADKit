@@ -10,6 +10,10 @@ using CADKit.Models;
 using CADKit.Extensions;
 using CADKit.UI;
 using CADKit.Proxy;
+using CADKit.Contracts;
+using Autofac;
+using CADKit.Events;
+using CADKit.Services;
 
 #if ZwCAD
 using CADApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
@@ -23,38 +27,46 @@ namespace CADKitBasic.Presenters
 {
     public class SettingsPresenter : Presenter<ISettingsView>, ISettingsPresenter
     {
-        private readonly ICompositeService compositeService;
-
-        public SettingsPresenter(ISettingsView _view, ICompositeService _compositeService)
+        public SettingsPresenter(ISettingsView _view) : base()
         {
             View = _view;
             View.Presenter = this;
-            View.RegisterHandlers();
             CADProxy.DocumentActivated -= OnDocumentActivate;
             CADProxy.DocumentActivated += OnDocumentActivate;
             CADProxy.CommandEnded -= OnCommandEnded;
             CADProxy.CommandEnded += OnCommandEnded;
             CADProxy.SystemVariableChanged -= OnSystemVariableChanged;
             CADProxy.SystemVariableChanged += OnSystemVariableChanged;
-            compositeService = _compositeService; // DI.Container.Resolve<ICompositeService>();
+            AppSettings.Get.ChangeColorScheme -= OnChangeColorScheme;
+            AppSettings.Get.ChangeColorScheme += OnChangeColorScheme;
         }
 
         public override void OnViewLoaded()
         {
-            BindDrawingUnit();
-            BindDimensionUnit();
-            BindScaleList();
-            View.SelectedScale = ScaleDTO.GetCurrentScale();
+            base.OnViewLoaded();
+            OnChangeColorScheme(this, new ChangeColorSchemeEventArgs(ColorSchemeService.ColorScheme));
+            try
+            {
+                BindDrawingUnit();
+                BindDimensionUnit();
+                BindScaleList();
+                View.RegisterHandlers();
+                View.SelectedScale = ScaleDTO.GetCurrentScale();
+            }
+            catch (Exception ex)
+            {
+                View.ShowException(ex, "Błąd ładowania widoku " + this.ToString());
+            }
         }
 
         public void OnDrawUnitSelect(object sender, EventArgs e)
         {
-            AppSettings.Instance.DrawingUnit = View.SelectedDrawingUnit;
+            AppSettings.Get.DrawingUnit = View.SelectedDrawingUnit;
         }
 
         public void OnDimUnitSelect(object sender, EventArgs e)
         {
-            AppSettings.Instance.DimensionUnit = View.SelectedDimensionUnit;
+            AppSettings.Get.DimensionUnit = View.SelectedDimensionUnit;
         }
 
         public void OnScaleSelect(object sender, EventArgs e)
@@ -62,7 +74,7 @@ namespace CADKitBasic.Presenters
             CADProxy.SetSystemVariable("CANNOSCALE", View.SelectedScale.Name);
         }
 
-        void OnCommandEnded(object sender, CADApplicationServices.CommandEventArgs arg)
+        private void OnCommandEnded(object sender, CADApplicationServices.CommandEventArgs arg)
         {
             if(arg.GlobalCommandName == "SCALELISTEDIT")
             {
@@ -70,7 +82,7 @@ namespace CADKitBasic.Presenters
             }
         }
 
-        void OnDocumentActivate(object sender, CADApplicationServices.DocumentCollectionEventArgs arg)
+        private void OnDocumentActivate(object sender, CADApplicationServices.DocumentCollectionEventArgs arg)
         {
             BindScaleList();
             View.SelectedScale = new ScaleDTO()
@@ -82,7 +94,7 @@ namespace CADKitBasic.Presenters
             View.SelectedDimensionUnit = EnumsUtil.GetEnum(CADProxy.GetCustomProperty("CKDimensionUnit"), Units.mm);
         }
 
-        void OnSystemVariableChanged(object sender, CADApplicationServices.SystemVariableChangedEventArgs arg)
+        private void OnSystemVariableChanged(object sender, CADApplicationServices.SystemVariableChangedEventArgs arg)
         {
             if (arg.Name == "CANNOSCALE")
             {
@@ -90,7 +102,7 @@ namespace CADKitBasic.Presenters
             }
         }
 
-        void BindScaleList()
+        private void BindScaleList()
         {
             var occ = CADProxy.Database.ObjectContextManager.GetContextCollection("ACDB_ANNOTATIONSCALES");
             IList<ScaleDTO> scales = new List<ScaleDTO>();
@@ -104,15 +116,23 @@ namespace CADKitBasic.Presenters
             View.BindingScale(scales);
         }
 
-        void BindDrawingUnit()
+        private void BindDrawingUnit()
         {
             View.BindingDrawingUnits(EnumsUtil.GetEnumDictionary<Units>().ToList());
         }
 
-        void BindDimensionUnit()
+        private void BindDimensionUnit()
         {
             View.BindingDimensionUnits(EnumsUtil.GetEnumDictionary<Units>().ToList());
         }
 
+        private void OnChangeColorScheme(object sender, ChangeColorSchemeEventArgs arg)
+        {
+            using (var scope = DI.Container.BeginLifetimeScope())
+            {
+                IColorSchemeService service = DI.Container.Resolve<IColorSchemeService>();
+                View.SetColorScheme(service);
+            }
+        }
     }
 }

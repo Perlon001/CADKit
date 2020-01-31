@@ -1,9 +1,5 @@
-﻿using CADKit.Runtime;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CADKit.Proxy;
+using CADKit.Runtime;
 
 namespace CADKit
 {
@@ -12,7 +8,15 @@ namespace CADKit
         [CommandMethod("CK_FLIPPALETE")]
         public static void FlipPalette()
         {
-            AppSettings.Instance.FlipPalette();
+
+            if (AppSettings.Get.CADKitPalette != null)
+            {
+                AppSettings.Get.CADKitPalette.Visible = !AppSettings.Get.CADKitPalette.Visible;
+            }
+            else
+            {
+                CADProxy.Editor.WriteMessage("\nPaleta nie zainicjalizowana\n");
+            }
         }
     }
 }

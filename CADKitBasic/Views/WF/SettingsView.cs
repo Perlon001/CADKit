@@ -1,4 +1,7 @@
-﻿using CADKit.Models;
+﻿using CADKit.Contracts;
+using CADKit.Events;
+using CADKit.Models;
+using CADKit.Proxy;
 using CADKit.UI.WF;
 using CADKitBasic.Contracts;
 using CADKitBasic.Contracts.Presenters;
@@ -94,12 +97,26 @@ namespace CADKitBasic.Views.WF
 
         public override void RegisterHandlers()
         {
+            base.RegisterHandlers();
+
             cmbDrawUnit.SelectedIndexChanged -= Presenter.OnDrawUnitSelect;
             cmbDrawUnit.SelectedIndexChanged += Presenter.OnDrawUnitSelect;
             cmbDimUnit.SelectedIndexChanged -= Presenter.OnDimUnitSelect;
             cmbDimUnit.SelectedIndexChanged += Presenter.OnDimUnitSelect;
             cmbScale.SelectedIndexChanged -= Presenter.OnScaleSelect;
             cmbScale.SelectedIndexChanged += Presenter.OnScaleSelect;
+        }
+
+        public void SetColorScheme(IColorSchemeService service)
+        {
+            this.ChangeColorSchema(service.GetForeColor(), service.GetBackColor());
+            gbxScale.ChangeColorSchema(this.ForeColor, this.BackColor);
+            lblDimUnit.ChangeColorSchema(this.ForeColor, this.BackColor);
+            lblDimUnit.ChangeColorSchema(this.ForeColor, this.BackColor);
+            lblScale.ChangeColorSchema(this.ForeColor, this.BackColor);
+            cmbDimUnit.ChangeColorSchema(this.ForeColor, this.BackColor);
+            cmbDrawUnit.ChangeColorSchema(this.ForeColor, this.BackColor);
+            cmbScale.ChangeColorSchema(ForeColor, this.BackColor);
         }
     }
 }

@@ -1,5 +1,9 @@
 ﻿using Autofac;
 using CADKit;
+using CADKit.Contracts;
+using CADKit.Events;
+using CADKit.Models;
+using CADKit.Services;
 using CADKit.UI;
 using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Presenters;
@@ -9,24 +13,34 @@ using CADKitElevationMarks.Events;
 using CADKitElevationMarks.Models;
 using CADKitElevationMarks.Services;
 using System;
+using System.Drawing;
+
+#if ZwCAD
+using CADApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
+#endif
+
+#if AutoCAD
+using CADApplicationServices = Autodesk.AutoCAD.ApplicationServices;
+#endif
 
 namespace CADKitElevationMarks.Presenters
 {
     public class ElevationMarksPresenter : Presenter<IElevationMarksView>, IElevationMarksPresenter
     {
-        IMarkTypeService markTypeService;
+        private IMarkTypeService markTypeService;
         
         public ElevationMarksPresenter(IElevationMarksView _view)
         {
             View = _view;
             View.Presenter = this;
+            AppSettings.Get.ChangeColorScheme -= OnChangeColorScheme;
+            AppSettings.Get.ChangeColorScheme += OnChangeColorScheme;
         }
 
         public void ChangeStandardDrawing(DrawingStandards _standard)
         {
-            using(var scope = DI.Container.BeginLifetimeScope())
+            using (var factory = new MarkTypeServiceFactory())
             {
-                var factory = scope.Resolve<MarkTypeServiceFactory>();
                 markTypeService = factory.GetMarkTypeService(_standard);
             }
         }
@@ -35,28 +49,55 @@ namespace CADKitElevationMarks.Presenters
         {
             var markType = markTypeService.GetMarkType(e.ID);
             var mark = Activator.CreateInstance(markType) as IElevationMark;
-            mark.Create(View.GetEntitiesSet());
+            mark.Create(View.GetSetSelection());
+        }
+
+        // TODO: GetOptionIcon() move to another service
+        public Bitmap GetOptionIcon()
+        {
+            switch (ColorSchemeService.ColorScheme)
+            {
+                case InterfaceScheme.dark:
+                    return Properties.Resources.options_dark;
+                default:
+                    return Properties.Resources.options;
+            }
         }
 
         public override void OnViewLoaded()
         {
-            try
+            View.ClearDrawingStandars();
+            View.SetColorScheme(GetColorSchemeService());
+            FillTabs();
+            View.RegisterHandlers();
+        }
+
+        public void FillTabs()
+        {
+            using (var scope = DI.Container.BeginLifetimeScope())
             {
-                base.OnViewLoaded();
-                using (var scope = DI.Container.BeginLifetimeScope())
+                var factory = scope.Resolve<MarkTypeServiceFactory>();
+                foreach (DrawingStandards st in Enum.GetValues(typeof(DrawingStandards)))
                 {
-                    var factory = scope.Resolve<MarkTypeServiceFactory>();
-                    foreach (DrawingStandards st in Enum.GetValues(typeof(DrawingStandards)))
-                    {
-                        View.BindDrawingStandard(st, factory.GetMarkTypeService(st).GetMarks());
-                    }
-                    markTypeService = factory.GetMarkTypeService(View.GetDrawingStandard());
+                    View.BindDrawingStandard(st, factory.GetMarkTypeService(st).GetMarks(), scope.Resolve<IColorSchemeService>());
                 }
-                View.RegisterHandlers();
+                markTypeService = factory.GetMarkTypeService(View.GetDrawingStandard());
             }
-            catch (Exception ex)
+        }
+
+        private void OnChangeColorScheme(object sender, ChangeColorSchemeEventArgs arg)
+        {
+            View.ClearDrawingStandars();
+            View.SetColorScheme(GetColorSchemeService());
+            FillTabs();
+        }
+
+        private IColorSchemeService GetColorSchemeService()
+        {
+            using (var scope = DI.Container.BeginLifetimeScope())
             {
-                View.ShowException(ex, "Błąd ładowania widoku");
+                IColorSchemeService service = DI.Container.Resolve<IColorSchemeService>();
+                return service;
             }
         }
     }
