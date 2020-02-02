@@ -8,7 +8,7 @@ namespace CADKitElevationMarks.Services
 {
     public class IconServiceDefault : IconService, IIconServiceDefault
     {
-        public IconServiceDefault(IColorSchemeService _service) : base(_service) { }
+        public IconServiceDefault(IInterfaceSchemeService _service) : base(_service) { }
 
         protected override Bitmap GetIconForDarkScheme(MarkTypes type, IconSize size)
         {

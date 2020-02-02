@@ -1,4 +1,6 @@
-﻿using CADKit.Events;
+﻿using Autofac;
+using CADKit.Contracts;
+using CADKit.Events;
 using CADKit.Extensions;
 using CADKit.Models;
 using CADKit.Proxy;
@@ -47,7 +49,7 @@ namespace CADKit
             SetSettingsToDocument();
         }
 
-        public event ChangeColorSchemeEventHandler ChangeColorScheme;
+        public event ChangeInterfaceSchemeEventHandler ChangeInterfaceScheme;
 
         public static AppSettings Get { get { return instance; } }
 
@@ -64,14 +66,11 @@ namespace CADKit
                         // Visible must set to true before Dock setting!
                         Visible = true,
                         Dock = DockSides.Left,
-                        
-                        // TODO: Set minimum size of palette not work :(
-                        MinimumSize = new Size(450, 460),
-                        KeepFocus = true
-                    };
-                    palette.PaletteSetDestroy += OnDestroy;
-                    palette.StateChanged += OnStateChanged;
+                        KeepFocus = true,
 
+                        // TODO: Set minimum size of palette not work :(
+                        MinimumSize = new Size(450, 460)
+                    };
                 }
                 return palette;
             }
@@ -158,16 +157,6 @@ namespace CADKit
             CADKitPalette.Name = "CADKit " + CADKitPalette.Size.Width;
         }
 
-        private void OnDestroy(object sender, EventArgs e)
-        {
-            // CADProxy.Editor.WriteMessage("\nOnDestroj");
-        }
-
-        private void OnStateChanged(object sender, EventArgs e)
-        {
-            // CADProxy.Editor.WriteMessage("\nOnStateChanged");
-        }
-
         private void OnDocumentCreated(object sender, DocumentCollectionEventArgs e)
         {
             GetSettingsFromDocument();
@@ -187,11 +176,15 @@ namespace CADKit
             drawingScale = "";
         }
 
-        private void OnSystemVariableChanged(object sender, SystemVariableChangedEventArgs arg)
+        private void OnSystemVariableChanged(object _sender, SystemVariableChangedEventArgs _arg)
         {
-            if (arg.Name == "COLORSCHEME")
+            if (_arg.Name == "COLORSCHEME")
             {
-                ChangeColorScheme?.Invoke(sender, new ChangeColorSchemeEventArgs(ColorSchemeService.ColorScheme));
+                using(var scope = DI.Container.BeginLifetimeScope())
+                {
+                    var service = DI.Container.Resolve<IInterfaceSchemeService>();
+                    ChangeInterfaceScheme?.Invoke(_sender, new ChangeInterfaceSchemeEventArgs(service));
+                }
             }
         }
     }

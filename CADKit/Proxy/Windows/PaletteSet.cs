@@ -1,4 +1,5 @@
 ﻿using System;
+
 #if ZwCAD
 using CADWindows = ZwSoft.ZwCAD.Windows;
 #endif
@@ -6,10 +7,11 @@ using CADWindows = ZwSoft.ZwCAD.Windows;
 using CADWindows = Autodesk.AutoCAD.Windows;
 #endif
 
-namespace CADKit.Models
+namespace CADKit.Proxy.Windows
 {
     public class PaletteSet : CADWindows.PaletteSet
     {
+     
         public PaletteSet(string name) : base(name)
         {
         }
@@ -21,5 +23,6 @@ namespace CADKit.Models
         public PaletteSet(string name, string cmd, Guid toolID) : base(name, cmd, toolID)
         {
         }
+
     }
 }

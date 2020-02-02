@@ -43,7 +43,7 @@ namespace CADKitElevationMarks.Views
             tabStandards.SelectedIndexChanged += TabChange;
         }
 
-        public void BindDrawingStandard(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks, IColorSchemeService _colorService)
+        public void BindDrawingStandard(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks, IInterfaceSchemeService _colorService)
         {
             var tab = new StandardTabPage(_standard, _colorService)
             {
@@ -67,7 +67,7 @@ namespace CADKitElevationMarks.Views
             throw new NotSupportedException();
         }
 
-        public void SetColorScheme(IColorSchemeService _service)
+        public void SetColorScheme(IInterfaceSchemeService _service)
         {
             this.ChangeColorSchema(_service.GetForeColor(), _service.GetBackColor());
             flowLayoutPanel1.ChangeColorSchema(this.ForeColor, this.BackColor);
@@ -79,7 +79,7 @@ namespace CADKitElevationMarks.Views
             tabStandards.ChangeColorSchema(this.ForeColor, this.BackColor);
         }
 
-        private void BindMarkButtons(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks, IColorSchemeService _colorService)
+        private void BindMarkButtons(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks, IInterfaceSchemeService _colorService)
         {
             var tab = tabStandards.TabPages[_standard.ToString()];
             var flp = tab.Controls[_standard.ToString()] as FlowLayoutPanel;
@@ -116,7 +116,7 @@ namespace CADKitElevationMarks.Views
         private class StandardTabPage : TabPage
         {
             public DrawingStandards Standard;
-            public StandardTabPage(DrawingStandards _standard, IColorSchemeService _colorService) : base(_standard.ToString())
+            public StandardTabPage(DrawingStandards _standard, IInterfaceSchemeService _colorService) : base(_standard.ToString())
             {
                 this.Standard = _standard;
                 this.Name = _standard.ToString();

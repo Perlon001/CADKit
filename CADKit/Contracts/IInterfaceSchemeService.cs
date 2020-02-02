@@ -1,9 +1,10 @@
 ﻿using CADKit.Models;
+using System;
 using System.Drawing;
 
 namespace CADKit.Contracts
 {
-    public interface IColorSchemeService
+    public interface IInterfaceSchemeService
     {
         InterfaceScheme GetScheme();
         Color GetBackColor();

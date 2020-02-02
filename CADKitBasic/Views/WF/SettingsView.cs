@@ -1,7 +1,5 @@
 ﻿using CADKit.Contracts;
-using CADKit.Events;
 using CADKit.Models;
-using CADKit.Proxy;
 using CADKit.UI.WF;
 using CADKitBasic.Contracts;
 using CADKitBasic.Contracts.Presenters;
@@ -107,7 +105,7 @@ namespace CADKitBasic.Views.WF
             cmbScale.SelectedIndexChanged += Presenter.OnScaleSelect;
         }
 
-        public void SetColorScheme(IColorSchemeService service)
+        public void SetColorScheme(IInterfaceSchemeService service)
         {
             this.ChangeColorSchema(service.GetForeColor(), service.GetBackColor());
             gbxScale.ChangeColorSchema(this.ForeColor, this.BackColor);

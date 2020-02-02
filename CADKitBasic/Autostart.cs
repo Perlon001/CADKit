@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace CADKitBasic
 {
-    public class ABCAutostart : IAutostart
+    public class Autostart : IAutostart
     {
         public void Initialize()
         {

@@ -9,10 +9,10 @@ namespace CADKitElevationMarks.Services
 {
     public abstract class IconService : IIconService
     {
-        protected readonly IColorSchemeService colorSchemeService;
+        protected readonly IInterfaceSchemeService colorSchemeService;
         protected Bitmap DefaultIcon { get { return new Bitmap(32, 32); } }
 
-        public IconService(IColorSchemeService _service)
+        public IconService(IInterfaceSchemeService _service)
         {
             colorSchemeService = _service;
         }

@@ -37,14 +37,14 @@ namespace CADKitBasic.Presenters
             CADProxy.CommandEnded += OnCommandEnded;
             CADProxy.SystemVariableChanged -= OnSystemVariableChanged;
             CADProxy.SystemVariableChanged += OnSystemVariableChanged;
-            AppSettings.Get.ChangeColorScheme -= OnChangeColorScheme;
-            AppSettings.Get.ChangeColorScheme += OnChangeColorScheme;
+            //AppSettings.Get.ChangeInterfaceScheme -= OnChangeColorScheme;
+            //AppSettings.Get.ChangeInterfaceScheme += OnChangeColorScheme;
         }
 
         public override void OnViewLoaded()
         {
             base.OnViewLoaded();
-            OnChangeColorScheme(this, new ChangeColorSchemeEventArgs(ColorSchemeService.ColorScheme));
+//            OnChangeColorScheme(this, new ChangeInterfaceSchemeEventArgs(InterfaceSchemeService.ColorScheme));
             try
             {
                 BindDrawingUnit();
@@ -126,13 +126,13 @@ namespace CADKitBasic.Presenters
             View.BindingDimensionUnits(EnumsUtil.GetEnumDictionary<Units>().ToList());
         }
 
-        private void OnChangeColorScheme(object sender, ChangeColorSchemeEventArgs arg)
-        {
-            using (var scope = DI.Container.BeginLifetimeScope())
-            {
-                IColorSchemeService service = DI.Container.Resolve<IColorSchemeService>();
-                View.SetColorScheme(service);
-            }
-        }
+        //private void OnChangeColorScheme(object sender, ChangeInterfaceSchemeEventArgs arg)
+        //{
+        //    using (var scope = DI.Container.BeginLifetimeScope())
+        //    {
+        //        IInterfaceSchemeService service = DI.Container.Resolve<IInterfaceSchemeService>();
+        //        View.SetColorScheme(service);
+        //    }
+        //}
     }
 }

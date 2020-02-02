@@ -1,38 +1,128 @@
-﻿using CADKit.Contracts;
-using CADKit.Models;
+﻿using Autofac;
+using CADKit.Contracts;
+using CADKit.Events;
 using CADKit.Proxy;
+using CADKit.Proxy.Windows;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using ZwSoft.ZwCAD.ApplicationServices;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Windows.Media;
+
+#if ZwCAD
+using CADWindows = ZwSoft.ZwCAD.Windows;
+#endif
+#if AutoCAD
+using CADWindows = Autodesk.AutoCAD.Windows;
+#endif
 
 namespace CADKit.UI
 {
-    public class CADKitPaletteSet : PaletteSet
+    public class CADKitPaletteSet : ICollection
     {
-        public ICollection<IPalettePage> palettePages { get; set; }
+        private PaletteSet paletteSet;
+        private static IDictionary<string, dynamic> Collection = new Dictionary<string, dynamic>();
 
-        public CADKitPaletteSet(string name) : base(name)
+        public CADKitPaletteSet(string name)
         {
+            paletteSet = new PaletteSet(name);
+            AppSettings.Get.ChangeInterfaceScheme += OnChangeInterfaceScheme;
         }
 
-        public CADKitPaletteSet(string name, Guid toolID) : base(name, toolID)
+        public CADKitPaletteSet(string name, Guid toolID)
         {
+            paletteSet = new PaletteSet(name, toolID);
+            AppSettings.Get.ChangeInterfaceScheme += OnChangeInterfaceScheme;
         }
 
-        public CADKitPaletteSet(string name, string cmd, Guid toolID) : base(name, cmd, toolID)
+        public CADKitPaletteSet(string name, string cmd, Guid toolID)
         {
+            paletteSet = new PaletteSet(name, cmd, toolID);
+            AppSettings.Get.ChangeInterfaceScheme += OnChangeInterfaceScheme;
         }
+
+        public string Name
+        {
+            get { return paletteSet.Name; }
+            set { paletteSet.Name = value; }
+        }
+
+        public CADWindows.DockSides Dock
+        {
+            get { return paletteSet.Dock; }
+            set { paletteSet.Dock = value; }
+        }
+
+        public bool KeepFocus
+        {
+            get { return paletteSet.KeepFocus; }
+            set { paletteSet.KeepFocus = value; }
+        }
+
+        public Size Size
+        {
+            get { return paletteSet.Size; }
+            set { paletteSet.Size = value; }
+        }
+
+        public Size MinimumSize
+        {
+            get { return paletteSet.MinimumSize; }
+            set { paletteSet.MinimumSize = value; }
+        }
+
+        public int Count { get { return paletteSet.Count; } }
 
         public bool PaletteState { get; protected set; }
 
-        public void AddPage(IPalettePage page)
+        public bool Visible
         {
-            AddPage(page, palettePages.Count);
+            get { return paletteSet.Visible; }
+            set { paletteSet.Visible = value; }
         }
 
-        public void AddPage(IPalettePage page, int posAfter)
+        public CADWindows.Palette Add(string name, Control control)
         {
-            palettePages.Add(page);
+            Collection.Add(name, control);
+            return paletteSet.Add(name, control);
         }
+
+        public CADWindows.Palette AddVisual(string name, Visual visual)
+        {
+            Collection.Add(name, visual);
+            return paletteSet.AddVisual(name, visual);
+        }
+
+        public void OnChangeInterfaceScheme(object _sender, ChangeInterfaceSchemeEventArgs _arg)
+        {
+            CADProxy.Editor.WriteMessage("\nJedziemy ze zmianą kolorów na " + this.paletteSet.ToString() + " widokach");
+            using(var scope = DI.Container.BeginLifetimeScope())
+            {
+                var service = scope.Resolve<IInterfaceSchemeService>();
+                for(int i = 0; i< Count; i++)
+                {
+                    var view = Collection[this.paletteSet[i].Name] as IView;
+                    view.SetColorScheme(service);
+                }
+            }
+        }
+
+        //TODO: ICollection not implemented
+        #region ICollection interface implementation
+        public object SyncRoot => throw new NotImplementedException();
+
+        public bool IsSynchronized => throw new NotImplementedException();
+
+        public void CopyTo(Array array, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
     }
 }

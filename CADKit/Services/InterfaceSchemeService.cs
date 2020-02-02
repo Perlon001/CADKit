@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace CADKit.Services
 {
-    public class ColorSchemeService : IColorSchemeService
+    public class InterfaceSchemeService : IInterfaceSchemeService
     {
         public static InterfaceScheme ColorScheme
         {

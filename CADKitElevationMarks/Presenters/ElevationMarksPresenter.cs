@@ -33,8 +33,8 @@ namespace CADKitElevationMarks.Presenters
         {
             View = _view;
             View.Presenter = this;
-            AppSettings.Get.ChangeColorScheme -= OnChangeColorScheme;
-            AppSettings.Get.ChangeColorScheme += OnChangeColorScheme;
+            //AppSettings.Get.ChangeInterfaceScheme -= OnChangeColorScheme;
+            //AppSettings.Get.ChangeInterfaceScheme += OnChangeColorScheme;
         }
 
         public void ChangeStandardDrawing(DrawingStandards _standard)
@@ -55,7 +55,7 @@ namespace CADKitElevationMarks.Presenters
         // TODO: GetOptionIcon() move to another service
         public Bitmap GetOptionIcon()
         {
-            switch (ColorSchemeService.ColorScheme)
+            switch (InterfaceSchemeService.ColorScheme)
             {
                 case InterfaceScheme.dark:
                     return Properties.Resources.options_dark;
@@ -67,7 +67,7 @@ namespace CADKitElevationMarks.Presenters
         public override void OnViewLoaded()
         {
             View.ClearDrawingStandars();
-            View.SetColorScheme(GetColorSchemeService());
+            //View.SetColorScheme(GetColorSchemeService());
             FillTabs();
             View.RegisterHandlers();
         }
@@ -79,26 +79,26 @@ namespace CADKitElevationMarks.Presenters
                 var factory = scope.Resolve<MarkTypeServiceFactory>();
                 foreach (DrawingStandards st in Enum.GetValues(typeof(DrawingStandards)))
                 {
-                    View.BindDrawingStandard(st, factory.GetMarkTypeService(st).GetMarks(), scope.Resolve<IColorSchemeService>());
+                    View.BindDrawingStandard(st, factory.GetMarkTypeService(st).GetMarks(), scope.Resolve<IInterfaceSchemeService>());
                 }
                 markTypeService = factory.GetMarkTypeService(View.GetDrawingStandard());
             }
         }
 
-        private void OnChangeColorScheme(object sender, ChangeColorSchemeEventArgs arg)
-        {
-            View.ClearDrawingStandars();
-            View.SetColorScheme(GetColorSchemeService());
-            FillTabs();
-        }
+        //private void OnChangeColorScheme(object sender, ChangeInterfaceSchemeEventArgs arg)
+        //{
+        //    View.ClearDrawingStandars();
+        //    View.SetColorScheme(GetColorSchemeService());
+        //    FillTabs();
+        //}
 
-        private IColorSchemeService GetColorSchemeService()
-        {
-            using (var scope = DI.Container.BeginLifetimeScope())
-            {
-                IColorSchemeService service = DI.Container.Resolve<IColorSchemeService>();
-                return service;
-            }
-        }
+        //private IInterfaceSchemeService GetColorSchemeService()
+        //{
+        //    using (var scope = DI.Container.BeginLifetimeScope())
+        //    {
+        //        IInterfaceSchemeService service = DI.Container.Resolve<IInterfaceSchemeService>();
+        //        return service;
+        //    }
+        //}
     }
 }

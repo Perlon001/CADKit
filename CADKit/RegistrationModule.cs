@@ -25,7 +25,7 @@ namespace CADKit
 
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<IColorSchemeService>()
+                .AssignableTo<IInterfaceSchemeService>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
 

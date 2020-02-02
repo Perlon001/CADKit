@@ -10,7 +10,7 @@ namespace CADKitElevationMarks.Contracts.Views
     {
         IElevationMarksPresenter Presenter { get; set; }
         void ClearDrawingStandars();
-        void BindDrawingStandard(DrawingStandards standard, IList<MarkButtonDTO> listMarks, IColorSchemeService service);
+        void BindDrawingStandard(DrawingStandards standard, IList<MarkButtonDTO> listMarks, IInterfaceSchemeService service);
         DrawingStandards GetDrawingStandard();
 
         EntitiesSet GetSetSelection();
