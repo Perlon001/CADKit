@@ -31,19 +31,6 @@ namespace CADKitElevationMarks.Services
             colorSchemeService = _service;
         }
 
-        public Bitmap GetOptionIcon()
-        {
-            switch (colorSchemeService.GetScheme())
-            {
-                case InterfaceScheme.light:
-                    return Properties.Resources.options;
-                case InterfaceScheme.dark:
-                    return Properties.Resources.options_dark;
-            }
-
-            return DefaultIcon;
-        }
-
         public Bitmap GetIcon(MarkTypes _type)
         {
             return GetIcon(_type, IconSize.small);

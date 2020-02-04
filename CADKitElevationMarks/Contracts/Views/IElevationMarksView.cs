@@ -1,7 +1,7 @@
 ﻿using CADKit.Contracts;
 using CADKitElevationMarks.Contracts.Presenters;
+using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.DTO;
-using CADKitElevationMarks.Models;
 using System.Collections.Generic;
 
 namespace CADKitElevationMarks.Contracts.Views
@@ -12,7 +12,6 @@ namespace CADKitElevationMarks.Contracts.Views
         void ClearDrawingStandars();
         void BindDrawingStandard(DrawingStandards standard, IList<MarkButtonDTO> listMarks, IInterfaceSchemeService service);
         DrawingStandards GetDrawingStandard();
-
         OutputSet GetSetSelection();
     }
 }

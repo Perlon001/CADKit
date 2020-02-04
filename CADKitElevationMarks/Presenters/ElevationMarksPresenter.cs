@@ -23,14 +23,13 @@ namespace CADKitElevationMarks.Presenters
         {
             View = _view;
             View.Presenter = this;
-            //AppSettings.Get.ChangeInterfaceScheme -= OnChangeColorScheme;
-            //AppSettings.Get.ChangeInterfaceScheme += OnChangeColorScheme;
         }
 
         public void ChangeStandardDrawing(DrawingStandards _standard)
         {
-            using (var factory = new MarkTypeServiceFactory())
+            using(var scope = DI.Container.BeginLifetimeScope())
             {
+                var factory = scope.Resolve<MarkTypeServiceFactory>();
                 markTypeService = factory.GetMarkTypeService(_standard);
             }
         }

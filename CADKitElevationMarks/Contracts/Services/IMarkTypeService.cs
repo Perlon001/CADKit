@@ -11,7 +11,5 @@ namespace CADKitElevationMarks.Contracts.Services
         Type GetMarkType(int markNumber);
         string GetMarkName(int markNumber);
         string GetMarkName(MarkTypes type);
-
-
     }
 }

@@ -73,6 +73,7 @@
     <Compile Include="Events\ChangeInterfaceSchemeEvent.cs" />
     <Compile Include="Contracts\InterfaceScheme.cs" />
     <Compile Include="Contracts\Units.cs" />
+    <Compile Include="ModellesDialog.cs" />
     <Compile Include="Models\EntitySetCreator.cs" />
     <Compile Include="Models\JigEntitties.cs" />
     <Compile Include="Proxy\ApplicationServices\SystemVriableChangedEventHandler.cs" />

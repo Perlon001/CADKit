@@ -2,6 +2,7 @@
 using CADKit.UI.WF;
 using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Presenters;
+using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.Contracts.Views;
 using CADKitElevationMarks.DTO;
 using CADKitElevationMarks.Events;
@@ -75,8 +76,8 @@ namespace CADKitElevationMarks.Views
             rbxGroup.ChangeColorSchema(this.ForeColor, this.BackColor);
             rbxBlock.ChangeColorSchema(this.ForeColor, this.BackColor);
             btnOptions.ChangeColorSchema(this.BackColor, this.BackColor);
-            btnOptions.Image = Presenter.GetOptionIcon();
             tabStandards.ChangeColorSchema(this.ForeColor, this.BackColor);
+            BindCommonIcons();
             Presenter.FillTabs();
         }
 
@@ -112,6 +113,11 @@ namespace CADKitElevationMarks.Views
         {
             var page = tabStandards.SelectedTab as StandardTabPage;
             Presenter.ChangeStandardDrawing(page.Standard);
+        }
+
+        private void BindCommonIcons()
+        {
+            btnOptions.Image = Presenter.GetOptionIcon();
         }
 
         private class StandardTabPage : TabPage

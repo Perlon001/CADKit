@@ -2,12 +2,11 @@
 using CADKit;
 using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Services;
-using CADKitElevationMarks.Models;
 using System;
 
 namespace CADKitElevationMarks.Services
 {
-    public class MarkTypeServiceFactory : IDisposable
+    public class MarkTypeServiceFactory
     {
         public IMarkTypeService GetMarkTypeService(DrawingStandards _standard)
         {
@@ -26,10 +25,6 @@ namespace CADKitElevationMarks.Services
                         throw new NotSupportedException("Nie obsługiwany standard " + _standard.ToString());
                 }
             }
-        }
-        public void Dispose()
-        {
-            GC.Collect();
         }
     }
 }
