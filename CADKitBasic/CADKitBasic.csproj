@@ -138,6 +138,6 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\CADKit\bin\Debug</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\CADKit\bin\$(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
 </Project>

@@ -1,6 +1,5 @@
 ﻿using CADKitBasic.Contracts;
 using CADKitBasic.Contracts.Presenters;
-using CADKitBasic.Contracts.Services;
 using CADKitBasic.Views.DTO;
 using CADKit;
 using System;
@@ -10,10 +9,8 @@ using CADKit.Models;
 using CADKit.Extensions;
 using CADKit.UI;
 using CADKit.Proxy;
-using CADKit.Contracts;
 using Autofac;
-using CADKit.Events;
-using CADKit.Services;
+using CADKit.Contracts;
 
 #if ZwCAD
 using CADApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
@@ -37,26 +34,19 @@ namespace CADKitBasic.Presenters
             CADProxy.CommandEnded += OnCommandEnded;
             CADProxy.SystemVariableChanged -= OnSystemVariableChanged;
             CADProxy.SystemVariableChanged += OnSystemVariableChanged;
-            //AppSettings.Get.ChangeInterfaceScheme -= OnChangeColorScheme;
-            //AppSettings.Get.ChangeInterfaceScheme += OnChangeColorScheme;
         }
 
         public override void OnViewLoaded()
         {
+
+            BindDrawingUnit();
+            BindDimensionUnit();
+            BindScaleList();
+
             base.OnViewLoaded();
-//            OnChangeColorScheme(this, new ChangeInterfaceSchemeEventArgs(InterfaceSchemeService.ColorScheme));
-            try
-            {
-                BindDrawingUnit();
-                BindDimensionUnit();
-                BindScaleList();
-                View.RegisterHandlers();
-                View.SelectedScale = ScaleDTO.GetCurrentScale();
-            }
-            catch (Exception ex)
-            {
-                View.ShowException(ex, "Błąd ładowania widoku " + this.ToString());
-            }
+            
+            View.RegisterHandlers();
+            View.SelectedScale = ScaleDTO.GetCurrentScale();
         }
 
         public void OnDrawUnitSelect(object sender, EventArgs e)
@@ -76,7 +66,7 @@ namespace CADKitBasic.Presenters
 
         private void OnCommandEnded(object sender, CADApplicationServices.CommandEventArgs arg)
         {
-            if(arg.GlobalCommandName == "SCALELISTEDIT")
+            if (arg.GlobalCommandName == "SCALELISTEDIT")
             {
                 BindScaleList();
             }
@@ -106,9 +96,10 @@ namespace CADKitBasic.Presenters
         {
             var occ = CADProxy.Database.ObjectContextManager.GetContextCollection("ACDB_ANNOTATIONSCALES");
             IList<ScaleDTO> scales = new List<ScaleDTO>();
-            foreach (ZwSoft.ZwCAD.DatabaseServices.AnnotationScale item in occ )
+            foreach (ZwSoft.ZwCAD.DatabaseServices.AnnotationScale item in occ)
             {
-                scales.Add(new ScaleDTO(){
+                scales.Add(new ScaleDTO()
+                {
                     UniqueIdentifier = item.UniqueIdentifier,
                     Name = item.Name
                 });

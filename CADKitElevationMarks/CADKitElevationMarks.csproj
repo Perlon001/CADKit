@@ -71,7 +71,6 @@
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
     <Compile Include="Events\BeginMarkCreateEvent.cs" />
     <Compile Include="Contracts\DrawingStandards.cs" />
-    <Compile Include="Models\ElementsSet.cs" />
     <Compile Include="Models\ElevationMark.cs" />
     <Compile Include="Models\ElevationValue.cs" />
     <Compile Include="Models\JigMark.cs" />
@@ -217,9 +216,12 @@
   <ItemGroup>
     <None Include="Bitmaps\Icons\mark05_32_dark.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\question_dark.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\CADKit\bin\Debug</PostBuildEvent>
+    <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\CADKit\bin\$(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>

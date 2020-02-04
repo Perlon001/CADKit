@@ -10,11 +10,38 @@ namespace CADKitElevationMarks.Services
     public abstract class IconService : IIconService
     {
         protected readonly IInterfaceSchemeService colorSchemeService;
-        protected Bitmap DefaultIcon { get { return new Bitmap(32, 32); } }
+        protected Bitmap DefaultIcon 
+        { 
+            get 
+            {
+                switch (colorSchemeService.GetScheme())
+                {
+                    case InterfaceScheme.light:
+                        return Properties.Resources.question;
+                    case InterfaceScheme.dark:
+                        return Properties.Resources.question_dark;
+                    default:
+                        return new Bitmap(32, 32);
+                }
+            }
+        }
 
         public IconService(IInterfaceSchemeService _service)
         {
             colorSchemeService = _service;
+        }
+
+        public Bitmap GetOptionIcon()
+        {
+            switch (colorSchemeService.GetScheme())
+            {
+                case InterfaceScheme.light:
+                    return Properties.Resources.options;
+                case InterfaceScheme.dark:
+                    return Properties.Resources.options_dark;
+            }
+
+            return DefaultIcon;
         }
 
         public Bitmap GetIcon(MarkTypes _type)
@@ -35,8 +62,7 @@ namespace CADKitElevationMarks.Services
             return DefaultIcon;
         }
 
-        protected abstract Bitmap GetIconForLightScheme(MarkTypes type, IconSize size);
-        protected abstract Bitmap GetIconForDarkScheme(MarkTypes type, IconSize size);
-
+        internal abstract Bitmap GetIconForLightScheme(MarkTypes type, IconSize size);
+        internal abstract Bitmap GetIconForDarkScheme(MarkTypes type, IconSize size);
     }
 }

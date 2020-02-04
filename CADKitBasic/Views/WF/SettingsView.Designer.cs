@@ -40,6 +40,7 @@
             // 
             // cmbScale
             // 
+            this.cmbScale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbScale.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmbScale.FormattingEnabled = true;
             this.cmbScale.Location = new System.Drawing.Point(128, 35);
@@ -59,6 +60,7 @@
             // 
             // cmbDimUnit
             // 
+            this.cmbDimUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDimUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmbDimUnit.FormattingEnabled = true;
             this.cmbDimUnit.Location = new System.Drawing.Point(67, 35);
@@ -79,12 +81,9 @@
             // cmbDrawUnit
             // 
             this.cmbDrawUnit.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.cmbDrawUnit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDrawUnit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmbDrawUnit.FormattingEnabled = true;
-            this.cmbDrawUnit.Items.AddRange(new object[] {
-            "sfgsdg",
-            "dsfgdsfg",
-            "dfgsdfg"});
             this.cmbDrawUnit.Location = new System.Drawing.Point(6, 35);
             this.cmbDrawUnit.Name = "cmbDrawUnit";
             this.cmbDrawUnit.Size = new System.Drawing.Size(55, 21);

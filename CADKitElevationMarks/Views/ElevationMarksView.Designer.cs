@@ -46,11 +46,11 @@
             this.tabStandards.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabStandards.Location = new System.Drawing.Point(3, 54);
+            this.tabStandards.Location = new System.Drawing.Point(3, 45);
             this.tabStandards.Multiline = true;
             this.tabStandards.Name = "tabStandards";
             this.tabStandards.SelectedIndex = 0;
-            this.tabStandards.Size = new System.Drawing.Size(414, 481);
+            this.tabStandards.Size = new System.Drawing.Size(414, 490);
             this.tabStandards.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabStandards.TabIndex = 0;
             // 
@@ -87,16 +87,17 @@
             this.flowLayoutPanel1.Controls.Add(this.btnOptions);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(414, 45);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(414, 40);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // gbxOutputFormat
             // 
+            this.gbxOutputFormat.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.gbxOutputFormat.Controls.Add(this.rbxGroup);
             this.gbxOutputFormat.Controls.Add(this.rbxBlock);
             this.gbxOutputFormat.Location = new System.Drawing.Point(3, 3);
             this.gbxOutputFormat.Name = "gbxOutputFormat";
-            this.gbxOutputFormat.Size = new System.Drawing.Size(120, 30);
+            this.gbxOutputFormat.Size = new System.Drawing.Size(120, 28);
             this.gbxOutputFormat.TabIndex = 3;
             this.gbxOutputFormat.TabStop = false;
             // 

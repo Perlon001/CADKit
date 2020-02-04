@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using CADKit;
 using CADKit.Contracts;
-using CADKit.Events;
 using CADKit.Models;
 using CADKit.Services;
 using CADKit.UI;
@@ -10,18 +9,9 @@ using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.Contracts.Views;
 using CADKitElevationMarks.Events;
-using CADKitElevationMarks.Models;
 using CADKitElevationMarks.Services;
 using System;
 using System.Drawing;
-
-#if ZwCAD
-using CADApplicationServices = ZwSoft.ZwCAD.ApplicationServices;
-#endif
-
-#if AutoCAD
-using CADApplicationServices = Autodesk.AutoCAD.ApplicationServices;
-#endif
 
 namespace CADKitElevationMarks.Presenters
 {
@@ -66,14 +56,14 @@ namespace CADKitElevationMarks.Presenters
 
         public override void OnViewLoaded()
         {
-            View.ClearDrawingStandars();
-            //View.SetColorScheme(GetColorSchemeService());
-            FillTabs();
+            base.OnViewLoaded();
+
             View.RegisterHandlers();
         }
 
         public void FillTabs()
         {
+            View.ClearDrawingStandars();
             using (var scope = DI.Container.BeginLifetimeScope())
             {
                 var factory = scope.Resolve<MarkTypeServiceFactory>();
@@ -84,21 +74,5 @@ namespace CADKitElevationMarks.Presenters
                 markTypeService = factory.GetMarkTypeService(View.GetDrawingStandard());
             }
         }
-
-        //private void OnChangeColorScheme(object sender, ChangeInterfaceSchemeEventArgs arg)
-        //{
-        //    View.ClearDrawingStandars();
-        //    View.SetColorScheme(GetColorSchemeService());
-        //    FillTabs();
-        //}
-
-        //private IInterfaceSchemeService GetColorSchemeService()
-        //{
-        //    using (var scope = DI.Container.BeginLifetimeScope())
-        //    {
-        //        IInterfaceSchemeService service = DI.Container.Resolve<IInterfaceSchemeService>();
-        //        return service;
-        //    }
-        //}
     }
 }

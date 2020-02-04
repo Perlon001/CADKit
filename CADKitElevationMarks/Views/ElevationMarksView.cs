@@ -58,12 +58,12 @@ namespace CADKitElevationMarks.Views
             return (tabStandards.SelectedTab as StandardTabPage).Standard;
         }
 
-        public EntitiesSet GetSetSelection()
+        public OutputSet GetSetSelection()
         {
             if (rbxGroup.Checked)
-                return EntitiesSet.Group;
+                return OutputSet.group;
             if (rbxBlock.Checked)
-                return EntitiesSet.Block;
+                return OutputSet.block;
             throw new NotSupportedException();
         }
 
@@ -77,6 +77,7 @@ namespace CADKitElevationMarks.Views
             btnOptions.ChangeColorSchema(this.BackColor, this.BackColor);
             btnOptions.Image = Presenter.GetOptionIcon();
             tabStandards.ChangeColorSchema(this.ForeColor, this.BackColor);
+            Presenter.FillTabs();
         }
 
         private void BindMarkButtons(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks, IInterfaceSchemeService _colorService)

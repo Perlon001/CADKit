@@ -55,36 +55,36 @@ namespace CADKitBasic
 
 
 
-        [CommandMethod("CK_UJR")]
-        public void SetDrawingUnits()
-        {
-            PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nJednostka rysunkowa:")
-            {
-                AllowNone = true
-            };
-            keyOptions.Keywords.Default = AppSettings.Get.DrawingUnit.ToString();
-            foreach (var item in Enum.GetValues(typeof(Units)))
-            {
-                keyOptions.Keywords.Add(item.ToString());
-            }
-            PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
-            if (keyResult.Status == PromptStatus.OK)
-            {
-                switch (keyResult.StringResult)
-                {
-                    case "mm":
-                        AppSettings.Get.DrawingUnit = Units.mm;
-                        break;
-                    case "cm":
-                        AppSettings.Get.DrawingUnit = Units.cm;
-                        break;
-                    case "m":
-                        AppSettings.Get.DrawingUnit = Units.m;
-                        break;
-                }
-            }
-            CADProxy.Editor.WriteMessage($"\nBieżąca jednostka rysunkowa : {AppSettings.Get.DrawingUnit}\n");
-        }
+        //[CommandMethod("CK_UJR")]
+        //public void SetDrawingUnits()
+        //{
+        //    PromptKeywordOptions keyOptions = new PromptKeywordOptions("\nJednostka rysunkowa:")
+        //    {
+        //        AllowNone = true
+        //    };
+        //    keyOptions.Keywords.Default = AppSettings.Get.DrawingUnit.ToString();
+        //    foreach (var item in Enum.GetValues(typeof(Units)))
+        //    {
+        //        keyOptions.Keywords.Add(item.ToString());
+        //    }
+        //    PromptResult keyResult = CADProxy.Editor.GetKeywords(keyOptions);
+        //    if (keyResult.Status == PromptStatus.OK)
+        //    {
+        //        switch (keyResult.StringResult)
+        //        {
+        //            case "mm":
+        //                AppSettings.Get.DrawingUnit = Units.mm;
+        //                break;
+        //            case "cm":
+        //                AppSettings.Get.DrawingUnit = Units.cm;
+        //                break;
+        //            case "m":
+        //                AppSettings.Get.DrawingUnit = Units.m;
+        //                break;
+        //        }
+        //    }
+        //    CADProxy.Editor.WriteMessage($"\nBieżąca jednostka rysunkowa : {AppSettings.Get.DrawingUnit}\n");
+        //}
 
         //[CommandMethod("CK_USR")]
         //public void SetDrawingScale()

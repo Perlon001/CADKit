@@ -7,6 +7,7 @@ namespace CADKitElevationMarks.Contracts.Services
 {
     public interface IIconService
     {
+        Bitmap GetOptionIcon();
         Bitmap GetIcon(MarkTypes type);
         Bitmap GetIcon(MarkTypes type, IconSize size);
     }

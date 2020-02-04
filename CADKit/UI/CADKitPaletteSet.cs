@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using CADKit.Contracts;
 using CADKit.Events;
-using CADKit.Proxy;
 using CADKit.Proxy.Windows;
 using System;
 using System.Collections;
@@ -96,11 +95,10 @@ namespace CADKit.UI
 
         public void OnChangeInterfaceScheme(object _sender, ChangeInterfaceSchemeEventArgs _arg)
         {
-            CADProxy.Editor.WriteMessage("\nJedziemy ze zmianą kolorów na " + this.paletteSet.ToString() + " widokach");
             using(var scope = DI.Container.BeginLifetimeScope())
             {
                 var service = scope.Resolve<IInterfaceSchemeService>();
-                for(int i = 0; i< Count; i++)
+                for(int i = 0; i < Count; i++)
                 {
                     var view = Collection[this.paletteSet[i].Name] as IView;
                     view.SetColorScheme(service);

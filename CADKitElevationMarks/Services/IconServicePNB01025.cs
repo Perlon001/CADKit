@@ -10,7 +10,7 @@ namespace CADKitElevationMarks.Services
     {
         public IconServicePNB01025(IInterfaceSchemeService _service) : base(_service) { }
 
-        protected override Bitmap GetIconForLightScheme(MarkTypes _type, IconSize _size)
+        internal override Bitmap GetIconForLightScheme(MarkTypes _type, IconSize _size)
         {
             Bitmap result = DefaultIcon;
 
@@ -27,7 +27,7 @@ namespace CADKitElevationMarks.Services
             return result;
 
         }
-        protected override Bitmap GetIconForDarkScheme(MarkTypes _type, IconSize _size)
+        internal override Bitmap GetIconForDarkScheme(MarkTypes _type, IconSize _size)
         {
             Bitmap result = DefaultIcon;
 

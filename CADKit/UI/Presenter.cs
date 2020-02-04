@@ -1,4 +1,5 @@
-﻿using CADKit.Contracts;
+﻿using Autofac;
+using CADKit.Contracts;
 
 namespace CADKit.UI
 {
@@ -25,6 +26,10 @@ namespace CADKit.UI
 
         public virtual void OnViewLoaded()
         {
+            using (var scope = DI.Container.BeginLifetimeScope())
+            {
+                View.SetColorScheme(scope.Resolve<IInterfaceSchemeService>());
+            }
         }
     }
 }

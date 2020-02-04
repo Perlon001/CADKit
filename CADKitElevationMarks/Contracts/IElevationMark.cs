@@ -1,10 +1,9 @@
-﻿using CADKitElevationMarks.Models;
+﻿using CADKit.Contracts;
 
 namespace CADKitElevationMarks.Contracts
 {
     public interface IElevationMark
     {
-
-        void Create(EntitiesSet entitiesSet);
+        void Create(OutputSet entitiesSet);
     }
 }

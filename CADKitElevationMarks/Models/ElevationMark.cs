@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using CADKit;
 using CADKit.Internal;
-using CADKitBasic;
 using CADKitBasic.Services;
 using CADKitElevationMarks.Contracts;
 using System.Globalization;
 using CADKit.Extensions;
 using CADKit.Models;
 using CADKit.Proxy;
+using CADKit.Contracts;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -34,7 +34,7 @@ namespace CADKitElevationMarks.Models
         protected string index = "";
         protected string blockName;
         protected bool isMarkCreateRunning = false;
-        private EntitiesSet entitiesSet;
+        private OutputSet output;
 
 
         public abstract DrawingStandards DrawingStandard { get; }
@@ -70,9 +70,9 @@ namespace CADKitElevationMarks.Models
             }
         }
 
-        public void Create(EntitiesSet _entitiesSet)
+        public void Create(OutputSet _entitiesSet)
         {
-            entitiesSet = _entitiesSet;
+            output = _entitiesSet;
             // TODO: mayby check actual environment settings
             var cmdActive = Convert.ToInt32(CADProxy.GetSystemVariable("CMDACTIVE"));
             if(cmdActive > 0)
@@ -108,15 +108,15 @@ namespace CADKitElevationMarks.Models
                 var result = CADProxy.Editor.Drag(jig);
                 if (result.Status == PromptStatus.OK)
                 {
-                    switch (entitiesSet)
+                    switch (output)
                     {
-                        case EntitiesSet.Group:
+                        case OutputSet.group:
                             var entities = jig.GetEntity();
                             entities.TransformBy(Matrix3d.Scaling(AppSettings.Get.ScaleFactor, new Point3d(0, 0, 0)));
                             entities.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(jig.JigPointResult)));
                             entities.ToGroup();
                             break;
-                        case EntitiesSet.Block:
+                        case OutputSet.block:
                             blockName = GetPrefix() + jig.GetSuffix() + index;
                             var defBlock = jig.GetEntity().ToBlock(blockName, new Point3d(0, 0, 0));
                             InsertMarkBlock(defBlock, jig.JigPointResult);
