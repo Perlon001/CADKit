@@ -13,7 +13,7 @@ namespace Tests.ElevationMark
         public void icon_service_factory_throw_exception_when_drawing_standard_not_recognized()
         {
             //arrange
-            IconServiceFactory serviceFactory = new IconServiceFactory();
+            MarkIconServiceFactory serviceFactory = new MarkIconServiceFactory();
         
             // act 
             //NotSupportedException ex = Assert.Throws<NotSupportedException>(() => serviceFactory.GetIconService(DrawingStandards.none));
@@ -26,7 +26,7 @@ namespace Tests.ElevationMark
         public void icon_service_factory_return_service()
         {
             //arrange
-            IconServiceFactory serviceFactory = new IconServiceFactory();
+            MarkIconServiceFactory serviceFactory = new MarkIconServiceFactory();
             //act 
             IIconService service = serviceFactory.GetIconService(Arg.Any<DrawingStandards>());
             //assert
@@ -37,7 +37,7 @@ namespace Tests.ElevationMark
         public void icon_service_factory_return_IconServiceStd01()
         {
             //arrange
-            IconServiceFactory serviceFactory = new IconServiceFactory();
+            MarkIconServiceFactory serviceFactory = new MarkIconServiceFactory();
             //act 
             IIconService service = serviceFactory.GetIconService(DrawingStandards.Std01);
             //assert
@@ -48,7 +48,7 @@ namespace Tests.ElevationMark
         public void icon_service_factory_return_IconServicePNB010250()
         {
             //arrange
-            IconServiceFactory serviceFactory = new IconServiceFactory();
+            MarkIconServiceFactory serviceFactory = new MarkIconServiceFactory();
             //act 
             IIconService service = serviceFactory.GetIconService(DrawingStandards.PNB01025);
             //assert
@@ -59,7 +59,7 @@ namespace Tests.ElevationMark
         public void icon_service_factory_return_IconServiceDefault()
         {
             //arrange
-            IconServiceFactory serviceFactory = new IconServiceFactory();
+            MarkIconServiceFactory serviceFactory = new MarkIconServiceFactory();
             //act 
             // IIconService service = serviceFactory.GetIconService(DrawingStandards.Std02);
             //assert

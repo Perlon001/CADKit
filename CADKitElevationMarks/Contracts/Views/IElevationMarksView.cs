@@ -12,6 +12,6 @@ namespace CADKitElevationMarks.Contracts.Views
         void ClearDrawingStandars();
         void BindDrawingStandard(DrawingStandards standard, IList<MarkButtonDTO> listMarks, IInterfaceSchemeService service);
         DrawingStandards GetDrawingStandard();
-        OutputSet GetSetSelection();
+        OutputSet SetType { get; }
     }
 }

@@ -6,6 +6,7 @@ using CADDatabaseServices = ZwSoft.ZwCAD.DatabaseServices;
 #if AutoCAD
 using CADDatabaseServices = Autodesk.AutoCAD.DatabaseServices;
 #endif
+
 namespace CADKit.DatabaseServices
 {
     public class Group : CADDatabaseServices.Group

@@ -65,15 +65,16 @@ namespace CADKit.Extensions
                 var btr = tr.GetObject(doc.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
                 foreach (var e in _entities)
                 {
-                    Entity ent;
-                    if (e.GetType().Equals(typeof(AttributeDefinition)))
-                    {
-                        ent = CADProxy.ToDBText((AttributeDefinition)e);
-                    }
-                    else
-                    {
-                        ent = e;
-                    }
+                    //TODO: spersystowac definicję atrybutu zeby się prawidłowo wyświetlał
+                    Entity ent = e;
+                    //if (e.GetType().Equals(typeof(AttributeDefinition)))
+                    //{
+                    //    ent = CADProxy.ToDBText((AttributeDefinition)e);
+                    //}
+                    //else
+                    //{
+                    //    ent = e;
+                    //}
                     btr.AppendEntity(ent);
                     tr.AddNewlyCreatedDBObject(ent, true);
                     gr.Append(ent.ObjectId);

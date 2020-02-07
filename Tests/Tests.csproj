@@ -90,9 +90,11 @@
     <Compile Include="Conventions\naming_conventions.cs" />
     <Compile Include="Conventions\strukture_conventions.cs" />
     <Compile Include="CoreServices\CompositesService.cs" />
+    <Compile Include="ElevationMark\TestIconService.cs" />
     <Compile Include="ElevationMark\TestIconServiceFactory.cs" />
     <Compile Include="ElevationMark\TestMarkTypeService.cs" />
     <Compile Include="ElevationMark\TestMarkTypeServiceFactory.cs" />
+    <Compile Include="TestEntitiesSetCreator.cs" />
     <Compile Include="IoCContainerFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

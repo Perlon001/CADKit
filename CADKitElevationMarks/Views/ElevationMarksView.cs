@@ -59,13 +59,15 @@ namespace CADKitElevationMarks.Views
             return (tabStandards.SelectedTab as StandardTabPage).Standard;
         }
 
-        public OutputSet GetSetSelection()
-        {
-            if (rbxGroup.Checked)
-                return OutputSet.group;
-            if (rbxBlock.Checked)
-                return OutputSet.block;
-            throw new NotSupportedException();
+        public OutputSet SetType 
+        { get
+            {
+                if (rbxGroup.Checked)
+                    return OutputSet.group;
+                if (rbxBlock.Checked)
+                    return OutputSet.block;
+                throw new NotSupportedException();
+            }
         }
 
         public void SetColorScheme(IInterfaceSchemeService _service)
@@ -78,7 +80,7 @@ namespace CADKitElevationMarks.Views
             btnOptions.ChangeColorSchema(this.BackColor, this.BackColor);
             tabStandards.ChangeColorSchema(this.ForeColor, this.BackColor);
             BindCommonIcons();
-            Presenter.FillTabs();
+            Presenter.FillButtons();
         }
 
         private void BindMarkButtons(DrawingStandards _standard, IList<MarkButtonDTO> _listMarks, IInterfaceSchemeService _colorService)

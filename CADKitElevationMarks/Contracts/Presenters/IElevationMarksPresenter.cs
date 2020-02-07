@@ -10,6 +10,6 @@ namespace CADKitElevationMarks.Contracts.Presenters
         void ChangeStandardDrawing(DrawingStandards standard);
         void CreateMark(object sender, BeginCreateMarkEventArgs e);
         Bitmap GetOptionIcon();
-        void FillTabs();
+        void FillButtons();
     }
 }

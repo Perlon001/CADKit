@@ -10,16 +10,16 @@ namespace CADKitElevationMarks.Services
         {
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<IMarkTypeService>()
+                .AssignableTo<IMarkIconService>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
 
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<IIconService>()
+                .AssignableTo<IMarkTypeService>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
-            
+
             builder
                 .RegisterType<MarkTypeServiceFactory>()
                 .InstancePerLifetimeScope()

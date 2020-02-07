@@ -57,11 +57,13 @@
   <ItemGroup>
     <Compile Include="Autostart.cs" />
     <Compile Include="Contracts\IElevationMark.cs" />
-    <Compile Include="Contracts\Services\IIconService.cs" />
-    <Compile Include="Contracts\Services\IIconServiceDefault.cs" />
-    <Compile Include="Contracts\Services\IIconServiceStd01.cs" />
-    <Compile Include="Contracts\Services\IIconServicePNB01025.cs" />
-    <Compile Include="Contracts\Services\IIconServiceStd02.cs" />
+    <Compile Include="Contracts\IMark.cs" />
+    <Compile Include="Contracts\IMarkBuilder.cs" />
+    <Compile Include="Contracts\Services\IMarkIconService.cs" />
+    <Compile Include="Contracts\Services\IMarkIconServiceDefault.cs" />
+    <Compile Include="Contracts\Services\IMarkIconServiceStd01.cs" />
+    <Compile Include="Contracts\Services\IMarkIconServicePNB01025.cs" />
+    <Compile Include="Contracts\Services\IMarkIconServiceStd02.cs" />
     <Compile Include="Contracts\Services\IMarkTypeServiceStd01.cs" />
     <Compile Include="Contracts\Services\IMarkTypeServicePNB01025.cs" />
     <Compile Include="Contracts\Services\IMarkTypeService.cs" />
@@ -71,31 +73,34 @@
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
     <Compile Include="Events\BeginMarkCreateEvent.cs" />
     <Compile Include="Contracts\DrawingStandards.cs" />
-    <Compile Include="Models\ElevationMark.cs" />
-    <Compile Include="Models\ElevationValue.cs" />
-    <Compile Include="Models\JigMark.cs" />
-    <Compile Include="Models\MarkOptions.cs" />
+    <Compile Include="ModelsOld\ElevationMark.cs" />
+    <Compile Include="ModelsOld\ElevationValue.cs" />
+    <Compile Include="ModelsOld\JigMark.cs" />
+    <Compile Include="ModelsOld\MarkOptions.cs" />
+    <Compile Include="ModelsOld\MarkPNB01025.cs" />
+    <Compile Include="ModelsOld\PlaneMarkPNB01025.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Models\JigVerticalMirrorMark.cs" />
-    <Compile Include="Models\FinishElevationMarkStd01.cs" />
-    <Compile Include="Models\ElevationMarkPNB01025.cs" />
-    <Compile Include="Models\MarkTypes.cs" />
-    <Compile Include="Models\ConstructionElevationMarkStd01.cs" />
-    <Compile Include="Models\JigVerticalConstantVerticalAndHorizontalMirrorMark.cs" />
-    <Compile Include="Models\JigVerticalConstantHorizontalMirrorMark.cs" />
-    <Compile Include="Models\JigVerticalConstantMark.cs" />
-    <Compile Include="Models\PlaneElevationMarkStd01.cs" />
-    <Compile Include="Models\PlaneElevationMarkPNB01025.cs" />
-    <Compile Include="Services\IconService.cs" />
-    <Compile Include="Services\IconServiceDefault.cs" />
-    <Compile Include="Services\IconServiceStd01.cs" />
-    <Compile Include="Services\IconServiceFactory.cs" />
-    <Compile Include="Services\IconServicePNB01025.cs" />
-    <Compile Include="Services\IconServiceStd02.cs" />
+    <Compile Include="ModelsOld\JigVerticalMirrorMark.cs" />
+    <Compile Include="ModelsOld\FinishElevationMarkStd01.cs" />
+    <Compile Include="ModelsOld\ElevationMarkPNB01025.cs" />
+    <Compile Include="Contracts\MarkTypes.cs" />
+    <Compile Include="ModelsOld\ConstructionElevationMarkStd01.cs" />
+    <Compile Include="ModelsOld\JigVerticalConstantVerticalAndHorizontalMirrorMark.cs" />
+    <Compile Include="ModelsOld\JigVerticalConstantHorizontalMirrorMark.cs" />
+    <Compile Include="ModelsOld\JigVerticalConstantMark.cs" />
+    <Compile Include="ModelsOld\PlaneElevationMarkStd01.cs" />
+    <Compile Include="ModelsOld\PlaneElevationMarkPNB01025.cs" />
+    <Compile Include="Services\MarkIconService.cs" />
+    <Compile Include="Services\MarkIconServiceDrawingStandard.cs" />
+    <Compile Include="Services\MarkIconServiceStd01.cs" />
+    <Compile Include="Services\MarkIconServiceFactory.cs" />
+    <Compile Include="Services\MarkIconServicePNB01025.cs" />
+    <Compile Include="Contracts\Services\IMarkService.cs" />
+    <Compile Include="Services\MarkService.cs" />
     <Compile Include="Services\MarkTypeServiceStd02.cs" />
     <Compile Include="Services\MarkTypeServiceStd01.cs" />
     <Compile Include="Services\MarkTypeServicePNB01025.cs" />
@@ -218,6 +223,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Bitmaps\Icons\question_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

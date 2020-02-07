@@ -16,16 +16,15 @@ namespace CADKit
     {
         protected override void Load(ContainerBuilder builder)
         {
-
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<ISymbolTableService<SymbolTable>>()
+                .AssignableTo<IInterfaceSchemeService>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
 
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<IInterfaceSchemeService>()
+                .AssignableTo<ISymbolTableService<SymbolTable>>()
                 .InstancePerLifetimeScope()
                 .AsImplementedInterfaces();
 

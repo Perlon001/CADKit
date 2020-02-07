@@ -161,11 +161,11 @@ namespace ModelessDialogs
             DisplayMessage("Method 4");
         }
 
-        [PaletteMethod]
-        [CommandMethod("TEST")]
-        public static void CommandTest()
-        {
-            DisplayMessage("This is a command!", false);
-        }
+        //[PaletteMethod]
+        //[CommandMethod("TEST")]
+        //public static void CommandTest()
+        //{
+        //    DisplayMessage("This is a command!", false);
+        //}
     }
 }

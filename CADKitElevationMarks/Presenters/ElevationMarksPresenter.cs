@@ -38,10 +38,9 @@ namespace CADKitElevationMarks.Presenters
         {
             var markType = markTypeService.GetMarkType(e.ID);
             var mark = Activator.CreateInstance(markType) as IElevationMark;
-            mark.Create(View.GetSetSelection());
+            mark.Create(View.SetType);
         }
 
-        // TODO: GetOptionIcon() move to another service
         public Bitmap GetOptionIcon()
         {
             switch (InterfaceSchemeService.ColorScheme)
@@ -60,7 +59,12 @@ namespace CADKitElevationMarks.Presenters
             View.RegisterHandlers();
         }
 
-        public void FillTabs()
+        public void FillButtons()
+        {
+            View.BindDrawingStandard(DrawingStandards.PNB01025,new MarkService(new MarkIconService(InterfaceScheme.dark)));
+        }
+
+        public void _FillButtons()
         {
             View.ClearDrawingStandars();
             using (var scope = DI.Container.BeginLifetimeScope())

@@ -62,8 +62,13 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="Autostart.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="Contracts\IconSize.cs" />
+    <Compile Include="Contracts\IEntitiesSet.cs" />
+    <Compile Include="Contracts\IEntityConverter.cs" />
+    <Compile Include="Contracts\IEntityListBuilder.cs" />
     <Compile Include="Contracts\IInterfaceSchemeService.cs" />
     <Compile Include="Contracts\IAutostart.cs" />
+    <Compile Include="Contracts\IJigEntitties.cs" />
     <Compile Include="Contracts\IPalettePage.cs" />
     <Compile Include="Contracts\IPresenter.cs" />
     <Compile Include="Contracts\IView.cs" />
@@ -74,9 +79,11 @@
     <Compile Include="Contracts\InterfaceScheme.cs" />
     <Compile Include="Contracts\Units.cs" />
     <Compile Include="ModellesDialog.cs" />
-    <Compile Include="Models\EntitySetCreator.cs" />
-    <Compile Include="Models\JigEntitties.cs" />
+    <Compile Include="Models\EntitiesSetBuilder.cs" />
+    <Compile Include="Models\EntitySet.cs" />
+    <Compile Include="Models\EntittiesJig.cs" />
     <Compile Include="Proxy\ApplicationServices\SystemVriableChangedEventHandler.cs" />
+    <Compile Include="Proxy\DatabaseServices\Entity.cs" />
     <Compile Include="Proxy\DatabaseServices\SymbolTable.cs" />
     <Compile Include="Proxy\Runtime\Exception.cs" />
     <Compile Include="Proxy\Runtime\IExtensionApplication.cs" />
@@ -120,6 +127,7 @@
     <Compile Include="UI\WPF\BaseViewWPF.xaml.cs">
       <DependentUpon>BaseViewWPF.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\AttributeToDBTextConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

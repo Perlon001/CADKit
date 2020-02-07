@@ -59,24 +59,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddBlockCommand.cs" />
+    <Compile Include="CommandAddBlock.cs" />
     <Compile Include="Autostart.cs" />
-    <Compile Include="Commands.cs" />
+    <Compile Include="Command.cs" />
     <Compile Include="Contracts\ICompositeContainer.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\Presenters\ISettingsPresenter.cs" />
-    <Compile Include="Contracts\Services\IEntityConverter.cs" />
     <Compile Include="Contracts\Views\ISettingsView.cs" />
     <Compile Include="Contracts\IComponent.cs" />
     <Compile Include="Contracts\Services\ICompositeProvider.cs" />
     <Compile Include="Contracts\Services\ICompositeService.cs" />
     <Compile Include="Models\Composite.cs" />
-    <Compile Include="Models\IconSize.cs" />
     <Compile Include="Services\CompositeProvider.cs" />
     <Compile Include="Services\CompositeService.cs" />
     <Compile Include="Services\LocalFakeCompositeProvider.cs" />
     <Compile Include="Services\RegistrationModule.cs" />
-    <Compile Include="Utils\AttributeToDBTextConverter.cs" />
+    <Compile Include="CommandSplineMultiLeader.cs" />
     <Compile Include="Utils\Bulge.cs" />
     <Compile Include="Utils\CADKitModuleContainerBuilder.cs" />
     <Compile Include="Utils\CompositeModule.cs" />

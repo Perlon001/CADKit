@@ -7,7 +7,7 @@ namespace CADKitElevationMarks.Services
 {
     public class MarkTypeServiceStd02 : MarkTypeService, IMarkTypeServiceStd02
     {
-        public MarkTypeServiceStd02(IIconServiceStd02 _iconService) : base(_iconService)
+        public MarkTypeServiceStd02(IMarkIconServiceStd02 _iconService) : base(_iconService)
         {
             int i = 0;
             //markCollection.Add(new markItem()
