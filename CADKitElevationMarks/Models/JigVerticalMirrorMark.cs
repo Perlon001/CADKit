@@ -49,12 +49,12 @@ namespace CADKitElevationMarks.Models
             try
             {
                 currentPoint = new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z);
-                transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
+                transform = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
                 var geometry = draw.Geometry;
                 if (geometry != null)
                 {
-                    geometry.PushModelTransform(transforms);
-                    foreach (var entity in entityList)
+                    geometry.PushModelTransform(transform);
+                    foreach (var entity in entities)
                     {
                         geometry.Draw(entity);
                     }
@@ -73,7 +73,7 @@ namespace CADKitElevationMarks.Models
         private void verticalMirroring()
         {
             double textWidth = 0;
-            foreach (var e in entityList)
+            foreach (var e in entities)
             {
                 if (e.GetType() == typeof(DBText))
                 {
@@ -82,7 +82,7 @@ namespace CADKitElevationMarks.Models
                 }
             }
             textWidth += 4;
-            foreach (var e in entityList)
+            foreach (var e in entities)
             {
                 if (e.GetType() == typeof(DBText))
                 {

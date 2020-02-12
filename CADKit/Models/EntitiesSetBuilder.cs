@@ -1,9 +1,6 @@
 ﻿using CADKit.Contracts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -23,8 +20,7 @@ namespace CADKit.Models
         private Point3d basePoint;
         private Type jigType;
         private IList<Type> converterTypes;
-
-        public EntitiesSetBuilder(IEntityListBuilder builder) : this(builder.Build()) { }
+        private IList<Matrix3d> transforms;
 
         public EntitiesSetBuilder(IEnumerable<Entity> collection)
         {
@@ -32,6 +28,7 @@ namespace CADKit.Models
             basePoint = new Point3d(0, 0, 0);
             jigType = typeof(EntittiesJig);
             converterTypes = new List<Type>();
+            transforms = new List<Matrix3d>();
         }
 
         public EntitiesSetBuilder SetBasePoint(Point3d _basePoint)
@@ -40,9 +37,15 @@ namespace CADKit.Models
             return this;
         }
 
-        public EntitiesSetBuilder AssignJig(Type _jigType)
+        public EntitiesSetBuilder SetJig(Type _jigType)
         {
             jigType = _jigType;
+            return this;
+        }
+
+        public EntitiesSetBuilder AddTransforms(Matrix3d _matrix)
+        {
+            transforms.Add(_matrix);
             return this;
         }
 
@@ -63,6 +66,7 @@ namespace CADKit.Models
                 }
             }
             Object[] jigArgs = { entities, basePoint, converters };
+
             var jig = Activator.CreateInstance(jigType, jigArgs);
             Object[] args = { entities, jig };
 

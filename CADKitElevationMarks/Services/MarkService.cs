@@ -14,16 +14,8 @@ namespace CADKitElevationMarks.Services
     public class MarkService : IMarkService
     {
         protected readonly IMarkIconService iconService;
-        protected struct markItem
-        {
-            public int id;
-            public MarkTypes type;
-            public Type markClass;
-            public Bitmap picture16;
-            public Bitmap picture32;
-        }
         protected Dictionary<MarkTypes, string> markTypes = new Dictionary<MarkTypes, string>();
-        protected IList<markItem> markCollection = new List<markItem>();
+        protected IList<MarkDTO> markCollection = new List<MarkDTO>();
 
         public MarkService(IMarkIconService _iconService)
         {
@@ -36,61 +28,73 @@ namespace CADKitElevationMarks.Services
             markTypes.Add(MarkTypes.water, "Swobodne zwierciadło wody");
 
             int i = 0;
-            markCollection.Add(new markItem()
+            markCollection.Add(new MarkDTO()
             {
                 id = i++,
+                standard = DrawingStandards.PNB01025,
                 type = MarkTypes.universal,
                 markClass = typeof(MarkPNB01025),
+                markJig = typeof(JigVerticalConstantVerticalAndHorizontalMirrorMark),
                 picture16 = iconService.GetIcon(DrawingStandards.PNB01025, MarkTypes.universal),
                 picture32 = iconService.GetIcon(DrawingStandards.PNB01025, MarkTypes.universal, IconSize.medium)
             });
-            markCollection.Add(new markItem()
+            markCollection.Add(new MarkDTO()
             {
                 id = i++,
+                standard = DrawingStandards.PNB01025,
                 type = MarkTypes.area,
                 markClass = typeof(PlaneMarkPNB01025),
+                markJig = typeof(JigMark),
                 picture16 = iconService.GetIcon(DrawingStandards.PNB01025, MarkTypes.area),
                 picture32 = iconService.GetIcon(DrawingStandards.PNB01025, MarkTypes.area, IconSize.medium)
             });
+            markCollection.Add(new MarkDTO()
+            {
+                id = i++,
+                standard = DrawingStandards.Std01,
+                type = MarkTypes.finish,
+                markClass = typeof(FinishMarkStd01),
+                markJig = typeof(JigVerticalConstantHorizontalMirrorMark),
+                picture16 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.finish),
+                picture32 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.finish, IconSize.medium)
+            });
+            markCollection.Add(new MarkDTO()
+            {
+                id = i++,
+                standard = DrawingStandards.Std01,
+                type = MarkTypes.construction,
+                markClass = typeof(ConstructionMarkStd01),
+                markJig = typeof(JigVerticalConstantHorizontalMirrorMark),
+                picture16 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.construction),
+                picture32 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.construction, IconSize.medium)
+            });
+        }
+
+        public IEnumerable<MarkButtonDTO> GetMarks()
+        {
+            return markCollection.Select(y => new MarkButtonDTO() { id = y.id, name = GetMarkName(y.id), picture = y.picture32 });
+        }
+
+        public MarkButtonDTO GetMarkButton(DrawingStandards _standard, MarkTypes _type)
+        {
+            var mark = markCollection.FirstOrDefault(x => x.standard == _standard && x.type == _type);
+            return new MarkButtonDTO() { id = mark.id, name = GetMarkName(mark.id), picture = mark.picture32 };
         }
 
         public string GetMarkName(int _markNumber)
         {
-            var item = markCollection.FirstOrDefault(x => x.id == _markNumber);
-            if (item.Equals(default(markItem)))
-            {
-                throw new NotSupportedException("Brak koty wysokosciowej o numerze " + _markNumber.ToString());
-            }
-            else
-            {
-                return markTypes[item.type];
-            }
+            return markTypes[GetMarkDTO(_markNumber).type];
         }
 
-        public string GetMarkName(MarkTypes _type)
+        public string GetMarkName(DrawingStandards _standard, MarkTypes _type)
         {
-            var item = markCollection.FirstOrDefault(x => x.markClass.Equals(_type));
-            if (item.Equals(default(markItem)))
-            {
-                throw new NotSupportedException("Brak koty wysokosciowej " + _type.ToString());
-            }
-            else
-            {
-                return markTypes[item.type];
-            }
-        }
-
-        public IList<MarkButtonDTO> GetMarks()
-        {
-            return markCollection
-                .Select(y => { return new MarkButtonDTO() { id = y.id, name = this.GetMarkName(y.id), picture = y.picture32 }; })
-                .ToList();
+            return markTypes[GetMarkDTO(_standard, _type).type];
         }
 
         public Type GetMarkType(int markNumber)
         {
             var item = markCollection.FirstOrDefault(x => x.id == markNumber);
-            if (item.Equals(default(markItem)))
+            if (item.Equals(default(MarkDTO)))
             {
                 throw new NotSupportedException("Brak koty wysokosciowej o numerze " + markNumber.ToString());
             }
@@ -100,14 +104,35 @@ namespace CADKitElevationMarks.Services
             }
         }
 
-        IEnumerable<IMark> IMarkService.GetMarks()
+        public Type GetJigType(int markNumber)
         {
-            throw new NotImplementedException();
+            return GetMarkDTO(markNumber).markJig;
         }
 
-        IMark IMarkService.GetMrk(DrawingStandards standard, MarkTypes type)
+        private MarkDTO GetMarkDTO(int _markNumber)
         {
-            throw new NotImplementedException();
+            var item = markCollection.FirstOrDefault(x => x.id == _markNumber);
+            if (item.Equals(default(MarkDTO)))
+            {
+                throw new NotSupportedException("Brak koty wysokosciowej o numerze " + _markNumber.ToString());
+            }
+            else
+            {
+                return item;
+            }
+        }
+
+        private MarkDTO GetMarkDTO(DrawingStandards _standard, MarkTypes _type)
+        {
+            var item = markCollection.FirstOrDefault(x => x.standard.Equals(_standard) && x.type.Equals(_type));
+            if (item.Equals(default(MarkDTO)))
+            {
+                throw new NotSupportedException("Brak koty wysokościowej " + _type.ToString());
+            }
+            else
+            {
+                return item;
+            }
         }
     }
 }

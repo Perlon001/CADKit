@@ -16,19 +16,16 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class ConstructionElevationMarkStd01 : FinishElevationMarkStd01
+    public class ConstructionMarkStd01 : FinishMarkStd01
     {
-        public ConstructionElevationMarkStd01() : base() { }
+        public ConstructionMarkStd01(IElevationValueProvider _provider) : base(_provider) { }
 
-        public override MarkTypes MarkType { get { return MarkTypes.construction; } }
-
-        public override void CreateEntityList()
+        public override IEnumerable<Entity> GetEntities()
         {
-            base.CreateEntityList();
-            var en = entityList.ToList();
+            var en = base.GetEntities().ToList();
             AddHatchingArrow(en);
 
-            entityList = en;
+            return en;
         }
 
         private void AddHatchingArrow(IList<Entity> entityList)

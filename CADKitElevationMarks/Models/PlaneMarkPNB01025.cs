@@ -1,5 +1,5 @@
-﻿using CADKit.Contracts;
-using CADKit.Proxy;
+﻿using CADKit.Proxy;
+using CADKitElevationMarks.Contracts;
 using System.Collections.Generic;
 
 #if ZwCAD
@@ -14,16 +14,20 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class PlaneMarkPNB01025 : IEntityListBuilder
+    public class PlaneMarkPNB01025 : IMark
     {
         private readonly ElevationValue value;
 
-        public PlaneMarkPNB01025(ElevationValue _value)
+        public PlaneMarkPNB01025(IPlaneValueProvider _provider)
         {
-            value = _value;
+            _provider.PrepareValue();
+            value = _provider.ElevationValue;
+            BasePoint = _provider.BasePoint;
         }
 
-        public IEnumerable<Entity> Build()
+        public Point3d BasePoint { get; }
+
+        public IEnumerable<Entity> GetEntities()
         {
             var en = new List<Entity>();
 

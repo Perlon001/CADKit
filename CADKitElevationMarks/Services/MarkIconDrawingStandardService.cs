@@ -5,16 +5,18 @@ using System.Drawing;
 
 namespace CADKitElevationMarks.Services
 {
-    public abstract class MarkIconServiceDrawingStandard
+    public abstract class MarkIconDrawingStandardService
     {
         protected readonly IInterfaceSchemeService service;
 
-        public MarkIconServiceDrawingStandard(IInterfaceSchemeService _service)
+        public MarkIconDrawingStandardService(IInterfaceSchemeService _service)
         {
             service = _service;
         }
 
-        internal Dictionary<MarkTypes, Dictionary<IconSize, Bitmap>> GetIcons()
+        public abstract DrawingStandards Standard { get; }
+
+        public Dictionary<MarkTypes, Dictionary<IconSize, Bitmap>> GetIcons()
         {
             var result = new Dictionary<MarkTypes, Dictionary<IconSize, Bitmap>>();
 

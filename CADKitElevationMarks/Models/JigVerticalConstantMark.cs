@@ -1,5 +1,4 @@
-﻿using CADKitBasic.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -21,7 +20,7 @@ namespace CADKitElevationMarks.Models
 
         protected override bool WorldDraw(WorldDraw draw)
         {
-            transforms = Matrix3d.Displacement(basePoint.GetVectorTo(new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z)));
+            transform = Matrix3d.Displacement(basePoint.GetVectorTo(new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z)));
             return base.WorldDraw(draw);
         }
     }

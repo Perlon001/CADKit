@@ -1,20 +1,11 @@
-﻿using CADKitBasic.Models;
-using CADKitBasic.Services;
-using CADKitBasic.Utils;
-using CADKit;
+﻿using CADKitBasic.Utils;
 using System.Collections.Generic;
-using CADKit.Internal;
-using System;
-using CADKit.Extensions;
 using CADKit.Proxy;
 using CADKitElevationMarks.Contracts;
-using CADKit.Utils;
-using CADKit.Contracts;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
-using ZwSoft.ZwCAD.EditorInput;
 #endif
 
 #if AutoCAD
@@ -25,43 +16,20 @@ using Autodesk.AutoCAD.EditorInput;
 
 namespace CADKitElevationMarks.Models
 {
-    public class PlaneElevationMarkStd01 : ElevationMark
+    public class PlaneMarkStd01 : IMark
     {
-        public override DrawingStandards DrawingStandard { get { return DrawingStandards.Std01; } }
+        private readonly ElevationValue value;
 
-        public override MarkTypes MarkType { get { return MarkTypes.area; } }
-
-        public override IEnumerable<Entity> Build()
+        public PlaneMarkStd01(IPlaneValueProvider _provider)
         {
-            CreateEntityList();
-            return entityList;
+            _provider.PrepareValue();
+            value = _provider.ElevationValue;
+            BasePoint = _provider.BasePoint;
         }
 
-        protected override void CreateMark()
-        {
-            var variables = SystemVariableService.GetActualSystemVariables();
-            try
-            {
-                var promptOptions = new PromptStringOptions("\nRzędna wysokościowa obszaru:");
-                var textValue = CADProxy.Editor.GetString(promptOptions);
-                if (textValue.Status == PromptStatus.OK)
-                {
-                    value = new ElevationValue(textValue.StringResult).Parse();
-                    PersistEntities();
-                }
-            }
-            catch (Exception ex)
-            {
-                CADProxy.Editor.WriteMessage(ex.Message);
-            }
-            finally
-            {
-                SystemVariableService.RestoreSystemVariables(variables);
-                Utils.PostCommandPrompt();
-            }
-        }
+        public Point3d BasePoint { get; }
 
-        public override void CreateEntityList()
+        public IEnumerable<Entity> GetEntities()
         {
             var en = new List<Entity>();
 
@@ -91,27 +59,7 @@ namespace CADKitElevationMarks.Models
 
             AddHatching(en);
 
-            this.entityList = en;
-        }
-
-        protected override JigMark GetMarkJig()
-        {
-            return new JigMark(entityList, new Point3d(0, 0, 0), new List<IEntityConverter>() { new AttributeToDBTextConverter() });
-        }
-
-        protected override void SetAttributeValue(BlockReference blockReference)
-        {
-            using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
-            {
-                var attDef = blockTableRecord.GetAttribDefinition("Value");
-                if (!attDef.Constant)
-                {
-                    var attRef = new AttributeReference();
-                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Sign + value.Value;
-                    blockReference.AttributeCollection.AppendAttribute(attRef);
-                }
-            }
+            return en;
         }
 
         private void AddHatching(IList<Entity> en)

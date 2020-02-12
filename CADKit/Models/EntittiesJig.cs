@@ -21,31 +21,38 @@ namespace CADKit.Models
 {
     public class EntittiesJig : DrawJig
     {
-        protected readonly IEnumerable<Entity> buffer;
+        protected IEnumerable<Entity> buffer;
         protected IEnumerable<Entity> entities;
-        protected readonly Point3d basePoint;
+        protected Point3d basePoint;
         protected Point3d currentPoint;
-        protected Matrix3d transforms;
-        protected readonly IEnumerable<IEntityConverter> converters;
+        protected Matrix3d transform;
+        protected IList<Matrix3d> transforms;
+        protected IEnumerable<IEntityConverter> converters;
 
         public IEnumerable<Entity> GetEntity()
         {
+            transforms.ForEach(x => buffer.TransformBy(x));
+            buffer.TransformBy(Matrix3d.Displacement(new Point3d(0,0,0).GetVectorTo(currentPoint)));
             return buffer;
         }
-        public Point3d JigPointResult { get { return currentPoint; } }
-        public IEnumerable<IEntityConverter> Converters { get { return converters; } }
 
+        public Point3d JigPointResult { get { return currentPoint; } }
+
+        public IList<Matrix3d> Transforms { get { return transforms; } }
+
+        public IEnumerable<IEntityConverter> Converters { get { return converters; } }
 
         public EntittiesJig(IEnumerable<Entity> _entities, Point3d _basePoint = default, IEnumerable<IEntityConverter> _converters = null) : base()
         {
             buffer = _entities;
             entities = _entities.Clone();
+            basePoint = _basePoint;
             converters = _converters;
             if (converters != null)
             {
                 converters.ForEach(x => entities = x.Convert(entities));
             }
-            CADProxy.UsingTransaction(PrepareEntity);
+            transforms = new List<Matrix3d>();
         }
 
         protected override SamplerStatus Sampler(JigPrompts _prompts)
@@ -69,11 +76,11 @@ namespace CADKit.Models
 
         protected override bool WorldDraw(WorldDraw _draw)
         {
-            transforms = Matrix3d.Displacement(new Vector3d(currentPoint.X, currentPoint.Y, currentPoint.Z));
+            transform = Matrix3d.Displacement(new Vector3d(currentPoint.X, currentPoint.Y, currentPoint.Z));
             var geometry = _draw.Geometry;
             if (geometry != null)
             {
-                geometry.PushModelTransform(transforms);
+                geometry.PushModelTransform(transform);
                 foreach (var entity in entities)
                 {
                     geometry.Draw(entity);
@@ -84,7 +91,7 @@ namespace CADKit.Models
         }
 
         #region private methods
-        private void PrepareEntity(Transaction tr)
+        protected void PrepareEntity(Transaction tr)
         {
             var btr = tr.GetObject(CADProxy.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
             foreach (var ent in entities)

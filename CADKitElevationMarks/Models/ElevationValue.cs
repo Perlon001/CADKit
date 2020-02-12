@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CADKit.Proxy;
+using System;
 using System.Globalization;
 
 namespace CADKitElevationMarks.Models
@@ -34,9 +35,16 @@ namespace CADKitElevationMarks.Models
 
         public ElevationValue Parse(CultureInfo _culture)
         {
-            double numericValue = Double.Parse(Value.Replace(".",","), NumberStyles.Number, CultureInfo.CreateSpecificCulture("pl-PL"));
-            Value = Math.Abs(numericValue).ToString("N3");
-            Sign = numericValue > 0 ? "+" : (numericValue < 0 ? "-" : "%%p");
+            try
+            {
+                double numericValue = Double.Parse(Value.Replace(".", ","), NumberStyles.Number, CultureInfo.CreateSpecificCulture("pl-PL"));
+                Value = Math.Abs(numericValue).ToString("N3");
+                //Sign = numericValue > 0 ? "+" : (numericValue < 0 ? "-" : "%%p");
+            }
+            catch (Exception ex)
+            {
+                CADProxy.Editor.WriteMessage(ex.Message);
+            }
 
             return this;
         }

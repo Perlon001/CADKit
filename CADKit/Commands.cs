@@ -31,10 +31,11 @@ namespace CADKit
         {
             try
             {
-                var group = new EntitiesSetBuilder(new ElevationMarkPNB01025())
+                var a = new ElevationMarkPNB01025();
+                var group = new EntitiesSetBuilder(a.GetEntities())
                     .AddConverter(typeof(AttributeToDBTextConverter))
                     .SetBasePoint(new Point3d(0, 0, 0))
-                    .AssignJig(typeof(EntittiesJig))
+                    .SetJig(typeof(EntittiesJig))
                     .Build()
                     .ToGroup();
             }
@@ -44,9 +45,14 @@ namespace CADKit
             }
         }
 
-        private class ElevationMarkPNB01025 : IEntityListBuilder
+        public class ElevationMarkPNB01025 : IEntitiesSetBuilder
         {
-            public IEnumerable<Entity> Build()
+            public EntitiesSet Build()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IEnumerable<Entity> GetEntities()
             {
                 var en = new List<Entity>();
 

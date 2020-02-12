@@ -5,9 +5,11 @@ using System.Drawing;
 
 namespace CADKitElevationMarks.Services
 {
-    internal class MarkIconServiceStd01 : MarkIconServiceDrawingStandard
+    public class MarkIconStd01Service : MarkIconDrawingStandardService
     {
-        internal MarkIconServiceStd01(IInterfaceSchemeService _service) : base(_service) { }
+        public override DrawingStandards Standard { get { return DrawingStandards.Std01; } }
+
+        public MarkIconStd01Service(IInterfaceSchemeService _service) : base(_service) { }
 
         protected override Dictionary<MarkTypes, Dictionary<IconSize, Bitmap>> GetIconForLightScheme()
         {

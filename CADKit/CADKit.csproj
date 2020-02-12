@@ -65,7 +65,7 @@
     <Compile Include="Contracts\IconSize.cs" />
     <Compile Include="Contracts\IEntitiesSet.cs" />
     <Compile Include="Contracts\IEntityConverter.cs" />
-    <Compile Include="Contracts\IEntityListBuilder.cs" />
+    <Compile Include="Contracts\IEntitiesSetBuilder.cs" />
     <Compile Include="Contracts\IInterfaceSchemeService.cs" />
     <Compile Include="Contracts\IAutostart.cs" />
     <Compile Include="Contracts\IJigEntitties.cs" />

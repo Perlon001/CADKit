@@ -1,14 +1,7 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-
-using CADKit;
-using CADKitBasic.Utils;
+﻿using System.Collections.Generic;
 using CADKitElevationMarks.Contracts;
-using CADKitBasic.Models;
 using CADKit.Extensions;
 using CADKit.Proxy;
-using CADKit.Utils;
-using CADKit.Contracts;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -22,19 +15,19 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class FinishElevationMarkStd01 : ElevationMark
+    public class FinishMarkStd01 : IMark
     {
-        public override DrawingStandards DrawingStandard { get { return DrawingStandards.Std01; } }
-
-        public override MarkTypes MarkType { get { return MarkTypes.finish; } }
-
-        public override IEnumerable<Entity> Build()
+        private readonly ElevationValue value;
+        public FinishMarkStd01(IElevationValueProvider _provider)
         {
-            CreateEntityList();
-            return entityList;
+            _provider.PrepareValue();
+            value = _provider.ElevationValue;
+            BasePoint = _provider.BasePoint;
         }
 
-        public override void CreateEntityList()
+        public Point3d BasePoint { get; }
+
+        public virtual IEnumerable<Entity> GetEntities()
         {
             var en = new List<Entity>();
 
@@ -76,36 +69,33 @@ namespace CADKitElevationMarks.Models
             pl1.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X + 0.5, 3), 0, 0, 0);
             en.Add(pl1);
 
-            entityList = en;
+            return en;
+
+
         }
 
-        protected override JigMark GetMarkJig()
-        {
-            return new JigVerticalConstantHorizontalMirrorMark(entityList, basePoint.Value, new List<IEntityConverter>() { new AttributeToDBTextConverter() });
-        }
-
-        protected override void SetAttributeValue(BlockReference blockReference)
-        {
-            using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
-            {
-                var attDef = blockTableRecord.GetAttribDefinition("Sign");
-                if (!attDef.Constant)
-                {
-                    var attRef = new AttributeReference();
-                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Sign;
-                    blockReference.AttributeCollection.AppendAttribute(attRef);
-                }
-                attDef = blockTableRecord.GetAttribDefinition("Value");
-                if (!attDef.Constant)
-                {
-                    var attRef = new AttributeReference();
-                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Value;
-                    blockReference.AttributeCollection.AppendAttribute(attRef);
-                }
-            }
-        }
+        //protected override void SetAttributeValue(BlockReference blockReference)
+        //{
+        //    using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
+        //    {
+        //        var attDef = blockTableRecord.GetAttribDefinition("Sign");
+        //        if (!attDef.Constant)
+        //        {
+        //            var attRef = new AttributeReference();
+        //            attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
+        //            attRef.TextString = value.Sign;
+        //            blockReference.AttributeCollection.AppendAttribute(attRef);
+        //        }
+        //        attDef = blockTableRecord.GetAttribDefinition("Value");
+        //        if (!attDef.Constant)
+        //        {
+        //            var attRef = new AttributeReference();
+        //            attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
+        //            attRef.TextString = value.Value;
+        //            blockReference.AttributeCollection.AppendAttribute(attRef);
+        //        }
+        //    }
+        //}
     }
 }
 

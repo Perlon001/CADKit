@@ -24,25 +24,13 @@ namespace CADKitElevationMarks.Models
 {
     public class JigMark : EntittiesJig
     {
-        protected readonly Point3d basePoint;
-        protected IEnumerable<Entity> entityList;
-        protected IEnumerable<Entity> entityBuffer;
-        protected Point3d currentPoint;
-        protected Matrix3d transforms;
-
-        public Point3d JigPointResult { get { return currentPoint; } }
-
-        public JigMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEnumerable<IEntityConverter> _converters = null) : base(_entityList, _basePoint, _converters)
+        public JigMark(IEnumerable<Entity> _entities, Point3d _basePoint, IEnumerable<IEntityConverter> _converters = null) : base(_entities, _basePoint, _converters)
         {
-            entityBuffer = _entityList;
-            entityList = _entityList.Clone();
-            basePoint = _basePoint;
-            if (_converters != null)
-            {
-                _converters.ForEach(x => entityList = x.Convert(entityList));
-            }
-            entityList.TransformBy(Matrix3d.Scaling(AppSettings.Get.ScaleFactor, new Point3d(0, 0, 0)));
-            entityList.TransformBy(Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(_basePoint)));
+            var transform = Matrix3d.Scaling(AppSettings.Get.ScaleFactor, new Point3d(0, 0, 0));
+            transforms.Add(transform);
+            entities.TransformBy(transform);
+            transform = Matrix3d.Displacement(new Point3d(0, 0, 0).GetVectorTo(basePoint));
+            entities.TransformBy(transform);
             CADProxy.UsingTransaction(PrepareEntity);
         }
 
@@ -62,21 +50,16 @@ namespace CADKitElevationMarks.Models
             return SamplerStatus.OK;
         }
 
-        public IEnumerable<Entity> GetEntity()
-        {
-            return entityBuffer;
-        }
-
         protected override bool WorldDraw(WorldDraw draw)
         {
             try
             {
-                transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
+                transform = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
                 var geometry = draw.Geometry;
                 if (geometry != null)
                 {
-                    geometry.PushModelTransform(transforms);
-                    foreach (var entity in entityList)
+                    geometry.PushModelTransform(transform);
+                    foreach (var entity in entities)
                     {
                         geometry.Draw(entity);
                     }
@@ -90,18 +73,5 @@ namespace CADKitElevationMarks.Models
                 return false;
             }
         }
-
-        #region private methods
-        private void PrepareEntity(Transaction tr)
-        {
-            var btr = tr.GetObject(CADProxy.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
-            foreach (var ent in entityList)
-            {
-                btr.AppendEntity(ent);
-                tr.AddNewlyCreatedDBObject(ent, true);
-                ent.Erase();
-            }
-        }
-        #endregion
     }
 }

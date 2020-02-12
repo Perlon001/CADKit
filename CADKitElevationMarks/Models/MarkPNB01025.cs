@@ -1,14 +1,6 @@
-﻿using CADKitBasic;
-using CADKitBasic.Models;
-using CADKitBasic.Utils;
-using CADKit;
-using System;
-using System.Collections.Generic;
-using CADKit.Extensions;
-using CADKit.Proxy;
+﻿using CADKit.Proxy;
 using CADKitElevationMarks.Contracts;
-using CADKit.Utils;
-using CADKit.Contracts;
+using System.Collections.Generic;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -22,21 +14,20 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class ElevationMarkPNB01025 : ElevationMark
+    public class MarkPNB01025 : IMark
     {
-        public ElevationMarkPNB01025() : base() { }
+        private readonly ElevationValue value;
 
-        public override DrawingStandards DrawingStandard { get { return DrawingStandards.PNB01025; } }
-
-        public override MarkTypes MarkType { get { return MarkTypes.universal; } }
-
-        public override IEnumerable<Entity> Build()
+        public MarkPNB01025(IElevationValueProvider _provider)
         {
-            CreateEntityList();
-            return entityList;
+            _provider.PrepareValue();
+            value = _provider.ElevationValue;
+            BasePoint = _provider.BasePoint;
         }
 
-        public override void CreateEntityList()
+        public Point3d BasePoint { get; }
+
+        public virtual IEnumerable<Entity> GetEntities()
         {
             var en = new List<Entity>();
             var txt1 = new AttributeDefinition();
@@ -60,11 +51,10 @@ namespace CADKitElevationMarks.Models
             pl1.AddVertexAt(0, new Point2d(-1.5, 1.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(1.5, 1.5), 0, 0, 0);
-            if (Math.Round(Math.Abs(this.basePoint.Value.Y) * AppSettings.Get.ScaleFactor, 3) == 0)
+            if (value.Value == "0,000")
             {
                 pl1.Closed = true;
                 AddHatchingArrow(en);
-                index = "Zero";
             }
             en.Add(pl1);
 
@@ -74,27 +64,7 @@ namespace CADKitElevationMarks.Models
             pl2.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X, 3), 0, 0, 0);
             en.Add(pl2);
 
-            this.entityList = en;
-        }
-
-        protected override JigMark GetMarkJig()
-        {
-            return new JigVerticalConstantVerticalAndHorizontalMirrorMark(entityList, basePoint.Value, new List<IEntityConverter>() { new AttributeToDBTextConverter() });
-        }
-
-        protected override void SetAttributeValue(BlockReference blockReference)
-        {
-            using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
-            {
-                var attDef = blockTableRecord.GetAttribDefinition("Value");
-                if (!attDef.Constant)
-                {
-                    var attRef = new AttributeReference();
-                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Sign + value.Value;
-                    blockReference.AttributeCollection.AppendAttribute(attRef);
-                }
-            }
+            return en;
         }
 
         private void AddHatchingArrow(IList<Entity> entity)
@@ -128,4 +98,3 @@ namespace CADKitElevationMarks.Models
         }
     }
 }
-

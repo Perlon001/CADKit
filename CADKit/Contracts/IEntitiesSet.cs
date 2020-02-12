@@ -20,5 +20,7 @@ namespace CADKit.Contracts
     {
         Group ToGroup();
         BlockTableRecord ToBlock();
+        IEntitiesSet Transform(Matrix3d[] transforms);
+        IEntitiesSet Transform(Matrix3d transform);
     }
 }

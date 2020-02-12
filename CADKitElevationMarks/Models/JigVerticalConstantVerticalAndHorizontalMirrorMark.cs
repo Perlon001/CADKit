@@ -1,5 +1,4 @@
-﻿using CADKitBasic.Contracts.Services;
-using CADKit;
+﻿using CADKit;
 using System;
 using System.Collections.Generic;
 using CADKit.Proxy;
@@ -60,12 +59,12 @@ namespace CADKitElevationMarks.Models
             try
             {
                 currentPoint = new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z);
-                transforms = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
+                transform = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
                 var geometry = draw.Geometry;
                 if (geometry != null)
                 {
-                    geometry.PushModelTransform(transforms);
-                    foreach (var entity in entityList)
+                    geometry.PushModelTransform(transform);
+                    foreach (var entity in entities)
                     {
                         geometry.Draw(entity);
                     }
@@ -84,7 +83,7 @@ namespace CADKitElevationMarks.Models
         private void VerticalMirroring()
         {
             double textWidth = 0;
-            foreach (var e in entityList)
+            foreach (var e in entities)
             {
                 if (e.GetType() == typeof(DBText))
                 {
@@ -94,7 +93,7 @@ namespace CADKitElevationMarks.Models
             }
             using (var tr = CADProxy.Document.TransactionManager.StartTransaction())
             {
-                foreach (var e in entityList)
+                foreach (var e in entities)
                 {
                     var ent = e.ObjectId.GetObject(OpenMode.ForWrite, true) as Entity;
                     ent.Erase(false);
@@ -110,7 +109,7 @@ namespace CADKitElevationMarks.Models
                 }
                 tr.Commit();
             }
-            foreach (var ent in entityBuffer)
+            foreach (var ent in buffer)
             {
                 if (ent.GetType() == typeof(DBText) || ent.GetType() == typeof(AttributeDefinition))
                 {
@@ -128,7 +127,7 @@ namespace CADKitElevationMarks.Models
         {
             using (var tr = CADProxy.Document.TransactionManager.StartTransaction())
             {
-                foreach (var e in entityList)
+                foreach (var e in entities)
                 {
                     var ent = e.ObjectId.GetObject(OpenMode.ForWrite, true) as Entity;
                     ent.Erase(false);
@@ -144,7 +143,7 @@ namespace CADKitElevationMarks.Models
                 }
                 tr.Commit();
             }
-            foreach(var ent in entityBuffer)
+            foreach(var ent in buffer)
             {
                 if (ent.GetType() == typeof(DBText) || ent.GetType() == typeof(AttributeDefinition))
                 {

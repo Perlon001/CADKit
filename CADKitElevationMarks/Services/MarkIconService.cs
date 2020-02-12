@@ -1,15 +1,17 @@
-﻿using CADKit.Contracts;
+﻿using Autofac;
+using CADKit;
+using CADKit.Contracts;
 using CADKit.Services;
 using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Services;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace CADKitElevationMarks.Services
 {
     public class MarkIconService : IMarkIconService
     {
-        private readonly IInterfaceSchemeService colorSchemeService;
         public Bitmap DefaultIcon
         {
             get
@@ -28,16 +30,23 @@ namespace CADKitElevationMarks.Services
 
         private Dictionary<DrawingStandards, Dictionary<MarkTypes, Dictionary<IconSize, Bitmap>>> data;
 
-        public MarkIconService(IInterfaceSchemeService _service)
+        public MarkIconService()
         {
             data = new Dictionary<DrawingStandards, Dictionary<MarkTypes, Dictionary<IconSize, Bitmap>>>();
-            colorSchemeService = _service;
 
-            MarkIconServicePNB01025 servicePNB01025 = new MarkIconServicePNB01025(_service);
-            data.Add(DrawingStandards.PNB01025, servicePNB01025.GetIcons());
+            var types = DI.Container.ComponentRegistry.Registrations
+                .Where(r => typeof(MarkIconDrawingStandardService).IsAssignableFrom(r.Activator.LimitType))
+                .Select(r => r.Activator.LimitType);
 
-            MarkIconServiceStd01 serviceStd01 = new MarkIconServiceStd01(_service);
-            data.Add(DrawingStandards.Std01, serviceStd01.GetIcons());
+            using(var scope = DI.Container.BeginLifetimeScope())
+            {
+                IEnumerable<MarkIconDrawingStandardService> lst = types
+                    .Select(t => scope.Resolve(t) as MarkIconDrawingStandardService);
+                foreach (var obj in lst)
+                {
+                    data.Add(obj.Standard, obj.GetIcons());
+                }
+            }
         }
 
         public Bitmap GetIcon(DrawingStandards standard, MarkTypes type)

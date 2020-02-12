@@ -9,7 +9,7 @@ namespace Tests
     {
         public IoCContainerFixture()
         {
-            Assembly.LoadFrom(@"C:\Program Files\ZWSOFT\ZWCAD 2020\ZwDatabaseMgd.dll");
+            Assembly.LoadFrom(@"C:\Program Files\ZWSOFT\ZWCAD 2020\ZwDatabaseMgd.DLL");
             Assembly.LoadFrom(@"C:\Program Files\ZWSOFT\ZWCAD 2020\ZwManaged.dll");
             DI.Container = Container.Builder.Build();
         }

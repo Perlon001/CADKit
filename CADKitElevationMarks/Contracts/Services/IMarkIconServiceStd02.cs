@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CADKitElevationMarks.Contracts.Services
+﻿namespace CADKitElevationMarks.Contracts.Services
 {
     public interface IMarkIconServiceStd02 : IMarkIconService
     {

@@ -26,7 +26,7 @@ using Autodesk.AutoCAD.ApplicationServices;
 
 namespace CADKitElevationMarks.Models
 {
-    public abstract class ElevationMark : IElevationMark, IEntityListBuilder
+    public abstract class ElevationMark : IElevationMark, IEntitiesSetBuilder
     {
         protected PromptPointResult basePoint;
         protected ElevationValue value;
@@ -46,7 +46,7 @@ namespace CADKitElevationMarks.Models
 
         public abstract void CreateEntityList();
 
-        public abstract IEnumerable<Entity> Build();
+        public abstract IEnumerable<Entity> GetEntities();
 
         protected virtual void CreateMark()
         {
@@ -191,6 +191,11 @@ namespace CADKitElevationMarks.Models
                 default:
                     throw new Exception("\nNie rozpoznana jednostka rysunkowa");
             }
+        }
+
+        public EntitiesSet Build()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

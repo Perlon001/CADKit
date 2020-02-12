@@ -29,30 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tabStandards = new System.Windows.Forms.TabControl();
             this.toolTips = new System.Windows.Forms.ToolTip(this.components);
             this.rbxGroup = new System.Windows.Forms.RadioButton();
             this.rbxBlock = new System.Windows.Forms.RadioButton();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.gbxOutputFormat = new System.Windows.Forms.GroupBox();
             this.btnOptions = new System.Windows.Forms.Button();
+            this.flpMarks = new System.Windows.Forms.FlowLayoutPanel();
             this.flowLayoutPanel1.SuspendLayout();
             this.gbxOutputFormat.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // tabStandards
-            // 
-            this.tabStandards.Alignment = System.Windows.Forms.TabAlignment.Left;
-            this.tabStandards.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabStandards.Location = new System.Drawing.Point(3, 45);
-            this.tabStandards.Multiline = true;
-            this.tabStandards.Name = "tabStandards";
-            this.tabStandards.SelectedIndex = 0;
-            this.tabStandards.Size = new System.Drawing.Size(414, 490);
-            this.tabStandards.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.tabStandards.TabIndex = 0;
             // 
             // rbxGroup
             // 
@@ -80,14 +66,13 @@
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.flowLayoutPanel1.Controls.Add(this.gbxOutputFormat);
             this.flowLayoutPanel1.Controls.Add(this.btnOptions);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(414, 40);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(420, 40);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // gbxOutputFormat
@@ -113,13 +98,23 @@
             this.btnOptions.TabIndex = 4;
             this.btnOptions.UseVisualStyleBackColor = false;
             // 
+            // flpMarks
+            // 
+            this.flpMarks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flpMarks.Location = new System.Drawing.Point(3, 46);
+            this.flpMarks.Name = "flpMarks";
+            this.flpMarks.Size = new System.Drawing.Size(414, 489);
+            this.flpMarks.TabIndex = 3;
+            // 
             // ElevationMarksView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Controls.Add(this.flpMarks);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.tabStandards);
             this.Name = "ElevationMarksView";
             this.Size = new System.Drawing.Size(420, 538);
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -130,13 +125,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TabControl tabStandards;
         private System.Windows.Forms.ToolTip toolTips;
         private System.Windows.Forms.RadioButton rbxGroup;
         private System.Windows.Forms.RadioButton rbxBlock;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.GroupBox gbxOutputFormat;
         private System.Windows.Forms.Button btnOptions;
+        private System.Windows.Forms.FlowLayoutPanel flpMarks;
     }
 }
