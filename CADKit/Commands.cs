@@ -32,7 +32,7 @@ namespace CADKit
             try
             {
                 var a = new ElevationMarkPNB01025();
-                var group = new EntitiesSetBuilder(a.GetEntities())
+                var group = new EntitiesSetBuilder<EntitiesSet>(a.GetEntities())
                     .AddConverter(typeof(AttributeToDBTextConverter))
                     .SetBasePoint(new Point3d(0, 0, 0))
                     .SetJig(typeof(EntittiesJig))

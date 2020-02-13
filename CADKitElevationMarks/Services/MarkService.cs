@@ -72,21 +72,26 @@ namespace CADKitElevationMarks.Services
 
         public IEnumerable<MarkButtonDTO> GetMarks()
         {
-            return markCollection.Select(y => new MarkButtonDTO() { id = y.id, name = GetMarkName(y.id), picture = y.picture32 });
+            return markCollection.Select(y => new MarkButtonDTO() { id = y.id, name = GetMarkDescription(y.id), picture = y.picture32 });
         }
 
         public MarkButtonDTO GetMarkButton(DrawingStandards _standard, MarkTypes _type)
         {
             var mark = markCollection.FirstOrDefault(x => x.standard == _standard && x.type == _type);
-            return new MarkButtonDTO() { id = mark.id, name = GetMarkName(mark.id), picture = mark.picture32 };
+            return new MarkButtonDTO() { id = mark.id, name = GetMarkDescription(mark.id), picture = mark.picture32 };
         }
 
-        public string GetMarkName(int _markNumber)
+        public MarkDTO GetMark(int _markNumber)
+        {
+            return GetMarkDTO(_markNumber);
+        }
+
+        public string GetMarkDescription(int _markNumber)
         {
             return markTypes[GetMarkDTO(_markNumber).type];
         }
 
-        public string GetMarkName(DrawingStandards _standard, MarkTypes _type)
+        public string GetMarkDescription(DrawingStandards _standard, MarkTypes _type)
         {
             return markTypes[GetMarkDTO(_standard, _type).type];
         }
@@ -133,6 +138,11 @@ namespace CADKitElevationMarks.Services
             {
                 return item;
             }
+        }
+
+        public string GetMarkName(int _markNumber)
+        {
+            return GetMarkDTO(_markNumber).type.ToString();
         }
     }
 }

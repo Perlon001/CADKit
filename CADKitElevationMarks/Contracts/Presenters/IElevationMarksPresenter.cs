@@ -7,7 +7,7 @@ namespace CADKitElevationMarks.Contracts.Presenters
 {
     public interface IElevationMarksPresenter : IPresenter
     {
-        void CreateMark(object sender, BeginCreateMarkEventArgs e);
+        void CreateMark(object sender, BeginMarkCreateEventArgs e);
         Bitmap GetOptionIcon();
         void FillButtons();
     }

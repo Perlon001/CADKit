@@ -119,7 +119,7 @@ namespace CADKitElevationMarks.Models
                             entities.ToGroup();
                             break;
                         case OutputSet.block:
-                            blockName = GetPrefix() + jig.GetSuffix() + index;
+                            blockName = GetPrefix();// + jig.GetSuffix() + index;
                             var defBlock = jig.GetEntity().ToBlock(blockName, new Point3d(0, 0, 0));
                             InsertMarkBlock(defBlock, jig.JigPointResult);
                             break;

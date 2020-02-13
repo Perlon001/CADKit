@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CADKit.Proxy;
 using CADKitElevationMarks.Contracts;
+using CADKit.Extensions;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -11,25 +12,15 @@ using ZwSoft.ZwCAD.Geometry;
 #if AutoCAD
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using Autodesk.AutoCAD.EditorInput;
 #endif
 
 namespace CADKitElevationMarks.Models
 {
-    public class PlaneMarkStd01 : IMark
+    public class PlaneMarkStd01 : Mark
     {
-        private readonly ElevationValue value;
+        public PlaneMarkStd01(IPlaneValueProvider _provider) : base(_provider) { }
 
-        public PlaneMarkStd01(IPlaneValueProvider _provider)
-        {
-            _provider.PrepareValue();
-            value = _provider.ElevationValue;
-            BasePoint = _provider.BasePoint;
-        }
-
-        public Point3d BasePoint { get; }
-
-        public IEnumerable<Entity> GetEntities()
+        public override IEnumerable<Entity> GetEntities()
         {
             var en = new List<Entity>();
 
@@ -60,6 +51,28 @@ namespace CADKitElevationMarks.Models
             AddHatching(en);
 
             return en;
+        }
+        public override void SetAttributeValue(BlockReference blockReference)
+        {
+            using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
+            {
+                var attDef = blockTableRecord.GetAttribDefinition("Sign");
+                if (!attDef.Constant)
+                {
+                    var attRef = new AttributeReference();
+                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
+                    attRef.TextString = value.Sign;
+                    blockReference.AttributeCollection.AppendAttribute(attRef);
+                }
+                attDef = blockTableRecord.GetAttribDefinition("Value");
+                if (!attDef.Constant)
+                {
+                    var attRef = new AttributeReference();
+                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
+                    attRef.TextString = value.Value;
+                    blockReference.AttributeCollection.AppendAttribute(attRef);
+                }
+            }
         }
 
         private void AddHatching(IList<Entity> en)

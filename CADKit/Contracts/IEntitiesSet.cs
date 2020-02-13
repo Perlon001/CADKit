@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
@@ -19,8 +14,6 @@ namespace CADKit.Contracts
     public interface IEntitiesSet
     {
         Group ToGroup();
-        BlockTableRecord ToBlock();
-        IEntitiesSet Transform(Matrix3d[] transforms);
-        IEntitiesSet Transform(Matrix3d transform);
+        BlockTableRecord ToBlock(string name, Point3d origin);
     }
 }

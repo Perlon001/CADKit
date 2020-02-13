@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using CADKit.Proxy;
 using CADKit.Contracts;
+using CADKitElevationMarks.Events;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -22,36 +23,34 @@ namespace CADKitElevationMarks.Models
     public class JigVerticalConstantHorizontalMirrorMark : JigMark
     {
         private bool IsHMirror;
+        public override string Suffix => (IsHMirror ? "B" : "T");
+
         public JigVerticalConstantHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEnumerable<IEntityConverter> _converters) : base(_entityList, _basePoint, _converters)
         {
             IsHMirror = false;
         }
 
-        public override string GetSuffix()
+        protected override SamplerStatus Sampler(JigPrompts _prompts)
         {
-            return (IsHMirror ? "B" : "T");
-        }
-
-        protected override SamplerStatus Sampler(JigPrompts prompts)
-        {
-            var result = base.Sampler(prompts);
+            var result = base.Sampler(_prompts);
             if ( result != SamplerStatus.OK) 
                 return result;
             if (NeedHMirror)
             {
                 HorizontalMirroring();
+                OnSuffixChanged(new ChangeMarkSuffixEventArgs(Suffix));
             }
 
             return SamplerStatus.OK;
         }
 
-        protected override bool WorldDraw(WorldDraw draw)
+        protected override bool WorldDraw(WorldDraw _draw)
         {
             try
             {
                 currentPoint = new Point3d(currentPoint.X, basePoint.Y, currentPoint.Z);
                 transform = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
-                var geometry = draw.Geometry;
+                var geometry = _draw.Geometry;
                 if (geometry != null)
                 {
                     geometry.PushModelTransform(transform);
@@ -64,9 +63,9 @@ namespace CADKitElevationMarks.Models
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception _ex)
             {
-                CADProxy.Editor.WriteMessage(ex.Message);
+                CADProxy.Editor.WriteMessage(_ex.Message);
                 return false;
             }
         }
@@ -103,6 +102,11 @@ namespace CADKitElevationMarks.Models
                 }
             }
             IsHMirror = !IsHMirror;
+        }
+
+        protected override void OnSuffixChanged(ChangeMarkSuffixEventArgs _args)
+        {
+            base.OnSuffixChanged(_args);
         }
 
         private bool NeedHMirror => (currentPoint.Y < basePoint.Y && !IsHMirror) || (currentPoint.Y >= basePoint.Y && IsHMirror);

@@ -14,13 +14,18 @@ using CADKitElevationMarks.Events;
 using System.Drawing;
 using CADKit.Internal;
 using System;
+using CADKitElevationMarks.Models;
+using ZwSoft.ZwCAD.DatabaseServices;
+using ZwSoft.ZwCAD.Geometry;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.ApplicationServices;
+using CADGeometry = ZwSoft.ZwCAD.Geometry;
 #endif
 
 #if AutoCAD
 using Autodesk.AutoCAD.ApplicationServices;
+using CADGeometry = Autodesk.AutoCAD.Geometry;
 #endif
 
 namespace CADKitElevationMarks.Presenters
@@ -38,7 +43,7 @@ namespace CADKitElevationMarks.Presenters
             markService = _markService;
         }
 
-        public void CreateMark(object sender, BeginCreateMarkEventArgs args)
+        public void CreateMark(object sender, BeginMarkCreateEventArgs args)
         {
             markID = args.ID;
             var cmdActive = Convert.ToInt32(CADProxy.GetSystemVariable("CMDACTIVE"));
@@ -98,16 +103,16 @@ namespace CADKitElevationMarks.Presenters
             {
                 using (var scope = DI.Container.BeginLifetimeScope())
                 {
-                    var markType = markService.GetMarkType(markID);
-                    if (!scope.IsRegistered(markType))
+                    var markDTO = markService.GetMark(markID);
+                    if (!scope.IsRegistered(markDTO.markClass))
                     {
                         throw new NotImplementedException("Brak definicji wybranej koty wysokościowej.");
                     }
-                    var mark = scope.Resolve(markType) as IMark;
-                    IEntitiesSet entitiesSet = new EntitiesSetBuilder(mark.GetEntities())
+                    var mark = scope.Resolve(markDTO.markClass) as IMark;
+                    var entitiesSet = new EntitiesSetBuilder<MarkEntitiesSet>(mark.GetEntities())
                         .AddConverter(typeof(AttributeToDBTextConverter))
                         .SetBasePoint(mark.BasePoint)
-                        .SetJig(markService.GetJigType(markID))
+                        .SetJig(markDTO.markJig)
                         .Build();
                     switch (View.SetType)
                     {
@@ -115,12 +120,15 @@ namespace CADKitElevationMarks.Presenters
                             entitiesSet.ToGroup();
                             break;
                         case OutputSet.block:
-                            entitiesSet.ToBlock();
+                            var blockDef = entitiesSet.ToBlock("ElevMark" + markDTO.type.ToString() + markDTO.standard.ToString(), mark.Index);
+                            //InsertMarkBlock(blockDef, entitiesSet.jig.JigPointResult);
                             break;
                     }
                     Utils.FlushGraphics();
                 }
             }
         }
+
+
     }
 }

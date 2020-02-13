@@ -49,7 +49,7 @@ namespace CADKit
             SetSettingsToDocument();
         }
 
-        public event ChangeInterfaceSchemeEventHandler ChangeInterfaceScheme;
+        public event EventHandler<ChangeInterfaceSchemeEventArgs> ChangeInterfaceScheme;
 
         public static AppSettings Get { get { return instance; } }
 

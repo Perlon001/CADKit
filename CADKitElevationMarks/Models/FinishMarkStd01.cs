@@ -15,19 +15,11 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class FinishMarkStd01 : IMark
+    public class FinishMarkStd01 : Mark
     {
-        private readonly ElevationValue value;
-        public FinishMarkStd01(IElevationValueProvider _provider)
-        {
-            _provider.PrepareValue();
-            value = _provider.ElevationValue;
-            BasePoint = _provider.BasePoint;
-        }
+        public FinishMarkStd01(IElevationValueProvider _provider) : base(_provider) { }
 
-        public Point3d BasePoint { get; }
-
-        public virtual IEnumerable<Entity> GetEntities()
+        public override IEnumerable<Entity> GetEntities()
         {
             var en = new List<Entity>();
 
@@ -70,32 +62,30 @@ namespace CADKitElevationMarks.Models
             en.Add(pl1);
 
             return en;
-
-
         }
 
-        //protected override void SetAttributeValue(BlockReference blockReference)
-        //{
-        //    using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
-        //    {
-        //        var attDef = blockTableRecord.GetAttribDefinition("Sign");
-        //        if (!attDef.Constant)
-        //        {
-        //            var attRef = new AttributeReference();
-        //            attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-        //            attRef.TextString = value.Sign;
-        //            blockReference.AttributeCollection.AppendAttribute(attRef);
-        //        }
-        //        attDef = blockTableRecord.GetAttribDefinition("Value");
-        //        if (!attDef.Constant)
-        //        {
-        //            var attRef = new AttributeReference();
-        //            attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-        //            attRef.TextString = value.Value;
-        //            blockReference.AttributeCollection.AppendAttribute(attRef);
-        //        }
-        //    }
-        //}
+        public override void SetAttributeValue(BlockReference blockReference)
+        {
+            using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
+            {
+                var attDef = blockTableRecord.GetAttribDefinition("Sign");
+                if (!attDef.Constant)
+                {
+                    var attRef = new AttributeReference();
+                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
+                    attRef.TextString = value.Sign;
+                    blockReference.AttributeCollection.AppendAttribute(attRef);
+                }
+                attDef = blockTableRecord.GetAttribDefinition("Value");
+                if (!attDef.Constant)
+                {
+                    var attRef = new AttributeReference();
+                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
+                    attRef.TextString = value.Value;
+                    blockReference.AttributeCollection.AppendAttribute(attRef);
+                }
+            }
+        }
     }
 }
 

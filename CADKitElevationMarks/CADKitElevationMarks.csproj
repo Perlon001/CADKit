@@ -75,8 +75,11 @@
     <Compile Include="Contracts\Presenters\IElevationMarksPresenter.cs" />
     <Compile Include="Contracts\Views\IElevationMarksView.cs" />
     <Compile Include="DTO\MarkDTO.cs" />
-    <Compile Include="Events\BeginMarkCreateEvent.cs" />
+    <Compile Include="Events\BeginCreateMarkEvent.cs" />
     <Compile Include="Contracts\DrawingStandards.cs" />
+    <Compile Include="Events\ChangeMarkSuffixEvent.cs" />
+    <Compile Include="Models\Mark.cs" />
+    <Compile Include="Models\MarkEntitySet.cs" />
     <Compile Include="_doSkasowaniaModelsOld\ElevationMark.cs" />
     <Compile Include="Models\ConstructionMarkStd01.cs" />
     <Compile Include="Models\JigMark.cs" />

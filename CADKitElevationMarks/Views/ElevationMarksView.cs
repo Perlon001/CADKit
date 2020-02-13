@@ -18,7 +18,7 @@ namespace CADKitElevationMarks.Views
     public partial class ElevationMarksView : BaseViewWF, IElevationMarksView
     {
         public IElevationMarksPresenter Presenter { get; set; }
-        public event BeginCreateMarkEventHandler BeginCreateMark;
+        public event BeginMarkCreateEventHandler BeginCreateMark;
 
         public ElevationMarksView()
         {
@@ -84,7 +84,7 @@ namespace CADKitElevationMarks.Views
             try
             {
                 var a = Convert.ToInt16(((Button)_sender).Tag);
-                var b = new BeginCreateMarkEventArgs(a);
+                var b = new BeginMarkCreateEventArgs(a);
                 BeginCreateMark?.Invoke(_sender, b);
             }
             catch (Exception ex)

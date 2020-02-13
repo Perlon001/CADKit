@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CADKitElevationMarks.Events
 {
-    public delegate void BeginCreateMarkEventHandler(object sender, BeginCreateMarkEventArgs e);
-    public class BeginCreateMarkEventArgs : EventArgs
+    public delegate void BeginMarkCreateEventHandler(object sender, BeginMarkCreateEventArgs args);
+    public class BeginMarkCreateEventArgs : EventArgs
     {
         public int ID { private set; get; }
-        public BeginCreateMarkEventArgs(int id)
+        public BeginMarkCreateEventArgs(int id)
         {
             ID = id;
         }

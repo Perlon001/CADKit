@@ -14,7 +14,7 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKit.Models
 {
-    public class EntitiesSetBuilder
+    public class EntitiesSetBuilder<T> where T : EntitiesSet
     {
         private IEnumerable<Entity> entities;
         private Point3d basePoint;
@@ -31,31 +31,31 @@ namespace CADKit.Models
             transforms = new List<Matrix3d>();
         }
 
-        public EntitiesSetBuilder SetBasePoint(Point3d _basePoint)
+        public EntitiesSetBuilder<T> SetBasePoint(Point3d _basePoint)
         {
             basePoint = _basePoint;
             return this;
         }
 
-        public EntitiesSetBuilder SetJig(Type _jigType)
+        public EntitiesSetBuilder<T> SetJig(Type _jigType)
         {
             jigType = _jigType;
             return this;
         }
 
-        public EntitiesSetBuilder AddTransforms(Matrix3d _matrix)
+        public EntitiesSetBuilder<T> AddTransforms(Matrix3d _matrix)
         {
             transforms.Add(_matrix);
             return this;
         }
 
-        public EntitiesSetBuilder AddConverter(Type _converterType)
+        public EntitiesSetBuilder<T> AddConverter(Type _converterType)
         {
             converterTypes.Add(_converterType);
             return this;
         }
 
-        public EntitiesSet Build()
+        public T Build()
         {
             IList<IEntityConverter> converters = new List<IEntityConverter>();
             if (converterTypes != null)
@@ -70,7 +70,7 @@ namespace CADKit.Models
             var jig = Activator.CreateInstance(jigType, jigArgs);
             Object[] args = { entities, jig };
 
-            return Activator.CreateInstance(typeof(EntitiesSet), args) as EntitiesSet;
+            return Activator.CreateInstance(typeof(T), args) as T;
         }
     }
 }

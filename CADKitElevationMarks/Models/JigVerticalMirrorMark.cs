@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using CADKit.Proxy;
 using CADKit.Contracts;
+using CADKitElevationMarks.Events;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -24,6 +25,8 @@ namespace CADKitElevationMarks.Models
     public class JigVerticalMirrorMark : JigMark
     {
         private bool IsVMirror;
+        public override string Suffix => (IsVMirror ? "L" : "R");
+
         public JigVerticalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEnumerable<IEntityConverter> _converters = null) : base(_entityList, _basePoint, _converters)
         {
             IsVMirror = false;
@@ -39,6 +42,7 @@ namespace CADKitElevationMarks.Models
             if (needVMirror)
             {
                 verticalMirroring();
+                OnSuffixChanged(new ChangeMarkSuffixEventArgs(Suffix));
             }
 
             return SamplerStatus.OK;

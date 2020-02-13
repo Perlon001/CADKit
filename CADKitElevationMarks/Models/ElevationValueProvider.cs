@@ -1,16 +1,11 @@
 ﻿using CADKitElevationMarks.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CADKit.Proxy;
 using System.Globalization;
 using CADKit;
 using CADKit.Contracts;
 
 #if ZwCAD
-using ZwSoft.ZwCAD.Geometry;
 using ZwSoft.ZwCAD.EditorInput;
 using ZwSoft.ZwCAD.ApplicationServices;
 #endif
@@ -28,11 +23,11 @@ namespace CADKitElevationMarks.Models
         public override void PrepareValue()
         {
             Application.MainWindow.Focus();
-            var promptPointOptions = new PromptPointOptions("\nWskaż punkt wysokościowy:");
-            var basePoint = CADProxy.Editor.GetPoint(promptPointOptions);
-            if (basePoint.Status == PromptStatus.OK)
+            var promptOptions = new PromptPointOptions("\nWskaż punkt wysokościowy:");
+            var pointValue = CADProxy.Editor.GetPoint(promptOptions);
+            if (pointValue.Status == PromptStatus.OK)
             {
-                this.basePoint = basePoint.Value;
+                basePoint = pointValue.Value;
                 elevationValue = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
             }
             else

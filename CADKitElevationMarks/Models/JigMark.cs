@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using CADKit.Proxy;
 using CADKit.Contracts;
 using CADKit.Models;
+using CADKitElevationMarks.Events;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -24,6 +25,8 @@ namespace CADKitElevationMarks.Models
 {
     public class JigMark : EntittiesJig
     {
+        public virtual string Suffix => "";
+
         public JigMark(IEnumerable<Entity> _entities, Point3d _basePoint, IEnumerable<IEntityConverter> _converters = null) : base(_entities, _basePoint, _converters)
         {
             var transform = Matrix3d.Scaling(AppSettings.Get.ScaleFactor, new Point3d(0, 0, 0));
@@ -34,28 +37,30 @@ namespace CADKitElevationMarks.Models
             CADProxy.UsingTransaction(PrepareEntity);
         }
 
-        public virtual string GetSuffix()
+        public event EventHandler<ChangeMarkSuffixEventArgs> ChangeMarkSuffix;
+
+        protected virtual void OnSuffixChanged(ChangeMarkSuffixEventArgs _args)
         {
-            return "";
+            ChangeMarkSuffix?.Invoke(this, _args);
         }
 
-        protected override SamplerStatus Sampler(JigPrompts prompts)
+        protected override SamplerStatus Sampler(JigPrompts _prompts)
         {
             JigPromptPointOptions jigOpt = new JigPromptPointOptions("Wskaż punkt wstawienia:");
             jigOpt.UserInputControls = UserInputControls.Accept3dCoordinates;
             jigOpt.BasePoint = basePoint;
-            PromptPointResult res = prompts.AcquirePoint(jigOpt);
+            PromptPointResult res = _prompts.AcquirePoint(jigOpt);
             currentPoint = res.Value;
 
             return SamplerStatus.OK;
         }
 
-        protected override bool WorldDraw(WorldDraw draw)
+        protected override bool WorldDraw(WorldDraw _draw)
         {
             try
             {
                 transform = Matrix3d.Displacement(basePoint.GetVectorTo(currentPoint));
-                var geometry = draw.Geometry;
+                var geometry = _draw.Geometry;
                 if (geometry != null)
                 {
                     geometry.PushModelTransform(transform);
@@ -67,9 +72,9 @@ namespace CADKitElevationMarks.Models
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception _ex)
             {
-                CADProxy.Editor.WriteMessage(ex.Message);
+                CADProxy.Editor.WriteMessage(_ex.Message);
                 return false;
             }
         }

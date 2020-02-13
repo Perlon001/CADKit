@@ -14,7 +14,7 @@ namespace Tests
         [Fact]
         public void BuilderShuldByReturnEntitiesSetCreator()
         {
-            EntitiesSet es = new EntitiesSetBuilder(new List<Entity>())
+            var es = new EntitiesSetBuilder<EntitiesSet>(new List<Entity>())
                 .Build();
 
             Assert.IsType<EntitiesSet>(es);

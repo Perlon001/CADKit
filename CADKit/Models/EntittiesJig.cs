@@ -31,8 +31,8 @@ namespace CADKit.Models
 
         public IEnumerable<Entity> GetEntity()
         {
-            transforms.ForEach(x => buffer.TransformBy(x));
-            buffer.TransformBy(Matrix3d.Displacement(new Point3d(0,0,0).GetVectorTo(currentPoint)));
+            //transforms.ForEach(x => buffer.TransformBy(x));
+            //buffer.TransformBy(Matrix3d.Displacement(new Point3d(0,0,0).GetVectorTo(currentPoint)));
             return buffer;
         }
 

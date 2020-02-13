@@ -4,7 +4,7 @@ using System;
 
 namespace CADKit.Events
 {
-    public delegate void ChangeInterfaceSchemeEventHandler(object sender, ChangeInterfaceSchemeEventArgs arg);
+    //public delegate void ChangeInterfaceSchemeEventHandler(object sender, ChangeInterfaceSchemeEventArgs arg);
 
     public class ChangeInterfaceSchemeEventArgs : EventArgs
     {

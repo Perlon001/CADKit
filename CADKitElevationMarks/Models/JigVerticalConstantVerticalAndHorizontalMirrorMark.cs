@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using CADKit.Proxy;
 using CADKit.Contracts;
+using CADKitElevationMarks.Events;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -24,15 +25,11 @@ namespace CADKitElevationMarks.Models
     {
         private bool isVMirror;
         private bool isHMirror;
+        public override string Suffix => (isVMirror ? "L" : "R") + (isHMirror ? "B" : "T");
         public JigVerticalConstantVerticalAndHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEnumerable<IEntityConverter> _converters = null) : base(_entityList, _basePoint, _converters)
         {
             isVMirror = false;
             isHMirror = false;
-        }
-
-        public override string GetSuffix()
-        {
-            return (isVMirror ? "L" : "R") + (isHMirror ? "B" : "T");
         }
 
         protected override SamplerStatus Sampler(JigPrompts prompts)
@@ -45,10 +42,12 @@ namespace CADKitElevationMarks.Models
             if (NeedVMirror)
             {
                 VerticalMirroring();
+                OnSuffixChanged(new ChangeMarkSuffixEventArgs(Suffix));
             }
             if (NeedHMirror)
             {
                 HorizontalMirroring();
+                OnSuffixChanged(new ChangeMarkSuffixEventArgs(Suffix));
             }
 
             return SamplerStatus.OK;
@@ -155,6 +154,11 @@ namespace CADKitElevationMarks.Models
                 }
             }
             isHMirror = !isHMirror;
+        }
+
+        protected override void OnSuffixChanged(ChangeMarkSuffixEventArgs _args)
+        {
+            base.OnSuffixChanged(_args);
         }
 
         private bool NeedVMirror => (currentPoint.X < basePoint.X && !isVMirror) || (currentPoint.X >= basePoint.X && isVMirror);

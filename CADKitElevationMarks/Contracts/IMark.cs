@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -18,6 +14,7 @@ namespace CADKitElevationMarks.Contracts
 {
     public interface IMark
     {
+        string Index { get; }
         Point3d BasePoint { get; }
         IEnumerable<Entity> GetEntities();
     }
