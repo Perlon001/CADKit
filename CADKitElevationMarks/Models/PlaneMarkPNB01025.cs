@@ -23,20 +23,20 @@ namespace CADKitElevationMarks.Models
         {
             var en = new List<Entity>();
 
-            var txt1 = new AttributeDefinition();
-            txt1.SetDatabaseDefaults();
-            txt1.TextStyle = CADProxy.Database.Textstyle;
-            txt1.HorizontalMode = TextHorizontalMode.TextLeft;
-            txt1.VerticalMode = TextVerticalMode.TextVerticalMid;
-            txt1.ColorIndex = 7;
-            txt1.Height = 2;
-            txt1.Position = new Point3d(2, 1.5, 0);
-            txt1.Justify = AttachmentPoint.MiddleLeft;
-            txt1.AlignmentPoint = new Point3d(2, 1.5, 0);
-            txt1.Tag = "Value";
-            txt1.Prompt = "Value";
-            txt1.TextString = value.ToString();
-            en.Add(txt1);
+            var att1 = new AttributeDefinition();
+            att1.SetDatabaseDefaults();
+            att1.TextStyle = CADProxy.Database.Textstyle;
+            att1.HorizontalMode = TextHorizontalMode.TextLeft;
+            att1.VerticalMode = TextVerticalMode.TextVerticalMid;
+            att1.ColorIndex = 7;
+            att1.Height = 2;
+            att1.Position = new Point3d(2, 1.5, 0);
+            att1.Justify = AttachmentPoint.MiddleLeft;
+            att1.AlignmentPoint = new Point3d(2, 1.5, 0);
+            att1.Tag = "Value";
+            att1.Prompt = "Value";
+            att1.TextString = value.ToString();
+            en.Add(att1);
 
             var l1 = new Line(new Point3d(-1.5, -1.5, 0), new Point3d(1.5, 1.5, 0));
             en.Add(l1);
@@ -44,7 +44,7 @@ namespace CADKitElevationMarks.Models
             var l2 = new Line(new Point3d(-1.5, 1.5, 0), new Point3d(1.5, -1.5, 0));
             en.Add(l2);
 
-            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(txt1));
+            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(att1));
             var l3 = new Line(new Point3d(0, 0, 0), new Point3d(textArea[1].X - textArea[0].X + 2, 0, 0));
             en.Add(l3);
 
@@ -55,20 +55,12 @@ namespace CADKitElevationMarks.Models
         {
             using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
             {
-                var attDef = blockTableRecord.GetAttribDefinition("Sign");
+                var attDef = blockTableRecord.GetAttribDefinition("Value");
                 if (!attDef.Constant)
                 {
                     var attRef = new AttributeReference();
                     attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Sign;
-                    blockReference.AttributeCollection.AppendAttribute(attRef);
-                }
-                attDef = blockTableRecord.GetAttribDefinition("Value");
-                if (!attDef.Constant)
-                {
-                    var attRef = new AttributeReference();
-                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Value;
+                    attRef.TextString = value.Sign + value.Value;
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
             }

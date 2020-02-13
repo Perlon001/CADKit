@@ -21,7 +21,7 @@
     <DefineConstants>TRACE;DEBUG;ZwCAD</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -78,6 +78,7 @@
     <Compile Include="Events\BeginCreateMarkEvent.cs" />
     <Compile Include="Contracts\DrawingStandards.cs" />
     <Compile Include="Events\ChangeMarkSuffixEvent.cs" />
+    <Compile Include="Events\SetAttributeEvent.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\MarkEntitySet.cs" />
     <Compile Include="_doSkasowaniaModelsOld\ElevationMark.cs" />

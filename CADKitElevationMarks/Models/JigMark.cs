@@ -27,7 +27,7 @@ namespace CADKitElevationMarks.Models
     {
         public virtual string Suffix => "";
 
-        public JigMark(IEnumerable<Entity> _entities, Point3d _basePoint, IEnumerable<IEntityConverter> _converters = null) : base(_entities, _basePoint, _converters)
+        public JigMark(IEnumerable<Entity> _entities, Point3d _originPoint, Point3d _basePoint, IEnumerable<IEntityConverter> _converters = null) : base(_entities, _originPoint, _basePoint, _converters)
         {
             var transform = Matrix3d.Scaling(AppSettings.Get.ScaleFactor, new Point3d(0, 0, 0));
             transforms.Add(transform);

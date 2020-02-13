@@ -9,8 +9,7 @@ namespace CADKitBasic.Models
     {
         private string leafName;
         private string leafTitle;
-        private ICollection<IComponent> leafs = new List<IComponent>();
-        private Composite parent;
+        private readonly ICollection<IComponent> leafs = new List<IComponent>();
 
         public string LeafName
         {

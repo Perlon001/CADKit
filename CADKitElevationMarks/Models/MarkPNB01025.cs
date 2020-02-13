@@ -23,9 +23,6 @@ namespace CADKitElevationMarks.Models
         {
             var en = new List<Entity>();
             var att1 = new AttributeDefinition();
-            var pl1 = new Polyline();
-            var pl2 = new Polyline();
-
             att1.SetDatabaseDefaults();
             att1.TextStyle = CADProxy.Database.Textstyle;
             att1.HorizontalMode = TextHorizontalMode.TextLeft;
@@ -40,6 +37,7 @@ namespace CADKitElevationMarks.Models
             att1.TextString = this.value.ToString();
             en.Add(att1);
 
+            var pl1 = new Polyline();
             pl1.AddVertexAt(0, new Point2d(-1.5, 1.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(1.5, 1.5), 0, 0, 0);
@@ -52,6 +50,7 @@ namespace CADKitElevationMarks.Models
             en.Add(pl1);
 
             var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(att1));
+            var pl2 = new Polyline();
             pl2.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl2.AddVertexAt(0, new Point2d(0, 3), 0, 0, 0);
             pl2.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X, 3), 0, 0, 0);
@@ -64,20 +63,12 @@ namespace CADKitElevationMarks.Models
         {
             using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
             {
-                var attDef = blockTableRecord.GetAttribDefinition("Sign");
+                var attDef = blockTableRecord.GetAttribDefinition("Value");
                 if (!attDef.Constant)
                 {
                     var attRef = new AttributeReference();
                     attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Sign;
-                    blockReference.AttributeCollection.AppendAttribute(attRef);
-                }
-                attDef = blockTableRecord.GetAttribDefinition("Value");
-                if (!attDef.Constant)
-                {
-                    var attRef = new AttributeReference();
-                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Value;
+                    attRef.TextString = value.Sign + value.Value;
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
             }

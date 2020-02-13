@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CADKit.Contracts;
+using System.Collections.Generic;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -16,7 +17,7 @@ namespace CADKitElevationMarks.Models
 {
     public class JigVerticalConstantMark : JigMark
     {
-        public JigVerticalConstantMark(IEnumerable<Entity> _group, Point3d _basePoint) : base(_group, _basePoint) { }
+        public JigVerticalConstantMark(IEnumerable<Entity> _entityList, Point3d _originPoint, Point3d _basePoint, IEnumerable<IEntityConverter> _converters) : base(_entityList, _originPoint, _basePoint, _converters) { }
 
         protected override bool WorldDraw(WorldDraw draw)
         {

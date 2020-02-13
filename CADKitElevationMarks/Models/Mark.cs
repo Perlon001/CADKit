@@ -16,17 +16,20 @@ namespace CADKitElevationMarks.Models
     public abstract class Mark : IMark
     {
         protected readonly ElevationValue value;
-        protected readonly Point3d basePoint;
 
-        public Mark(IValueProvider _provider)
+        protected Mark(IValueProvider _provider)
         {
             _provider.PrepareValue();
             value = _provider.ElevationValue;
-            basePoint = _provider.BasePoint;
+            BasePoint = _provider.BasePoint;
+            OriginPoint = default;
+            Index = default;
         }
 
-        public string Index { get; protected set; } = "";
-        public Point3d BasePoint => basePoint;
+        public string Index { get; protected set; }
+        public Point3d BasePoint { get; protected set; }
+        public Point3d OriginPoint { get; protected set; }
+
         public abstract IEnumerable<Entity> GetEntities();
         public abstract void SetAttributeValue(BlockReference blockReference);
     }

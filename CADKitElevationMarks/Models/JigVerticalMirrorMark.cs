@@ -27,7 +27,7 @@ namespace CADKitElevationMarks.Models
         private bool IsVMirror;
         public override string Suffix => (IsVMirror ? "L" : "R");
 
-        public JigVerticalMirrorMark(IEnumerable<Entity> _entityList, Point3d _basePoint, IEnumerable<IEntityConverter> _converters = null) : base(_entityList, _basePoint, _converters)
+        public JigVerticalMirrorMark(IEnumerable<Entity> _entityList, Point3d _originPoint, Point3d _basePoint, IEnumerable<IEntityConverter> _converters = null) : base(_entityList, _originPoint, _basePoint, _converters)
         {
             IsVMirror = false;
         }

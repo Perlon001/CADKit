@@ -17,6 +17,7 @@ namespace CADKit.Models
     public class EntitiesSetBuilder<T> where T : EntitiesSet
     {
         private IEnumerable<Entity> entities;
+        private Point3d originPoint;
         private Point3d basePoint;
         private Type jigType;
         private IList<Type> converterTypes;
@@ -25,10 +26,17 @@ namespace CADKit.Models
         public EntitiesSetBuilder(IEnumerable<Entity> collection)
         {
             entities = collection;
+            originPoint = new Point3d(0, 0, 0);
             basePoint = new Point3d(0, 0, 0);
             jigType = typeof(EntittiesJig);
             converterTypes = new List<Type>();
             transforms = new List<Matrix3d>();
+        }
+
+        public EntitiesSetBuilder<T> SetOriginPoint(Point3d _originPoint)
+        {
+            originPoint = _originPoint;
+            return this;
         }
 
         public EntitiesSetBuilder<T> SetBasePoint(Point3d _basePoint)
@@ -65,10 +73,10 @@ namespace CADKit.Models
                     converters.Add(Activator.CreateInstance(conv) as IEntityConverter);
                 }
             }
-            Object[] jigArgs = { entities, basePoint, converters };
+            Object[] jigArgs = { entities, originPoint, basePoint, converters };
 
             var jig = Activator.CreateInstance(jigType, jigArgs);
-            Object[] args = { entities, jig };
+            Object[] args = { entities, jig, originPoint };
 
             return Activator.CreateInstance(typeof(T), args) as T;
         }

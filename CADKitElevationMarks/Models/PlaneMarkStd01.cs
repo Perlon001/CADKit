@@ -23,7 +23,7 @@ namespace CADKitElevationMarks.Models
         public override IEnumerable<Entity> GetEntities()
         {
             var en = new List<Entity>();
-
+            
             var txt1 = new AttributeDefinition();
             txt1.SetDatabaseDefaults();
             txt1.TextStyle = CADProxy.Database.Textstyle;
@@ -52,24 +52,17 @@ namespace CADKitElevationMarks.Models
 
             return en;
         }
+
         public override void SetAttributeValue(BlockReference blockReference)
         {
             using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
             {
-                var attDef = blockTableRecord.GetAttribDefinition("Sign");
+                var attDef = blockTableRecord.GetAttribDefinition("Value");
                 if (!attDef.Constant)
                 {
                     var attRef = new AttributeReference();
                     attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Sign;
-                    blockReference.AttributeCollection.AppendAttribute(attRef);
-                }
-                attDef = blockTableRecord.GetAttribDefinition("Value");
-                if (!attDef.Constant)
-                {
-                    var attRef = new AttributeReference();
-                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Value;
+                    attRef.TextString = value.Sign + value.Value;
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
             }

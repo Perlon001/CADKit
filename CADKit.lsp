@@ -7,6 +7,5 @@
 		)
 	)
 )
-;(vl-cmdf "netload" "CADKitXData.dll")
-;(command "TEST")
+
 (princ)

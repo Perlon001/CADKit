@@ -23,8 +23,9 @@ namespace CADKitElevationMarks.Models
 {
     public class MarkEntitiesSet : EntitiesSet
     {
+        public SetAttributeEventHandler SetAttributeHandler;
         public string Suffix { get; private set; } = "";
-        public MarkEntitiesSet(IEnumerable<Entity> _entities, JigMark _jig) : base(_entities, _jig)
+        public MarkEntitiesSet(IEnumerable<Entity> _entities, JigMark _jig, Point3d _origin = default) : base(_entities, _jig, _origin)
         {
             _jig.ChangeMarkSuffix += ChangeMarkSuffix;
             Suffix = _jig.Suffix;
@@ -35,39 +36,47 @@ namespace CADKitElevationMarks.Models
             Suffix = _e.Suffix;
         }
 
-        public BlockTableRecord ToBlock(string _prefix, string _index)
+        public override BlockTableRecord ToBlock(string _name)
         {
             if (CADProxy.Editor.Drag(jig).Status == PromptStatus.OK)
             {
-                var blockName = _prefix + Suffix + _index;
-                var blockDef = base.ToBlock(blockName, new Point3d(0, 0, 0));
-                InsertMarkBlock(blockDef, jig.JigPointResult);
-
-                return blockDef;
+                var blockName = _name + Suffix;
+                return base.ToBlock(blockName);
             }
 
             throw new OperationCanceledException("*cancel*");
         }
 
-        private void InsertMarkBlock(BlockTableRecord blockTableRecord, Point3d insertPoint)
+
+        public BlockReference ToBlockReference(string _name)
         {
+            if (CADProxy.Editor.Drag(jig).Status == PromptStatus.OK)
+            {
+                var blockDef = base.ToBlock(_name + Suffix);
+                return InsertMarkBlock(blockDef, jig.JigPointResult);
+            }
+
+            throw new OperationCanceledException("*cancel*");
+        }
+
+        protected override BlockReference InsertMarkBlock(BlockTableRecord blockTableRecord, Point3d insertPoint)
+        {
+            BlockReference blockReference = new BlockReference(insertPoint, blockTableRecord.ObjectId);
             using (var transaction = CADProxy.Document.TransactionManager.StartTransaction())
             {
                 var space = CADProxy.Database.CurrentSpaceId.GetObject(OpenMode.ForWrite) as BlockTableRecord;
-                using (var blockReference = new BlockReference(insertPoint, blockTableRecord.ObjectId))
+                blockReference.ScaleFactors = new Scale3d(AppSettings.Get.ScaleFactor);
+                space.AppendEntity(blockReference);
+                transaction.AddNewlyCreatedDBObject(blockReference, true);
+                SetAttributeHandler?.Invoke(blockReference);
+                foreach (ObjectId id in blockReference.AttributeCollection)
                 {
-                    blockReference.ScaleFactors = new Scale3d(AppSettings.Get.ScaleFactor);
-                    space.AppendEntity(blockReference);
-                    transaction.AddNewlyCreatedDBObject(blockReference, true);
-                    // SetAttributeValue(blockReference);
-                    foreach (ObjectId id in blockReference.AttributeCollection)
-                    {
-                        transaction.AddNewlyCreatedDBObject(id.GetObject(OpenMode.ForRead), true);
-                    }
+                    transaction.AddNewlyCreatedDBObject(id.GetObject(OpenMode.ForRead), true);
                 }
                 transaction.Commit();
             }
-        }
 
+            return blockReference;
+        }
     }
 }

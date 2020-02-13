@@ -16,6 +16,8 @@ namespace CADKitElevationMarks.Contracts
     {
         string Index { get; }
         Point3d BasePoint { get; }
+        Point3d OriginPoint { get; }
         IEnumerable<Entity> GetEntities();
+        void SetAttributeValue(BlockReference blockReference);
     }
 }

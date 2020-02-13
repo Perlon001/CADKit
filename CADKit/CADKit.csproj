@@ -21,7 +21,7 @@
     <DefineConstants>TRACE;DEBUG;ZwCAD</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -87,7 +87,6 @@
     <Compile Include="Proxy\DatabaseServices\SymbolTable.cs" />
     <Compile Include="Proxy\Runtime\Exception.cs" />
     <Compile Include="Proxy\Runtime\IExtensionApplication.cs" />
-    <Compile Include="Proxy\Windows\Palette.cs" />
     <Compile Include="Services\InterfaceSchemeService.cs" />
     <Compile Include="UI\CADKitPaletteSet.cs" />
     <Compile Include="UI\Presenter.cs" />

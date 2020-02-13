@@ -85,7 +85,7 @@ namespace CADKit.Extensions
             return gr;
         }
 
-        public static BlockTableRecord ToBlock(this IEnumerable<Entity> _entityList, string _blockName, Point3d _origin, bool redefine = false)
+        public static BlockTableRecord ToBlock(this IEnumerable<Entity> _entityList, string _blockName, Point3d _origin = default, bool redefine = false)
         {
             Document doc = Application.DocumentManager.MdiActiveDocument;
             using (var tr = doc.TransactionManager.StartTransaction())

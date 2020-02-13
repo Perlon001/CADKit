@@ -23,6 +23,7 @@ namespace CADKit.Models
     {
         protected IEnumerable<Entity> buffer;
         protected IEnumerable<Entity> entities;
+        protected Point3d originPoint;
         protected Point3d basePoint;
         protected Point3d currentPoint;
         protected Matrix3d transform;
@@ -42,10 +43,11 @@ namespace CADKit.Models
 
         public IEnumerable<IEntityConverter> Converters { get { return converters; } }
 
-        public EntittiesJig(IEnumerable<Entity> _entities, Point3d _basePoint = default, IEnumerable<IEntityConverter> _converters = null) : base()
+        public EntittiesJig(IEnumerable<Entity> _entities, Point3d _originPoint, Point3d _basePoint = default, IEnumerable<IEntityConverter> _converters = null) : base()
         {
             buffer = _entities;
             entities = _entities.Clone();
+            originPoint = _originPoint;
             basePoint = _basePoint;
             converters = _converters;
             if (converters != null)

@@ -26,7 +26,7 @@ namespace CADKitElevationMarks.Models
             var textValue = CADProxy.Editor.GetString(promptOptions);
             if (textValue.Status == PromptStatus.OK)
             {
-                elevationValue = new ElevationValue(textValue.StringResult).Parse();
+                elevationValue = new ElevationValue("", textValue.StringResult).Parse();
                 basePoint = new Point3d(0, 0, 0);
             }
             else

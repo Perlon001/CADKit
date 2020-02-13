@@ -15,11 +15,7 @@ namespace CADKitElevationMarks.Models
             Value = _value;
         }
 
-        public ElevationValue(string _value)
-        {
-            Sign = "";
-            Value = _value;
-        }
+        public ElevationValue(string _value) : this("", _value) { }
 
         public override string ToString()
         {
@@ -28,7 +24,7 @@ namespace CADKitElevationMarks.Models
 
         public ElevationValue Parse()
         {
-            var culture = new CultureInfo("en-US");
+            var culture = new CultureInfo("pl-PL");
 
             return Parse(culture);
         }
@@ -37,9 +33,9 @@ namespace CADKitElevationMarks.Models
         {
             try
             {
-                double numericValue = Double.Parse(Value.Replace(".", ","), NumberStyles.Number, CultureInfo.CreateSpecificCulture("pl-PL"));
+                double numericValue = Double.Parse(Value.Replace(".", ","), NumberStyles.Number, _culture);
                 Value = Math.Abs(numericValue).ToString("N3");
-                //Sign = numericValue > 0 ? "+" : (numericValue < 0 ? "-" : "%%p");
+                Sign = numericValue > 0 ? "+" : (numericValue < 0 ? "-" : "%%p");
             }
             catch (Exception ex)
             {

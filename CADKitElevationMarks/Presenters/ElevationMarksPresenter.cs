@@ -120,8 +120,9 @@ namespace CADKitElevationMarks.Presenters
                             entitiesSet.ToGroup();
                             break;
                         case OutputSet.block:
-                            var blockDef = entitiesSet.ToBlock("ElevMark" + markDTO.type.ToString() + markDTO.standard.ToString(), mark.Index);
-                            //InsertMarkBlock(blockDef, entitiesSet.jig.JigPointResult);
+                            entitiesSet.SetAttributeHandler += mark.SetAttributeValue;
+                            var blockReference = entitiesSet.ToBlockReference("ElevMark" + markDTO.type.ToString() + markDTO.standard.ToString() + mark.Index);
+                            entitiesSet.SetAttributeHandler -= mark.SetAttributeValue;
                             break;
                     }
                     Utils.FlushGraphics();

@@ -6,7 +6,6 @@ using CADKitElevationMarks.DTO;
 using CADKitElevationMarks.Models;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace CADKitElevationMarks.Services
@@ -67,6 +66,16 @@ namespace CADKitElevationMarks.Services
                 markJig = typeof(JigVerticalConstantHorizontalMirrorMark),
                 picture16 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.construction),
                 picture32 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.construction, IconSize.medium)
+            });
+            markCollection.Add(new MarkDTO()
+            {
+                id = i++,
+                standard = DrawingStandards.Std01,
+                type = MarkTypes.area,
+                markClass = typeof(PlaneMarkStd01),
+                markJig = typeof(JigMark),
+                picture16 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.area),
+                picture32 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.area, IconSize.medium)
             });
         }
 

@@ -1,5 +1,4 @@
-﻿
-#if ZwCAD
+﻿#if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
 using ZwSoft.ZwCAD.Geometry;
 #endif
@@ -14,6 +13,6 @@ namespace CADKit.Contracts
     public interface IEntitiesSet
     {
         Group ToGroup();
-        BlockTableRecord ToBlock(string name, Point3d origin);
+        BlockTableRecord ToBlock(string name);
     }
 }
