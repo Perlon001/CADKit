@@ -103,10 +103,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\CADKitDatabase\CADKitDatabase.csproj">
-      <Project>{d0e38b2e-8972-4c29-b812-f4b2f37ba210}</Project>
-      <Name>CADKitDatabase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CADKit\CADKit.csproj">
       <Project>{87e74953-1a86-4cc5-b5ae-6901611c7033}</Project>
       <Name>CADKit</Name>
