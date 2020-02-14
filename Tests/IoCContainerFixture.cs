@@ -5,7 +5,7 @@ using System.Reflection;
 namespace Tests
 {
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1063:Implement IDisposable Correctly", Justification = "<Pending>")]
-    public class IoCContainerFixture : IDisposable
+    public class IoCContainerFixture : IDisposable 
     {
         public IoCContainerFixture()
         {
