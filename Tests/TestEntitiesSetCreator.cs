@@ -9,7 +9,7 @@ using NSubstitute;
 using Xunit;
 namespace Tests
 {
-    public class TestEntitiesSetCreator
+    public class TestEntitiesSetCreator 
     {
         [Fact]
         public void BuilderShuldByReturnEntitiesSetCreator()
