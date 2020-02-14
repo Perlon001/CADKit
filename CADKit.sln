@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKitBasic", "CADKitBasic\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADKitElevationMarks", "CADKitElevationMarks\CADKitElevationMarks.csproj", "{E1AAD522-CB31-48AD-82B5-970CCA353EAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{8B3E7F98-D405-4676-B800-BF13594294B3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E1AAD522-CB31-48AD-82B5-970CCA353EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1AAD522-CB31-48AD-82B5-970CCA353EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1AAD522-CB31-48AD-82B5-970CCA353EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B3E7F98-D405-4676-B800-BF13594294B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B3E7F98-D405-4676-B800-BF13594294B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B3E7F98-D405-4676-B800-BF13594294B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B3E7F98-D405-4676-B800-BF13594294B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
