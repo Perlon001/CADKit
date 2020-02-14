@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CADKitElevationMarks.Models;
+using System.Collections.Generic;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -14,6 +15,7 @@ namespace CADKitElevationMarks.Contracts
 {
     public interface IMark
     {
+        ElevationValue Value { get; } 
         string Index { get; }
         Point3d BasePoint { get; }
         Point3d OriginPoint { get; }

@@ -1,12 +1,10 @@
 ﻿using CADKit.Contracts;
+using CADKit.Proxy;
 using CADKit.UI.WF;
-using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Presenters;
-using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.Contracts.Views;
 using CADKitElevationMarks.DTO;
 using CADKitElevationMarks.Events;
-using CADKitElevationMarks.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -42,7 +40,7 @@ namespace CADKitElevationMarks.Views
                     return OutputSet.group;
                 if (rbxBlock.Checked)
                     return OutputSet.block;
-                throw new NotSupportedException();
+                throw new Exception();
             }
         }
 
@@ -57,8 +55,6 @@ namespace CADKitElevationMarks.Views
                     Size = new Size(50, 50),
                     Name = "button_" + item.id,
                     FlatStyle = FlatStyle.Flat,
-                    //BackColor = _colorService.GetBackColor(),
-                    //ForeColor = _colorService.GetBackColor(),
                     Image = item.picture
                 };
                 btn.Click += new EventHandler(ButtonClick);
@@ -84,12 +80,10 @@ namespace CADKitElevationMarks.Views
             try
             {
                 var a = Convert.ToInt16(((Button)_sender).Tag);
-                var b = new BeginMarkCreateEventArgs(a);
-                BeginCreateMark?.Invoke(_sender, b);
+                BeginCreateMark?.Invoke(_sender, new BeginMarkCreateEventArgs(a));
             }
-            catch (Exception ex)
+            catch (OperationCanceledException)
             {
-                ShowException(ex);
             }
         }
 

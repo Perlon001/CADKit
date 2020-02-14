@@ -44,7 +44,7 @@ namespace CADKit.Models
                 }
                 return entities.ToGroup();
             }
-            throw new OperationCanceledException("*cancel*");
+            throw new OperationCanceledException();
         }
 
         public virtual BlockTableRecord ToBlock(string _name)

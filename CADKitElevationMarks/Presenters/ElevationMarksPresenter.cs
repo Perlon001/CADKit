@@ -101,35 +101,37 @@ namespace CADKitElevationMarks.Presenters
         {
             using (CADProxy.Document.LockDocument())
             {
+
                 using (var scope = DI.Container.BeginLifetimeScope())
                 {
                     var markDTO = markService.GetMark(markID);
                     if (!scope.IsRegistered(markDTO.markClass))
                     {
-                        throw new NotImplementedException("Brak definicji wybranej koty wysokościowej.");
+                        throw new Exception("Brak definicji wybranej koty wysokościowej.");
                     }
                     var mark = scope.Resolve(markDTO.markClass) as IMark;
-                    var entitiesSet = new EntitiesSetBuilder<MarkEntitiesSet>(mark.GetEntities())
-                        .AddConverter(typeof(AttributeToDBTextConverter))
-                        .SetBasePoint(mark.BasePoint)
-                        .SetJig(markDTO.markJig)
-                        .Build();
-                    switch (View.SetType)
+                    if (!mark.Value.Equals(default(ElevationValue)))
                     {
-                        case OutputSet.group:
-                            entitiesSet.ToGroup();
-                            break;
-                        case OutputSet.block:
-                            entitiesSet.SetAttributeHandler += mark.SetAttributeValue;
-                            var blockReference = entitiesSet.ToBlockReference("ElevMark" + markDTO.type.ToString() + markDTO.standard.ToString() + mark.Index);
-                            entitiesSet.SetAttributeHandler -= mark.SetAttributeValue;
-                            break;
+                        var entitiesSet = new EntitiesSetBuilder<MarkEntitiesSet>(mark.GetEntities())
+                            .AddConverter(typeof(AttributeToDBTextConverter))
+                            .SetBasePoint(mark.BasePoint)
+                            .SetJig(markDTO.markJig)
+                            .Build();
+                        switch (View.SetType)
+                        {
+                            case OutputSet.group:
+                                entitiesSet.ToGroup();
+                                break;
+                            case OutputSet.block:
+                                entitiesSet.SetAttributeHandler += mark.SetAttributeValue;
+                                var blockReference = entitiesSet.ToBlockReference("ElevMark" + markDTO.type.ToString() + markDTO.standard.ToString() + mark.Index);
+                                entitiesSet.SetAttributeHandler -= mark.SetAttributeValue;
+                                break;
+                        }
+                        Utils.FlushGraphics();
                     }
-                    Utils.FlushGraphics();
                 }
             }
         }
-
-
     }
 }

@@ -1,4 +1,6 @@
-﻿using CADKitElevationMarks.Contracts;
+﻿using CADKit.Proxy;
+using CADKitElevationMarks.Contracts;
+using System;
 using System.Collections.Generic;
 
 #if ZwCAD
@@ -15,12 +17,10 @@ namespace CADKitElevationMarks.Models
 {
     public abstract class Mark : IMark
     {
-        protected readonly ElevationValue value;
-
         protected Mark(IValueProvider _provider)
         {
             _provider.PrepareValue();
-            value = _provider.ElevationValue;
+            Value = _provider.ElevationValue;
             BasePoint = _provider.BasePoint;
             OriginPoint = default;
             Index = default;
@@ -29,6 +29,7 @@ namespace CADKitElevationMarks.Models
         public string Index { get; protected set; }
         public Point3d BasePoint { get; protected set; }
         public Point3d OriginPoint { get; protected set; }
+        public ElevationValue Value { get; protected set; }
 
         public abstract IEnumerable<Entity> GetEntities();
         public abstract void SetAttributeValue(BlockReference blockReference);

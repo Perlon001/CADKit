@@ -110,7 +110,7 @@ namespace CADKitElevationMarks.Services
             var item = markCollection.FirstOrDefault(x => x.id == markNumber);
             if (item.Equals(default(MarkDTO)))
             {
-                throw new NotSupportedException("Brak koty wysokosciowej o numerze " + markNumber.ToString());
+                throw new Exception("Brak koty wysokosciowej o numerze " + markNumber.ToString());
             }
             else
             {
@@ -128,7 +128,7 @@ namespace CADKitElevationMarks.Services
             var item = markCollection.FirstOrDefault(x => x.id == _markNumber);
             if (item.Equals(default(MarkDTO)))
             {
-                throw new NotSupportedException("Brak koty wysokosciowej o numerze " + _markNumber.ToString());
+                throw new Exception("Brak koty wysokosciowej o numerze " + _markNumber.ToString());
             }
             else
             {
@@ -141,7 +141,7 @@ namespace CADKitElevationMarks.Services
             var item = markCollection.FirstOrDefault(x => x.standard.Equals(_standard) && x.type.Equals(_type));
             if (item.Equals(default(MarkDTO)))
             {
-                throw new NotSupportedException("Brak koty wysokościowej " + _type.ToString());
+                throw new Exception("Brak koty wysokościowej " + _type.ToString());
             }
             else
             {

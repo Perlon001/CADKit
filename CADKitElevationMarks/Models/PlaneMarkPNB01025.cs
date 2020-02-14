@@ -35,7 +35,7 @@ namespace CADKitElevationMarks.Models
             att1.AlignmentPoint = new Point3d(2, 1.5, 0);
             att1.Tag = "Value";
             att1.Prompt = "Value";
-            att1.TextString = value.ToString();
+            att1.TextString = Value.ToString();
             en.Add(att1);
 
             var l1 = new Line(new Point3d(-1.5, -1.5, 0), new Point3d(1.5, 1.5, 0));
@@ -60,7 +60,7 @@ namespace CADKitElevationMarks.Models
                 {
                     var attRef = new AttributeReference();
                     attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Sign + value.Value;
+                    attRef.TextString = Value.Sign + Value.Value;
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
             }

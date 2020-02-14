@@ -42,8 +42,10 @@ namespace CADKitElevationMarks.Models
                 BlockTableRecord btr = tr.GetObject(CADProxy.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;
                 var bdId = btr.AppendEntity(bd);
                 tr.AddNewlyCreatedDBObject(bd, true);
-                ObjectIdCollection ObjIds = new ObjectIdCollection();
-                ObjIds.Add(bdId);
+                ObjectIdCollection ObjIds = new ObjectIdCollection
+                {
+                    bdId
+                };
 
                 hatch.SetDatabaseDefaults();
                 hatch.SetHatchPattern(HatchPatternType.PreDefined, "SOLID");

@@ -30,10 +30,6 @@ namespace CADKitElevationMarks.Models
                 basePoint = pointValue.Value;
                 elevationValue = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
             }
-            else
-            {
-                throw new Exception();
-            }
         }
 
         private string GetElevationValue()

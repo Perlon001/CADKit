@@ -44,7 +44,7 @@ namespace CADKitElevationMarks.Models
                 return base.ToBlock(blockName);
             }
 
-            throw new OperationCanceledException("*cancel*");
+            throw new Exception("*cancel*");
         }
 
 
@@ -56,7 +56,7 @@ namespace CADKitElevationMarks.Models
                 return InsertMarkBlock(blockDef, jig.JigPointResult);
             }
 
-            throw new OperationCanceledException("*cancel*");
+            throw new Exception();
         }
 
         protected override BlockReference InsertMarkBlock(BlockTableRecord blockTableRecord, Point3d insertPoint)

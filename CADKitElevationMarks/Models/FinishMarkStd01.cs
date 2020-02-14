@@ -35,7 +35,7 @@ namespace CADKitElevationMarks.Models
             txt1.AlignmentPoint = new Point3d(-0.5, 4.5, 0);
             txt1.Tag = "Sign";
             txt1.Prompt = "Sign";
-            txt1.TextString = value.Sign;
+            txt1.TextString = Value.Sign;
             en.Add(txt1);
 
             var txt2 = new AttributeDefinition();
@@ -50,7 +50,7 @@ namespace CADKitElevationMarks.Models
             txt2.AlignmentPoint = new Point3d(0.5, 4.5, 0);
             txt2.Tag = "Value";
             txt2.Prompt = "Value";
-            txt2.TextString = value.Value;
+            txt2.TextString = Value.Value;
             en.Add(txt2);
 
             var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(txt2));
@@ -73,7 +73,7 @@ namespace CADKitElevationMarks.Models
                 {
                     var attRef = new AttributeReference();
                     attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Sign;
+                    attRef.TextString = Value.Sign;
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
                 attDef = blockTableRecord.GetAttribDefinition("Value");
@@ -81,7 +81,7 @@ namespace CADKitElevationMarks.Models
                 {
                     var attRef = new AttributeReference();
                     attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Value;
+                    attRef.TextString = Value.Value;
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
             }

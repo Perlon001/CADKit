@@ -124,7 +124,7 @@ namespace CADKitElevationMarks.Models
                             InsertMarkBlock(defBlock, jig.JigPointResult);
                             break;
                         default:
-                            throw new NotSupportedException("Nie obsługiwany typ zbioru elementów");
+                            throw new Exception("Nie obsługiwany typ zbioru elementów");
                     }
                 }
                 Utils.FlushGraphics();
