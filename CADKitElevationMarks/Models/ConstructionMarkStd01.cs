@@ -18,7 +18,7 @@ namespace CADKitElevationMarks.Models
 {
     public class ConstructionMarkStd01 : FinishMarkStd01
     {
-        public ConstructionMarkStd01(IElevationValueProvider _provider) : base(_provider) { }
+        public ConstructionMarkStd01(ElevationValueProvider _provider) : base(_provider) { }
 
         public override IEnumerable<Entity> GetEntities()
         {

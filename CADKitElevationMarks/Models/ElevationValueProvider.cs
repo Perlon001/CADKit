@@ -18,32 +18,36 @@ using Autodesk.AutoCAD.ApplicationServices;
 
 namespace CADKitElevationMarks.Models
 {
-    public class ElevationValueProvider : ValueProvider, IElevationValueProvider
+    public class ElevationValueProvider : ValueProvider
     {
-        public override void PrepareValue()
+        public override void Init()
         {
             Application.MainWindow.Focus();
             var promptOptions = new PromptPointOptions("\nWskaż punkt wysokościowy:");
             var pointValue = CADProxy.Editor.GetPoint(promptOptions);
             if (pointValue.Status == PromptStatus.OK)
             {
-                basePoint = pointValue.Value;
-                elevationValue = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
+                BasePoint = pointValue.Value;
+                ElevationValue = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
+            }
+            else
+            {
+                throw new OperationCanceledException();
             }
         }
 
         private string GetElevationValue()
         {
-            return Math.Round(Math.Abs(basePoint.Y) * GetElevationFactor(), 3).ToString("0.000");
+            return Math.Round(Math.Abs(BasePoint.Y) * GetElevationFactor(), 3).ToString("0.000");
         }
 
         private string GetElevationSign()
         {
-            if (Math.Round(Math.Abs(basePoint.Y) * GetElevationFactor(), 3) == 0)
+            if (Math.Round(Math.Abs(BasePoint.Y) * GetElevationFactor(), 3) == 0)
             {
                 return "%%p";
             }
-            else if (basePoint.Y < 0)
+            else if (BasePoint.Y < 0)
             {
                 return "-";
             }

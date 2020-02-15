@@ -17,7 +17,7 @@ namespace CADKitElevationMarks.Models
 {
     public class MarkPNB01025 : Mark
     {
-        public MarkPNB01025(IElevationValueProvider _provider) : base(_provider) { }
+        public MarkPNB01025(ElevationValueProvider _provider) : base(_provider) { }
 
         public override IEnumerable<Entity> GetEntities()
         {

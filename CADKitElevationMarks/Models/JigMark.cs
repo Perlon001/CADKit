@@ -46,9 +46,11 @@ namespace CADKitElevationMarks.Models
 
         protected override SamplerStatus Sampler(JigPrompts _prompts)
         {
-            JigPromptPointOptions jigOpt = new JigPromptPointOptions("Wskaż punkt wstawienia:");
-            jigOpt.UserInputControls = UserInputControls.Accept3dCoordinates;
-            jigOpt.BasePoint = basePoint;
+            JigPromptPointOptions jigOpt = new JigPromptPointOptions("Wskaż punkt wstawienia:")
+            {
+                UserInputControls = UserInputControls.Accept3dCoordinates,
+                BasePoint = basePoint
+            };
             PromptPointResult res = _prompts.AcquirePoint(jigOpt);
             currentPoint = res.Value;
 

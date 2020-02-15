@@ -17,21 +17,21 @@ using Autodesk.AutoCAD.ApplicationServices;
 
 namespace CADKitElevationMarks.Models
 {
-    public class PlaneValueProvider : ValueProvider, IPlaneValueProvider
+    public class PlaneValueProvider : ValueProvider
     {
-        public override void PrepareValue()
+        public override void Init()
         {
             Application.MainWindow.Focus();
             var promptOptions = new PromptStringOptions("\nRzędna wysokościowa obszaru:");
             var textValue = CADProxy.Editor.GetString(promptOptions);
             if (textValue.Status == PromptStatus.OK)
             {
-                elevationValue = new ElevationValue("", textValue.StringResult).Parse();
-                basePoint = new Point3d(0, 0, 0);
+                ElevationValue = new ElevationValue("", textValue.StringResult).Parse();
+                BasePoint = new Point3d(0, 0, 0);
             }
             else
             {
-                throw new Exception();
+                throw new OperationCanceledException();
             }
         }
     }

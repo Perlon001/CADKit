@@ -17,7 +17,7 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneMarkPNB01025 : Mark
     {
-        public PlaneMarkPNB01025(IPlaneValueProvider _provider) : base(_provider) { }
+        public PlaneMarkPNB01025(PlaneValueProvider _provider) : base(_provider) { }
 
         public override IEnumerable<Entity> GetEntities()
         {

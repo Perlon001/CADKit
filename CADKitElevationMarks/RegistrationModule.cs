@@ -2,6 +2,7 @@
 using CADKitElevationMarks.Contract.Services;
 using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Services;
+using CADKitElevationMarks.Models;
 using CADKitElevationMarks.Services;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,14 @@ namespace CADKitElevationMarks
         {
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<IMarkIconService>()
-                .InstancePerLifetimeScope()
-                .AsImplementedInterfaces();
+                .AssignableTo<MarkIconDrawingStandardService>()
+                .InstancePerLifetimeScope();
 
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<MarkIconDrawingStandardService>()
-                .InstancePerLifetimeScope();
+                .AssignableTo<IMarkIconService>()
+                .InstancePerLifetimeScope()
+                .AsImplementedInterfaces();
 
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
@@ -34,13 +35,13 @@ namespace CADKitElevationMarks
 
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<IValueProvider>()
+                .AssignableTo<ValueProvider>()
                 .InstancePerLifetimeScope()
-                .AsImplementedInterfaces();
+                .AsSelf();
 
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .AssignableTo<IMark>()
+                .AssignableTo<Mark>()
                 .InstancePerLifetimeScope()
                 .AsSelf();
         }

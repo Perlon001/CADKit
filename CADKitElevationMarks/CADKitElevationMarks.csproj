@@ -56,12 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autostart.cs" />
-    <Compile Include="Contracts\IElevationMark.cs" />
-    <Compile Include="Contracts\IElevationValueProvider.cs" />
-    <Compile Include="Contracts\IMark.cs" />
-    <Compile Include="Contracts\IMarkBuilder.cs" />
-    <Compile Include="Contracts\IPlaneValueProvider.cs" />
-    <Compile Include="Contracts\IValueProvider.cs" />
     <Compile Include="Contracts\Services\IMarkIconService.cs" />
     <Compile Include="Contracts\Services\IMarkIconServiceDefault.cs" />
     <Compile Include="Contracts\Services\IMarkIconServiceStd01.cs" />
@@ -81,7 +75,6 @@
     <Compile Include="Events\SetAttributeEvent.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\MarkEntitySet.cs" />
-    <Compile Include="_doSkasowaniaModelsOld\ElevationMark.cs" />
     <Compile Include="Models\ConstructionMarkStd01.cs" />
     <Compile Include="Models\JigMark.cs" />
     <Compile Include="Models\ElevationValue.cs" />

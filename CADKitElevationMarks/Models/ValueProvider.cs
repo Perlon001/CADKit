@@ -13,14 +13,11 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public abstract class ValueProvider : IValueProvider
+    public abstract class ValueProvider
     {
-        protected ElevationValue elevationValue;
-        protected Point3d basePoint;
-
-        public ElevationValue ElevationValue { get { return elevationValue; } }
-        public Point3d BasePoint { get { return basePoint; } }
-        public abstract void PrepareValue();
+        public ElevationValue ElevationValue { get; protected set; }
+        public Point3d BasePoint { get; protected set; }
+        public abstract void Init();
 
 
     }
