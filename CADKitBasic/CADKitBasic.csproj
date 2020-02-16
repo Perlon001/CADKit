@@ -59,9 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandAddBlock.cs" />
     <Compile Include="Autostart.cs" />
-    <Compile Include="Command.cs" />
     <Compile Include="Contracts\ICompositeContainer.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\Presenters\ISettingsPresenter.cs" />
@@ -74,7 +72,6 @@
     <Compile Include="Services\CompositeService.cs" />
     <Compile Include="Services\LocalFakeCompositeProvider.cs" />
     <Compile Include="Services\RegistrationModule.cs" />
-    <Compile Include="CommandSplineMultiLeader.cs" />
     <Compile Include="Utils\Bulge.cs" />
     <Compile Include="Utils\CADKitModuleContainerBuilder.cs" />
     <Compile Include="Utils\CompositeModule.cs" />
@@ -86,7 +83,6 @@
     <Compile Include="Models\SystemVariables.cs" />
     <Compile Include="Utils\AuthChecker.cs" />
     <Compile Include="Utils\WinRegSettings.cs" />
-    <Compile Include="CommandXDataContextMenuTest.cs" />
     <Compile Include="Views\DTO\ScaleDTO.cs" />
     <Compile Include="Views\WF\SettingsView.cs">
       <SubType>UserControl</SubType>

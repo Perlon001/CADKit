@@ -20,7 +20,7 @@ namespace CADKitElevationMarks.Models
     {
         public PlaneMarkStd01(PlaneValueProvider _provider) : base(_provider) { }
 
-        public override IEnumerable<Entity> GetEntities()
+        protected override IEnumerable<Entity> GetEntities()
         {
             var en = new List<Entity>();
             
@@ -36,7 +36,7 @@ namespace CADKitElevationMarks.Models
             txt1.AlignmentPoint = new Point3d(1.5, 2, 0);
             txt1.Tag = "Value";
             txt1.Prompt = "Value";
-            txt1.TextString = Value.Sign + this.Value.Value;
+            txt1.TextString = value.Sign + this.value.Value;
             en.Add(txt1);
 
             var l1 = new Line(new Point3d(-2.5, 0, 0), new Point3d(2.5, 0, 0));
@@ -62,7 +62,7 @@ namespace CADKitElevationMarks.Models
                 {
                     var attRef = new AttributeReference();
                     attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = Value.Sign + Value.Value;
+                    attRef.TextString = value.Sign + value.Value;
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
             }

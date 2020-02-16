@@ -1,14 +1,9 @@
 ﻿using Autofac;
 using CADKitElevationMarks.Contract.Services;
-using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Services;
 using CADKitElevationMarks.Models;
 using CADKitElevationMarks.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CADKitElevationMarks
 {

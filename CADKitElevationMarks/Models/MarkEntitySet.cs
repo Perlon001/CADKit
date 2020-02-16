@@ -38,25 +38,33 @@ namespace CADKitElevationMarks.Models
 
         public override BlockTableRecord ToBlock(string _name)
         {
-            if (CADProxy.Editor.Drag(jig).Status == PromptStatus.OK)
+            var promtStatus = CADProxy.Editor.Drag(jig).Status;
+            switch (promtStatus)
             {
-                var blockName = _name + Suffix;
-                return base.ToBlock(blockName);
+                case PromptStatus.OK:
+                    var blockName = _name + Suffix;
+                    return base.ToBlock(blockName);
+                case PromptStatus.Cancel:
+                    throw new OperationCanceledException();
+                default:
+                    throw new Exception("Nie rozpoznany PromptStatus");
             }
-
-            throw new Exception("*cancel*");
         }
 
 
         public BlockReference ToBlockReference(string _name)
         {
-            if (CADProxy.Editor.Drag(jig).Status == PromptStatus.OK)
+            var promptStatus = CADProxy.Editor.Drag(jig).Status;
+            switch (promptStatus)
             {
-                var blockDef = base.ToBlock(_name + Suffix);
-                return InsertMarkBlock(blockDef, jig.JigPointResult);
+                case PromptStatus.OK:
+                    var blockDef = base.ToBlock(_name + Suffix);
+                    return InsertMarkBlock(blockDef, jig.JigPointResult);
+                case PromptStatus.Cancel:
+                    throw new OperationCanceledException();
+                default:
+                    throw new Exception("Nie rozpoznany PromptStatus");
             }
-
-            throw new Exception();
         }
 
         protected override BlockReference InsertMarkBlock(BlockTableRecord blockTableRecord, Point3d insertPoint)

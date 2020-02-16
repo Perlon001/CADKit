@@ -2,6 +2,7 @@
 using CADKit.Extensions;
 using CADKit.Contracts;
 using CADKit.Proxy;
+using System;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.EditorInput;
@@ -32,8 +33,6 @@ namespace CADKit.Models
 
         public IEnumerable<Entity> GetEntity()
         {
-            //transforms.ForEach(x => buffer.TransformBy(x));
-            //buffer.TransformBy(Matrix3d.Displacement(new Point3d(0,0,0).GetVectorTo(currentPoint)));
             return buffer;
         }
 
@@ -67,13 +66,16 @@ namespace CADKit.Models
             jigOpt.UseBasePoint = true;
 
             PromptPointResult res = _prompts.AcquirePoint(jigOpt);
-            if (res.Status == PromptStatus.Error || res.Status == PromptStatus.Cancel)
+            switch (res.Status)
             {
-                return SamplerStatus.Cancel;
+                case PromptStatus.OK:
+                    currentPoint = res.Value;
+                    return SamplerStatus.OK;
+                case PromptStatus.Cancel:
+                    throw new OperationCanceledException();
+                default:
+                    throw new Exception("Nie rozpoznany PromptPoint ResultStatus");
             }
-            currentPoint = res.Value;
-
-            return SamplerStatus.OK;
         }
 
         protected override bool WorldDraw(WorldDraw _draw)

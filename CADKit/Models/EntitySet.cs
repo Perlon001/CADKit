@@ -33,18 +33,23 @@ namespace CADKit.Models
 
         public virtual Group ToGroup()
         {
-            if (CADProxy.Editor.Drag(jig).Status == PromptStatus.OK)
+            var promptStatus = CADProxy.Editor.Drag(jig).Status;
+            switch (promptStatus)
             {
-                entities = jig.GetEntity();
-                jig.Transforms.ForEach(x => entities.TransformBy(x));
-                entities.TransformBy(Matrix3d.Displacement(originPoint.GetVectorTo(jig.JigPointResult)));
-                if (jig.Converters != null)
-                {
-                    jig.Converters.ForEach(x => { entities = x.Convert(entities); });
-                }
-                return entities.ToGroup();
+                case PromptStatus.OK:
+                    entities = jig.GetEntity();
+                    jig.Transforms.ForEach(x => entities.TransformBy(x));
+                    entities.TransformBy(Matrix3d.Displacement(originPoint.GetVectorTo(jig.JigPointResult)));
+                    if (jig.Converters != null)
+                    {
+                        jig.Converters.ForEach(x => { entities = x.Convert(entities); });
+                    }
+                    return entities.ToGroup();
+                case PromptStatus.Cancel:
+                    throw new OperationCanceledException();
+                default:
+                    throw new Exception("Nie rozpoznany PrompStatus");
             }
-            throw new OperationCanceledException();
         }
 
         public virtual BlockTableRecord ToBlock(string _name)

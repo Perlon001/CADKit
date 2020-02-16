@@ -15,6 +15,8 @@ namespace CADKitElevationMarks.Models
     public abstract class Mark
     {
         private readonly ValueProvider provider;
+        protected ElevationValue value;
+
         protected Mark(ValueProvider _provider)
         {
             provider = _provider;
@@ -23,16 +25,17 @@ namespace CADKitElevationMarks.Models
         public string Index { get; protected set; }
         public Point3d BasePoint { get; protected set; }
         public Point3d OriginPoint { get; protected set; }
-        public ElevationValue Value { get; protected set; }
+        public IEnumerable<Entity> Entities { get; protected set; }
 
-        public abstract IEnumerable<Entity> GetEntities();
+        protected abstract IEnumerable<Entity> GetEntities();
         public abstract void SetAttributeValue(BlockReference blockReference);
 
-        public void Init()
+        public void Build()
         {
             provider.Init();
-            Value = provider.ElevationValue;
+            value = provider.ElevationValue;
             BasePoint = provider.BasePoint;
+            Entities = GetEntities();
             OriginPoint = default;
             Index = default;
         }

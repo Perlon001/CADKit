@@ -19,7 +19,7 @@ namespace CADKitElevationMarks.Models
     {
         public MarkPNB01025(ElevationValueProvider _provider) : base(_provider) { }
 
-        public override IEnumerable<Entity> GetEntities()
+        protected override IEnumerable<Entity> GetEntities()
         {
             var en = new List<Entity>();
             var att1 = new AttributeDefinition();
@@ -34,14 +34,14 @@ namespace CADKitElevationMarks.Models
             att1.AlignmentPoint = new Point3d(0, 4.5, 0);
             att1.Tag = "Value";
             att1.Prompt = "Value";
-            att1.TextString = Value.ToString();
+            att1.TextString = value.ToString();
             en.Add(att1);
 
             var pl1 = new Polyline();
             pl1.AddVertexAt(0, new Point2d(-1.5, 1.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(1.5, 1.5), 0, 0, 0);
-            if (Value.Value == "0,000")
+            if (value.Value == "0,000")
             {
                 pl1.Closed = true;
                 AddHatchingArrow(en);
@@ -68,7 +68,7 @@ namespace CADKitElevationMarks.Models
                 {
                     var attRef = new AttributeReference();
                     attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = Value.Sign + Value.Value;
+                    attRef.TextString = value.Sign + value.Value;
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
             }

@@ -109,8 +109,8 @@ namespace CADKitElevationMarks.Presenters
                         var mark = scope.Resolve(markDTO.markClass) as Mark;
                         try
                         {
-                            mark.Init();
-                            var entitiesSet = new EntitiesSetBuilder<MarkEntitiesSet>(mark.GetEntities())
+                            mark.Build();
+                            var entitiesSet = new EntitiesSetBuilder<MarkEntitiesSet>(mark.Entities)
                                 .AddConverter(typeof(AttributeToDBTextConverter))
                                 .SetBasePoint(mark.BasePoint)
                                 .SetJig(markDTO.markJig)

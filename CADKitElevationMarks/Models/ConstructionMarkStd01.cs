@@ -2,7 +2,6 @@
 using System.Linq;
 using CADKit.Extensions;
 using CADKit.Proxy;
-using CADKitElevationMarks.Contracts;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -20,7 +19,7 @@ namespace CADKitElevationMarks.Models
     {
         public ConstructionMarkStd01(ElevationValueProvider _provider) : base(_provider) { }
 
-        public override IEnumerable<Entity> GetEntities()
+        protected override IEnumerable<Entity> GetEntities()
         {
             var en = base.GetEntities().ToList();
             AddHatchingArrow(en);

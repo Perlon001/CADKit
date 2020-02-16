@@ -1,5 +1,4 @@
-﻿using CADKitElevationMarks.Contracts;
-using System;
+﻿using System;
 using CADKit.Proxy;
 using System.Globalization;
 using CADKit;
@@ -11,7 +10,6 @@ using ZwSoft.ZwCAD.ApplicationServices;
 #endif
 
 #if AutoCAD
-using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.ApplicationServices;
 #endif
