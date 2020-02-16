@@ -73,6 +73,8 @@
     <Compile Include="Contracts\DrawingStandards.cs" />
     <Compile Include="Events\ChangeMarkSuffixEvent.cs" />
     <Compile Include="Events\SetAttributeEvent.cs" />
+    <Compile Include="Models\ConstructionMarkStd02.cs" />
+    <Compile Include="Models\FinishMarkStd02.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\MarkEntitySet.cs" />
     <Compile Include="Models\ConstructionMarkStd01.cs" />
@@ -101,6 +103,7 @@
     <Compile Include="Services\MarkIconStd01Service.cs" />
     <Compile Include="Services\MarkIconPNB01025Service.cs" />
     <Compile Include="Contracts\Services\IMarkService.cs" />
+    <Compile Include="Services\MarkIconStd02Service.cs" />
     <Compile Include="Services\MarkService.cs" />
     <Compile Include="Presenters\ElevationMarksPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -219,7 +222,18 @@
   <ItemGroup>
     <None Include="Bitmaps\Icons\question_dark.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\mark06_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\mark06_32_dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\mark07_32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bitmaps\Icons\mark07_32_dark.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy $(TargetPath) $(SolutionDir)\CADKit\bin\$(ConfigurationName)</PostBuildEvent>

@@ -124,14 +124,14 @@
   <data name="mark01_32_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Bitmaps\Icons\mark01_32_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mark05_32_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Bitmaps\Icons\mark05_32_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mark02_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\mark02_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mark02_32_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Bitmaps\Icons\mark02_32_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mark06_32_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\mark06_32_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="options_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Bitmaps\Icons\options_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mark04_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\mark04_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mark01_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Bitmaps\Icons\mark01_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -145,14 +145,17 @@
   <data name="mark03_32_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Bitmaps\Icons\mark03_32_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mark05_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Bitmaps\Icons\mark05_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="options_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\options_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mark04_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Bitmaps\Icons\mark04_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mark04_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Bitmaps\Icons\mark04_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="question_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\question_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mark05_32_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\mark05_32_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mark04_32_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Bitmaps\Icons\mark04_32_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -163,8 +166,17 @@
   <data name="mark02_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Bitmaps\Icons\mark02_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="question" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\question.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="mark05_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Bitmaps\Icons\mark05_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mark05_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\mark05_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mark06_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\mark06_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mark03_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Bitmaps\Icons\mark03_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -178,16 +190,16 @@
   <data name="mark03_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Bitmaps\Icons\mark03_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mark02_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Bitmaps\Icons\mark02_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mark02_32_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\mark02_32_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="mark04_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Bitmaps\Icons\mark04_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="question" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Bitmaps\Icons\question.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mark07_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\mark07_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="question_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Bitmaps\Icons\question_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="mark07_32_dark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Bitmaps\Icons\mark07_32_dark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

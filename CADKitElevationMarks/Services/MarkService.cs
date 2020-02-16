@@ -77,6 +77,26 @@ namespace CADKitElevationMarks.Services
                 picture16 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.area),
                 picture32 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.area, IconSize.medium)
             });
+            markCollection.Add(new MarkDTO()
+            {
+                id = i++,
+                standard = DrawingStandards.Std02,
+                type = MarkTypes.finish,
+                markClass = typeof(FinishMarkStd02),
+                markJig = typeof(JigVerticalConstantHorizontalMirrorMark),
+                picture16 = iconService.GetIcon(DrawingStandards.Std02, MarkTypes.finish),
+                picture32 = iconService.GetIcon(DrawingStandards.Std02, MarkTypes.finish, IconSize.medium)
+            });
+            markCollection.Add(new MarkDTO()
+            {
+                id = i++,
+                standard = DrawingStandards.Std02,
+                type = MarkTypes.construction,
+                markClass = typeof(ConstructionMarkStd02),
+                markJig = typeof(JigVerticalConstantHorizontalMirrorMark),
+                picture16 = iconService.GetIcon(DrawingStandards.Std02, MarkTypes.construction),
+                picture32 = iconService.GetIcon(DrawingStandards.Std02, MarkTypes.construction, IconSize.medium)
+            });
         }
 
         public IEnumerable<MarkButtonDTO> GetMarks()

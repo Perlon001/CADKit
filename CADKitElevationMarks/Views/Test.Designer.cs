@@ -39,7 +39,7 @@
             // 
             // button1
             // 
-            this.button1.Image = global::CADKitElevationMarks.Properties.Resources.question;
+            this.button1.Image = global::CADKitElevationMarks.Properties.Resources.mark07_32_dark;
             this.button1.Location = new System.Drawing.Point(3, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 92);

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CADKitElevationMarks.Contracts;
 using CADKit.Extensions;
 using CADKit.Proxy;
 
@@ -23,37 +22,37 @@ namespace CADKitElevationMarks.Models
         {
             var en = new List<Entity>();
 
-            var txt1 = new AttributeDefinition();
-            txt1.SetDatabaseDefaults();
-            txt1.TextStyle = CADProxy.Database.Textstyle;
-            txt1.HorizontalMode = TextHorizontalMode.TextRight;
-            txt1.VerticalMode = TextVerticalMode.TextVerticalMid;
-            txt1.ColorIndex = 7;
-            txt1.Height = 2;
-            txt1.Position = new Point3d(-0.5, 4.5, 0);
-            txt1.Justify = AttachmentPoint.MiddleRight;
-            txt1.AlignmentPoint = new Point3d(-0.5, 4.5, 0);
-            txt1.Tag = "Sign";
-            txt1.Prompt = "Sign";
-            txt1.TextString = value.Sign;
-            en.Add(txt1);
+            var att1 = new AttributeDefinition();
+            att1.SetDatabaseDefaults();
+            att1.TextStyle = CADProxy.Database.Textstyle;
+            att1.HorizontalMode = TextHorizontalMode.TextRight;
+            att1.VerticalMode = TextVerticalMode.TextVerticalMid;
+            att1.ColorIndex = 7;
+            att1.Height = 2;
+            att1.Position = new Point3d(-0.5, 4.5, 0);
+            att1.Justify = AttachmentPoint.MiddleRight;
+            att1.AlignmentPoint = new Point3d(-0.5, 4.5, 0);
+            att1.Tag = "Sign";
+            att1.Prompt = "Sign";
+            att1.TextString = value.Sign;
+            en.Add(att1);
 
-            var txt2 = new AttributeDefinition();
-            txt2.SetDatabaseDefaults();
-            txt2.TextStyle = CADProxy.Database.Textstyle;
-            txt2.HorizontalMode = TextHorizontalMode.TextLeft;
-            txt2.VerticalMode = TextVerticalMode.TextVerticalMid;
-            txt2.ColorIndex = 7;
-            txt2.Height = 2;
-            txt2.Position = new Point3d(0.5, 4.5, 0);
-            txt2.Justify = AttachmentPoint.MiddleLeft;
-            txt2.AlignmentPoint = new Point3d(0.5, 4.5, 0);
-            txt2.Tag = "Value";
-            txt2.Prompt = "Value";
-            txt2.TextString = value.Value;
-            en.Add(txt2);
+            var att2 = new AttributeDefinition();
+            att2.SetDatabaseDefaults();
+            att2.TextStyle = CADProxy.Database.Textstyle;
+            att2.HorizontalMode = TextHorizontalMode.TextLeft;
+            att2.VerticalMode = TextVerticalMode.TextVerticalMid;
+            att2.ColorIndex = 7;
+            att2.Height = 2;
+            att2.Position = new Point3d(0.5, 4.5, 0);
+            att2.Justify = AttachmentPoint.MiddleLeft;
+            att2.AlignmentPoint = new Point3d(0.5, 4.5, 0);
+            att2.Tag = "Value";
+            att2.Prompt = "Value";
+            att2.TextString = value.Value;
+            en.Add(att2);
 
-            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(txt2));
+            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(att2));
             var pl1 = new Polyline();
             pl1.AddVertexAt(0, new Point2d(0, 5.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
