@@ -7,7 +7,6 @@ using CADKit.Services;
 using CADKit.UI;
 using CADKit.Utils;
 using CADKitElevationMarks.Contract.Services;
-using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.Contracts.Views;
 using CADKitElevationMarks.Events;
@@ -15,17 +14,13 @@ using System.Drawing;
 using CADKit.Internal;
 using System;
 using CADKitElevationMarks.Models;
-using ZwSoft.ZwCAD.DatabaseServices;
-using ZwSoft.ZwCAD.Geometry;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.ApplicationServices;
-using CADGeometry = ZwSoft.ZwCAD.Geometry;
 #endif
 
 #if AutoCAD
 using Autodesk.AutoCAD.ApplicationServices;
-using CADGeometry = Autodesk.AutoCAD.Geometry;
 #endif
 
 namespace CADKitElevationMarks.Presenters
@@ -55,7 +50,7 @@ namespace CADKitElevationMarks.Presenters
             }
             else
             {
-                Application.MainWindow.Focus();
+                CADProxy.MainWindow.Focus();
                 CreateMark();
             }
         }
@@ -92,7 +87,7 @@ namespace CADKitElevationMarks.Presenters
             {
                 isMarkCreateRunning = false;
                 CADProxy.Document.CommandCancelled -= CommandCancelled;
-                Application.MainWindow.Focus();
+                CADProxy.MainWindow.Focus();
                 CreateMark();
             }
         }

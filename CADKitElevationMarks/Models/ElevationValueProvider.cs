@@ -6,12 +6,10 @@ using CADKit.Contracts;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.EditorInput;
-using ZwSoft.ZwCAD.ApplicationServices;
 #endif
 
 #if AutoCAD
 using Autodesk.AutoCAD.EditorInput;
-using Autodesk.AutoCAD.ApplicationServices;
 #endif
 
 namespace CADKitElevationMarks.Models
@@ -20,17 +18,19 @@ namespace CADKitElevationMarks.Models
     {
         public override void Init()
         {
-            Application.MainWindow.Focus();
+            CADProxy.MainWindow.Focus();
             var promptOptions = new PromptPointOptions("\nWskaż punkt wysokościowy:");
             var pointValue = CADProxy.Editor.GetPoint(promptOptions);
-            if (pointValue.Status == PromptStatus.OK)
+            switch (pointValue.Status)
             {
-                BasePoint = pointValue.Value;
-                ElevationValue = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
-            }
-            else
-            {
-                throw new OperationCanceledException();
+                case PromptStatus.OK:
+                    BasePoint = pointValue.Value;
+                    ElevationValue = new ElevationValue(GetElevationSign(), GetElevationValue()).Parse(new CultureInfo("pl-PL"));
+                    break;
+                case PromptStatus.Cancel:
+                    throw new OperationCanceledException();
+                default:
+                    throw new Exception("Nie rozpoznany PromptStatus");
             }
         }
 

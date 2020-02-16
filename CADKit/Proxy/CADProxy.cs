@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using CADKit.Models;
+using ZwSoft.ZwCAD.Windows;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.ApplicationServices;
@@ -196,6 +197,11 @@ namespace CADKit.Proxy
         public static DocumentCollection DocumentManager
         {
             get { return Application.DocumentManager; }
+        }
+
+        public static Window MainWindow
+        {
+            get { return Application.MainWindow; }
         }
 
         public static Document Document
