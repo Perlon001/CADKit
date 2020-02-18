@@ -2,7 +2,7 @@
 
 namespace CADKitBasic.Utils
 {
-    public static class WinRegSettings
+    public static class WindowsRegistry
     {
         public static void SetKeyToRegister(string appName, string name, object value)
         {

@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using CADKitBasic.Contracts.Services;
+using System;
 
 namespace CADKitBasic
 {
@@ -6,6 +8,17 @@ namespace CADKitBasic
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder
+                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .AssignableTo<ICompositeService>()
+                .InstancePerLifetimeScope()
+                .AsImplementedInterfaces();
+
+            builder
+                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .AssignableTo<ICompositeProvider>()
+                .InstancePerLifetimeScope()
+                .AsImplementedInterfaces();
         }
     }
 }

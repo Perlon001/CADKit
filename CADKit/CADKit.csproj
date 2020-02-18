@@ -62,6 +62,7 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="Autostart.cs" />
     <Compile Include="Commands.cs" />
+    <Compile Include="Contracts\IComponent.cs" />
     <Compile Include="Contracts\IconSize.cs" />
     <Compile Include="Contracts\IEntitiesSet.cs" />
     <Compile Include="Contracts\IEntityConverter.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="Contracts\InterfaceScheme.cs" />
     <Compile Include="Contracts\Units.cs" />
     <Compile Include="ModellesDialog.cs" />
+    <Compile Include="Models\Component.cs" />
+    <Compile Include="Models\Composite.cs" />
     <Compile Include="Models\EntitiesSetBuilder.cs" />
     <Compile Include="Models\EntitySet.cs" />
     <Compile Include="Models\EntittiesJig.cs" />
@@ -88,6 +91,8 @@
     <Compile Include="Proxy\Runtime\Exception.cs" />
     <Compile Include="Proxy\Runtime\IExtensionApplication.cs" />
     <Compile Include="Services\InterfaceSchemeService.cs" />
+    <Compile Include="Services\SystemVariableService.cs" />
+    <Compile Include="Services\WindowsRegistry.cs" />
     <Compile Include="UI\CADKitPaletteSet.cs" />
     <Compile Include="UI\Presenter.cs" />
     <Compile Include="Contracts\ILayerService.cs" />
@@ -127,6 +132,7 @@
       <DependentUpon>BaseViewWPF.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\AttributeToDBTextConverter.cs" />
+    <Compile Include="Utils\Bulge.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,6 +1,6 @@
-﻿using CADKitBasic.Contracts;
+﻿using CADKit.Contracts;
 using CADKitBasic.Contracts.Services;
-using CADKitBasic.Models;
+using CADKit.Models;
 using CADKitBasic.Services;
 using NSubstitute;
 using System;
@@ -21,8 +21,8 @@ namespace Tests.CoreServices
             var modules = provider.GetModules();
 
             // testy provider'a do przeniesienia do innego testu
-            Assert.Collection<Composite>(modules, item => Assert.Contains("markModule", item.LeafName));
-            Assert.Collection<Composite>(modules, item => Assert.Contains("Koty wysokościowe", item.LeafTitle));
+            Assert.Collection<Composite>(modules, item => Assert.Contains("markModule", item.Name));
+            Assert.Collection<Composite>(modules, item => Assert.Contains("Koty wysokościowe", item.Title));
 
             var service = new CompositeService(provider);
             IDictionary<string, string> composites = service.GetCompositeModulesList();
@@ -37,38 +37,38 @@ namespace Tests.CoreServices
             var service = new CompositeService(new LocalFakeCompositeProvider());
             var composites = service.GetComposites("markModule");
             Assert.True(composites.Count == 3);
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "kota01"));
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "kota03"));
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "kota03"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "kota01"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "kota03"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "kota03"));
         }
 
         [Fact]
         public void get_composites_return_valid_composites_list_from_composite()
         {
             var service = new CompositeService(new LocalFakeCompositeProvider());
-            var item = service.GetComposites("markModule").FirstOrDefault(a => a.LeafName == "kota01");
+            var item = service.GetComposites("markModule").FirstOrDefault(a => a.Name == "kota01");
             var composites = service.GetComposites(item);
 
             Assert.True(composites.Count == 4);
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "contourLine01"));
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "contourFill"));
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "markSign"));
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "markValue"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "contourLine01"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "contourFill"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "markSign"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "markValue"));
 
-            item = service.GetComposites("markModule").FirstOrDefault(a => a.LeafName == "kota02");
+            item = service.GetComposites("markModule").FirstOrDefault(a => a.Name == "kota02");
             composites = service.GetComposites(item);
             Assert.True(composites.Count == 3);
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "contourLine01"));
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "markSign"));
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "markValue"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "contourLine01"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "markSign"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "markValue"));
 
-            item = service.GetComposites("markModule").FirstOrDefault(a => a.LeafName == "kota03");
+            item = service.GetComposites("markModule").FirstOrDefault(a => a.Name == "kota03");
             composites = service.GetComposites(item);
             Assert.True(composites.Count == 4);
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "contourLine01"));
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "contourLine02"));
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "markSign"));
-            Assert.NotNull(composites.FirstOrDefault(a => a.LeafName == "markValue"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "contourLine01"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "contourLine02"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "markSign"));
+            Assert.NotNull(composites.FirstOrDefault(a => a.Name == "markValue"));
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace Tests.CoreServices
             var item = service.GetComposite("markModule","kota01");
 
             string expected = "Architektoniczna kota wysokościowa";
-            string result = item.LeafTitle;
+            string result = item.Title;
             Assert.NotNull(item);
             Assert.Equal(expected, result);
         }
@@ -92,10 +92,10 @@ namespace Tests.CoreServices
 
 
             var item = service.GetComposite("markModule", "kota01");
-            var subitem = item.GetLeaf("contourLine01");
+            var subitem = item.GetComponent("contourLine01");
 
             string expected = "Linia konturowa koty";
-            string result = subitem.LeafTitle;
+            string result = subitem.Title;
 
             Assert.NotNull(subitem);
             Assert.Equal(expected, result);
@@ -105,7 +105,7 @@ namespace Tests.CoreServices
         public void get_acces_path_return_valid_path()
         {
             var service = new CompositeService(new LocalFakeCompositeProvider());
-            IComponent composite = service.GetComposite("markModule", "kota01").GetLeaf("contourFill");
+            IComponent composite = service.GetComposite("markModule", "kota01").GetComponent("contourFill");
 
             var path = service.GetAccessPath((Composite)composite);
 

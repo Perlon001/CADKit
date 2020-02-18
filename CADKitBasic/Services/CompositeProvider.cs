@@ -1,5 +1,5 @@
 ﻿using CADKitBasic.Contracts.Services;
-using CADKitBasic.Models;
+using CADKit.Models;
 using System.Collections.Generic;
 
 namespace CADKitBasic.Services
@@ -10,7 +10,7 @@ namespace CADKitBasic.Services
 
         public CompositeProvider()
         {
-            composites = new SortedSet<Composite>(Comparer<Composite>.Create((x,y) => x.LeafTitle.CompareTo(y.LeafTitle)));
+            composites = new SortedSet<Composite>(Comparer<Composite>.Create((x,y) => x.Title.CompareTo(y.Title)));
             Load();
         }
 

@@ -1,5 +1,4 @@
 ﻿using CADKit.Contracts;
-using CADKit.Models;
 using Microsoft.Win32;
 using System;
 using System.Drawing;

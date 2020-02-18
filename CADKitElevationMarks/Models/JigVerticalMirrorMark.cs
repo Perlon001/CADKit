@@ -1,6 +1,4 @@
-﻿using CADKitBasic;
-using CADKitBasic.Contracts.Services;
-using CADKit;
+﻿using CADKit;
 using System;
 using System.Collections.Generic;
 using CADKit.Proxy;

@@ -3,7 +3,6 @@ using CADKit.Models;
 using CADKit.UI.WF;
 using CADKitBasic.Contracts;
 using CADKitBasic.Contracts.Presenters;
-using CADKitBasic.Models;
 using CADKitBasic.Views.DTO;
 using System.Collections.Generic;
 using System.Drawing;
@@ -87,7 +86,7 @@ namespace CADKitBasic.Views.WF
             TreeNode[] nodes = new TreeNode[com.Count];
             for(int i = 0; i < nodes.Length; i++)
             {
-                nodes[i] = new TreeNode(com[i].LeafTitle,AddNode(((Composite)com[i]).GetLeafs()));
+                nodes[i] = new TreeNode(com[i].Title,AddNode(((Composite)com[i]).GetComponents()));
             }
 
             return nodes;

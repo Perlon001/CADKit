@@ -1,5 +1,5 @@
 ﻿using CADKitBasic.Contracts.Services;
-using CADKitBasic.Models;
+using CADKit.Models;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +7,7 @@ namespace CADKitBasic.Services
 {
     public class CompositeService : ICompositeService
     {
-        SortedSet<Composite> composites = null;
+        private SortedSet<Composite> composites = null;
 
         public CompositeService(ICompositeProvider compositeProvider)
         {
@@ -17,11 +17,11 @@ namespace CADKitBasic.Services
         public IList<string> GetAccessPath(Composite composite)
         {
             List<string> path = new List<string>();
-            path.Add(composite.LeafName);
+            path.Add(composite.Name);
             while (composite.Parent != null)
             {
                 composite = (Composite)composite.Parent;
-                path.Add(composite.LeafName);
+                path.Add(composite.Name);
             }
             path.Reverse();
 
@@ -30,10 +30,10 @@ namespace CADKitBasic.Services
 
         public Composite GetComposite(string modulName, string compositeName)
         {
-            var module = composites.FirstOrDefault(a => a.LeafName == modulName);
+            var module = composites.FirstOrDefault(a => a.Name == modulName);
             if (module != null)
             {
-                return (Composite)module.GetLeaf(compositeName);
+                return (Composite)module.GetComponent(compositeName);
             }
 
             return null;
@@ -41,7 +41,7 @@ namespace CADKitBasic.Services
 
         public Composite GetComposite(Composite composite, string subCompositeName)
         {
-            return (Composite)composite.GetLeaf(subCompositeName);
+            return (Composite)composite.GetComponent(subCompositeName);
         }
 
         public ICollection<Composite> GetComposites()
@@ -59,9 +59,9 @@ namespace CADKitBasic.Services
         public ICollection<Composite> GetComposites(string modulName)
         {
             ICollection<Composite> result = new List<Composite>();
-            var module = composites.FirstOrDefault(a => a.LeafName == modulName);
+            var module = composites.FirstOrDefault(a => a.Name == modulName);
 
-            foreach (var item in module.GetLeafs())
+            foreach (var item in module.GetComponents())
             {
                 result.Add((Composite)item);
             }
@@ -73,7 +73,7 @@ namespace CADKitBasic.Services
         {
             ICollection<Composite> result = new List<Composite>();
 
-            foreach (var item in composite.GetLeafs())
+            foreach (var item in composite.GetComponents())
             {
                 result.Add((Composite)item);
             }
@@ -86,7 +86,7 @@ namespace CADKitBasic.Services
             IDictionary<string, string> result = new Dictionary<string, string>();
             foreach (var item in composites)
             {
-                result.Add(item.LeafName, item.LeafTitle);
+                result.Add(item.Name, item.Title);
             }
 
             return result;

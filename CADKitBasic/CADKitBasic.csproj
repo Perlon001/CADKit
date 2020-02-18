@@ -60,29 +60,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Autostart.cs" />
-    <Compile Include="Contracts\ICompositeContainer.cs" />
-    <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\Presenters\ISettingsPresenter.cs" />
     <Compile Include="Contracts\Views\ISettingsView.cs" />
-    <Compile Include="Contracts\IComponent.cs" />
     <Compile Include="Contracts\Services\ICompositeProvider.cs" />
     <Compile Include="Contracts\Services\ICompositeService.cs" />
-    <Compile Include="Models\Composite.cs" />
     <Compile Include="Services\CompositeProvider.cs" />
     <Compile Include="Services\CompositeService.cs" />
     <Compile Include="Services\LocalFakeCompositeProvider.cs" />
-    <Compile Include="Services\RegistrationModule.cs" />
-    <Compile Include="Utils\Bulge.cs" />
     <Compile Include="Utils\CADKitModuleContainerBuilder.cs" />
     <Compile Include="Utils\CompositeModule.cs" />
-    <Compile Include="Models\Leaf.cs" />
     <Compile Include="RegistrationModule.cs" />
-    <Compile Include="Services\SystemVariableService.cs" />
     <Compile Include="Presenters\SettingsPresenter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\SystemVariables.cs" />
-    <Compile Include="Utils\AuthChecker.cs" />
-    <Compile Include="Utils\WinRegSettings.cs" />
     <Compile Include="Views\DTO\ScaleDTO.cs" />
     <Compile Include="Views\WF\SettingsView.cs">
       <SubType>UserControl</SubType>

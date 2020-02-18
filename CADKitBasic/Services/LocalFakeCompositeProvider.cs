@@ -1,5 +1,5 @@
 ﻿using CADKitBasic.Contracts.Services;
-using CADKitBasic.Models;
+using CADKit.Models;
 
 namespace CADKitBasic.Services
 {
@@ -9,164 +9,164 @@ namespace CADKitBasic.Services
         {
             Composite module = new Composite()
             {
-                LeafName = "markModule",
-                LeafTitle = "Koty wysokościowe"
+                Name = "markModule",
+                Title = "Koty wysokościowe"
             };
 
             Composite kota;
 
             kota = new Composite()
             {
-                LeafName = "kota01",
-                LeafTitle = "Architektoniczna kota wysokościowa",
+                Name = "kota01",
+                Title = "Architektoniczna kota wysokościowa",
                 Layer = "0",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
             };
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "contourLine01",
-                LeafTitle = "Linia konturowa koty",
+                Name = "contourLine01",
+                Title = "Linia konturowa koty",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
             });
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "markSign",
-                LeafTitle = "Znak poziomu",
+                Name = "markSign",
+                Title = "Znak poziomu",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 7
             });
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "markValue",
-                LeafTitle = "Wartość poziomu",
+                Name = "markValue",
+                Title = "Wartość poziomu",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 7
             });
-            module.AddLeaf(kota);
+            module.AddComponent(kota);
 
             kota = new Composite()
             {
-                LeafName = "kota02",
-                LeafTitle = "Konstrukcyjna kota wysokościowa",
+                Name = "kota02",
+                Title = "Konstrukcyjna kota wysokościowa",
                 Layer = "0",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
             };
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "contourLine01",
-                LeafTitle = "Linia konturowa koty",
+                Name = "contourLine01",
+                Title = "Linia konturowa koty",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
             });
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "contourFill",
-                LeafTitle = "Wypełnienie grotu",
+                Name = "contourFill",
+                Title = "Wypełnienie grotu",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 2
             });
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "markSign",
-                LeafTitle = "Znak poziomu",
+                Name = "markSign",
+                Title = "Znak poziomu",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 7
             });
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "markValue",
-                LeafTitle = "Wartość poziomu",
+                Name = "markValue",
+                Title = "Wartość poziomu",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 7
             });
-            module.AddLeaf(kota);
+            module.AddComponent(kota);
 
             kota = new Composite()
             {
-                LeafName = "kota03",
-                LeafTitle = "Kota wysokościowa PN-B",
+                Name = "kota03",
+                Title = "Kota wysokościowa PN-B",
                 Layer = "0",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
             };
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "contourLine01",
-                LeafTitle = "Linia konturowa koty",
+                Name = "contourLine01",
+                Title = "Linia konturowa koty",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
             });
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "contourLine02",
-                LeafTitle = "Grot koty",
+                Name = "contourLine02",
+                Title = "Grot koty",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
             });
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "markSign",
-                LeafTitle = "Znak poziomu",
+                Name = "markSign",
+                Title = "Znak poziomu",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 7
             });
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "markValue",
-                LeafTitle = "Wartość poziomu",
+                Name = "markValue",
+                Title = "Wartość poziomu",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 7
             });
-            module.AddLeaf(kota);
+            module.AddComponent(kota);
 
             composites.Add(module);
 
             module = new Composite()
             {
-                LeafName = "markModule",
-                LeafTitle = "Inne obiekty"
+                Name = "markModule",
+                Title = "Inne obiekty"
             };
 
             kota = new Composite()
             {
-                LeafName = "Dziura",
-                LeafTitle = "Obiekt dziura",
+                Name = "Dziura",
+                Title = "Obiekt dziura",
                 Layer = "0",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
             };
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "Element dziury",
-                LeafTitle = "Nazwa elementu dziury",
+                Name = "Element dziury",
+                Title = "Nazwa elementu dziury",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
             });
-            kota.AddLeaf(new Composite()
+            kota.AddComponent(new Composite()
             {
-                LeafName = "Drugi element dziury",
-                LeafTitle = "Nazwa drugiego elementu dziury",
+                Name = "Drugi element dziury",
+                Title = "Nazwa drugiego elementu dziury",
                 Layer = "BYBLOCK",
                 Linetype = "BYLAYER",
                 ColorIndex = 256
             });
 
-            module.AddLeaf(kota);
+            module.AddComponent(kota);
 
             composites.Add(module);
         }
