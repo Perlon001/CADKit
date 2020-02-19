@@ -1,5 +1,4 @@
-﻿using CADKit.Models;
-using CADKitBasic.Services;
+﻿using CADKit.Contracts;
 using CADKitBasic.Utils.Fluent;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ namespace CADKitBasic.Utils
     {
         // private CompositeContainer container;
         public string Name { get; }
-        public ICollection<Composite> Composites { get; }
+        public ICollection<IComposite> Composites { get; }
 
         private CADKitModuleContainerBuilder()
         {
@@ -45,7 +44,7 @@ namespace CADKitBasic.Utils
     {
         public interface IRegister
         {
-            IRegister Register(Composite leaf);
+            IRegister Register(IComposite leaf);
         }
 
 
@@ -58,7 +57,7 @@ namespace CADKitBasic.Utils
                 this.builder = builder;
             }
 
-            public IRegister Register(Composite leaf)
+            public IRegister Register(IComposite leaf)
             {
                 builder.Composites.Add(leaf);
                 return this;

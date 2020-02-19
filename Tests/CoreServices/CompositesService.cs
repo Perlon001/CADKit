@@ -21,8 +21,8 @@ namespace Tests.CoreServices
             var modules = provider.GetModules();
 
             // testy provider'a do przeniesienia do innego testu
-            Assert.Collection<Composite>(modules, item => Assert.Contains("markModule", item.Name));
-            Assert.Collection<Composite>(modules, item => Assert.Contains("Koty wysokościowe", item.Title));
+            Assert.Collection<IComposite>(modules, item => Assert.Contains("markModule", item.Name));
+            Assert.Collection<IComposite>(modules, item => Assert.Contains("Koty wysokościowe", item.Title));
 
             var service = new CompositeService(provider);
             IDictionary<string, string> composites = service.GetCompositeModulesList();
@@ -107,7 +107,7 @@ namespace Tests.CoreServices
             var service = new CompositeService(new LocalFakeCompositeProvider());
             IComponent composite = service.GetComposite("markModule", "kota01").GetComponent("contourFill");
 
-            var path = service.GetAccessPath((Composite)composite);
+            var path = service.GetAccessPath((IComposite)composite);
 
             Assert.Equal(3, path.Count);
             Assert.Equal("markModule", path[0]);

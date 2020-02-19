@@ -1,10 +1,10 @@
-﻿using CADKit.Models;
+﻿using CADKit.Contracts;
 using System.Collections.Generic;
 
 namespace CADKitBasic.Contracts.Services
 {
     public interface ICompositeProvider
     {
-        SortedSet<Composite> GetModules();
+        SortedSet<IComposite> GetModules();
     }
 }

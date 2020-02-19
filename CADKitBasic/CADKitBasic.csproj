@@ -85,7 +85,6 @@
     <Compile Include="Views\WF\TestControll.Designer.cs">
       <DependentUpon>TestControll.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\WF\WFHelpers.cs" />
     <Compile Include="Views\WPF\BaseViewWPF.xaml.cs">
       <DependentUpon>BaseViewWPF.xaml</DependentUpon>
     </Compile>

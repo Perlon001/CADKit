@@ -2,25 +2,26 @@
 using CADKit.Models;
 using System.Collections.Generic;
 using System.Linq;
+using CADKit.Contracts;
 
 namespace CADKitBasic.Services
 {
     public class CompositeService : ICompositeService
     {
-        private SortedSet<Composite> composites = null;
+        private SortedSet<IComposite> composites = null;
 
         public CompositeService(ICompositeProvider compositeProvider)
         {
             composites = compositeProvider.GetModules();
         }
 
-        public IList<string> GetAccessPath(Composite composite)
+        public IList<string> GetAccessPath(IComposite composite)
         {
             List<string> path = new List<string>();
             path.Add(composite.Name);
             while (composite.Parent != null)
             {
-                composite = (Composite)composite.Parent;
+                composite = (IComposite)composite.Parent;
                 path.Add(composite.Name);
             }
             path.Reverse();
@@ -28,25 +29,25 @@ namespace CADKitBasic.Services
             return path;
         }
 
-        public Composite GetComposite(string modulName, string compositeName)
+        public IComposite GetComposite(string modulName, string compositeName)
         {
             var module = composites.FirstOrDefault(a => a.Name == modulName);
             if (module != null)
             {
-                return (Composite)module.GetComponent(compositeName);
+                return (IComposite)module.GetComponent(compositeName);
             }
 
             return null;
         }
 
-        public Composite GetComposite(Composite composite, string subCompositeName)
+        public IComposite GetComposite(IComposite composite, string subCompositeName)
         {
-            return (Composite)composite.GetComponent(subCompositeName);
+            return (IComposite)composite.GetComponent(subCompositeName);
         }
 
-        public ICollection<Composite> GetComposites()
+        public ICollection<IComposite> GetComposites()
         {
-            ICollection<Composite> result = new List<Composite>();
+            ICollection<IComposite> result = new List<IComposite>();
 
             foreach (var item in composites)
             {
@@ -56,26 +57,26 @@ namespace CADKitBasic.Services
             return result;
         }
 
-        public ICollection<Composite> GetComposites(string modulName)
+        public ICollection<IComposite> GetComposites(string modulName)
         {
-            ICollection<Composite> result = new List<Composite>();
+            ICollection<IComposite> result = new List<IComposite>();
             var module = composites.FirstOrDefault(a => a.Name == modulName);
 
             foreach (var item in module.GetComponents())
             {
-                result.Add((Composite)item);
+                result.Add((IComposite)item);
             }
 
             return result;
         }
 
-        public ICollection<Composite> GetComposites(Composite composite)
+        public ICollection<IComposite> GetComposites(IComposite composite)
         {
-            ICollection<Composite> result = new List<Composite>();
+            ICollection<IComposite> result = new List<IComposite>();
 
             foreach (var item in composite.GetComponents())
             {
-                result.Add((Composite)item);
+                result.Add((IComposite)item);
             }
 
             return result;

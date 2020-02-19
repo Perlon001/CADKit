@@ -5,34 +5,23 @@ using System.Linq;
 
 namespace CADKit.Models
 {
-    public class Composite : IComponent
+    public class Composite : IComposite
     {
-        private string name;
-        private string title;
         private readonly ICollection<IComponent> components = new List<IComponent>();
 
-        public string Name
+        public Composite(string _name)
         {
-            get { return name; }
-            set
-            {
-                string tmp = value.Trim().ToLower();
-                if (tmp.IndexOf(" ") == 0)
-                {
-                    throw new ArgumentException("Nieprawidłowy argument. Nazwa nie może zawierać spacji.");
-                }
-                name = value;
-            }
+            Name = _name;
         }
 
-        public string Title
-        {
-            get { return title; }
-            set { title = value.Trim(); }
-        }
-        public string Layer { get; set; }
-        public string Linetype { get; set; }
-        public short ColorIndex { get; set; }
+        public string Name { get; protected set; }
+
+        public string Title { get; set; }
+
+        //public string Layer { get; set; }
+        //public string Linetype { get; set; }
+        //public short ColorIndex { get; set; }
+
         public IComponent Parent { get; set; }
 
         public void AddComponent(IComponent _component)

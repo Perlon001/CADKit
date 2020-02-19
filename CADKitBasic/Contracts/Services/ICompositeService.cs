@@ -1,4 +1,4 @@
-﻿using CADKit.Models;
+﻿using CADKit.Contracts;
 using System.Collections.Generic;
 
 namespace CADKitBasic.Contracts.Services
@@ -6,11 +6,11 @@ namespace CADKitBasic.Contracts.Services
     public interface ICompositeService
     {
         IDictionary<string, string> GetCompositeModulesList();
-        ICollection<Composite> GetComposites();
-        ICollection<Composite> GetComposites(string modulName);
-        ICollection<Composite> GetComposites(Composite composite);
-        Composite GetComposite(string modulName, string compositeName);
-        Composite GetComposite(Composite composite, string subCompositeName);
-        IList<string> GetAccessPath(Composite composite);
+        ICollection<IComposite> GetComposites();
+        ICollection<IComposite> GetComposites(string modulName);
+        ICollection<IComposite> GetComposites(IComposite composite);
+        IComposite GetComposite(string modulName, string compositeName);
+        IComposite GetComposite(IComposite composite, string subCompositeName);
+        IList<string> GetAccessPath(IComposite composite);
     }
 }

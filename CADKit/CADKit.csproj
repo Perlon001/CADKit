@@ -63,10 +63,12 @@
     <Compile Include="Autostart.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Contracts\IComponent.cs" />
+    <Compile Include="Contracts\IComposite.cs" />
     <Compile Include="Contracts\IconSize.cs" />
     <Compile Include="Contracts\IEntitiesSet.cs" />
     <Compile Include="Contracts\IEntityConverter.cs" />
     <Compile Include="Contracts\IEntitiesSetBuilder.cs" />
+    <Compile Include="Contracts\IEntityElement.cs" />
     <Compile Include="Contracts\IInterfaceSchemeService.cs" />
     <Compile Include="Contracts\IAutostart.cs" />
     <Compile Include="Contracts\IJigEntitties.cs" />
@@ -128,6 +130,7 @@
     <Compile Include="UI\WF\BaseViewWF.Designer.cs">
       <DependentUpon>BaseViewWF.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\WF\WFHelpers.cs" />
     <Compile Include="UI\WPF\BaseViewWPF.xaml.cs">
       <DependentUpon>BaseViewWPF.xaml</DependentUpon>
     </Compile>
