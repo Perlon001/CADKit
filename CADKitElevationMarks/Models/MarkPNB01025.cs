@@ -1,6 +1,7 @@
-﻿using CADKit.Extensions;
+﻿using CADKit.Contracts;
+using CADKit.Extensions;
 using CADKit.Proxy;
-using CADKitElevationMarks.Contracts;
+using CADKit.Utils;
 using System.Collections.Generic;
 
 #if ZwCAD
@@ -102,6 +103,15 @@ namespace CADKitElevationMarks.Models
 
                 entity.Add(hatch);
             }
+        }
+
+        protected override JigMark GetJig()
+        {
+            var conv = new List<IEntityConverter>
+            {
+                new AttributeToDBTextConverter()
+            };
+            return new JigVerticalConstantVerticalAndHorizontalMirrorMark(entities, originPoint, basePoint, conv);
         }
     }
 }

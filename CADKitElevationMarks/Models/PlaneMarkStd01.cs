@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using CADKit.Proxy;
 using CADKit.Extensions;
+using System;
+using CADKit.Contracts;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -96,6 +98,15 @@ namespace CADKitElevationMarks.Models
                 p1.Erase();
             }
             en.Add(hatch);
+        }
+
+        protected override JigMark GetJig()
+        {
+            var conv = new List<IEntityConverter>
+            {
+                new AttributeToDBTextConverter()
+            };
+            return new JigMark(entities, originPoint, basePoint, conv);
         }
     }
 }

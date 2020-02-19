@@ -99,17 +99,13 @@ namespace CADKitElevationMarks.Presenters
                 using (var scope = DI.Container.BeginLifetimeScope())
                 {
                     var markDTO = markService.GetMark(markID);
-                    if (scope.IsRegistered(markDTO.markClass))
+                    if (scope.IsRegistered(markDTO.markType))
                     {
-                        var mark = scope.Resolve(markDTO.markClass) as Mark;
+                        var mark = scope.Resolve(markDTO.markType) as Mark;
                         try
                         {
                             mark.Build();
-                            var entitiesSet = new EntitiesSetBuilder<MarkEntitiesSet>(mark.Entities)
-                                .AddConverter(typeof(AttributeToDBTextConverter))
-                                .SetBasePoint(mark.BasePoint)
-                                .SetJig(markDTO.markJig)
-                                .Build();
+                            var entitiesSet = mark.GetEntitiesSet();
                             switch (View.SetType)
                             {
                                 case OutputSet.group:

@@ -32,8 +32,8 @@ namespace CADKitElevationMarks.Services
                 id = i++,
                 standard = DrawingStandards.PNB01025,
                 type = MarkTypes.universal,
-                markClass = typeof(MarkPNB01025),
-                markJig = typeof(JigVerticalConstantVerticalAndHorizontalMirrorMark),
+                markType = typeof(MarkPNB01025),
+                jigType = typeof(JigVerticalConstantVerticalAndHorizontalMirrorMark),
                 picture16 = iconService.GetIcon(DrawingStandards.PNB01025, MarkTypes.universal),
                 picture32 = iconService.GetIcon(DrawingStandards.PNB01025, MarkTypes.universal, IconSize.medium)
             });
@@ -42,8 +42,8 @@ namespace CADKitElevationMarks.Services
                 id = i++,
                 standard = DrawingStandards.PNB01025,
                 type = MarkTypes.area,
-                markClass = typeof(PlaneMarkPNB01025),
-                markJig = typeof(JigMark),
+                markType = typeof(PlaneMarkPNB01025),
+                jigType = typeof(JigMark),
                 picture16 = iconService.GetIcon(DrawingStandards.PNB01025, MarkTypes.area),
                 picture32 = iconService.GetIcon(DrawingStandards.PNB01025, MarkTypes.area, IconSize.medium)
             });
@@ -52,8 +52,8 @@ namespace CADKitElevationMarks.Services
                 id = i++,
                 standard = DrawingStandards.Std01,
                 type = MarkTypes.finish,
-                markClass = typeof(FinishMarkStd01),
-                markJig = typeof(JigVerticalConstantHorizontalMirrorMark),
+                markType = typeof(FinishMarkStd01),
+                jigType = typeof(JigVerticalConstantHorizontalMirrorMark),
                 picture16 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.finish),
                 picture32 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.finish, IconSize.medium)
             });
@@ -62,8 +62,8 @@ namespace CADKitElevationMarks.Services
                 id = i++,
                 standard = DrawingStandards.Std01,
                 type = MarkTypes.construction,
-                markClass = typeof(ConstructionMarkStd01),
-                markJig = typeof(JigVerticalConstantHorizontalMirrorMark),
+                markType = typeof(ConstructionMarkStd01),
+                jigType = typeof(JigVerticalConstantHorizontalMirrorMark),
                 picture16 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.construction),
                 picture32 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.construction, IconSize.medium)
             });
@@ -72,8 +72,8 @@ namespace CADKitElevationMarks.Services
                 id = i++,
                 standard = DrawingStandards.Std01,
                 type = MarkTypes.area,
-                markClass = typeof(PlaneMarkStd01),
-                markJig = typeof(JigMark),
+                markType = typeof(PlaneMarkStd01),
+                jigType = typeof(JigMark),
                 picture16 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.area),
                 picture32 = iconService.GetIcon(DrawingStandards.Std01, MarkTypes.area, IconSize.medium)
             });
@@ -82,8 +82,8 @@ namespace CADKitElevationMarks.Services
                 id = i++,
                 standard = DrawingStandards.Std02,
                 type = MarkTypes.finish,
-                markClass = typeof(FinishMarkStd02),
-                markJig = typeof(JigVerticalConstantHorizontalMirrorMark),
+                markType = typeof(FinishMarkStd02),
+                jigType = typeof(JigVerticalConstantHorizontalMirrorMark),
                 picture16 = iconService.GetIcon(DrawingStandards.Std02, MarkTypes.finish),
                 picture32 = iconService.GetIcon(DrawingStandards.Std02, MarkTypes.finish, IconSize.medium)
             });
@@ -92,8 +92,8 @@ namespace CADKitElevationMarks.Services
                 id = i++,
                 standard = DrawingStandards.Std02,
                 type = MarkTypes.construction,
-                markClass = typeof(ConstructionMarkStd02),
-                markJig = typeof(JigVerticalConstantHorizontalMirrorMark),
+                markType = typeof(ConstructionMarkStd02),
+                jigType = typeof(JigVerticalConstantHorizontalMirrorMark),
                 picture16 = iconService.GetIcon(DrawingStandards.Std02, MarkTypes.construction),
                 picture32 = iconService.GetIcon(DrawingStandards.Std02, MarkTypes.construction, IconSize.medium)
             });
@@ -134,13 +134,13 @@ namespace CADKitElevationMarks.Services
             }
             else
             {
-                return item.markClass;
+                return item.markType;
             }
         }
 
         public Type GetJigType(int markNumber)
         {
-            return GetMarkDTO(markNumber).markJig;
+            return GetMarkDTO(markNumber).jigType;
         }
 
         private MarkDTO GetMarkDTO(int _markNumber)

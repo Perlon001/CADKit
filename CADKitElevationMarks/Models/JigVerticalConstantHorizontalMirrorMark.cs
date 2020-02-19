@@ -23,11 +23,13 @@ namespace CADKitElevationMarks.Models
     public class JigVerticalConstantHorizontalMirrorMark : JigMark
     {
         private bool IsHMirror;
+        public double VerticalAttributeDisplacement { get; set; }
         public override string Suffix => (IsHMirror ? "B" : "T");
 
         public JigVerticalConstantHorizontalMirrorMark(IEnumerable<Entity> _entityList, Point3d _originPoint, Point3d _basePoint, IEnumerable<IEntityConverter> _converters) : base(_entityList, _originPoint, _basePoint, _converters)
         {
             IsHMirror = false;
+            VerticalAttributeDisplacement = 9;
         }
 
         protected override SamplerStatus Sampler(JigPrompts _prompts)
@@ -80,7 +82,7 @@ namespace CADKitElevationMarks.Models
                     ent.Erase(false);
                     if (ent.GetType() == typeof(DBText))
                     {
-                        ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? 9 : -9) * AppSettings.Get.ScaleFactor, 0)));
+                        ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? VerticalAttributeDisplacement : -VerticalAttributeDisplacement) * AppSettings.Get.ScaleFactor, 0)));
                     }
                     else
                     {
@@ -94,7 +96,7 @@ namespace CADKitElevationMarks.Models
             {
                 if (ent.GetType() == typeof(DBText) || ent.GetType() == typeof(AttributeDefinition))
                 {
-                    ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? 9 : -9), 0)));
+                    ent.TransformBy(Matrix3d.Displacement(new Vector3d(0, (IsHMirror ? VerticalAttributeDisplacement : -VerticalAttributeDisplacement), 0)));
                 }
                 else
                 {

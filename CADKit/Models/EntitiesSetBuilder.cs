@@ -20,7 +20,9 @@ namespace CADKit.Models
         private Point3d originPoint;
         private Point3d basePoint;
         private Type jigType;
+        private EntittiesJig jig;
         private IList<Type> converterTypes;
+        private IList<IEntityConverter> converters;
         private IList<Matrix3d> transforms;
 
         public EntitiesSetBuilder(IEnumerable<Entity> collection)
@@ -30,6 +32,7 @@ namespace CADKit.Models
             basePoint = new Point3d(0, 0, 0);
             jigType = typeof(EntittiesJig);
             converterTypes = new List<Type>();
+            converters = new List<IEntityConverter>();
             transforms = new List<Matrix3d>();
         }
 
@@ -51,21 +54,33 @@ namespace CADKit.Models
             return this;
         }
 
+        public EntitiesSetBuilder<T> SetJig(EntittiesJig _jig)
+        {
+            jigType = null;
+            jig = _jig;
+            return this;
+        }
+
         public EntitiesSetBuilder<T> AddTransforms(Matrix3d _matrix)
         {
             transforms.Add(_matrix);
             return this;
         }
 
-        public EntitiesSetBuilder<T> AddConverter(Type _converterType)
+        public EntitiesSetBuilder<T> AddConverterType(Type _converterType)
         {
             converterTypes.Add(_converterType);
             return this;
         }
 
-        public T Build()
+        public EntitiesSetBuilder<T> AddConverter(IEntityConverter _converter)
         {
-            IList<IEntityConverter> converters = new List<IEntityConverter>();
+            converters.Add(_converter);
+            return this;
+        }
+
+        public virtual T Build()
+        {
             if (converterTypes != null)
             {
                 foreach(var conv in converterTypes)
@@ -73,12 +88,21 @@ namespace CADKit.Models
                     converters.Add(Activator.CreateInstance(conv) as IEntityConverter);
                 }
             }
-            Object[] jigArgs = { entities, originPoint, basePoint, converters };
-
-            var jig = Activator.CreateInstance(jigType, jigArgs);
-            Object[] args = { entities, jig, originPoint };
-
-            return Activator.CreateInstance(typeof(T), args) as T;
+            Object[] args;
+            if (jig == null)
+            {
+                Object[] jigArgs = { entities, originPoint, basePoint, converters };
+                var jig = Activator.CreateInstance(jigType, jigArgs);
+                object[] arg = { entities, jig, originPoint };
+                args = arg;
+            }
+            else
+            {
+                object[] arg = { entities, jig, originPoint };
+                args = arg;
+            }
+            var result = Activator.CreateInstance(typeof(T), args) as T;
+            return result;
         }
     }
 }

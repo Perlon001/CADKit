@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using CADKit.Contracts;
 using CADKit.Extensions;
 using CADKit.Proxy;
+using CADKit.Utils;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -84,6 +87,15 @@ namespace CADKitElevationMarks.Models
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
             }
+        }
+
+        protected override JigMark GetJig()
+        {
+            var conv = new List<IEntityConverter>
+            {
+                new AttributeToDBTextConverter()
+            };
+            return new JigVerticalConstantHorizontalMirrorMark(entities, originPoint, basePoint, conv);
         }
     }
 }

@@ -1,6 +1,9 @@
-﻿using CADKit.Extensions;
+﻿using CADKit.Contracts;
+using CADKit.Extensions;
 using CADKit.Proxy;
+using CADKit.Utils;
 using CADKitElevationMarks.Contracts;
+using System;
 using System.Collections.Generic;
 
 #if ZwCAD
@@ -64,6 +67,15 @@ namespace CADKitElevationMarks.Models
                     blockReference.AttributeCollection.AppendAttribute(attRef);
                 }
             }
+        }
+
+        protected override JigMark GetJig()
+        {
+            var conv = new List<IEntityConverter>
+            {
+                new AttributeToDBTextConverter()
+            };
+            return new JigMark(entities, originPoint, basePoint, conv);
         }
     }
 }

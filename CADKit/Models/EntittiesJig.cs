@@ -3,6 +3,7 @@ using CADKit.Extensions;
 using CADKit.Contracts;
 using CADKit.Proxy;
 using System;
+using System.Linq;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.EditorInput;
@@ -40,12 +41,12 @@ namespace CADKit.Models
 
         public IList<Matrix3d> Transforms { get { return transforms; } }
 
-        public IEnumerable<IEntityConverter> Converters { get { return converters; } }
+        public IEnumerable<IEntityConverter> Converters { get { return converters; } set { converters = value; } }
 
         public EntittiesJig(IEnumerable<Entity> _entities, Point3d _originPoint, Point3d _basePoint = default, IEnumerable<IEntityConverter> _converters = null) : base()
         {
             buffer = _entities;
-            entities = _entities.Clone();
+            entities = _entities.Clone().ToList();
             originPoint = _originPoint;
             basePoint = _basePoint;
             converters = _converters;

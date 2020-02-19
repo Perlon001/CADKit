@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using CADKitElevationMarks.Models;
 
 namespace CADKitElevationMarks.DTO
 {
@@ -13,9 +14,10 @@ namespace CADKitElevationMarks.DTO
         public int id;
         public DrawingStandards standard;
         public MarkTypes type;
-        public Type markClass;
-        public Type markJig;
+        public Type markType;
+        public Type jigType;
         public Bitmap picture16;
         public Bitmap picture32;
+        public JigMark jig;
     }
 }
