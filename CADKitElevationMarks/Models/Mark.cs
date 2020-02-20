@@ -1,7 +1,5 @@
 ﻿using CADKit.Contracts;
 using CADKit.Models;
-using CADKit.Utils;
-using System;
 using System.Collections.Generic;
 
 #if ZwCAD
@@ -32,7 +30,6 @@ namespace CADKitElevationMarks.Models
         }
 
         public string Index { get; protected set; }
-        public JigMark Jig { get; protected set; }
 
         protected abstract IEnumerable<Entity> GetEntities();
         protected abstract JigMark GetJig();
