@@ -2,9 +2,9 @@
 
 namespace CADKit.Models
 {
-    public class Component : IComponent
+    public abstract class Component : IComponent
     {
-        public Component(string _name)
+        protected Component(string _name)
         {
             Name = _name;
         }
@@ -12,11 +12,7 @@ namespace CADKit.Models
         public string Name { get; protected set; }
         public string Title { get; set; }
 
-        //public string Layer { get; set; }
-        //public string Linetype { get; set; }
-        //public short ColorIndex { get; set; }
-
-        public IComponent Parent { get; set; }
+         public IComposite Parent { get; set; }
         public bool IsComposite { get { return false; } }
     }
 }

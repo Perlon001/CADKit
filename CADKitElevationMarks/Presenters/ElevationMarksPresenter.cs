@@ -77,7 +77,7 @@ namespace CADKitElevationMarks.Presenters
             using (var scope = DI.Container.BeginLifetimeScope())
             {
                 var service = scope.Resolve<IMarkService>();
-                View.BindMarkButtons(service.GetMarks());
+                View.BindMarkButtons(service.GetMarkButtons());
             }
         }
 

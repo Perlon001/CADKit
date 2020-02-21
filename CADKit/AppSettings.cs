@@ -28,15 +28,19 @@ namespace CADKit
         private static readonly AppSettings instance = new AppSettings();
 
         private CADKitPaletteSet palette;
+        private readonly EntityPropertytService propertyService;
         private Units drawingUnit;
         private Units dimensionUnit;
         private string drawingScale;
+
 
         static AppSettings() { }
 
         private AppSettings() 
         {
             AppPath = Path.Combine(Path.GetDirectoryName(this.GetType().Assembly.Location));
+
+            propertyService = new EntityPropertytService();
 
             CADProxy.DocumentCreated -= OnDocumentCreated;
             CADProxy.DocumentCreated += OnDocumentCreated;
@@ -133,6 +137,8 @@ namespace CADKit
                 }
             }
         }
+
+        public EntityPropertytService PropertyService { get { return propertyService; } }
 
         private void SetSettingsToDocument()
         {

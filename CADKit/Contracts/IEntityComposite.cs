@@ -14,8 +14,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 
 namespace CADKit.Contracts
 {
-    public interface IEntityElement : IEntityComponent
+    public interface IEntityComposite : IComposite, IEntityComponent
     {
-        Entity Entity { get; set; }
     }
 }

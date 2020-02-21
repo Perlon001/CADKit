@@ -33,8 +33,8 @@ namespace CADKitElevationMarks.Models
             {
                 var bd = new Polyline();
                 bd.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
-                bd.AddVertexAt(0, new Point2d(-2.5, 2.5), 0, 0, 0);
-                bd.AddVertexAt(0, new Point2d(2.5, 2.5), 0, 0, 0);
+                bd.AddVertexAt(0, new Point2d(-2.5, 2), 0, 0, 0);
+                bd.AddVertexAt(0, new Point2d(2.5, 2), 0, 0, 0);
                 bd.Closed = true;
                 BlockTable bt = tr.GetObject(CADProxy.Database.BlockTableId, OpenMode.ForRead) as BlockTable;
                 BlockTableRecord btr = tr.GetObject(CADProxy.Database.CurrentSpaceId, OpenMode.ForWrite) as BlockTableRecord;

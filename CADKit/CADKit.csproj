@@ -66,6 +66,8 @@
     <Compile Include="Contracts\IComposite.cs" />
     <Compile Include="Contracts\IconSize.cs" />
     <Compile Include="Contracts\IEntitiesSet.cs" />
+    <Compile Include="Contracts\IEntityComponent.cs" />
+    <Compile Include="Contracts\IEntityComposite.cs" />
     <Compile Include="Contracts\IEntityConverter.cs" />
     <Compile Include="Contracts\IEntitiesSetBuilder.cs" />
     <Compile Include="Contracts\IEntityElement.cs" />
@@ -85,6 +87,8 @@
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\Composite.cs" />
     <Compile Include="Models\EntitiesSetBuilder.cs" />
+    <Compile Include="Models\EntityComponent.cs" />
+    <Compile Include="Models\EntityComposite.cs" />
     <Compile Include="Models\EntitySet.cs" />
     <Compile Include="Models\EntittiesJig.cs" />
     <Compile Include="Proxy\ApplicationServices\SystemVriableChangedEventHandler.cs" />
@@ -92,6 +96,7 @@
     <Compile Include="Proxy\DatabaseServices\SymbolTable.cs" />
     <Compile Include="Proxy\Runtime\Exception.cs" />
     <Compile Include="Proxy\Runtime\IExtensionApplication.cs" />
+    <Compile Include="Services\EntityPropertytService.cs" />
     <Compile Include="Services\InterfaceSchemeService.cs" />
     <Compile Include="Services\SystemVariableService.cs" />
     <Compile Include="Services\WindowsRegistry.cs" />

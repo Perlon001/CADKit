@@ -16,9 +16,12 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public class MarkPNB01025 : Mark
+    public class MarkPNB01025 : Mark, IEntityComposite
     {
-        public MarkPNB01025(ElevationValueProvider _provider) : base(_provider) { }
+        public MarkPNB01025(ElevationValueProvider _provider) : base("", _provider)
+        {
+            // components.Add()
+        }
 
         protected override IEnumerable<Entity> GetEntities()
         {

@@ -1,15 +1,14 @@
 ﻿using CADKit.Contracts;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace CADKit.Models
 {
-    public class Composite : IComposite
+    public abstract class Composite : IComposite
     {
-        private readonly ICollection<IComponent> components = new List<IComponent>();
+        protected readonly ICollection<IComposite> components = new List<IComposite>();
 
-        public Composite(string _name)
+        protected Composite(string _name)
         {
             Name = _name;
         }
@@ -18,29 +17,25 @@ namespace CADKit.Models
 
         public string Title { get; set; }
 
-        //public string Layer { get; set; }
-        //public string Linetype { get; set; }
-        //public short ColorIndex { get; set; }
+        public IComposite Parent { get; set; }
 
-        public IComponent Parent { get; set; }
-
-        public void AddComponent(IComponent _component)
+        public void AddComponent(IComposite _component)
         {
             _component.Parent = this;
             components.Add(_component);
         }
 
-        public void RemoveComponent(IComponent _component)
+        public void RemoveComponent(IComposite _component)
         {
             components.Remove(_component);
         }
 
-        public ICollection<IComponent> GetComponents()
+        public ICollection<IComposite> GetComponents()
         {
             return components;
         }
 
-        public IComponent GetComponent(string _name)
+        public IComposite GetComponent(string _name)
         {
             return components.First(a => a.Name == _name);
         }

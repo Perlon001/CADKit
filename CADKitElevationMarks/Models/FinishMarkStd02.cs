@@ -19,7 +19,7 @@ namespace CADKitElevationMarks.Models
 {
     public class FinishMarkStd02 : Mark
     {
-        public FinishMarkStd02(ElevationValueProvider _provider) : base(_provider) { }
+        public FinishMarkStd02(ElevationValueProvider _provider) : base("", _provider) { }
 
         protected override IEnumerable<Entity> GetEntities()
         {
@@ -31,9 +31,9 @@ namespace CADKitElevationMarks.Models
             att1.VerticalMode = TextVerticalMode.TextVerticalMid;
             att1.ColorIndex = 7;
             att1.Height = 2;
-            att1.Position = new Point3d(-2, 4, 0);
+            att1.Position = new Point3d(-2, 3.5, 0);
             att1.Justify = AttachmentPoint.MiddleLeft;
-            att1.AlignmentPoint = new Point3d(-2, 4, 0);
+            att1.AlignmentPoint = new Point3d(-2, 3.5, 0);
             att1.Tag = "Value";
             att1.Prompt = "Value";
             att1.TextString = value.ToString();
@@ -41,10 +41,10 @@ namespace CADKitElevationMarks.Models
 
             var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(att1));
             var pl1 = new Polyline();
-            pl1.AddVertexAt(0, new Point2d(2.5, 2.5), 0, 0, 0);
+            pl1.AddVertexAt(0, new Point2d(2.5, 2), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
-            pl1.AddVertexAt(0, new Point2d(-2.5, 2.5), 0, 0, 0);
-            pl1.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X - 1.5, 2.5), 0, 0, 0);
+            pl1.AddVertexAt(0, new Point2d(-2.5, 2), 0, 0, 0);
+            pl1.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X - 1.5, 2), 0, 0, 0);
             en.Add(pl1);
 
             return en;
@@ -73,7 +73,7 @@ namespace CADKitElevationMarks.Models
             };
             return new JigVerticalConstantHorizontalMirrorMark(entities, originPoint, basePoint, conv)
             {
-                VerticalAttributeDisplacement = 8
+                VerticalAttributeDisplacement = 7
             };
         }
     }

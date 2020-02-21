@@ -14,7 +14,7 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public abstract class Mark
+    public abstract class Mark : EntityComposite, IEntityComposite
     {
         private readonly ValueProvider provider;
         protected ElevationValue value;
@@ -23,7 +23,7 @@ namespace CADKitElevationMarks.Models
         protected Point3d originPoint;
         protected Point3d basePoint;
 
-        protected Mark(ValueProvider _provider)
+        protected Mark(string _name, ValueProvider _provider) : base(_name)
         {
             provider = _provider;
             converters = new List<IEntityConverter>();

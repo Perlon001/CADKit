@@ -13,18 +13,23 @@ namespace CADKitElevationMarks.Services
     public class MarkService : IMarkService
     {
         protected readonly IMarkIconService iconService;
-        protected Dictionary<MarkTypes, string> markTypes = new Dictionary<MarkTypes, string>();
+        protected Dictionary<MarkTypes, string> markTitle = new Dictionary<MarkTypes, string>();
+        protected Dictionary<DrawingStandards, string> markStandard = new Dictionary<DrawingStandards, string>();
         protected IList<MarkDTO> markCollection = new List<MarkDTO>();
 
         public MarkService(IMarkIconService _iconService)
         {
             iconService = _iconService;
-            markTypes.Add(MarkTypes.area, "Rzędna obszaru");
-            markTypes.Add(MarkTypes.universal, "Kota wysokościowa");
-            markTypes.Add(MarkTypes.construction, "Kota wysokościowa konstrukcji");
-            markTypes.Add(MarkTypes.finish, "Kota wysokościowa wykończenia");
-            markTypes.Add(MarkTypes.strainedwater, "Napięte zwierciadło wody");
-            markTypes.Add(MarkTypes.water, "Swobodne zwierciadło wody");
+            markTitle.Add(MarkTypes.area, "Rzędna obszaru");
+            markTitle.Add(MarkTypes.universal, "Kota wysokościowa");
+            markTitle.Add(MarkTypes.construction, "Kota wysokościowa konstrukcji");
+            markTitle.Add(MarkTypes.finish, "Kota wysokościowa wykończenia");
+            markTitle.Add(MarkTypes.strainedwater, "Napięte zwierciadło wody");
+            markTitle.Add(MarkTypes.water, "Swobodne zwierciadło wody");
+
+            markStandard.Add(DrawingStandards.PNB01025, "PNB01025");
+            markStandard.Add(DrawingStandards.Std01, "Std01");
+            markStandard.Add(DrawingStandards.Std02, "Std02");
 
             int i = 0;
             markCollection.Add(new MarkDTO()
@@ -92,9 +97,13 @@ namespace CADKitElevationMarks.Services
             });
         }
 
-        public IEnumerable<MarkButtonDTO> GetMarks()
+        public IEnumerable<MarkButtonDTO> GetMarkButtons()
         {
             return markCollection.Select(y => new MarkButtonDTO() { id = y.id, name = GetMarkDescription(y.id), picture = y.picture32 });
+        }
+        public IEnumerable<MarkDTO> GetMarks()
+        {
+            return markCollection;
         }
 
         public MarkButtonDTO GetMarkButton(DrawingStandards _standard, MarkTypes _type)
@@ -110,12 +119,12 @@ namespace CADKitElevationMarks.Services
 
         public string GetMarkDescription(int _markNumber)
         {
-            return markTypes[GetMarkDTO(_markNumber).type];
+            return markTitle[GetMarkDTO(_markNumber).type];
         }
 
         public string GetMarkDescription(DrawingStandards _standard, MarkTypes _type)
         {
-            return markTypes[GetMarkDTO(_standard, _type).type];
+            return markTitle[GetMarkDTO(_standard, _type).type];
         }
 
         public Type GetMarkType(int markNumber)

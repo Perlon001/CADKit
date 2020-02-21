@@ -19,7 +19,7 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneMarkStd01 : Mark
     {
-        public PlaneMarkStd01(PlaneValueProvider _provider) : base(_provider) { }
+        public PlaneMarkStd01(PlaneValueProvider _provider) : base("", _provider) { }
 
         protected override IEnumerable<Entity> GetEntities()
         {

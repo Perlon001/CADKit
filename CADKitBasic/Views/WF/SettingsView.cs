@@ -80,13 +80,13 @@ namespace CADKitBasic.Views.WF
             }
         }
 
-        private TreeNode[] AddNode(ICollection<IComponent> composite)
+        private TreeNode[] AddNode(ICollection<IComposite> composite)
         {
             var com = composite.ToList();
             TreeNode[] nodes = new TreeNode[com.Count];
             for(int i = 0; i < nodes.Length; i++)
             {
-                nodes[i] = new TreeNode(com[i].Title,AddNode(((Composite)com[i]).GetComponents()));
+                nodes[i] = new TreeNode(com[i].Title,AddNode(com[i].GetComponents()));
             }
 
             return nodes;

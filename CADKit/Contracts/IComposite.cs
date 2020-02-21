@@ -8,9 +8,9 @@ namespace CADKit.Contracts
 {
     public interface IComposite : IComponent
     {
-        void AddComponent(IComponent component);
-        void RemoveComponent(IComponent component);
-        ICollection<IComponent> GetComponents();
-        IComponent GetComponent(string name);
+        void AddComponent(IComposite component);
+        void RemoveComponent(IComposite component);
+        ICollection<IComposite> GetComponents();
+        IComposite GetComponent(string name);
     }
 }
