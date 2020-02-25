@@ -1,6 +1,4 @@
-﻿using CADKit.Contracts;
-using System;
-using System.Drawing;
+﻿using System;
 using System.Windows.Forms;
 
 namespace CADKit.UI.WF

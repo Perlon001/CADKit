@@ -91,7 +91,7 @@
             this.btnOptions.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnOptions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOptions.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnOptions.Image = global::CADKitElevationMarks.Properties.Resources.mark05_32_dark;
+            this.btnOptions.Image = global::CADKitElevationMarks.Properties.Resources.options;
             this.btnOptions.Location = new System.Drawing.Point(129, 3);
             this.btnOptions.Name = "btnOptions";
             this.btnOptions.Size = new System.Drawing.Size(33, 33);

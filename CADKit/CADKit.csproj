@@ -153,4 +153,7 @@
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(SolutionDir)CADKit\bin\$(ConfigurationName)\CADKitZwCAD.dll $(SolutionDir)CADKitElevationMarks\bin\$(ConfigurationName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

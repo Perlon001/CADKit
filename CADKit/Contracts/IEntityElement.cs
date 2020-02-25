@@ -16,6 +16,5 @@ namespace CADKit.Contracts
 {
     public interface IEntityElement : IEntityComponent
     {
-        Entity Entity { get; set; }
     }
 }
