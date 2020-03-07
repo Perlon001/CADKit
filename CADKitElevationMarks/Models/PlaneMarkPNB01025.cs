@@ -20,11 +20,29 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneMarkPNB01025 : Mark
     {
-        public PlaneMarkPNB01025(PlaneValueProvider _provider) : base("", _provider)
+        public PlaneMarkPNB01025(PlaneValueProvider _provider) : base("", _provider) { }
+
+        public override void SetAttributeValue(BlockReference blockReference)
         {
+            using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
+            {
+                var attDef = blockTableRecord.GetAttribDefinition("Value");
+                if (!attDef.Constant)
+                {
+                    var attRef = new AttributeReference();
+                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
+                    attRef.TextString = value.Sign + value.Value;
+                    blockReference.AttributeCollection.AppendAttribute(attRef);
+                }
+            }
         }
 
-        protected override IEnumerable<Entity> GetEntities()
+        protected override void BuildComponents()
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void SetComponentsEntity()
         {
             var en = new List<Entity>();
 
@@ -52,23 +70,6 @@ namespace CADKitElevationMarks.Models
             var textArea = CADProxy.GetTextArea(CADProxy.ToDBText(att1));
             var l3 = new Line(new Point3d(0, 0, 0), new Point3d(textArea[1].X - textArea[0].X + 2, 0, 0));
             en.Add(l3);
-
-            return en;
-        }
-
-        public override void SetAttributeValue(BlockReference blockReference)
-        {
-            using (var blockTableRecord = blockReference.BlockTableRecord.GetObject(OpenMode.ForRead) as BlockTableRecord)
-            {
-                var attDef = blockTableRecord.GetAttribDefinition("Value");
-                if (!attDef.Constant)
-                {
-                    var attRef = new AttributeReference();
-                    attRef.SetAttributeFromBlock(attDef, blockReference.BlockTransform);
-                    attRef.TextString = value.Sign + value.Value;
-                    blockReference.AttributeCollection.AppendAttribute(attRef);
-                }
-            }
         }
 
         protected override JigMark GetJig()
@@ -77,7 +78,7 @@ namespace CADKitElevationMarks.Models
             {
                 new AttributeToDBTextConverter()
             };
-            return new JigMark(entities, originPoint, basePoint, conv);
+            return new JigMark(Entities, originPoint, basePoint, conv);
         }
     }
 }

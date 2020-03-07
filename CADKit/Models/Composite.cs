@@ -6,7 +6,7 @@ namespace CADKit.Models
 {
     public abstract class Composite : IComposite
     {
-        protected readonly ICollection<IComposite> components = new List<IComposite>();
+        protected readonly ICollection<IComponent> components = new List<IComponent>();
 
         protected Composite(string _name)
         {
@@ -19,23 +19,23 @@ namespace CADKit.Models
 
         public IComposite Parent { get; set; }
 
-        public void AddComponent(IComposite _component)
+        public void AddComponent(IComponent _component)
         {
             _component.Parent = this;
             components.Add(_component);
         }
 
-        public void RemoveComponent(IComposite _component)
+        public void RemoveComponent(IComponent _component)
         {
             components.Remove(_component);
         }
 
-        public ICollection<IComposite> GetComponents()
+        public ICollection<IComponent> GetComponents()
         {
             return components;
         }
 
-        public IComposite GetComponent(string _name)
+        public IComponent GetComponent(string _name)
         {
             return components.First(a => a.Name == _name);
         }

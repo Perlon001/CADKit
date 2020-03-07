@@ -14,15 +14,15 @@ namespace CADKitElevationMarks
         {
             AppSettings.Get.CADKitPalette.Add("Koty wysokościowe", DI.Container.Resolve<IElevationMarksView>() as Control);
             AppSettings.Get.CADKitPalette.Visible = true;
-            using(var scope = DI.Container.BeginLifetimeScope())
-            {
-                var markService = scope.Resolve<IMarkService>();
-                foreach(var item in markService.GetMarks())
-                {
-                    var typ = item.markType;
-                    //AppSettings.Get.PropertyService.AddComponent(;
-                }
-            }
+            //using(var scope = DI.Container.BeginLifetimeScope())
+            //{
+            //    var markService = scope.Resolve<IMarkService>();
+            //    foreach(var item in markService.GetMarks())
+            //    {
+            //        var typ = item.markType;
+            //        //AppSettings.Get.PropertyService.AddComponent(;
+            //    }
+            //}
         }
     }
 }

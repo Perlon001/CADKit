@@ -1,23 +1,28 @@
 ﻿using CADKit.Contracts;
+using CADKit.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZwSoft.ZwCAD.DatabaseServices;
 
-namespace CADKit.Models
+#if ZwCAD
+using ZwSoft.ZwCAD.DatabaseServices;
+#endif
+
+#if AutoCAD
+using Autodesk.AutoCAD.DatabaseServices;
+#endif
+
+namespace CADKitElevationMarks.Models
 {
-    public class EntityComponent : Component, IEntityComponent
+    public class MarkComponent : Composite, IComponent
     {
-        public EntityComponent(string _name, Entity _entity) : base(_name)
+        public MarkComponent(string _name) : base(_name)
         {
             Properties = new Dictionary<string, object>();
-            Entity = _entity;
         }
-
+        public Entity Entity { get; set; }
         public Dictionary<string,object> Properties { get; private set; }
-
-        public Entity Entity { get; private set; }
     }
 }

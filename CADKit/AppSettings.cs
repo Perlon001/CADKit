@@ -71,10 +71,8 @@ namespace CADKit
                         Visible = true,
                         Dock = DockSides.Left,
                         KeepFocus = true,
-
-                        // TODO: Set minimum size of palette not work :(
-                        MinimumSize = new Size(450, 460)
                     };
+                    
                 }
                 return palette;
             }

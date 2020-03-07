@@ -80,22 +80,22 @@ namespace CADKitBasic.Views.WF
             }
         }
 
-        private TreeNode[] AddNode(ICollection<IComposite> composite)
+        private TreeNode[] AddNode(ICollection<IComponent> composite)
         {
             var com = composite.ToList();
             TreeNode[] nodes = new TreeNode[com.Count];
             for(int i = 0; i < nodes.Length; i++)
             {
-                nodes[i] = new TreeNode(com[i].Title,AddNode(com[i].GetComponents()));
+                nodes[i] = com[i].IsComposite 
+                    ? new TreeNode(com[i].Title, AddNode((com[i] as IComposite).GetComponents())) 
+                    : new TreeNode(com[i].Title);
             }
 
             return nodes;
         }
 
-        public override void RegisterHandlers()
+        public void RegisterHandlers()
         {
-            base.RegisterHandlers();
-
             cmbDrawUnit.SelectedIndexChanged -= Presenter.OnDrawUnitSelect;
             cmbDrawUnit.SelectedIndexChanged += Presenter.OnDrawUnitSelect;
             cmbDimUnit.SelectedIndexChanged -= Presenter.OnDimUnitSelect;

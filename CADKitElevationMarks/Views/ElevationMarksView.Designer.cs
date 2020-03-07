@@ -36,8 +36,12 @@
             this.gbxOutputFormat = new System.Windows.Forms.GroupBox();
             this.btnOptions = new System.Windows.Forms.Button();
             this.flpMarks = new System.Windows.Forms.FlowLayoutPanel();
+            this.pnlProperties = new System.Windows.Forms.Panel();
+            this.treeComponents = new System.Windows.Forms.TreeView();
+            this.cmbMarkType = new System.Windows.Forms.ComboBox();
             this.flowLayoutPanel1.SuspendLayout();
             this.gbxOutputFormat.SuspendLayout();
+            this.pnlProperties.SuspendLayout();
             this.SuspendLayout();
             // 
             // rbxGroup
@@ -72,7 +76,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(420, 40);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(423, 40);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // gbxOutputFormat
@@ -100,26 +104,61 @@
             // 
             // flpMarks
             // 
-            this.flpMarks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.flpMarks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flpMarks.Location = new System.Drawing.Point(0, 40);
+            this.flpMarks.Name = "flpMarks";
+            this.flpMarks.Size = new System.Drawing.Size(423, 443);
+            this.flpMarks.TabIndex = 3;
+            // 
+            // pnlProperties
+            // 
+            this.pnlProperties.AutoScroll = true;
+            this.pnlProperties.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.pnlProperties.Controls.Add(this.treeComponents);
+            this.pnlProperties.Controls.Add(this.cmbMarkType);
+            this.pnlProperties.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlProperties.Location = new System.Drawing.Point(0, 245);
+            this.pnlProperties.Name = "pnlProperties";
+            this.pnlProperties.Size = new System.Drawing.Size(423, 238);
+            this.pnlProperties.TabIndex = 4;
+            // 
+            // treeComponents
+            // 
+            this.treeComponents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.flpMarks.Location = new System.Drawing.Point(3, 46);
-            this.flpMarks.Name = "flpMarks";
-            this.flpMarks.Size = new System.Drawing.Size(414, 489);
-            this.flpMarks.TabIndex = 3;
+            this.treeComponents.Location = new System.Drawing.Point(0, 30);
+            this.treeComponents.Name = "treeComponents";
+            this.treeComponents.Size = new System.Drawing.Size(423, 205);
+            this.treeComponents.TabIndex = 3;
+            // 
+            // cmbMarkType
+            // 
+            this.cmbMarkType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbMarkType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMarkType.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cmbMarkType.FormattingEnabled = true;
+            this.cmbMarkType.Location = new System.Drawing.Point(3, 3);
+            this.cmbMarkType.Name = "cmbMarkType";
+            this.cmbMarkType.Size = new System.Drawing.Size(417, 21);
+            this.cmbMarkType.TabIndex = 2;
             // 
             // ElevationMarksView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.Controls.Add(this.pnlProperties);
             this.Controls.Add(this.flpMarks);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "ElevationMarksView";
-            this.Size = new System.Drawing.Size(420, 538);
+            this.Size = new System.Drawing.Size(423, 483);
+            this.Resize += new System.EventHandler(this.ViewResize);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.gbxOutputFormat.ResumeLayout(false);
             this.gbxOutputFormat.PerformLayout();
+            this.pnlProperties.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -132,5 +171,8 @@
         private System.Windows.Forms.GroupBox gbxOutputFormat;
         private System.Windows.Forms.Button btnOptions;
         private System.Windows.Forms.FlowLayoutPanel flpMarks;
+        private System.Windows.Forms.Panel pnlProperties;
+        private System.Windows.Forms.ComboBox cmbMarkType;
+        private System.Windows.Forms.TreeView treeComponents;
     }
 }

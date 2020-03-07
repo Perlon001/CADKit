@@ -5,39 +5,36 @@ namespace CADKit.UI.WF
 {
     public partial class BaseViewWF : UserControl
     {
-        public BaseViewWF()
+        public BaseViewWF() : base()
         {
             InitializeComponent();
         }
-        public virtual void RegisterHandlers()
-        {
-        }
 
-        public void ShowInfo(string content, string caption = "Informacja")
-        {
-            MessageBox.Show(content, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+        //public void ShowInfo(string content, string caption = "Informacja")
+        //{
+        //    MessageBox.Show(content, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //}
 
-        public void ShowError(string content, string caption = "Błąd")
-        {
-            MessageBox.Show(content, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        //public void ShowError(string content, string caption = "Błąd")
+        //{
+        //    MessageBox.Show(content, caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //}
 
-        public void ShowException(Exception ex, string caption = "Wyjątek")
-        {
-            MessageBox.Show(ex.Message, caption, MessageBoxButtons.OK, MessageBoxIcon.Question);
-        }
+        //public void ShowException(Exception ex, string caption = "Wyjątek")
+        //{
+        //    MessageBox.Show(ex.Message, caption, MessageBoxButtons.OK, MessageBoxIcon.Question);
+        //}
 
-        public bool ShowYesNoQuestion(string content, string caption = "Pytanie")
-        {
-            bool result = false;
-            DialogResult dialogResult = MessageBox.Show(content, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
-            {
-                result = true;
-            }
+        //public bool ShowYesNoQuestion(string content, string caption = "Pytanie")
+        //{
+        //    bool result = false;
+        //    DialogResult dialogResult = MessageBox.Show(content, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+        //    if (dialogResult == DialogResult.Yes)
+        //    {
+        //        result = true;
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }

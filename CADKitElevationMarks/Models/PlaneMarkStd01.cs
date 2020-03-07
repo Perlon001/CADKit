@@ -21,7 +21,7 @@ namespace CADKitElevationMarks.Models
     {
         public PlaneMarkStd01(PlaneValueProvider _provider) : base("", _provider) { }
 
-        protected override IEnumerable<Entity> GetEntities()
+        protected override void SetComponentsEntity()
         {
             var en = new List<Entity>();
             
@@ -50,8 +50,6 @@ namespace CADKitElevationMarks.Models
             en.Add(c1);
 
             AddHatching(en);
-
-            return en;
         }
 
         public override void SetAttributeValue(BlockReference blockReference)
@@ -106,7 +104,12 @@ namespace CADKitElevationMarks.Models
             {
                 new AttributeToDBTextConverter()
             };
-            return new JigMark(entities, originPoint, basePoint, conv);
+            return new JigMark(Entities, originPoint, basePoint, conv);
+        }
+
+        protected override void BuildComponents()
+        {
+            throw new NotImplementedException();
         }
     }
 }

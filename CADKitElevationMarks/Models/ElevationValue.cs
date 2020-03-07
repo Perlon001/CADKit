@@ -31,6 +31,7 @@ namespace CADKitElevationMarks.Models
 
         public ElevationValue Parse(CultureInfo _culture)
         {
+            //TODO: CHeck CultureInfo and run specifi parser decimal point , or .
             try
             {
                 double numericValue = Double.Parse(Value.Replace(".", ","), NumberStyles.Number, _culture);

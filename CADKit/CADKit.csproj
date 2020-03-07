@@ -89,6 +89,7 @@
     <Compile Include="Models\EntitiesSetBuilder.cs" />
     <Compile Include="Models\EntityComponent.cs" />
     <Compile Include="Models\EntityComposite.cs" />
+    <Compile Include="Models\EntityProperty.cs" />
     <Compile Include="Models\EntitySet.cs" />
     <Compile Include="Models\EntittiesJig.cs" />
     <Compile Include="Proxy\ApplicationServices\SystemVriableChangedEventHandler.cs" />

@@ -1,6 +1,7 @@
 ﻿using CADKit.Contracts;
 using CADKitElevationMarks.Events;
 using CADKitElevationMarks.Models;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace CADKitElevationMarks.Contracts.Presenters
@@ -10,5 +11,8 @@ namespace CADKitElevationMarks.Contracts.Presenters
         void CreateMark(object sender, BeginMarkCreateEventArgs e);
         Bitmap GetOptionIcon();
         void FillButtons();
+        void FillProperties();
+
+        void FillComponents(int id);
     }
 }

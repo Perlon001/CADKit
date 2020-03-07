@@ -11,10 +11,6 @@ namespace CADKitElevationMarks.Contract.Services
         MarkButtonDTO GetMarkButton(DrawingStandards standard, MarkTypes type);
         MarkDTO GetMark(int _markNumber);
         IEnumerable<MarkDTO> GetMarks();
-        //string GetMarkName(int markNumber);
-        //string GetMarkDescription(int markNumber);
-        //string GetMarkDescription(DrawingStandards standard, MarkTypes type);
-        //Type GetMarkType(int markNumber);
-        //Type GetJigType(int markNumber);
+
     }
 }

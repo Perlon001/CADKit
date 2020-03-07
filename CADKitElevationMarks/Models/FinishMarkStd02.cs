@@ -21,7 +21,7 @@ namespace CADKitElevationMarks.Models
     {
         public FinishMarkStd02(ElevationValueProvider _provider) : base("", _provider) { }
 
-        protected override IEnumerable<Entity> GetEntities()
+        protected override void SetComponentsEntity()
         {
             var en = new List<Entity>();
             var att1 = new AttributeDefinition();
@@ -46,8 +46,6 @@ namespace CADKitElevationMarks.Models
             pl1.AddVertexAt(0, new Point2d(-2.5, 2), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X - 1.5, 2), 0, 0, 0);
             en.Add(pl1);
-
-            return en;
         }
 
         public override void SetAttributeValue(BlockReference blockReference)
@@ -71,10 +69,15 @@ namespace CADKitElevationMarks.Models
             {
                 new AttributeToDBTextConverter()
             };
-            return new JigVerticalConstantHorizontalMirrorMark(entities, originPoint, basePoint, conv)
+            return new JigVerticalConstantHorizontalMirrorMark(Entities, originPoint, basePoint, conv)
             {
                 VerticalAttributeDisplacement = 7
             };
+        }
+
+        protected override void BuildComponents()
+        {
+            throw new NotImplementedException();
         }
     }
 }

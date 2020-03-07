@@ -25,19 +25,28 @@ namespace CADKit.UI
 
         public CADKitPaletteSet(string name)
         {
-            paletteSet = new PaletteSet(name);
+            paletteSet = new PaletteSet(name)
+            {
+                MinimumSize = new Size(100, 100)
+            };
             AppSettings.Get.ChangeInterfaceScheme += OnChangeInterfaceScheme;
         }
 
         public CADKitPaletteSet(string name, Guid toolID)
         {
-            paletteSet = new PaletteSet(name, toolID);
+            paletteSet = new PaletteSet(name, toolID)
+            {
+                MinimumSize = new Size(100, 100)
+            };
             AppSettings.Get.ChangeInterfaceScheme += OnChangeInterfaceScheme;
         }
 
         public CADKitPaletteSet(string name, string cmd, Guid toolID)
         {
-            paletteSet = new PaletteSet(name, cmd, toolID);
+            paletteSet = new PaletteSet(name, cmd, toolID)
+            {
+                MinimumSize = new Size(100, 100)
+            };
             AppSettings.Get.ChangeInterfaceScheme += OnChangeInterfaceScheme;
         }
 

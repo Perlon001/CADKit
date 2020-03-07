@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CADKit.Extensions;
+using CADKit.Models;
 using CADKit.Proxy;
 
 #if ZwCAD
@@ -19,15 +21,13 @@ namespace CADKitElevationMarks.Models
     {
         public ConstructionMarkStd01(ElevationValueProvider _provider) : base(_provider) { }
 
-        protected override IEnumerable<Entity> GetEntities()
+        protected override void SetComponentsEntity()
         {
-            var en = base.GetEntities().ToList();
-            AddHatchingArrow(en);
-
-            return en;
+            base.SetComponentsEntity();
+            AddHatchingArrow();
         }
 
-        private void AddHatchingArrow(IList<Entity> entityList)
+        private void AddHatchingArrow()
         {
             var hatch = new Hatch();
             using (var tr = CADProxy.Database.TransactionManager.StartTransaction())
@@ -53,7 +53,14 @@ namespace CADKitElevationMarks.Models
                 hatch.EvaluateHatch(true);
                 bd.Erase();
             }
-            entityList.Add(hatch);
+
+            var component = new MarkComponent("Wypełnienie")
+            {
+                Title = "Wypełnienie grota",
+            };
+            component.Properties.Add("Layer", "0");
+            component.Properties.Add("Color", "BYLAYER");
+            Components.Add(component);
         }
     }
 }

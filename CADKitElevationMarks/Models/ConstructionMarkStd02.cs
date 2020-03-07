@@ -18,15 +18,14 @@ namespace CADKitElevationMarks.Models
     public class ConstructionMarkStd02 : FinishMarkStd02
     {
         public ConstructionMarkStd02(ElevationValueProvider _provider) : base(_provider) { }
-        protected override IEnumerable<Entity> GetEntities()
-        {
-            var en = base.GetEntities().ToList();
-            AddHatchingArrow(en);
 
-            return en;
+        protected override void SetComponentsEntity()
+        {
+            base.SetComponentsEntity();
+            AddHatchingArrow();
         }
 
-        private void AddHatchingArrow(IList<Entity> entityList)
+        private void AddHatchingArrow()
         {
             var hatch = new Hatch();
             using (var tr = CADProxy.Database.TransactionManager.StartTransaction())
@@ -52,7 +51,6 @@ namespace CADKitElevationMarks.Models
                 hatch.EvaluateHatch(true);
                 bd.Erase();
             }
-            entityList.Add(hatch);
         }
     }
 }

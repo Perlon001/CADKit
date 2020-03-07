@@ -101,6 +101,7 @@ namespace CADKitElevationMarks.Services
         {
             return markCollection.Select(y => new MarkButtonDTO() { id = y.id, name = GetMarkDescription(y.id), picture = y.picture32 });
         }
+        
         public IEnumerable<MarkDTO> GetMarks()
         {
             return markCollection;
@@ -119,7 +120,7 @@ namespace CADKitElevationMarks.Services
 
         public string GetMarkDescription(int _markNumber)
         {
-            return markTitle[GetMarkDTO(_markNumber).type];
+            return markStandard[GetMarkDTO(_markNumber).standard] + " - " + markTitle[GetMarkDTO(_markNumber).type];
         }
 
         public string GetMarkDescription(DrawingStandards _standard, MarkTypes _type)

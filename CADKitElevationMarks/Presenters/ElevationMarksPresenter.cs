@@ -1,11 +1,9 @@
 ﻿using Autofac;
 using CADKit;
 using CADKit.Contracts;
-using CADKit.Models;
 using CADKit.Proxy;
 using CADKit.Services;
 using CADKit.UI;
-using CADKit.Utils;
 using CADKitElevationMarks.Contract.Services;
 using CADKitElevationMarks.Contracts.Presenters;
 using CADKitElevationMarks.Contracts.Views;
@@ -14,6 +12,8 @@ using System.Drawing;
 using CADKit.Internal;
 using System;
 using CADKitElevationMarks.Models;
+using System.Collections.Generic;
+using CADKitElevationMarks.DTO;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.ApplicationServices;
@@ -29,7 +29,7 @@ namespace CADKitElevationMarks.Presenters
     {
         private readonly IMarkService markService;
         private bool isMarkCreateRunning = false;
-        private int markID;
+        //private int markID;
 
         public ElevationMarksPresenter(IElevationMarksView _view, IMarkService _markService)
         {
@@ -40,18 +40,19 @@ namespace CADKitElevationMarks.Presenters
 
         public void CreateMark(object sender, BeginMarkCreateEventArgs args)
         {
-            markID = args.ID;
+            //markID = args.ID;
             var cmdActive = Convert.ToInt32(CADProxy.GetSystemVariable("CMDACTIVE"));
             if (cmdActive > 0)
             {
                 isMarkCreateRunning = true;
                 CADProxy.Document.CommandCancelled += CommandCancelled;
                 CADProxy.CancelRunningCommand();
+                CreateMark(args.ID);
             }
             else
             {
                 CADProxy.MainWindow.Focus();
-                CreateMark();
+                CreateMark(args.ID);
             }
         }
 
@@ -81,6 +82,20 @@ namespace CADKitElevationMarks.Presenters
             }
         }
 
+        public void FillProperties(int id)
+        {
+            using (var scope = DI.Container.BeginLifetimeScope())
+            {
+                var markDTO = markService.GetMark(id);
+                if (scope.IsRegistered(markDTO.markType))
+                {
+                    var markInstance = scope.Resolve(markDTO.markType) as IEntityComposite;
+                    IEnumerable<MarkComponentPropertyDTO> result = new List<MarkComponentPropertyDTO>();
+                    var components = markInstance.GetComponents();
+                }
+            }
+        }
+
         private void CommandCancelled(object sender, CommandEventArgs e)
         {
             if (isMarkCreateRunning)
@@ -88,22 +103,22 @@ namespace CADKitElevationMarks.Presenters
                 isMarkCreateRunning = false;
                 CADProxy.Document.CommandCancelled -= CommandCancelled;
                 CADProxy.MainWindow.Focus();
-                CreateMark();
+
             }
         }
 
-        private void CreateMark()
+        private void CreateMark(int id)
         {
             using (CADProxy.Document.LockDocument())
             {
                 using (var scope = DI.Container.BeginLifetimeScope())
                 {
-                    var markDTO = markService.GetMark(markID);
+                    var markDTO = markService.GetMark(id);
                     if (scope.IsRegistered(markDTO.markType))
                     {
-                        var mark = scope.Resolve(markDTO.markType) as Mark;
                         try
                         {
+                            var mark = scope.Resolve(markDTO.markType) as Mark;
                             mark.Build();
                             var entitiesSet = mark.GetEntitiesSet();
                             switch (View.SetType)
@@ -125,6 +140,24 @@ namespace CADKitElevationMarks.Presenters
                     {
                         throw new Exception("Brak definicji wybranej koty wysokościowej.");
                     }
+                }
+            }
+        }
+
+        public void FillProperties()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void FillComponents(int id)
+        {
+            using (var scope = DI.Container.BeginLifetimeScope())
+            {
+                var markDTO = markService.GetMark(id);
+                if (scope.IsRegistered(markDTO.markType))
+                {
+                    var mark = scope.Resolve(markDTO.markType) as Mark;
+                    View.BindComponents(mark.GetComponents());
                 }
             }
         }

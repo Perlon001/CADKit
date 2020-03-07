@@ -1,17 +1,15 @@
 ﻿using CADKit.Contracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ZwSoft.ZwCAD.DatabaseServices;
 
 namespace CADKit.Models
 {
     public abstract class EntityComposite : Composite, IEntityComposite
     {
+        protected new readonly ICollection<IComponent> components = new List<IComponent>();
         protected EntityComposite(string _name) : base(_name)
         {
+            Properties = new Dictionary<string, object>();
         }
 
         public Dictionary<string, object> Properties { get; protected set; }

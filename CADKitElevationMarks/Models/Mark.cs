@@ -1,6 +1,7 @@
 ﻿using CADKit.Contracts;
 using CADKit.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 #if ZwCAD
 using ZwSoft.ZwCAD.DatabaseServices;
@@ -14,25 +15,46 @@ using Autodesk.AutoCAD.Geometry;
 
 namespace CADKitElevationMarks.Models
 {
-    public abstract class Mark : EntityComposite, IEntityComposite
+    public abstract class Mark : EntityComposite
     {
         private readonly ValueProvider provider;
+        private JigMark jig;
+
         protected ElevationValue value;
         protected ICollection<IEntityConverter> converters;
-        protected IEnumerable<Entity> entities;
         protected Point3d originPoint;
         protected Point3d basePoint;
+
+        public ICollection<IComponent> Components { get; private set; }
+
+        protected IEnumerable<Entity> Entities
+        {
+            get
+            {
+                return Components
+                    .Where(x => (x as MarkComponent).Entity != null)
+                    .Select(m => (m as MarkComponent).Entity);
+            }
+        }
+
 
         protected Mark(string _name, ValueProvider _provider) : base(_name)
         {
             provider = _provider;
             converters = new List<IEntityConverter>();
+            Properties.Add("Layer", "0");
+            Properties.Add("Linetype", "BYLAYER");
+            Properties.Add("Color", "BYBLOCK");
+            Components = new List<IComponent>();
+            BuildComponents();
         }
 
         public string Index { get; protected set; }
 
-        protected abstract IEnumerable<Entity> GetEntities();
+        protected abstract void SetComponentsEntity();
+        protected abstract void BuildComponents();
         protected abstract JigMark GetJig();
+
         public abstract void SetAttributeValue(BlockReference blockReference);
 
         public Mark AddConverter(IEntityConverter _converter)
@@ -40,6 +62,7 @@ namespace CADKitElevationMarks.Models
             converters.Add(_converter);
             return this;
         }
+
         public void Build()
         {
             provider.Init();
@@ -47,14 +70,15 @@ namespace CADKitElevationMarks.Models
             basePoint = provider.BasePoint;
             originPoint = default;
             Index = default;
-            entities = GetEntities();
+            SetComponentsEntity();
+            jig = GetJig();
         }
 
         public MarkEntitiesSet GetEntitiesSet()
         {
-            return new EntitiesSetBuilder<MarkEntitiesSet>(entities)
+            return new EntitiesSetBuilder<MarkEntitiesSet>(Entities)
                 .SetBasePoint(basePoint)
-                .SetJig(GetJig())
+                .SetJig(jig)
                 .Build();
         }
     }
