@@ -1,5 +1,4 @@
 ﻿using CADKit.Contracts;
-using CADKit.Models;
 using CADKitBasic.Contracts.Presenters;
 using CADKitBasic.Views.DTO;
 using System.Collections.Generic;
@@ -16,5 +15,6 @@ namespace CADKitBasic.Contracts
         void BindingDrawingUnits(IList<KeyValuePair<string, Units>> units);
         void BindingDimensionUnits(IList<KeyValuePair<string, Units>> units);
         void BindingScale(IList<ScaleDTO> scales);
+        void BindingComponents(string groupName, ICollection<IComponent> components);
     }
 }

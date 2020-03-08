@@ -90,6 +90,11 @@ namespace CADKit.UI
             set { paletteSet.Visible = value; }
         }
 
+        public Control GetPage(string _name)
+        {
+            return Collection[_name];
+        }
+
         public CADWindows.Palette Add(string name, Control control)
         {
             Collection.Add(name, control);

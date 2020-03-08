@@ -20,7 +20,10 @@ namespace CADKitElevationMarks.Models
 {
     public class PlaneMarkPNB01025 : Mark
     {
-        public PlaneMarkPNB01025(PlaneValueProvider _provider) : base("", _provider) { }
+        public PlaneMarkPNB01025(PlaneValueProvider _provider) : base("", _provider)
+        {
+            Title = "Kota wysokościowa obszaru wg PNB01025";
+        }
 
         public override void SetAttributeValue(BlockReference blockReference)
         {
@@ -39,7 +42,6 @@ namespace CADKitElevationMarks.Models
 
         protected override void BuildComponents()
         {
-            throw new NotImplementedException();
         }
 
         protected override void SetComponentsEntity()

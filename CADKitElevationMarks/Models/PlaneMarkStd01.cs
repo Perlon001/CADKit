@@ -109,7 +109,6 @@ namespace CADKitElevationMarks.Models
 
         protected override void BuildComponents()
         {
-            throw new NotImplementedException();
         }
     }
 }

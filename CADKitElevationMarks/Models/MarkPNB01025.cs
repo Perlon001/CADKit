@@ -22,7 +22,10 @@ namespace CADKitElevationMarks.Models
 {
     public class MarkPNB01025 : Mark, IEntityComposite
     {
-        public MarkPNB01025(ElevationValueProvider _provider) : base("", _provider) { }
+        public MarkPNB01025(ElevationValueProvider _provider) : base("", _provider)
+        {
+            Title = "Kota wysokościowa w przekroju wg PNB01025";
+        }
 
         public override void SetAttributeValue(BlockReference blockReference)
         {

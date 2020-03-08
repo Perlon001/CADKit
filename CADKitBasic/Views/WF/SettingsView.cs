@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace CADKitBasic.Views.WF
 {
-    public partial class SettingsView : BaseViewWF, ISettingsView
+    public partial class SettingsView : UserControl, ISettingsView
     {
         public ISettingsPresenter Presenter { get; set; }
 
@@ -78,6 +78,12 @@ namespace CADKitBasic.Views.WF
             {
                 cmbScale.BackColor = SystemColors.Window;
             }
+        }
+
+        public void BindingComponents(string _groupName, ICollection<IComponent> _components)
+        {
+            trvComposites.Nodes.Add(new TreeNode(_groupName, AddNode(_components)));
+            trvComposites.ExpandAll();
         }
 
         private TreeNode[] AddNode(ICollection<IComponent> composite)

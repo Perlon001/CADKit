@@ -76,7 +76,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(423, 40);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(339, 40);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // gbxOutputFormat
@@ -107,7 +107,7 @@
             this.flpMarks.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpMarks.Location = new System.Drawing.Point(0, 40);
             this.flpMarks.Name = "flpMarks";
-            this.flpMarks.Size = new System.Drawing.Size(423, 443);
+            this.flpMarks.Size = new System.Drawing.Size(339, 433);
             this.flpMarks.TabIndex = 3;
             // 
             // pnlProperties
@@ -117,9 +117,9 @@
             this.pnlProperties.Controls.Add(this.treeComponents);
             this.pnlProperties.Controls.Add(this.cmbMarkType);
             this.pnlProperties.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlProperties.Location = new System.Drawing.Point(0, 245);
+            this.pnlProperties.Location = new System.Drawing.Point(0, 235);
             this.pnlProperties.Name = "pnlProperties";
-            this.pnlProperties.Size = new System.Drawing.Size(423, 238);
+            this.pnlProperties.Size = new System.Drawing.Size(339, 238);
             this.pnlProperties.TabIndex = 4;
             // 
             // treeComponents
@@ -129,7 +129,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.treeComponents.Location = new System.Drawing.Point(0, 30);
             this.treeComponents.Name = "treeComponents";
-            this.treeComponents.Size = new System.Drawing.Size(423, 205);
+            this.treeComponents.Size = new System.Drawing.Size(339, 73);
             this.treeComponents.TabIndex = 3;
             // 
             // cmbMarkType
@@ -141,7 +141,7 @@
             this.cmbMarkType.FormattingEnabled = true;
             this.cmbMarkType.Location = new System.Drawing.Point(3, 3);
             this.cmbMarkType.Name = "cmbMarkType";
-            this.cmbMarkType.Size = new System.Drawing.Size(417, 21);
+            this.cmbMarkType.Size = new System.Drawing.Size(333, 21);
             this.cmbMarkType.TabIndex = 2;
             // 
             // ElevationMarksView
@@ -153,7 +153,7 @@
             this.Controls.Add(this.flpMarks);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "ElevationMarksView";
-            this.Size = new System.Drawing.Size(423, 483);
+            this.Size = new System.Drawing.Size(339, 473);
             this.Resize += new System.EventHandler(this.ViewResize);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.gbxOutputFormat.ResumeLayout(false);

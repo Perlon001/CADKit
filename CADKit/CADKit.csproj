@@ -136,6 +136,12 @@
     <Compile Include="UI\WF\BaseViewWF.Designer.cs">
       <DependentUpon>BaseViewWF.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\WF\ListComponents.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\WF\ListComponents.Designer.cs">
+      <DependentUpon>ListComponents.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\WF\WFHelpers.cs" />
     <Compile Include="UI\WPF\BaseViewWPF.xaml.cs">
       <DependentUpon>BaseViewWPF.xaml</DependentUpon>
@@ -146,7 +152,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="UI\WF\ListComponents.resx">
+      <DependentUpon>ListComponents.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <ItemGroup>
     <Page Include="UI\WPF\BaseViewWPF.xaml">
       <SubType>Designer</SubType>

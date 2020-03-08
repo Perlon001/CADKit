@@ -35,7 +35,16 @@
             this.cmbDrawUnit = new System.Windows.Forms.ComboBox();
             this.lblDrawUnit = new System.Windows.Forms.Label();
             this.gbxScale = new System.Windows.Forms.GroupBox();
+            this.tabCompositesSettings = new System.Windows.Forms.TabControl();
+            this.tabComposites = new System.Windows.Forms.TabPage();
+            this.dgvProperties = new System.Windows.Forms.DataGridView();
+            this.trvComposites = new System.Windows.Forms.TreeView();
+            this.PropertyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PropertyValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbxScale.SuspendLayout();
+            this.tabCompositesSettings.SuspendLayout();
+            this.tabComposites.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbScale
@@ -113,20 +122,89 @@
             this.gbxScale.ForeColor = System.Drawing.SystemColors.MenuBar;
             this.gbxScale.Location = new System.Drawing.Point(0, 0);
             this.gbxScale.Name = "gbxScale";
-            this.gbxScale.Size = new System.Drawing.Size(209, 66);
+            this.gbxScale.Size = new System.Drawing.Size(398, 66);
             this.gbxScale.TabIndex = 1;
             this.gbxScale.TabStop = false;
             this.gbxScale.Text = "Jednostki";
             // 
+            // tabCompositesSettings
+            // 
+            this.tabCompositesSettings.Alignment = System.Windows.Forms.TabAlignment.Left;
+            this.tabCompositesSettings.AllowDrop = true;
+            this.tabCompositesSettings.Controls.Add(this.tabComposites);
+            this.tabCompositesSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabCompositesSettings.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.tabCompositesSettings.Location = new System.Drawing.Point(0, 66);
+            this.tabCompositesSettings.Multiline = true;
+            this.tabCompositesSettings.Name = "tabCompositesSettings";
+            this.tabCompositesSettings.SelectedIndex = 0;
+            this.tabCompositesSettings.Size = new System.Drawing.Size(398, 471);
+            this.tabCompositesSettings.TabIndex = 2;
+            // 
+            // tabComposites
+            // 
+            this.tabComposites.Controls.Add(this.dgvProperties);
+            this.tabComposites.Controls.Add(this.trvComposites);
+            this.tabComposites.Location = new System.Drawing.Point(23, 4);
+            this.tabComposites.Name = "tabComposites";
+            this.tabComposites.Padding = new System.Windows.Forms.Padding(3);
+            this.tabComposites.Size = new System.Drawing.Size(371, 463);
+            this.tabComposites.TabIndex = 0;
+            this.tabComposites.Text = "Ustawienia bloków";
+            this.tabComposites.UseVisualStyleBackColor = true;
+            // 
+            // dgvProperties
+            // 
+            this.dgvProperties.AllowUserToAddRows = false;
+            this.dgvProperties.AllowUserToDeleteRows = false;
+            this.dgvProperties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProperties.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PropertyName,
+            this.PropertyValue});
+            this.dgvProperties.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgvProperties.Location = new System.Drawing.Point(3, 233);
+            this.dgvProperties.Name = "dgvProperties";
+            this.dgvProperties.ReadOnly = true;
+            this.dgvProperties.RowHeadersVisible = false;
+            this.dgvProperties.Size = new System.Drawing.Size(365, 227);
+            this.dgvProperties.TabIndex = 1;
+            // 
+            // trvComposites
+            // 
+            this.trvComposites.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trvComposites.Location = new System.Drawing.Point(3, 2);
+            this.trvComposites.Name = "trvComposites";
+            this.trvComposites.Size = new System.Drawing.Size(365, 228);
+            this.trvComposites.TabIndex = 0;
+            // 
+            // PropertyName
+            // 
+            this.PropertyName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PropertyName.HeaderText = "Właściwości";
+            this.PropertyName.Name = "PropertyName";
+            this.PropertyName.ReadOnly = true;
+            // 
+            // PropertyValue
+            // 
+            this.PropertyValue.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.PropertyValue.HeaderText = "";
+            this.PropertyValue.Name = "PropertyValue";
+            this.PropertyValue.ReadOnly = true;
+            // 
             // SettingsView
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.BackColor = System.Drawing.Color.Red;
+            this.Controls.Add(this.tabCompositesSettings);
             this.Controls.Add(this.gbxScale);
             this.Name = "SettingsView";
-            this.Size = new System.Drawing.Size(209, 314);
+            this.Size = new System.Drawing.Size(398, 537);
             this.gbxScale.ResumeLayout(false);
             this.gbxScale.PerformLayout();
+            this.tabCompositesSettings.ResumeLayout(false);
+            this.tabComposites.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -139,5 +217,11 @@
         private System.Windows.Forms.ComboBox cmbDrawUnit;
         private System.Windows.Forms.Label lblDrawUnit;
         private System.Windows.Forms.GroupBox gbxScale;
+        private System.Windows.Forms.TabControl tabCompositesSettings;
+        private System.Windows.Forms.TabPage tabComposites;
+        private System.Windows.Forms.DataGridView dgvProperties;
+        private System.Windows.Forms.TreeView trvComposites;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PropertyName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PropertyValue;
     }
 }
