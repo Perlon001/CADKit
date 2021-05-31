@@ -37,13 +37,18 @@
             this.gbxScale = new System.Windows.Forms.GroupBox();
             this.tabCompositesSettings = new System.Windows.Forms.TabControl();
             this.tabComposites = new System.Windows.Forms.TabPage();
-            this.dgvProperties = new System.Windows.Forms.DataGridView();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.trvComposites = new System.Windows.Forms.TreeView();
+            this.dgvProperties = new System.Windows.Forms.DataGridView();
             this.PropertyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PropertyValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbxScale.SuspendLayout();
             this.tabCompositesSettings.SuspendLayout();
             this.tabComposites.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,15 +148,41 @@
             // 
             // tabComposites
             // 
-            this.tabComposites.Controls.Add(this.dgvProperties);
-            this.tabComposites.Controls.Add(this.trvComposites);
+            this.tabComposites.Controls.Add(this.splitContainer1);
             this.tabComposites.Location = new System.Drawing.Point(23, 4);
             this.tabComposites.Name = "tabComposites";
             this.tabComposites.Padding = new System.Windows.Forms.Padding(3);
             this.tabComposites.Size = new System.Drawing.Size(371, 463);
             this.tabComposites.TabIndex = 0;
-            this.tabComposites.Text = "Ustawienia bloków";
+            this.tabComposites.Text = "Ustawienia komponentów";
             this.tabComposites.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.trvComposites);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.dgvProperties);
+            this.splitContainer1.Size = new System.Drawing.Size(365, 457);
+            this.splitContainer1.SplitterDistance = 228;
+            this.splitContainer1.TabIndex = 2;
+            // 
+            // trvComposites
+            // 
+            this.trvComposites.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trvComposites.Location = new System.Drawing.Point(0, 0);
+            this.trvComposites.Name = "trvComposites";
+            this.trvComposites.Size = new System.Drawing.Size(365, 228);
+            this.trvComposites.TabIndex = 0;
+            this.trvComposites.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TrvComposites_AfterSelect);
             // 
             // dgvProperties
             // 
@@ -161,23 +192,14 @@
             this.dgvProperties.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PropertyName,
             this.PropertyValue});
-            this.dgvProperties.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dgvProperties.Location = new System.Drawing.Point(3, 233);
+            this.dgvProperties.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvProperties.Location = new System.Drawing.Point(0, 0);
             this.dgvProperties.Name = "dgvProperties";
             this.dgvProperties.ReadOnly = true;
             this.dgvProperties.RowHeadersVisible = false;
-            this.dgvProperties.Size = new System.Drawing.Size(365, 227);
+            this.dgvProperties.Size = new System.Drawing.Size(365, 225);
             this.dgvProperties.TabIndex = 1;
-            // 
-            // trvComposites
-            // 
-            this.trvComposites.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trvComposites.Location = new System.Drawing.Point(3, 2);
-            this.trvComposites.Name = "trvComposites";
-            this.trvComposites.Size = new System.Drawing.Size(365, 228);
-            this.trvComposites.TabIndex = 0;
+            this.dgvProperties.SelectionChanged += new System.EventHandler(this.DgvProperties_SelectionChanged);
             // 
             // PropertyName
             // 
@@ -204,6 +226,10 @@
             this.gbxScale.PerformLayout();
             this.tabCompositesSettings.ResumeLayout(false);
             this.tabComposites.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).EndInit();
             this.ResumeLayout(false);
 
@@ -223,5 +249,6 @@
         private System.Windows.Forms.TreeView trvComposites;
         private System.Windows.Forms.DataGridViewTextBoxColumn PropertyName;
         private System.Windows.Forms.DataGridViewTextBoxColumn PropertyValue;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

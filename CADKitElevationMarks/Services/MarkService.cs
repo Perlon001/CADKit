@@ -1,4 +1,7 @@
-﻿using CADKit.Contracts;
+﻿using Autofac;
+using CADKit;
+using CADKit.Contracts;
+using CADKit.Extensions;
 using CADKitElevationMarks.Contract.Services;
 using CADKitElevationMarks.Contracts;
 using CADKitElevationMarks.Contracts.Services;
@@ -170,6 +173,22 @@ namespace CADKitElevationMarks.Services
         public string GetMarkName(int _markNumber)
         {
             return GetMarkDTO(_markNumber).type.ToString();
+        }
+
+        public ICollection<IComponent> GetComponents()
+        {
+            var result = new List<IComponent>();
+            using(var scope = DI.Container.BeginLifetimeScope())
+            {
+                foreach(var m in markCollection)
+                {
+                    var mark = (Mark)scope.Resolve(m.markType);
+                    mark.Image = m.picture16;
+                    result.Add(mark);
+                }
+            }
+
+            return result;
         }
     }
 }

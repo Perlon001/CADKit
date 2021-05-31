@@ -16,7 +16,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 
 namespace CADKitElevationMarks.Models
 {
-    public class MarkComponent : Composite, IComponent
+    public class MarkComponent : Component, IComponent
     {
         public MarkComponent(string _name) : base(_name)
         {

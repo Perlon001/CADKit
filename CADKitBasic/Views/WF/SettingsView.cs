@@ -1,5 +1,4 @@
 ﻿using CADKit.Contracts;
-using CADKit.Models;
 using CADKit.UI.WF;
 using CADKitBasic.Contracts;
 using CADKitBasic.Contracts.Presenters;
@@ -83,18 +82,27 @@ namespace CADKitBasic.Views.WF
         public void BindingComponents(string _groupName, ICollection<IComponent> _components)
         {
             trvComposites.Nodes.Add(new TreeNode(_groupName, AddNode(_components)));
-            trvComposites.ExpandAll();
         }
 
-        private TreeNode[] AddNode(ICollection<IComponent> composite)
+        private TreeNode[] AddNode(ICollection<IComponent> _composite)
         {
-            var com = composite.ToList();
+            var com = _composite.ToList();
             TreeNode[] nodes = new TreeNode[com.Count];
             for(int i = 0; i < nodes.Length; i++)
             {
-                nodes[i] = com[i].IsComposite 
-                    ? new TreeNode(com[i].Title, AddNode((com[i] as IComposite).GetComponents())) 
-                    : new TreeNode(com[i].Title);
+                if(com[i].Image == null)
+                {
+                    nodes[i] = com[i].IsComposite
+                        ? new TreeNode(com[i].Title, AddNode((com[i] as IComposite).GetComponents()))
+                        : new TreeNode(com[i].Title);
+                }
+                else
+                {
+                    nodes[i] = com[i].IsComposite
+                        ? new TreeNode(com[i].Title, AddNode((com[i] as IComposite).GetComponents()))
+                        : new TreeNode(com[i].Title);
+                }
+                nodes[i].Tag = com[i].Tag;
             }
 
             return nodes;
@@ -119,7 +127,36 @@ namespace CADKitBasic.Views.WF
             lblScale.ChangeColorSchema(this.ForeColor, this.BackColor);
             cmbDimUnit.ChangeColorSchema(this.ForeColor, this.BackColor);
             cmbDrawUnit.ChangeColorSchema(this.ForeColor, this.BackColor);
-            cmbScale.ChangeColorSchema(ForeColor, this.BackColor);
+            cmbScale.ChangeColorSchema(this.ForeColor, this.BackColor);
+            trvComposites.ChangeColorSchema(this.ForeColor, this.BackColor);
+            dgvProperties.ChangeColorSchema(this.ForeColor, this.BackColor);
+//            dgvProperties.DefaultCellStyle.SelectionBackColor = dgvProperties.DefaultCellStyle.BackColor;
+//            dgvProperties.DefaultCellStyle.SelectionForeColor = dgvProperties.DefaultCellStyle.ForeColor;
+        }
+
+        private void TrvComposites_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            dgvProperties.Rows.Clear();
+            if (e.Node.Tag != null && e.Node.Tag.GetType().Equals(typeof(Dictionary<string, object>)))
+            {
+                var dict = e.Node.Tag as Dictionary<string, object>;
+                foreach (var item in dict)
+                {
+                    dgvProperties.Rows.Add(item.Key,item.Value);
+                }
+            }
+        }
+
+        private void DgvProperties_SelectionChanged(object sender, System.EventArgs e)
+        {
+            var grid = (DataGridView)sender;
+            var row = grid.CurrentCell.RowIndex;
+            grid.CurrentCell = grid.Rows[row].Cells[0];
+            grid.Rows[row].Cells[1].Value = null;
+            var c = new DataGridViewComboBoxCell();
+            c.Items.Add("On");
+            c.Items.Add("Off");
+            grid.Rows[row].Cells[1]= c;
         }
     }
 }

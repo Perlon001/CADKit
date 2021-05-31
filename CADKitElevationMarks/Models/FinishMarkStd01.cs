@@ -52,41 +52,41 @@ namespace CADKitElevationMarks.Models
             {
                 Title = "Znak rzędnej wysokościowej"
             };
-            component.AddComponent(new EntityProperty("Layer", "0"));
-            component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
-            component.AddComponent(new EntityProperty("Color", "BYLAYER"));
-            component.AddComponent(new EntityProperty("TextStyle", "Standard"));
+            //component.AddComponent(new EntityProperty("Layer", "0"));
+            //component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Color", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("TextStyle", "Standard"));
             AddComponent(component);
 
             component = new MarkComponent("Value")
             {
                 Title = "Wartość rzędnej wysokościowej"
             };
-            component.AddComponent(new EntityProperty("Layer", "0"));
-            component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
-            component.AddComponent(new EntityProperty("Color", "BYLAYER"));
-            component.AddComponent(new EntityProperty("TextStyle", "Standard"));
-            AddComponent(component);
+            //component.AddComponent(new EntityProperty("Layer", "0"));
+            //component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Color", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("TextStyle", "Standard"));
+            //AddComponent(component);
 
             //component.Properties.Add("Layer", "0");
             //component.Properties.Add("Linetype", "BYLAYER");
             //component.Properties.Add("Color", "BYLAYER");
             //component.Properties.Add("TextStyle", "Standard");
-            //Components.Add(component);
+            components.Add(component);
 
             component = new MarkComponent("Leader")
             {
                 Title = "Linia odnośnika"
             };
-            component.AddComponent(new EntityProperty("Layer", "0"));
-            component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
-            component.AddComponent(new EntityProperty("Color", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Layer", "0"));
+            //component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Color", "BYLAYER"));
             AddComponent(component);
 
-            //component.Properties.Add("Layer", "0");
-            //component.Properties.Add("Linetype", "BYLAYER");
-            //component.Properties.Add("Color", "BYLAYER");
-            //Components.Add(component);
+            component.Properties.Add("Layer", "0");
+            component.Properties.Add("Linetype", "BYLAYER");
+            component.Properties.Add("Color", "BYLAYER");
+            components.Add(component);
         }
 
         protected override void SetComponentsEntity()
@@ -121,7 +121,7 @@ namespace CADKitElevationMarks.Models
             att1.Prompt = "Sign";
             att1.TextString = value.Sign;
 
-            (Components.Where(x => x.Name == "Sign") as MarkComponent).Entity = att1;
+            (components.Where(x => x.Name == "Sign") as MarkComponent).Entity = att1;
         }
 
         private void SetValueComponent()
@@ -140,19 +140,19 @@ namespace CADKitElevationMarks.Models
             att2.Prompt = "Value";
             att2.TextString = value.Value;
 
-            (Components.Where(x => x.Name == "Value") as MarkComponent).Entity = att2;
+            (components.Where(x => x.Name == "Value") as MarkComponent).Entity = att2;
         }
 
         private void SetLeaderComponent()
         {
-            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText((Components.Where(x => x.Name == "Value") as MarkComponent).Entity as AttributeDefinition));
+            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText((components.Where(x => x.Name == "Value") as MarkComponent).Entity as AttributeDefinition));
             var pl1 = new Polyline();
             pl1.AddVertexAt(0, new Point2d(0, 5.5), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(-2, 3), 0, 0, 0);
             pl1.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X + 0.5, 3), 0, 0, 0);
 
-            (Components.Where(x => x.Name == "Leader") as MarkComponent).Entity = pl1;
+            (components.Where(x => x.Name == "Leader") as MarkComponent).Entity = pl1;
         }
     }
 }

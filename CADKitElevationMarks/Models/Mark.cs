@@ -25,13 +25,13 @@ namespace CADKitElevationMarks.Models
         protected Point3d originPoint;
         protected Point3d basePoint;
 
-        public ICollection<IComponent> Components { get; private set; }
+        // public ICollection<IComponent> Components { get; private set; }
 
         protected IEnumerable<Entity> Entities
         {
             get
             {
-                return Components
+                return components
                     .Where(x => (x as MarkComponent).Entity != null)
                     .Select(m => (m as MarkComponent).Entity);
             }
@@ -45,7 +45,7 @@ namespace CADKitElevationMarks.Models
             Properties.Add("Layer", "0");
             Properties.Add("Linetype", "BYLAYER");
             Properties.Add("Color", "BYBLOCK");
-            Components = new List<IComponent>();
+            // Components = new List<IComponent>();
             BuildComponents();
         }
 

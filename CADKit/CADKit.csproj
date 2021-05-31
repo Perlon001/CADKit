@@ -64,6 +64,7 @@
     <Compile Include="Commands.cs" />
     <Compile Include="Contracts\IComponent.cs" />
     <Compile Include="Contracts\IComposite.cs" />
+    <Compile Include="Contracts\IComponentService.cs" />
     <Compile Include="Contracts\IconSize.cs" />
     <Compile Include="Contracts\IEntitiesSet.cs" />
     <Compile Include="Contracts\IEntityComponent.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Events\ChangeInterfaceSchemeEvent.cs" />
     <Compile Include="Contracts\InterfaceScheme.cs" />
     <Compile Include="Contracts\Units.cs" />
+    <Compile Include="LayerColor.cs" />
     <Compile Include="ModellesDialog.cs" />
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\Composite.cs" />

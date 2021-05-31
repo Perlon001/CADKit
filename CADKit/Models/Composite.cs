@@ -1,5 +1,6 @@
 ﻿using CADKit.Contracts;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 
 namespace CADKit.Models
@@ -14,9 +15,9 @@ namespace CADKit.Models
         }
 
         public string Name { get; protected set; }
-
         public string Title { get; set; }
-
+        public Image Image { get; set; }
+        public object Tag { get; set; }
         public IComposite Parent { get; set; }
 
         public void AddComponent(IComponent _component)
@@ -41,5 +42,6 @@ namespace CADKit.Models
         }
 
         public bool IsComposite { get { return true; } }
+
     }
 }

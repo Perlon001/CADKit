@@ -1,4 +1,5 @@
 ﻿using CADKit.Contracts;
+using System.Drawing;
 
 namespace CADKit.Models
 {
@@ -11,8 +12,9 @@ namespace CADKit.Models
 
         public string Name { get; protected set; }
         public string Title { get; set; }
-
-         public IComposite Parent { get; set; }
+        public Image Image { get; set; }
+        public object Tag { get; set; }
+        public IComposite Parent { get; set; }
         public bool IsComposite { get { return false; } }
     }
 }

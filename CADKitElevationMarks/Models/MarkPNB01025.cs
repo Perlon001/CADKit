@@ -48,37 +48,43 @@ namespace CADKitElevationMarks.Models
             {
                 Title = "Wartość rzędnej wysokościowej"
             };
-            component.AddComponent(new EntityProperty("Layer", "0"));
-            component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
-            component.AddComponent(new EntityProperty("Color", "BYLAYER"));
-            component.AddComponent(new EntityProperty("TextStyle", "Standard"));
+            //component.AddComponent(new EntityProperty("Layer", "0"));
+            //component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Color", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("TextStyle", "Standard"));
+            component.Properties.Add("Layer", "0");
+            component.Properties.Add("Linetype", "BYLAYER");
+            component.Properties.Add("Color", "BYLAYER");
+            component.Properties.Add("TextStyle", "Standard");
+            component.Tag = component.Properties;
+
             AddComponent(component);
 
             component = new MarkComponent("Leader")
             {
                 Title = "Linia odnośnika"
             };
-            component.AddComponent(new EntityProperty("Layer", "0"));
-            component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
-            component.AddComponent(new EntityProperty("Color", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Layer", "0"));
+            //component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Color", "BYLAYER"));
             AddComponent(component);
 
             component = new MarkComponent("Arrowhead")
             {
                 Title = "Grot odnośnika"
             };
-            component.AddComponent(new EntityProperty("Layer", "0"));
-            component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
-            component.AddComponent(new EntityProperty("Color", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Layer", "0"));
+            //component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Color", "BYLAYER"));
             AddComponent(component);
 
             component = new MarkComponent("Arrowhatch")
             {
                 Title = "Wypełnienie grota"
             };
-            component.AddComponent(new EntityProperty("Layer", "0"));
-            component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
-            component.AddComponent(new EntityProperty("Color", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Layer", "0"));
+            //component.AddComponent(new EntityProperty("Linetype", "BYLAYER"));
+            //component.AddComponent(new EntityProperty("Color", "BYLAYER"));
             AddComponent(component);
         }
 
@@ -114,7 +120,7 @@ namespace CADKitElevationMarks.Models
             att1.Prompt = "Value";
             att1.TextString = value.ToString();
 
-            (Components.First(x => x.Name == "Value") as MarkComponent).Entity = att1;
+            (components.First(x => x.Name == "Value") as MarkComponent).Entity = att1;
         }
 
         private void SetArrowheadComponent()
@@ -130,17 +136,17 @@ namespace CADKitElevationMarks.Models
                 AddHatchingArrow();
                 Index = "zero";
             }
-            (Components.First(x => x.Name == "Arrowhead") as MarkComponent).Entity = pl1;
+            (components.First(x => x.Name == "Arrowhead") as MarkComponent).Entity = pl1;
         }
 
         private void SetLeaderComponent()
         {
-            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText((Components.First(x => x.Name == "Value") as MarkComponent).Entity as AttributeDefinition));
+            var textArea = CADProxy.GetTextArea(CADProxy.ToDBText((components.First(x => x.Name == "Value") as MarkComponent).Entity as AttributeDefinition));
             var pl2 = new Polyline();
             pl2.AddVertexAt(0, new Point2d(0, 0), 0, 0, 0);
             pl2.AddVertexAt(0, new Point2d(0, 3), 0, 0, 0);
             pl2.AddVertexAt(0, new Point2d(textArea[1].X - textArea[0].X, 3), 0, 0, 0);
-            (Components.First(x => x.Name == "Leader") as MarkComponent).Entity = pl2;
+            (components.First(x => x.Name == "Leader") as MarkComponent).Entity = pl2;
         }
         
         private void AddHatchingArrow()
@@ -168,7 +174,7 @@ namespace CADKitElevationMarks.Models
                 hatch.EvaluateHatch(true);
 
                 polyline.Erase();
-                (Components.First(x => x.Name == "Arrowhatch") as MarkComponent).Entity = hatch;
+                (components.First(x => x.Name == "Arrowhatch") as MarkComponent).Entity = hatch;
             }
         }
     }

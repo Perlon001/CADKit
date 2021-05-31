@@ -60,7 +60,7 @@ namespace CADKitElevationMarks.Models
             };
             component.Properties.Add("Layer", "0");
             component.Properties.Add("Color", "BYLAYER");
-            Components.Add(component);
+            components.Add(component);
         }
     }
 }
